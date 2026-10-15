@@ -1,4 +1,8 @@
 // MathQuest: Game State and Engine Manager
+var soundManager = (typeof window !== 'undefined' && window.soundManager) ? window.soundManager : (typeof soundManager !== 'undefined' ? soundManager : null);
+var LEVELS_DATA = (typeof window !== 'undefined' && window.LEVELS_DATA) ? window.LEVELS_DATA : (typeof LEVELS_DATA !== 'undefined' ? LEVELS_DATA : []);
+var getLevelById = (typeof window !== 'undefined' && window.getLevelById) ? window.getLevelById : (typeof getLevelById !== 'undefined' ? getLevelById : (id) => (window.LEVELS_DATA || LEVELS_DATA).find(l => l.id === Number(id)));
+
 class MathQuestEngine {
     constructor() {
         this.STORAGE_KEY = 'mathquest_save_data_v1';
@@ -249,7 +253,7 @@ class MathQuestEngine {
     }
 }
 
-const gameEngine = new MathQuestEngine();
+var gameEngine = new MathQuestEngine();
 if (typeof window !== 'undefined') {
     window.MathQuestEngine = MathQuestEngine;
     window.gameEngine = gameEngine;

@@ -2,7 +2,15 @@
 class SoundFX {
     constructor() {
         this.ctx = null;
-        this.enabled = localStorage.getItem('mathquest_sound') !== 'false';
+        let storedSound = null;
+        try {
+            if (typeof localStorage !== 'undefined') {
+                storedSound = localStorage.getItem('mathquest_sound');
+            }
+        } catch (e) {
+            console.warn('localStorage not accessible, default sound on');
+        }
+        this.enabled = storedSound !== 'false';
     }
 
     init() {
@@ -19,7 +27,13 @@ class SoundFX {
 
     toggle() {
         this.enabled = !this.enabled;
-        localStorage.setItem('mathquest_sound', this.enabled);
+        try {
+            if (typeof localStorage !== 'undefined') {
+                localStorage.setItem('mathquest_sound', this.enabled);
+            }
+        } catch (e) {
+            // Ignored if local storage disabled
+        }
         return this.enabled;
     }
 
@@ -97,7 +111,7 @@ class SoundFX {
     }
 }
 
-const soundManager = new SoundFX();
+var soundManager = new SoundFX();
 if (typeof window !== 'undefined') {
     window.SoundFX = SoundFX;
     window.soundManager = soundManager;

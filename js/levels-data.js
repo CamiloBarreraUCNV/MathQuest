@@ -1,5 +1,5 @@
 // MathQuest: Base de datos de Mundos, Niveles, Teoría y Preguntas
-const WORLDS_DATA = [
+var WORLDS_DATA = [
     {
         id: "world-1",
         num: 1,
@@ -62,7 +62,7 @@ const WORLDS_DATA = [
     }
 ];
 
-const LEVELS_DATA = [
+var LEVELS_DATA = [
     // ==========================================
     // MUNDO 1: ISLA DE LOS NÚMEROS (NIVELES 1 - 4)
     // ==========================================
@@ -1774,6 +1774,10 @@ function getLevelById(levelId) {
     return LEVELS_DATA.find(l => l.id === Number(levelId));
 }
 
+function getLevelsByWorld(worldId) {
+    return LEVELS_DATA.filter(l => l.worldId === worldId);
+}
+
 // Export globally for browser & module compatibility
 if (typeof window !== 'undefined') {
     window.WORLDS_DATA = WORLDS_DATA;
@@ -1782,4 +1786,5 @@ if (typeof window !== 'undefined') {
     window.getLevelById = getLevelById;
     window.getLevelsByWorld = getLevelsByWorld;
 }
+
 

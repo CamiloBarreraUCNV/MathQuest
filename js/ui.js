@@ -1,4 +1,12 @@
 // MathQuest: UI Renderer, Screen Management, Animations & Confetti
+var soundManager = (typeof window !== 'undefined' && window.soundManager) ? window.soundManager : (typeof soundManager !== 'undefined' ? soundManager : null);
+var gameEngine = (typeof window !== 'undefined' && window.gameEngine) ? window.gameEngine : (typeof gameEngine !== 'undefined' ? gameEngine : null);
+var WORLDS_DATA = (typeof window !== 'undefined' && window.WORLDS_DATA) ? window.WORLDS_DATA : (typeof WORLDS_DATA !== 'undefined' ? WORLDS_DATA : []);
+var LEVELS_DATA = (typeof window !== 'undefined' && window.LEVELS_DATA) ? window.LEVELS_DATA : (typeof LEVELS_DATA !== 'undefined' ? LEVELS_DATA : []);
+var getLevelsByWorld = (typeof window !== 'undefined' && window.getLevelsByWorld) ? window.getLevelsByWorld : (typeof getLevelsByWorld !== 'undefined' ? getLevelsByWorld : (id) => (window.LEVELS_DATA || LEVELS_DATA).filter(l => l.worldId === id));
+var getLevelById = (typeof window !== 'undefined' && window.getLevelById) ? window.getLevelById : (typeof getLevelById !== 'undefined' ? getLevelById : (id) => (window.LEVELS_DATA || LEVELS_DATA).find(l => l.id === Number(id)));
+var getWorldById = (typeof window !== 'undefined' && window.getWorldById) ? window.getWorldById : (typeof getWorldById !== 'undefined' ? getWorldById : (id) => (window.WORLDS_DATA || WORLDS_DATA).find(w => w.id === id));
+
 class MathQuestUI {
     constructor() {
         this.currentView = 'map'; // 'map', 'lesson', 'quiz', 'victory', 'gameover'
@@ -6,6 +14,14 @@ class MathQuestUI {
     }
 
     init() {
+        soundManager = window.soundManager || soundManager;
+        gameEngine = window.gameEngine || gameEngine;
+        WORLDS_DATA = window.WORLDS_DATA || WORLDS_DATA;
+        LEVELS_DATA = window.LEVELS_DATA || LEVELS_DATA;
+        getLevelsByWorld = window.getLevelsByWorld || getLevelsByWorld;
+        getLevelById = window.getLevelById || getLevelById;
+        getWorldById = window.getWorldById || getWorldById;
+
         this.bindEvents();
         this.updateHeaderStats();
         this.renderMap();
@@ -604,18 +620,25 @@ class MathQuestUI {
     }
 }
 
-// Global UI instance
-const ui = new MathQuestUI();
+var ui = new MathQuestUI();
 
 if (typeof window !== 'undefined') {
     window.MathQuestUI = MathQuestUI;
     window.ui = ui;
 }
 
-// Auto-boot on load
-window.addEventListener('DOMContentLoaded', () => {
-    ui.init();
-});
+// Auto-boot reliably whether document is already parsed or still loading
+function bootGame() {
+    if (window.ui) {
+        window.ui.init();
+    }
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootGame);
+} else {
+    bootGame();
+}
 
 // Ensure KaTeX typesetting is triggered once full page resources are loaded
 window.addEventListener('load', () => {
@@ -623,3 +646,4 @@ window.addEventListener('load', () => {
         window.ui.typesetMath();
     }
 });
+
