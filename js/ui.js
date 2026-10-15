@@ -431,6 +431,8 @@ class MathQuestUI {
                 if (bossAvatarEl) {
                     if (gameEngine.activeBoss.isDefeated) {
                         bossAvatarEl.textContent = gameEngine.activeBoss.avatarDefeated || '😵';
+                    } else if (gameEngine.activeBoss.avatarImg) {
+                        bossAvatarEl.innerHTML = `<img src="${gameEngine.activeBoss.avatarImg}" alt="${gameEngine.activeBoss.name}" style="width: 100%; height: 100%; object-fit: contain; pointer-events: none;">`;
                     } else {
                         bossAvatarEl.textContent = gameEngine.activeBoss.avatar || '👾';
                     }
