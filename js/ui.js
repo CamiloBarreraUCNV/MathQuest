@@ -404,19 +404,32 @@ class MathQuestUI {
         // Update progress bar
         const total = level.questions.length;
         const current = gameEngine.currentQuestionIdx + 1;
-        const percent = ((current - 1) / total) * 100;
-        const barFill = document.getElementById('quiz-progress-bar-fill');
-        if (barFill) barFill.style.width = `${percent}%`;
 
-        const counterEl = document.getElementById('quiz-question-counter');
-        if (counterEl) {
-            if (gameEngine.activeBoss) {
-                counterEl.textContent = `Desafío ${current} • ⚔️ Batalla de Jefe`;
-            } else {
-                counterEl.textContent = `Pregunta ${current} de ${total}`;
+        // Subbar Level Pill
+        const subbarIcon = document.getElementById('subbar-level-icon');
+        if (subbarIcon) subbarIcon.textContent = level.icon || '📊';
+        const levelTagEl = document.getElementById('quiz-level-tag');
+        if (levelTagEl) levelTagEl.textContent = `Nivel ${level.id}: ${level.title}`;
+
+        // Subbar Stepper Dots
+        const stepperEl = document.getElementById('subbar-stepper');
+        if (stepperEl) {
+            stepperEl.innerHTML = '';
+            const dotCount = Math.min(total, 20);
+            for (let i = 0; i < dotCount; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'stepper-dot';
+                if (i < current - 1) dot.classList.add('completed');
+                else if (i === current - 1) dot.classList.add('current');
+                stepperEl.appendChild(dot);
             }
         }
-        document.getElementById('quiz-level-tag').textContent = `${level.icon} Nivel ${level.id}: ${level.title}`;
+
+        // Subbar Mode Badge
+        const modeTextEl = document.getElementById('subbar-mode-text');
+        if (modeTextEl) {
+            modeTextEl.textContent = `Desafío ${current} • ${level.isBoss ? '⚔️ Batalla de Jefe' : (level.hasEnemy ? '⚔️ Batalla Pirata' : '🧠 Desafío')}`;
+        }
 
         // Boss / Enemy Arena setup
         const bossArena = document.getElementById('boss-arena');
@@ -427,6 +440,15 @@ class MathQuestUI {
                 if (bossNameEl) bossNameEl.textContent = gameEngine.activeBoss.name;
                 const bossTitleEl = document.getElementById('boss-title');
                 if (bossTitleEl) bossTitleEl.textContent = gameEngine.activeBoss.title || 'Guardián';
+                
+                // Speech Bubble Initial Text
+                const speechTextEl = document.getElementById('enemy-speech-text');
+                if (speechTextEl) {
+                    if (current === 1) {
+                        speechTextEl.textContent = gameEngine.activeBoss.dialogue?.intro || "¡A ver si sabes contar!";
+                    }
+                }
+
                 const bossAvatarEl = document.getElementById('boss-avatar');
                 if (bossAvatarEl) {
                     if (gameEngine.activeBoss.isDefeated) {
@@ -441,10 +463,10 @@ class MathQuestUI {
                 if (bossBadgeEl) {
                     const badgeText = gameEngine.activeBoss.badge || (gameEngine.activeBoss.isBoss ? 'JEFE' : 'ENEMIGO');
                     bossBadgeEl.textContent = badgeText;
-                    bossBadgeEl.className = `boss-badge ${gameEngine.activeBoss.badgeClass || (gameEngine.activeBoss.isBoss ? '' : 'enemy')}`;
+                    bossBadgeEl.className = `stage-enemy-badge ${gameEngine.activeBoss.badgeClass || (gameEngine.activeBoss.isBoss ? 'boss' : 'enemy')}`;
                 }
                 const bossMechEl = document.getElementById('boss-mechanic-text');
-                if (bossMechEl) bossMechEl.textContent = gameEngine.activeBoss.mechanicDesc || 'Mecánica de Combate';
+                if (bossMechEl) bossMechEl.textContent = gameEngine.activeBoss.mechanicDesc || 'Cada acierto debilita al enemigo.';
 
                 this.updateBossHpDisplay(gameEngine.activeBoss.currentHp, gameEngine.activeBoss.maxHp);
             } else {
@@ -516,14 +538,14 @@ class MathQuestUI {
         const safeHp = Math.max(0, currentHp);
         const percent = Math.max(0, Math.min(100, (safeHp / maxHp) * 100));
         hpBar.style.width = `${percent}%`;
-        hpText.textContent = `${safeHp.toFixed(1)} / ${maxHp.toFixed(1)} HP`;
+        hpText.textContent = `${Math.ceil(safeHp)} / ${Math.round(maxHp)} HP`;
 
         if (percent <= 25) {
-            hpBar.className = 'boss-hp-bar danger';
+            hpBar.className = 'stage-hp-bar danger';
         } else if (percent <= 55) {
-            hpBar.className = 'boss-hp-bar warning';
+            hpBar.className = 'stage-hp-bar warning';
         } else {
-            hpBar.className = 'boss-hp-bar';
+            hpBar.className = 'stage-hp-bar';
         }
     }
 
@@ -603,6 +625,16 @@ class MathQuestUI {
                     popup.style.animation = '';
                     setTimeout(() => popup.classList.add('hidden'), 850);
                 }
+
+                // Comic speech bubble hit reaction
+                const speechTextEl = document.getElementById('enemy-speech-text');
+                if (speechTextEl) {
+                    if (result.boss.isDefeated) {
+                        speechTextEl.textContent = (gameEngine.activeBoss && gameEngine.activeBoss.dialogue && gameEngine.activeBoss.dialogue.defeat) || "¡Me rindo, marinero!";
+                    } else {
+                        speechTextEl.textContent = (gameEngine.activeBoss && gameEngine.activeBoss.dialogue && gameEngine.activeBoss.dialogue.hit) || "¡Rayos y centellas! ¡Menuda bofetada!";
+                    }
+                }
             }
         }
 
@@ -626,6 +658,16 @@ class MathQuestUI {
             drawer.className = 'feedback-drawer error';
             if (result.boss) {
                 titleEl.innerHTML = (result.boss.regenRate > 0) ? '💔 ¡Casi! Pero el jefe se regenera...' : '💔 ¡Casi! El enemigo sigue en pie...';
+                const speechTextEl = document.getElementById('enemy-speech-text');
+                if (speechTextEl) {
+                    const taunts = [
+                        "¡A ver si sabes contar!",
+                        "¡Ja, ja! ¡Esa fue fácil!",
+                        "¡Nadie me vence tan rápido!",
+                        "¡Aún sigo en pie, grumete!"
+                    ];
+                    speechTextEl.textContent = taunts[Math.floor(Math.random() * taunts.length)];
+                }
             } else {
                 titleEl.innerHTML = '💡 ¡Casi! Pero no te rindas';
             }

@@ -186,32 +186,57 @@
                 <button class="btn-3d secondary" id="btn-select-captain" onclick="selectArenaEnemy('captain')">⚔️ Nivel 2: Capitán Manzana</button>
             </div>
 
-            <div class="live-arena-mockup">
-                <div class="boss-arena" style="margin-bottom: 16px;">
-                    <div class="boss-card" id="arena-card-border" style="border-color: #6366f1;">
-                        <div class="boss-visual-row">
-                            <div class="boss-avatar-wrapper" id="mockup-avatar-wrapper" style="width: 76px; height: 76px;">
-                                <img src="assets/pirate-apple-80s.png" id="mockup-avatar-img" style="width: 64px; height: 64px; object-fit: contain; border-radius: 50%;">
+            <div class="live-arena-mockup" style="max-width: 780px; width: 100%;">
+                <div class="boss-arena" style="margin-bottom: 20px;">
+                    <div class="battle-stage-backdrop">
+                        <!-- Floating HUD -->
+                        <div class="stage-enemy-hud" id="mockup-hud-border">
+                            <div class="stage-enemy-header">
+                                <h3 class="stage-enemy-name" id="mockup-boss-name">Manzana Pirata</h3>
+                                <span class="stage-enemy-badge pirate" id="mockup-boss-badge">ENEMIGO</span>
+                            </div>
+                            <p class="stage-enemy-title" id="mockup-boss-title">Pirata de la Bahía Numérica</p>
+                            <div class="stage-hp-container">
+                                <div class="stage-hp-bar" id="mockup-hp-bar" style="width: 85%;"></div>
+                                <span class="stage-hp-text" id="mockup-hp-text">17 / 20 HP</span>
+                            </div>
+                        </div>
+
+                        <!-- Center Stage: Character + Speech Bubble + Slap -->
+                        <div class="stage-center-area">
+                            <div class="comic-speech-bubble" id="mockup-speech-bubble">
+                                <span id="mockup-speech-text">¡A ver si sabes contar!</span>
+                                <div class="speech-tail"></div>
+                            </div>
+                            <div class="stage-avatar-wrapper" id="mockup-avatar-wrapper">
+                                <div class="boss-avatar">
+                                    <img src="assets/pirate-apple-80s.png" id="mockup-avatar-img" alt="Enemigo">
+                                </div>
                                 <div class="slap-hand hidden" id="mockup-slap-hand">✋</div>
                                 <div class="slap-impact hidden" id="mockup-slap-impact">💥 ¡ZAS!</div>
                                 <div class="boss-damage-popup hidden" id="mockup-damage-popup">-1.5</div>
                             </div>
-                            <div class="boss-info">
-                                <div class="boss-name-row">
-                                    <h3 class="boss-name" id="mockup-boss-name">Manzana Pirata</h3>
-                                    <span class="boss-badge pirate" id="mockup-boss-badge">PIRATA</span>
-                                </div>
-                                <p class="boss-title" id="mockup-boss-title">Pirata de la Bahía Numérica</p>
-                                <div class="boss-hp-container">
-                                    <div class="boss-hp-bar" id="mockup-hp-bar" style="width: 85%;"></div>
-                                    <span class="boss-hp-text" id="mockup-hp-text">17.0 / 20.0 HP</span>
-                                </div>
-                                <div class="boss-mechanic-indicator">
-                                    <span class="pulse-dot" style="background: #6366f1;"></span>
-                                    <span>✋ ¡Duelo de Cachetadas!</span>
-                                </div>
-                            </div>
                         </div>
+
+                        <!-- Mechanic Pill -->
+                        <div class="stage-mechanic-pill">
+                            <span class="mechanic-icon">🗡️</span>
+                            <span>Cada acierto debilita al enemigo.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview Tarjeta Dorada de Pregunta -->
+                <div class="quiz-card" style="margin-bottom: 20px;">
+                    <div class="quiz-prompt">¿Cuántas estrellas hay aquí? ⭐ ⭐ ⭐ ⭐</div>
+                    <div class="options-grid">
+                        <button class="option-card" onclick="testArenaSlap()"><span class="option-key">1</span><span class="option-text">3</span></button>
+                        <button class="option-card correct" onclick="testArenaSlap()"><span class="option-key">2</span><span class="option-text">4 (Correcto)</span></button>
+                        <button class="option-card" onclick="testArenaSlap()"><span class="option-key">3</span><span class="option-text">5</span></button>
+                        <button class="option-card" onclick="testArenaSlap()"><span class="option-key">4</span><span class="option-text">6</span></button>
+                    </div>
+                    <div class="quiz-action-hint">
+                        <span>⚔️ Elige tu respuesta para atacar.</span>
                     </div>
                 </div>
 
@@ -236,17 +261,19 @@
                 name: 'Manzana Pirata',
                 title: 'Pirata de la Bahía Numérica',
                 img: 'assets/pirate-apple-80s.png',
-                badgeText: 'PIRATA',
-                badgeClass: 'boss-badge pirate',
-                borderColor: '#6366f1'
+                badgeText: 'ENEMIGO',
+                badgeClass: 'stage-enemy-badge pirate',
+                borderColor: '#ca8a04',
+                intro: '¡A ver si sabes contar!'
             },
             captain: {
                 name: 'Capitán Manzana',
                 title: 'Comandante del Galeón Mayor y Menor',
                 img: 'assets/pirate-apple-captain-80s.png',
                 badgeText: 'CAPITÁN',
-                badgeClass: 'boss-badge captain',
-                borderColor: '#f59e0b'
+                badgeClass: 'stage-enemy-badge captain',
+                borderColor: '#f59e0b',
+                intro: '¡Nadie navega aquí sin dominar las magnitudes!'
             }
         };
 
@@ -259,7 +286,10 @@
             const badgeEl = document.getElementById('mockup-boss-badge');
             badgeEl.textContent = enemy.badgeText;
             badgeEl.className = enemy.badgeClass;
-            document.getElementById('arena-card-border').style.borderColor = enemy.borderColor;
+            const hudBorder = document.getElementById('mockup-hud-border');
+            if (hudBorder) hudBorder.style.borderColor = enemy.borderColor;
+            const speechText = document.getElementById('mockup-speech-text');
+            if (speechText) speechText.textContent = enemy.intro;
 
             const btnMinion = document.getElementById('btn-select-minion');
             const btnCaptain = document.getElementById('btn-select-captain');
@@ -341,7 +371,20 @@
             mockupHp = Math.max(0, mockupHp - 2.5);
             const pct = (mockupHp / 20.0) * 100;
             document.getElementById('mockup-hp-bar').style.width = pct + '%';
-            document.getElementById('mockup-hp-text').textContent = mockupHp.toFixed(1) + ' / 20.0 HP';
+            document.getElementById('mockup-hp-text').textContent = Math.ceil(mockupHp) + ' / 20 HP';
+
+            // 6. Speech Bubble reaction
+            const speech = document.getElementById('mockup-speech-text');
+            if (speech) {
+                if (mockupHp <= 0) {
+                    speech.textContent = '¡Me rindo, marinero de los números!';
+                } else {
+                    const hits = currentTarget === 'minion' 
+                        ? ['¡Rayos y centellas! ¡Menuda bofetada!', '¡Auuu! ¡Eso dolió!', '¡Mi bandana! ¡Qué golpe!'] 
+                        : ['¡Esa bofetada fue MAYOR que mi paciencia!', '¡Por Neptuno! ¡Qué derechazo!', '¡Mis charreteras!'];
+                    speech.textContent = hits[Math.floor(Math.random() * hits.length)];
+                }
+            }
 
             if (mockupHp <= 0) {
                 avatar.style.filter = 'grayscale(0.4) brightness(0.9)';
@@ -351,8 +394,10 @@
         function resetMockupHp() {
             mockupHp = 20.0;
             document.getElementById('mockup-hp-bar').style.width = '100%';
-            document.getElementById('mockup-hp-text').textContent = '20.0 / 20.0 HP';
+            document.getElementById('mockup-hp-text').textContent = '20 / 20 HP';
             document.getElementById('mockup-avatar-img').style.filter = '';
+            const speech = document.getElementById('mockup-speech-text');
+            if (speech && ENEMIES[currentTarget]) speech.textContent = ENEMIES[currentTarget].intro;
         }
     </script>
 </body>

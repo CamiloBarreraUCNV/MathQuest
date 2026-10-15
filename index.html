@@ -63,56 +63,77 @@
          PANTALLA 2: JUEGO / QUIZ INTERACTIVO
          ======================================================== -->
     <section class="quiz-view hidden" id="quiz-screen">
-        <div class="quiz-top-bar">
-            <button class="icon-btn" id="quit-quiz-btn" title="Salir al mapa">✕</button>
-            <div class="quiz-progress-bar-container">
-                <div class="quiz-progress-bar-fill" id="quiz-progress-bar-fill"></div>
+        <!-- Sub-Barra de Navegación y Progreso -->
+        <div class="quiz-subbar" id="quiz-subbar">
+            <button class="subbar-back-btn" id="quit-quiz-btn" title="Volver al mapa">‹</button>
+            <div class="subbar-level-pill" id="subbar-level-pill">
+                <span class="subbar-level-icon" id="subbar-level-icon">📊</span>
+                <span class="subbar-level-title" id="quiz-level-tag">Nivel 1: Conteo y cantidades</span>
+            </div>
+            <div class="subbar-stepper-container">
+                <div class="subbar-stepper" id="subbar-stepper">
+                    <!-- Puntos de progreso generados dinámicamente -->
+                </div>
+            </div>
+            <div class="subbar-mode-badge" id="subbar-mode-badge">
+                <span id="subbar-mode-text">Desafío 1 • ⚔️ Batalla Pirata</span>
             </div>
         </div>
 
-        <div class="quiz-meta">
-            <span id="quiz-level-tag">Nivel</span>
-            <span id="quiz-question-counter">Pregunta 1 de 5</span>
-        </div>
-
-        <!-- Arena de Batalla de Jefe (Oculto en niveles normales) -->
+        <!-- Arena de Batalla Escénica con Fondo Ilustrado -->
         <div class="boss-arena hidden" id="boss-arena">
-            <div class="boss-card">
-                <div class="boss-visual-row">
-                    <div class="boss-avatar-wrapper" id="boss-avatar-wrapper">
-                        <span class="boss-avatar" id="boss-avatar">🌳🍎</span>
+            <div class="battle-stage-backdrop" id="battle-stage-backdrop">
+                <!-- HUD Flotante del Rival (Superior Izquierda) -->
+                <div class="stage-enemy-hud" id="stage-enemy-hud">
+                    <div class="stage-enemy-header">
+                        <h3 class="stage-enemy-name" id="boss-name">Manzana Pirata</h3>
+                        <span class="stage-enemy-badge pirate" id="boss-badge">ENEMIGO</span>
+                    </div>
+                    <p class="stage-enemy-title" id="boss-title">Pirata de la Bahía Numérica</p>
+                    <div class="stage-hp-container" id="boss-hp-container">
+                        <div class="stage-hp-bar" id="boss-hp-bar" style="width: 100%;"></div>
+                        <span class="stage-hp-text" id="boss-hp-text">20 / 20 HP</span>
+                    </div>
+                </div>
+
+                <!-- Centro de Combate: Personaje + Diálogo + Cachetadas -->
+                <div class="stage-center-area">
+                    <!-- Bocadillo de Diálogo Comic -->
+                    <div class="comic-speech-bubble" id="enemy-speech-bubble">
+                        <span id="enemy-speech-text">¡A ver si sabes contar!</span>
+                        <div class="speech-tail"></div>
+                    </div>
+
+                    <!-- Contenedor del Avatar y Efectos de Cachetada -->
+                    <div class="stage-avatar-wrapper" id="boss-avatar-wrapper">
+                        <div class="boss-avatar" id="boss-avatar">🍎🏴‍☠️</div>
                         <div class="slap-hand hidden" id="slap-hand">✋</div>
                         <div class="slap-impact hidden" id="slap-impact">💥 ¡ZAS!</div>
                         <div class="boss-damage-popup hidden" id="boss-damage-popup">-1.5</div>
                     </div>
-                    <div class="boss-info">
-                        <div class="boss-name-row">
-                            <h3 class="boss-name" id="boss-name">El Manzano Ancestral</h3>
-                            <span class="boss-badge" id="boss-badge">JEFE</span>
-                        </div>
-                        <p class="boss-title" id="boss-title">Guardián de la Isla</p>
-                        <!-- Barra de vida del jefe -->
-                        <div class="boss-hp-container">
-                            <div class="boss-hp-bar" id="boss-hp-bar" style="width: 100%;"></div>
-                            <span class="boss-hp-text" id="boss-hp-text">20.0 / 20.0 HP</span>
-                        </div>
-                        <div class="boss-mechanic-indicator" id="boss-mechanic-indicator">
-                            <span class="pulse-dot"></span>
-                            <span id="boss-mechanic-text">🍃 Fotosíntesis: +0.2 HP/s</span>
-                        </div>
-                    </div>
+                </div>
+
+                <!-- Píldora Mecánica Flotante Inferior -->
+                <div class="stage-mechanic-pill" id="stage-mechanic-pill">
+                    <span class="mechanic-icon">🗡️</span>
+                    <span id="boss-mechanic-text">Cada acierto debilita al enemigo.</span>
                 </div>
             </div>
         </div>
 
-        <!-- Tarjeta de Pregunta -->
+        <!-- Tarjeta Unificada con Borde Dorado: Pregunta + Opciones 2x2 -->
         <div class="quiz-card" id="quiz-card">
             <div class="quiz-prompt" id="quiz-prompt">Cargando desafío...</div>
-        </div>
+            
+            <!-- Grid de Opciones 2x2 con Teclas Numeradas -->
+            <div class="options-grid" id="quiz-options-container">
+                <!-- Botones generados dinámicamente -->
+            </div>
 
-        <!-- Opciones de Respuesta -->
-        <div class="options-grid" id="quiz-options-container">
-            <!-- Botones generados dinámicamente -->
+            <!-- Indicador inferior de acción -->
+            <div class="quiz-action-hint">
+                <span>⚔️ Elige tu respuesta para atacar.</span>
+            </div>
         </div>
 
         <!-- Barra Inferior de Retroalimentación (Feedback Drawer) -->
