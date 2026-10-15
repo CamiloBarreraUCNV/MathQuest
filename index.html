@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MathQuest: El Camino del Cálculo</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📐</text></svg>">
+    
+    <!-- KaTeX para renderizar fórmulas matemáticas hermosas y ultrarrápidas -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- Header Fijo Superior -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="brand-logo">
+                <span class="brand-icon">📐</span>
+                <span>MathQuest</span>
+            </div>
+
+            <div class="header-stats">
+                <!-- Vidas / Corazones -->
+                <div class="stat-pill clickable" id="hearts-display" title="Vidas (Haz clic para recargar)">
+                    <span id="header-hearts">❤️❤️❤️❤️❤️</span>
+                </div>
+
+                <!-- Racha de Fuego -->
+                <div class="stat-pill streak" id="streak-display" title="Racha de respuestas correctas consecutivas">
+                    <span>🔥</span>
+                    <span id="header-streak">0</span>
+                </div>
+
+                <!-- Puntos de Experiencia (XP) -->
+                <div class="stat-pill clickable" id="profile-btn" title="Ver Perfil y Logros">
+                    <span id="header-rank-badge">🐣</span>
+                    <span id="header-xp">0 XP</span>
+                </div>
+
+                <!-- Toggle de Sonido FX -->
+                <button class="icon-btn" id="sound-toggle-btn" title="Sonido">🔊</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Canvas de Confetti para celebraciones -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- ========================================================
+         PANTALLA 1: MAPA DE MUNDOS Y NIVELES
+         ======================================================== -->
+    <main class="map-view" id="map-screen">
+        <div id="worlds-container">
+            <!-- Generado dinámicamente por js/ui.js -->
+        </div>
+    </main>
+
+    <!-- ========================================================
+         PANTALLA 2: JUEGO / QUIZ INTERACTIVO
+         ======================================================== -->
+    <section class="quiz-view hidden" id="quiz-screen">
+        <div class="quiz-top-bar">
+            <button class="icon-btn" id="quit-quiz-btn" title="Salir al mapa">✕</button>
+            <div class="quiz-progress-bar-container">
+                <div class="quiz-progress-bar-fill" id="quiz-progress-bar-fill"></div>
+            </div>
+        </div>
+
+        <div class="quiz-meta">
+            <span id="quiz-level-tag">Nivel</span>
+            <span id="quiz-question-counter">Pregunta 1 de 5</span>
+        </div>
+
+        <!-- Tarjeta de Pregunta -->
+        <div class="quiz-card" id="quiz-card">
+            <div class="quiz-prompt" id="quiz-prompt">Cargando desafío...</div>
+        </div>
+
+        <!-- Opciones de Respuesta -->
+        <div class="options-grid" id="quiz-options-container">
+            <!-- Botones generados dinámicamente -->
+        </div>
+
+        <!-- Barra Inferior de Retroalimentación (Feedback Drawer) -->
+        <div class="feedback-drawer hidden" id="quiz-feedback-drawer">
+            <div class="feedback-content">
+                <div class="feedback-info">
+                    <div class="feedback-title" id="feedback-title">¡Correcto!</div>
+                    <div class="feedback-explanation" id="feedback-explanation">Explicación matemática</div>
+                    <div class="feedback-xp" id="feedback-xp">+10 XP</div>
+                </div>
+                <button class="btn-3d" id="feedback-continue-btn">Continuar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================================
+         PANTALLA 3: VICTORIA DE NIVEL
+         ======================================================== -->
+    <section class="result-view hidden" id="victory-screen">
+        <h2>🎉 ¡Nivel Completado!</h2>
+        <h3 id="victory-level-title" style="color: #38bdf8;">Título del Nivel</h3>
+
+        <div class="victory-stars" id="victory-stars-container">
+            <div class="victory-star earned">⭐</div>
+            <div class="victory-star earned">⭐</div>
+            <div class="victory-star earned">⭐</div>
+        </div>
+
+        <p id="victory-score-text">Acertaste 5 de 5 preguntas</p>
+
+        <div class="stats-card">
+            <div class="stat-item">
+                <span class="stat-val" id="victory-xp-earned">+50 XP</span>
+                <span class="stat-lbl">Experiencia</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-val" style="color: #10b981;">100%</span>
+                <span class="stat-lbl">Precisión</span>
+            </div>
+        </div>
+
+        <div class="actions-row">
+            <button class="btn-3d secondary" id="victory-map-btn">Mapa</button>
+            <button class="btn-3d secondary" id="victory-retry-btn">Reintentar</button>
+            <button class="btn-3d" id="victory-next-btn">Siguiente Nivel ➔</button>
+        </div>
+    </section>
+
+    <!-- ========================================================
+         PANTALLA 4: GAME OVER (SIN VIDAS)
+         ======================================================== -->
+    <section class="result-view hidden" id="gameover-screen">
+        <div style="font-size: 3.5rem;">💔</div>
+        <h2>¡Te has quedado sin vidas!</h2>
+        <p style="color: var(--text-muted); max-width: 380px;">
+            El camino del cálculo requiere paciencia y constancia. Cada error es solo una oportunidad para aprender.
+        </p>
+
+        <div class="actions-row">
+            <button class="btn-3d secondary" id="gameover-map-btn">Volver al Mapa</button>
+            <button class="btn-3d" id="gameover-retry-btn">Recargar y Continuar ❤️</button>
+        </div>
+    </section>
+
+    <!-- ========================================================
+         MODAL 1: LECCIÓN / TEORÍA INTERACTIVA
+         ======================================================== -->
+    <div class="modal-overlay hidden" id="lesson-modal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <div class="modal-title-area">
+                    <span class="badge-tag" id="lesson-level-tag">Nivel 1</span>
+                    <h2 id="lesson-title">Conteo y Cantidades</h2>
+                    <p style="color: var(--text-muted); font-size: 0.95rem;" id="lesson-subtitle">Subtítulo</p>
+                </div>
+                <button class="modal-close-btn" id="close-lesson-btn">✕</button>
+            </div>
+
+            <div class="theory-card">
+                <h3 id="lesson-theory-title">Teoría Clave</h3>
+                <div id="lesson-theory-content">
+                    <!-- Contenido teórico y fórmulas KaTeX -->
+                </div>
+            </div>
+
+            <button class="btn-3d" id="start-challenge-btn" style="width: 100%;">¡Comenzar Desafío! 🚀</button>
+        </div>
+    </div>
+
+    <!-- ========================================================
+         MODAL 2: PERFIL, RANGO Y LOGROS
+         ======================================================== -->
+    <div class="modal-overlay hidden" id="achievements-modal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <div class="modal-title-area">
+                    <span class="badge-tag">Tu Progreso</span>
+                    <h2>Perfil del Matemático</h2>
+                </div>
+                <button class="modal-close-btn" id="close-achievements-btn">✕</button>
+            </div>
+
+            <div class="stats-card">
+                <div class="stat-item">
+                    <span class="stat-val" id="modal-rank-badge">🐣</span>
+                    <span class="stat-lbl" id="modal-rank-title">Novato</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-val" id="modal-total-xp">0 XP</span>
+                    <span class="stat-lbl">Experiencia</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-val" id="modal-total-stars">0 / 90</span>
+                    <span class="stat-lbl">Estrellas</span>
+                </div>
+            </div>
+
+            <h3 style="font-size: 1.1rem; color: #38bdf8;">🏆 Trofeos y Logros</h3>
+            <div class="achievements-grid" id="achievements-grid">
+                <!-- Generado dinámicamente -->
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+                <button class="btn-3d secondary" id="reset-progress-btn" style="font-size: 0.85rem; padding: 8px 16px;">
+                    ⚠️ Reiniciar Progreso
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts de la Aplicación -->
+    <script src="js/audio.js"></script>
+    <script src="js/levels-data.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/ui.js"></script>
+</body>
+</html>
