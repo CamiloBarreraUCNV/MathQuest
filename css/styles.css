@@ -549,7 +549,7 @@ body {
     font-family: inherit;
     font-weight: 800;
     font-size: 1.05rem;
-    padding: 12px 28px;
+    padding: 12px 24px;
     border: none;
     border-radius: var(--radius-md);
     cursor: pointer;
@@ -557,6 +557,8 @@ body {
     letter-spacing: 0.05em;
     transition: all 0.1s ease;
     white-space: nowrap;
+    text-align: center;
+    box-sizing: border-box;
 }
 
 .btn-3d:hover {
@@ -586,9 +588,10 @@ body {
    PANTALLA DE VICTORIA & DERROTA
    ========================================== */
 .result-view {
-    max-width: 550px;
+    max-width: 480px;
+    width: 92%;
     margin: 40px auto;
-    padding: 40px 30px;
+    padding: 36px 28px;
     text-align: center;
     background: var(--bg-card);
     border: 2px solid var(--border-color);
@@ -597,17 +600,21 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 18px;
+    box-sizing: border-box;
 }
 
 .victory-stars {
     display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 16px;
-    margin: 10px 0;
+    margin: 6px 0;
 }
 
 .victory-star {
     font-size: 3.5rem;
+    line-height: 1;
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -627,6 +634,7 @@ body {
     border-radius: var(--radius-md);
     padding: 16px 24px;
     width: 100%;
+    box-sizing: border-box;
     display: flex;
     justify-content: space-around;
 }
@@ -649,15 +657,51 @@ body {
     text-transform: uppercase;
 }
 
+/* Contenedor de acciones ordenadas de Victoria */
+.victory-actions-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    margin-top: 8px;
+    box-sizing: border-box;
+}
+
+.actions-subrow {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.actions-subrow .btn-3d {
+    flex: 1;
+    padding: 11px 14px;
+    font-size: 0.92rem;
+    white-space: nowrap;
+}
+
+.btn-3d.full-width {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .actions-row {
     display: flex;
     gap: 12px;
     width: 100%;
     margin-top: 10px;
+    box-sizing: border-box;
+    flex-wrap: wrap;
 }
 
 .actions-row .btn-3d {
     flex: 1;
+    min-width: 120px;
 }
 
 /* ==========================================
