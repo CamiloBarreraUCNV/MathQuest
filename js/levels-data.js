@@ -190,7 +190,7 @@ var LEVELS_DATA = [
                 <p><strong>Números Impares:</strong> Al dividirlos en pares siempre sobra uno. Terminan en $1, 3, 5, 7, 9$.</p>
                 <p>En la <strong>recta numérica</strong>, los números crecen hacia la derecha:</p>
                 <div class="theory-visual">
-                    <span>$\leftarrow 0 \text{ --- } 1 \text{ --- } 2 \text{ --- } 3 \text{ --- } 4 \text{ --- } 5 \rightarrow$</span>
+                    <span>$$\\leftarrow\\quad 0 \\quad-\\quad 1 \\quad-\\quad 2 \\quad-\\quad 3 \\quad-\\quad 4 \\quad-\\quad 5 \\quad\\rightarrow$$</span>
                 </div>
             `
         },
@@ -749,7 +749,7 @@ var LEVELS_DATA = [
                     <li><strong>A</strong>dición (Suma) y <strong>S</strong>ustracción (Resta): Al final, de izquierda a derecha.</li>
                 </ol>
                 <div class="theory-visual">
-                    <span>$$3 + 4 \\times 2 = 3 + 8 = 11 \\quad (\\text{¡No } 14!)$$</span>
+                    <span>$$3 + 4 \\times 2 = 3 + 8 = 11 \\neq 14$$</span>
                 </div>
             `
         },
@@ -1243,7 +1243,7 @@ var LEVELS_DATA = [
                 options: ["1", "0", "4", "Infinito"],
                 correct: 1,
                 explanation: "Una línea horizontal no sube ni baja, por lo que su inclinación o pendiente es $0$.",
-                hint: "No hay cambio vertical ($\Delta y = 0$)."
+                hint: "No hay cambio vertical ($\\Delta y = 0$)."
             },
             {
                 prompt: "En la función de posición $s(t) = 60t$ (donde $t$ son horas y $s$ son km), ¿qué representa la pendiente $60$?",
