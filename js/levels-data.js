@@ -70,8 +70,30 @@ var LEVELS_DATA = [
         id: 1,
         worldId: "world-1",
         title: "Conteo y Cantidades",
-        subtitle: "Reconocimiento y valor numérico",
+        subtitle: "¡Enfrenta a la Manzana Pirata y domina los números!",
         icon: "🔢",
+        hasEnemy: true,
+        enemy: {
+            id: "manzana_pirata",
+            name: "Manzana Pirata",
+            title: "Pirata de la Bahía Numérica",
+            avatar: "🍎🏴‍☠️",
+            avatarDefeated: "😵🏴‍☠️",
+            badge: "PIRATA",
+            badgeClass: "pirate",
+            maxHp: 20.0,
+            regenRate: 0,
+            baseDamage: 1.0,
+            streakBonus: 0.5,
+            mechanicType: "slap",
+            mechanicTitle: "¡Duelo de Cachetadas!",
+            mechanicDesc: "✋ ¡Cada acierto le propina una buena cachetada!",
+            dialogue: {
+                intro: "¡Arrr! ¡Nadie cuenta más rápido que este corsario!",
+                hit: "¡Rayos y centellas! ¡Menuda bofetada!",
+                defeat: "¡Me rindo, marinero de los números!"
+            }
+        },
         theory: {
             title: "¿Qué es un número?",
             content: `
@@ -559,6 +581,8 @@ var LEVELS_DATA = [
             name: "El Manzano Ancestral",
             title: "Guardián de la Isla de los Números",
             avatar: "🌳🍎",
+            avatarDefeated: "🌳💫",
+            badge: "JEFE",
             maxHp: 20.0,
             regenRate: 0.2, // recupera 0.2 HP cada segundo
             baseDamage: 1.0,

@@ -116,6 +116,44 @@ class SoundFX {
         this.playTone(90, 'sawtooth', 0.25, 0.25, 0.04);
     }
 
+    slap() {
+        if (!this.enabled) return;
+        this.init();
+        if (!this.ctx) return;
+
+        const startTime = this.ctx.currentTime;
+        const sampleRate = this.ctx.sampleRate;
+        const duration = 0.07;
+        const bufferSize = Math.floor(sampleRate * duration);
+        const buffer = this.ctx.createBuffer(1, bufferSize, sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+            data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.3));
+        }
+
+        const noiseNode = this.ctx.createBufferSource();
+        noiseNode.buffer = buffer;
+
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.setValueAtTime(1600, startTime);
+        filter.Q.setValueAtTime(2.2, startTime);
+
+        const gainNode = this.ctx.createGain();
+        gainNode.gain.setValueAtTime(0.45, startTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, startTime + duration);
+
+        noiseNode.connect(filter);
+        filter.connect(gainNode);
+        gainNode.connect(this.ctx.destination);
+
+        noiseNode.start(startTime);
+        noiseNode.stop(startTime + duration);
+
+        this.playTone(180, 'triangle', 0.08, 0.3, 0);
+        this.playTone(85, 'sine', 0.1, 0.25, 0.01);
+    }
+
     bossDefeat() {
         if (!this.enabled) return;
         const notes = [220, 277.18, 329.63, 440, 554.37, 659.25, 880];

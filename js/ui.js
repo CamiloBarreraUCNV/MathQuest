@@ -366,7 +366,7 @@ class MathQuestUI {
 
         const startBtn = document.getElementById('start-challenge-btn');
         if (startBtn) {
-            startBtn.textContent = level.isBoss ? '⚔️ ¡Iniciar Batalla de Jefe!' : '¡Comenzar Desafío!';
+            startBtn.textContent = level.isBoss ? '⚔️ ¡Iniciar Batalla de Jefe!' : (level.hasEnemy ? '🏴‍☠️ ¡Desafiar al Pirata!' : '¡Comenzar Desafío!');
         }
 
         modal.classList.remove('hidden');
@@ -418,7 +418,7 @@ class MathQuestUI {
         }
         document.getElementById('quiz-level-tag').textContent = `${level.icon} Nivel ${level.id}: ${level.title}`;
 
-        // Boss Arena setup
+        // Boss / Enemy Arena setup
         const bossArena = document.getElementById('boss-arena');
         if (bossArena) {
             if (gameEngine.activeBoss) {
@@ -428,9 +428,21 @@ class MathQuestUI {
                 const bossTitleEl = document.getElementById('boss-title');
                 if (bossTitleEl) bossTitleEl.textContent = gameEngine.activeBoss.title || 'Guardián';
                 const bossAvatarEl = document.getElementById('boss-avatar');
-                if (bossAvatarEl) bossAvatarEl.textContent = gameEngine.activeBoss.avatar || '👾';
+                if (bossAvatarEl) {
+                    if (gameEngine.activeBoss.isDefeated) {
+                        bossAvatarEl.textContent = gameEngine.activeBoss.avatarDefeated || '😵';
+                    } else {
+                        bossAvatarEl.textContent = gameEngine.activeBoss.avatar || '👾';
+                    }
+                }
+                const bossBadgeEl = document.getElementById('boss-badge');
+                if (bossBadgeEl) {
+                    const badgeText = gameEngine.activeBoss.badge || (gameEngine.activeBoss.isBoss ? 'JEFE' : 'ENEMIGO');
+                    bossBadgeEl.textContent = badgeText;
+                    bossBadgeEl.className = `boss-badge ${gameEngine.activeBoss.badgeClass || (gameEngine.activeBoss.isBoss ? '' : 'enemy')}`;
+                }
                 const bossMechEl = document.getElementById('boss-mechanic-text');
-                if (bossMechEl) bossMechEl.textContent = gameEngine.activeBoss.mechanicDesc || 'Mecánica de Jefe';
+                if (bossMechEl) bossMechEl.textContent = gameEngine.activeBoss.mechanicDesc || 'Mecánica de Combate';
 
                 this.updateBossHpDisplay(gameEngine.activeBoss.currentHp, gameEngine.activeBoss.maxHp);
             } else {
@@ -532,19 +544,54 @@ class MathQuestUI {
             }
         });
 
-        // Boss visual hit & damage popup
+        // Boss / Enemy visual hit, slap animation & damage popup
         if (result.boss) {
             this.updateBossHpDisplay(result.boss.currentHp, result.boss.maxHp);
 
             if (result.isCorrect && result.boss.damage > 0) {
-                const avatar = document.getElementById('boss-avatar');
-                if (avatar) {
-                    avatar.classList.remove('boss-shake');
-                    void avatar.offsetWidth; // force reflow
-                    avatar.classList.add('boss-shake');
-                    setTimeout(() => avatar.classList.remove('boss-shake'), 450);
+                // 1. Play slap sound effect
+                if (soundManager && soundManager.slap) {
+                    soundManager.slap();
                 }
 
+                // 2. Animate slap hand
+                const hand = document.getElementById('slap-hand');
+                if (hand) {
+                    hand.classList.remove('hidden');
+                    hand.classList.remove('animate-slap');
+                    void hand.offsetWidth; // trigger reflow
+                    hand.classList.add('animate-slap');
+                    setTimeout(() => hand.classList.add('hidden'), 420);
+                }
+
+                // 3. Comic impact bubble "¡ZAS!"
+                const impact = document.getElementById('slap-impact');
+                if (impact) {
+                    const comicTexts = ['💥 ¡ZAS!', '👋 ¡PLAF!', '⚡ ¡TOMA!', '💥 ¡SLAP!'];
+                    impact.textContent = comicTexts[Math.floor(Math.random() * comicTexts.length)];
+                    impact.classList.remove('hidden');
+                    impact.style.animation = 'none';
+                    void impact.offsetWidth; // trigger reflow
+                    impact.style.animation = '';
+                    setTimeout(() => impact.classList.add('hidden'), 500);
+                }
+
+                // 4. Enemy avatar slap recoil
+                const avatar = document.getElementById('boss-avatar');
+                if (avatar) {
+                    avatar.classList.remove('slapped');
+                    avatar.classList.remove('boss-shake');
+                    void avatar.offsetWidth; // trigger reflow
+                    avatar.classList.add('slapped');
+                    setTimeout(() => avatar.classList.remove('slapped'), 480);
+
+                    // If defeated, show knocked out avatar
+                    if (result.boss.isDefeated) {
+                        avatar.textContent = (gameEngine.activeBoss && gameEngine.activeBoss.avatarDefeated) || '😵';
+                    }
+                }
+
+                // 5. Damage popup
                 const popup = document.getElementById('boss-damage-popup');
                 if (popup) {
                     popup.textContent = `-${result.boss.damage.toFixed(1)} HP`;
@@ -566,7 +613,8 @@ class MathQuestUI {
         if (result.isCorrect) {
             drawer.className = 'feedback-drawer success';
             if (result.boss && result.boss.isDefeated) {
-                titleEl.innerHTML = '👑 ¡¡JEFE DERROTADO!! 🎉';
+                const defeatTitle = (gameEngine.currentLevel && gameEngine.currentLevel.isBoss) ? '👑 ¡¡JEFE DERROTADO!! 🎉' : '🏴‍☠️ ¡¡ENEMIGO DERROTADO!! 🎉';
+                titleEl.innerHTML = defeatTitle;
                 gainedXpEl.textContent = `+${result.gainedXp} XP (¡Victoria Épica!)`;
             } else {
                 titleEl.innerHTML = '🎉 ¡Excelente! ¡Respuesta Correcta!';

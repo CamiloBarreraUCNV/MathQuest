@@ -38,34 +38,41 @@ class MathQuestEngine {
         this.bestStreakInSession = 0;
         this.isAnswerLocked = false;
 
-        // Initialize Boss if level is a boss fight
-        if (level.isBoss && level.boss) {
+        // Initialize Boss or Enemy if level has combat
+        const combatTarget = (level.isBoss && level.boss) ? level.boss : (level.hasEnemy && level.enemy ? level.enemy : null);
+        if (combatTarget) {
             this.activeBoss = {
-                ...level.boss,
-                currentHp: level.boss.maxHp,
+                ...combatTarget,
+                isBoss: !!level.isBoss,
+                currentHp: combatTarget.maxHp,
                 isDefeated: false,
                 lastDamage: 0
             };
 
-            // Gather all questions from previous levels in the same world
-            const levelsList = (typeof window !== 'undefined' ? window.LEVELS_DATA : LEVELS_DATA) || [];
-            const prevLevels = levelsList.filter(l => l.worldId === level.worldId && l.id < level.id);
-            const allPrevQuestions = prevLevels.flatMap(l => l.questions || []);
+            if (level.isBoss) {
+                // Gather all questions from previous levels in the same world
+                const levelsList = (typeof window !== 'undefined' ? window.LEVELS_DATA : LEVELS_DATA) || [];
+                const prevLevels = levelsList.filter(l => l.worldId === level.worldId && l.id < level.id);
+                const allPrevQuestions = prevLevels.flatMap(l => l.questions || []);
 
-            // Combine previous levels' questions with boss level questions
-            const combined = [...allPrevQuestions, ...(level.questions || [])];
+                // Combine previous levels' questions with boss level questions
+                const combined = [...allPrevQuestions, ...(level.questions || [])];
 
-            // Fisher-Yates shuffle
-            const pool = [...combined];
-            for (let i = pool.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [pool[i], pool[j]] = [pool[j], pool[i]];
+                // Fisher-Yates shuffle
+                const pool = [...combined];
+                for (let i = pool.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [pool[i], pool[j]] = [pool[j], pool[i]];
+                }
+
+                this.currentLevel = {
+                    ...level,
+                    questions: pool
+                };
+            } else {
+                // Regular level with enemy (Level 1): use the level's own questions
+                this.currentLevel = level;
             }
-
-            this.currentLevel = {
-                ...level,
-                questions: pool
-            };
         } else {
             this.activeBoss = null;
             this.currentLevel = level;
@@ -257,8 +264,8 @@ class MathQuestEngine {
     nextQuestion() {
         this.isAnswerLocked = false;
         
-        // If boss was defeated, can transition to victory directly
-        if (this.activeBoss && this.activeBoss.isDefeated) {
+        // If boss was defeated in a boss level, transition to victory directly
+        if (this.activeBoss && this.activeBoss.isDefeated && this.currentLevel.isBoss) {
             return { finished: true, results: this.finishLevel() };
         }
 
@@ -271,42 +278,46 @@ class MathQuestEngine {
 
     finishLevel() {
         const totalQuestions = this.currentLevel.questions.length;
+        const isBossFight = !!(this.activeBoss && this.currentLevel.isBoss);
         const answeredCount = Math.max(1, this.sessionScore + this.sessionErrors);
-        const displayTotal = this.activeBoss ? answeredCount : totalQuestions;
+        const displayTotal = isBossFight ? answeredCount : totalQuestions;
         const accuracy = (this.sessionScore / displayTotal);
 
         let stars = 1;
-        let isBossSuccess = true;
+        let isSuccess = true;
 
-        if (this.activeBoss) {
+        if (isBossFight) {
             if (this.activeBoss.isDefeated) {
                 // Defeated the boss!
                 stars = (this.sessionErrors === 0) ? 3 : 2;
             } else {
                 // Boss survived!
-                isBossSuccess = false;
+                isSuccess = false;
                 stars = 0;
             }
         } else {
+            // Normal level or enemy level (e.g. Level 1)
             if (accuracy >= 1.0 && this.sessionErrors === 0) {
                 stars = 3;
-            } else if (accuracy >= 0.8) {
+            } else if (accuracy >= 0.75) {
                 stars = 2;
+            } else {
+                stars = 1;
             }
         }
 
         // Completion XP bonus
-        let bonusXp = isBossSuccess ? (40 + (stars * 15)) : 10;
+        let bonusXp = isSuccess ? (40 + (stars * 15)) : 10;
         this.state.xp += bonusXp;
 
         // Unlock next level only if normal level passed or boss was defeated
         const currentId = this.currentLevel.id;
-        if (isBossSuccess && currentId >= this.state.unlockedLevel && currentId < LEVELS_DATA.length) {
+        if (isSuccess && currentId >= this.state.unlockedLevel && currentId < LEVELS_DATA.length) {
             this.state.unlockedLevel = currentId + 1;
         }
 
-        // Record stars if boss defeated or normal level
-        if (isBossSuccess) {
+        // Record stars if level succeeded
+        if (isSuccess) {
             const prevStars = this.state.completedLevels[currentId]?.stars || 0;
             this.state.completedLevels[currentId] = {
                 completed: true,
@@ -333,7 +344,7 @@ class MathQuestEngine {
 
         this.saveState();
 
-        if (isBossSuccess) {
+        if (isSuccess) {
             this.playSound('victory');
         } else {
             this.playSound('defeat');
@@ -349,7 +360,7 @@ class MathQuestEngine {
             totalXp: this.state.xp,
             bestStreak: this.bestStreakInSession,
             isNextUnlocked: this.state.unlockedLevel > currentId,
-            isBoss: !!this.activeBoss,
+            isBoss: isBossFight,
             bossDefeated: this.activeBoss ? this.activeBoss.isDefeated : false,
             bossName: this.activeBoss ? this.activeBoss.name : null
         };
