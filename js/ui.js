@@ -712,6 +712,9 @@ class MathQuestUI {
 
     showVictory(results) {
         this.stopBossLoop();
+        this.selectedLevelId = results.levelId;
+        const drawer = document.getElementById('quiz-feedback-drawer');
+        if (drawer) drawer.classList.add('hidden');
         this.showScreen('victory');
 
         const victoryTitle = document.getElementById('victory-title');

@@ -297,6 +297,7 @@ class MathQuestEngine {
     finishLevel() {
         const totalQuestions = this.currentLevel.questions.length;
         const hasCombat = !!this.activeBoss;
+        const isBossFight = !!(this.activeBoss && this.currentLevel.isBoss);
         const answeredCount = Math.max(1, this.sessionScore + this.sessionErrors);
         const displayTotal = hasCombat ? answeredCount : totalQuestions;
         const accuracy = (this.sessionScore / displayTotal);
@@ -334,10 +335,10 @@ class MathQuestEngine {
         let bonusXp = isSuccess ? (40 + (stars * 15)) : 10;
         this.state.xp += bonusXp;
 
-        // Unlock next level only if normal level passed or boss was defeated
+        // Unlock next level only if normal level passed or enemy/boss was defeated
         const currentId = this.currentLevel.id;
-        if (isSuccess && currentId >= this.state.unlockedLevel && currentId < LEVELS_DATA.length) {
-            this.state.unlockedLevel = currentId + 1;
+        if (isSuccess && currentId < LEVELS_DATA.length) {
+            this.state.unlockedLevel = Math.max(this.state.unlockedLevel || 1, currentId + 1);
         }
 
         // Record stars if level succeeded
