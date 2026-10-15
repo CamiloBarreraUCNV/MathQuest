@@ -79,7 +79,7 @@ var LEVELS_DATA = [
             title: "Pirata de la Bahía Numérica",
             avatar: "🍎🏴‍☠️",
             avatarDefeated: "😵🏴‍☠️",
-            avatarImg: "assets/pirate-apple.jpg",
+            avatarImg: "assets/pirate-apple-80s.png",
             badge: "PIRATA",
             badgeClass: "pirate",
             maxHp: 20.0,
