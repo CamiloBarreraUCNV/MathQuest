@@ -3,14 +3,16 @@ var soundManager = (typeof window !== 'undefined' && window.soundManager) ? wind
 var gameEngine = (typeof window !== 'undefined' && window.gameEngine) ? window.gameEngine : (typeof gameEngine !== 'undefined' ? gameEngine : null);
 var WORLDS_DATA = (typeof window !== 'undefined' && window.WORLDS_DATA) ? window.WORLDS_DATA : (typeof WORLDS_DATA !== 'undefined' ? WORLDS_DATA : []);
 var LEVELS_DATA = (typeof window !== 'undefined' && window.LEVELS_DATA) ? window.LEVELS_DATA : (typeof LEVELS_DATA !== 'undefined' ? LEVELS_DATA : []);
-var getLevelsByWorld = (typeof window !== 'undefined' && window.getLevelsByWorld) ? window.getLevelsByWorld : (typeof getLevelsByWorld !== 'undefined' ? getLevelsByWorld : (id) => (window.LEVELS_DATA || LEVELS_DATA).filter(l => l.worldId === id));
-var getLevelById = (typeof window !== 'undefined' && window.getLevelById) ? window.getLevelById : (typeof getLevelById !== 'undefined' ? getLevelById : (id) => (window.LEVELS_DATA || LEVELS_DATA).find(l => l.id === Number(id)));
-var getWorldById = (typeof window !== 'undefined' && window.getWorldById) ? window.getWorldById : (typeof getWorldById !== 'undefined' ? getWorldById : (id) => (window.WORLDS_DATA || WORLDS_DATA).find(w => w.id === id));
+var getLevelsByWorld = (typeof window !== 'undefined' && window.getLevelsByWorld) ? window.getLevelsByWorld : (typeof getLevelsByWorld !== 'undefined' ? getLevelsByWorld : (id) => ((typeof window !== 'undefined' ? window.LEVELS_DATA : LEVELS_DATA) || []).filter(l => l.worldId === id));
+var getLevelById = (typeof window !== 'undefined' && window.getLevelById) ? window.getLevelById : (typeof getLevelById !== 'undefined' ? getLevelById : (id) => ((typeof window !== 'undefined' ? window.LEVELS_DATA : LEVELS_DATA) || []).find(l => l.id === Number(id)));
+var getWorldById = (typeof window !== 'undefined' && window.getWorldById) ? window.getWorldById : (typeof getWorldById !== 'undefined' ? getWorldById : (id) => ((typeof window !== 'undefined' ? window.WORLDS_DATA : WORLDS_DATA) || []).find(w => w.id === id));
 
 class MathQuestUI {
     constructor() {
         this.currentView = 'map'; // 'map', 'lesson', 'quiz', 'victory', 'gameover'
         this.selectedLevelId = null;
+        this.bossAnimFrame = null;
+        this.lastBossTickTime = 0;
     }
 
     init() {
@@ -126,11 +128,10 @@ class MathQuestUI {
             nextLevelBtn.addEventListener('click', () => {
                 soundManager.click();
                 const nextId = this.selectedLevelId + 1;
+                this.showScreen('map');
+                this.renderMap();
                 if (nextId <= LEVELS_DATA.length && gameEngine.isLevelUnlocked(nextId)) {
                     this.openLevelPreview(nextId);
-                } else {
-                    this.showScreen('map');
-                    this.renderMap();
                 }
             });
         }
@@ -250,6 +251,9 @@ class MathQuestUI {
     }
 
     showScreen(screenName) {
+        if (screenName !== 'quiz') {
+            this.stopBossLoop();
+        }
         this.currentView = screenName;
         const screens = ['map-screen', 'quiz-screen', 'victory-screen', 'gameover-screen'];
         screens.forEach(id => {
@@ -298,6 +302,7 @@ class MathQuestUI {
                 const isUnlocked = gameEngine.isLevelUnlocked(level.id);
                 const stars = gameEngine.getLevelStars(level.id);
                 const isCurrent = (level.id === gameEngine.state.unlockedLevel);
+                const isBoss = !!level.isBoss;
 
                 let starIcons = '';
                 for (let s = 1; s <= 3; s++) {
@@ -307,10 +312,11 @@ class MathQuestUI {
                 // Node positioning styling: winding snake pattern
                 const offsetClass = (index % 2 === 1) ? 'offset-right' : 'offset-left';
                 const nodeStyle = (isUnlocked && !isCurrent) ? `style="background: ${world.bgGradient}; box-shadow: 0 6px 0 ${world.color}88, 0 8px 18px rgba(0,0,0,0.3);"` : '';
+                const bossClass = isBoss ? 'boss-node' : '';
 
                 nodesHtml += `
                     <div class="level-node-wrapper ${offsetClass}">
-                        <button class="level-node ${isUnlocked ? 'unlocked' : 'locked'} ${isCurrent ? 'current' : ''} ${stars === 3 ? 'perfect' : ''}"
+                        <button class="level-node ${bossClass} ${isUnlocked ? 'unlocked' : 'locked'} ${isCurrent ? 'current' : ''} ${stars === 3 ? 'perfect' : ''}"
                                 data-level-id="${level.id}"
                                 ${!isUnlocked ? 'disabled' : ''}
                                 ${nodeStyle}
@@ -319,7 +325,7 @@ class MathQuestUI {
                             ${isCurrent ? '<div class="current-indicator">¡Aquí!</div>' : ''}
                         </button>
                         <div class="node-info">
-                            <span class="node-level-num">Nivel ${level.id}</span>
+                            ${isBoss ? '<span class="node-level-num boss-node-tag">👑 JEFE FINAL</span>' : `<span class="node-level-num">Nivel ${level.id}</span>`}
                             <span class="node-title">${level.title}</span>
                             ${isUnlocked ? `<div class="node-stars">${starIcons}</div>` : ''}
                         </div>
@@ -350,13 +356,18 @@ class MathQuestUI {
         const modal = document.getElementById('lesson-modal');
         if (!modal) return;
 
-        document.getElementById('lesson-level-tag').textContent = `Nivel ${level.id} • ${level.icon}`;
+        document.getElementById('lesson-level-tag').textContent = level.isBoss ? `⚔️ BATALLA DE JEFE • ${level.icon}` : `Nivel ${level.id} • ${level.icon}`;
         document.getElementById('lesson-title').textContent = level.title;
         document.getElementById('lesson-subtitle').textContent = level.subtitle;
         document.getElementById('lesson-theory-title').textContent = level.theory.title;
 
         const contentEl = document.getElementById('lesson-theory-content');
         contentEl.innerHTML = level.theory.content;
+
+        const startBtn = document.getElementById('start-challenge-btn');
+        if (startBtn) {
+            startBtn.textContent = level.isBoss ? '⚔️ ¡Iniciar Batalla de Jefe!' : '¡Comenzar Desafío!';
+        }
 
         modal.classList.remove('hidden');
         this.typesetMath(modal);
@@ -375,6 +386,10 @@ class MathQuestUI {
         this.showScreen('quiz');
         this.updateHeaderStats();
         this.renderCurrentQuestion();
+
+        if (gameEngine.activeBoss) {
+            this.startBossLoop();
+        }
     }
 
     renderCurrentQuestion() {
@@ -395,6 +410,26 @@ class MathQuestUI {
 
         document.getElementById('quiz-question-counter').textContent = `Pregunta ${current} de ${total}`;
         document.getElementById('quiz-level-tag').textContent = `${level.icon} Nivel ${level.id}: ${level.title}`;
+
+        // Boss Arena setup
+        const bossArena = document.getElementById('boss-arena');
+        if (bossArena) {
+            if (gameEngine.activeBoss) {
+                bossArena.classList.remove('hidden');
+                const bossNameEl = document.getElementById('boss-name');
+                if (bossNameEl) bossNameEl.textContent = gameEngine.activeBoss.name;
+                const bossTitleEl = document.getElementById('boss-title');
+                if (bossTitleEl) bossTitleEl.textContent = gameEngine.activeBoss.title || 'Guardián';
+                const bossAvatarEl = document.getElementById('boss-avatar');
+                if (bossAvatarEl) bossAvatarEl.textContent = gameEngine.activeBoss.avatar || '👾';
+                const bossMechEl = document.getElementById('boss-mechanic-text');
+                if (bossMechEl) bossMechEl.textContent = gameEngine.activeBoss.mechanicDesc || 'Mecánica de Jefe';
+
+                this.updateBossHpDisplay(gameEngine.activeBoss.currentHp, gameEngine.activeBoss.maxHp);
+            } else {
+                bossArena.classList.add('hidden');
+            }
+        }
 
         // Prompt
         const promptEl = document.getElementById('quiz-prompt');
@@ -422,6 +457,55 @@ class MathQuestUI {
         this.typesetMath(document.getElementById('quiz-card'));
     }
 
+    startBossLoop() {
+        this.stopBossLoop();
+        this.lastBossTickTime = performance.now();
+
+        const loop = (now) => {
+            const dt = Math.min((now - this.lastBossTickTime) / 1000, 0.2);
+            this.lastBossTickTime = now;
+
+            if (gameEngine.activeBoss && !gameEngine.activeBoss.isDefeated) {
+                const bossState = gameEngine.tickBoss(dt);
+                if (bossState) {
+                    this.updateBossHpDisplay(bossState.currentHp, bossState.maxHp);
+                }
+            }
+
+            if (this.currentView === 'quiz' && gameEngine.activeBoss && !gameEngine.activeBoss.isDefeated) {
+                this.bossAnimFrame = requestAnimationFrame(loop);
+            }
+        };
+
+        this.bossAnimFrame = requestAnimationFrame(loop);
+    }
+
+    stopBossLoop() {
+        if (this.bossAnimFrame) {
+            cancelAnimationFrame(this.bossAnimFrame);
+            this.bossAnimFrame = null;
+        }
+    }
+
+    updateBossHpDisplay(currentHp, maxHp) {
+        const hpBar = document.getElementById('boss-hp-bar');
+        const hpText = document.getElementById('boss-hp-text');
+        if (!hpBar || !hpText) return;
+
+        const safeHp = Math.max(0, currentHp);
+        const percent = Math.max(0, Math.min(100, (safeHp / maxHp) * 100));
+        hpBar.style.width = `${percent}%`;
+        hpText.textContent = `${safeHp.toFixed(1)} / ${maxHp.toFixed(1)} HP`;
+
+        if (percent <= 25) {
+            hpBar.className = 'boss-hp-bar danger';
+        } else if (percent <= 55) {
+            hpBar.className = 'boss-hp-bar warning';
+        } else {
+            hpBar.className = 'boss-hp-bar';
+        }
+    }
+
     selectAnswer(optionIndex, selectedBtn) {
         if (gameEngine.isAnswerLocked) return;
 
@@ -441,6 +525,31 @@ class MathQuestUI {
             }
         });
 
+        // Boss visual hit & damage popup
+        if (result.boss) {
+            this.updateBossHpDisplay(result.boss.currentHp, result.boss.maxHp);
+
+            if (result.isCorrect && result.boss.damage > 0) {
+                const avatar = document.getElementById('boss-avatar');
+                if (avatar) {
+                    avatar.classList.remove('boss-shake');
+                    void avatar.offsetWidth; // force reflow
+                    avatar.classList.add('boss-shake');
+                    setTimeout(() => avatar.classList.remove('boss-shake'), 450);
+                }
+
+                const popup = document.getElementById('boss-damage-popup');
+                if (popup) {
+                    popup.textContent = `-${result.boss.damage.toFixed(1)} HP`;
+                    popup.classList.remove('hidden');
+                    popup.style.animation = 'none';
+                    void popup.offsetWidth; // trigger reflow
+                    popup.style.animation = '';
+                    setTimeout(() => popup.classList.add('hidden'), 850);
+                }
+            }
+        }
+
         // Open feedback drawer
         const drawer = document.getElementById('quiz-feedback-drawer');
         const titleEl = document.getElementById('feedback-title');
@@ -449,11 +558,20 @@ class MathQuestUI {
 
         if (result.isCorrect) {
             drawer.className = 'feedback-drawer success';
-            titleEl.innerHTML = '🎉 ¡Excelente! ¡Respuesta Correcta!';
-            gainedXpEl.textContent = `+${result.gainedXp} XP ${result.streak > 1 ? `(🔥 Racha x${result.streak})` : ''}`;
+            if (result.boss && result.boss.isDefeated) {
+                titleEl.innerHTML = '👑 ¡¡JEFE DERROTADO!! 🎉';
+                gainedXpEl.textContent = `+${result.gainedXp} XP (¡Victoria Épica!)`;
+            } else {
+                titleEl.innerHTML = '🎉 ¡Excelente! ¡Respuesta Correcta!';
+                gainedXpEl.textContent = `+${result.gainedXp} XP ${result.streak > 1 ? `(🔥 Racha x${result.streak})` : ''}`;
+            }
         } else {
             drawer.className = 'feedback-drawer error';
-            titleEl.innerHTML = '💡 ¡Casi! Pero no te rindas';
+            if (result.boss) {
+                titleEl.innerHTML = '💔 ¡Casi! Pero el jefe se regenera...';
+            } else {
+                titleEl.innerHTML = '💡 ¡Casi! Pero no te rindas';
+            }
             gainedXpEl.textContent = '0 XP';
         }
 
@@ -464,6 +582,7 @@ class MathQuestUI {
         // Check for Game Over (0 hearts)
         if (result.heartsRemaining <= 0) {
             setTimeout(() => {
+                this.stopBossLoop();
                 soundManager.defeat();
                 this.showScreen('gameover');
             }, 1200);
@@ -473,6 +592,7 @@ class MathQuestUI {
     handleNextQuestion() {
         const next = gameEngine.nextQuestion();
         if (next.finished) {
+            this.stopBossLoop();
             this.showVictory(next.results);
         } else {
             this.renderCurrentQuestion();
@@ -480,35 +600,98 @@ class MathQuestUI {
     }
 
     showVictory(results) {
+        this.stopBossLoop();
         this.showScreen('victory');
-        this.triggerConfetti();
+
+        const victoryTitle = document.getElementById('victory-title');
+        const scoreText = document.getElementById('victory-score-text');
+        const nextBtn = document.getElementById('victory-next-btn');
+        const retryBtn = document.getElementById('victory-retry-btn');
+        const starsContainer = document.getElementById('victory-stars-container');
+        const accuracyEl = document.getElementById('victory-accuracy');
+
+        // Precision
+        const accPct = results.total > 0 ? Math.round((results.score / results.total) * 100) : 100;
+        if (accuracyEl) accuracyEl.textContent = `${accPct}%`;
 
         document.getElementById('victory-level-title').textContent = results.levelTitle;
-        document.getElementById('victory-score-text').textContent = `Acertaste ${results.score} de ${results.total} preguntas`;
         document.getElementById('victory-xp-earned').textContent = `+${results.bonusXp} XP`;
 
-        const nextBtn = document.getElementById('victory-next-btn');
+        // Ensure next button is visible by default
         if (nextBtn) {
-            if (results.levelId >= LEVELS_DATA.length) {
-                nextBtn.textContent = '🏆 ¡Aventura Completada!';
-            } else {
-                nextBtn.textContent = `Siguiente Nivel (${results.levelId + 1}) ➔`;
-            }
+            nextBtn.classList.remove('hidden');
         }
 
-        const starsContainer = document.getElementById('victory-stars-container');
-        starsContainer.innerHTML = '';
+        if (results.isBoss) {
+            if (results.bossDefeated) {
+                // Boss was defeated!
+                if (victoryTitle) victoryTitle.innerHTML = '👑 ¡Jefe Derrotado!';
+                scoreText.textContent = `Acertaste ${results.score} de ${results.total} preguntas • ¡Venciste a ${results.bossName || 'el Jefe'}! 🍎`;
+                if (retryBtn) retryBtn.textContent = '🔄 Repetir Batalla';
 
-        for (let s = 1; s <= 3; s++) {
-            const star = document.createElement('div');
-            star.className = `victory-star ${s <= results.stars ? 'earned' : 'empty'}`;
-            star.innerHTML = s <= results.stars ? '⭐' : '☆';
-            starsContainer.appendChild(star);
+                if (nextBtn) {
+                    if (results.levelId >= LEVELS_DATA.length) {
+                        nextBtn.textContent = '🏆 ¡Aventura Completada!';
+                    } else {
+                        nextBtn.textContent = `Siguiente Nivel (${results.levelId + 1}) ➔`;
+                    }
+                }
 
-            if (s <= results.stars) {
-                setTimeout(() => {
-                    soundManager.star();
-                }, s * 300);
+                this.triggerConfetti();
+                starsContainer.innerHTML = '';
+                for (let s = 1; s <= 3; s++) {
+                    const star = document.createElement('div');
+                    star.className = `victory-star ${s <= results.stars ? 'earned' : 'empty'}`;
+                    star.innerHTML = s <= results.stars ? '⭐' : '☆';
+                    starsContainer.appendChild(star);
+
+                    if (s <= results.stars) {
+                        setTimeout(() => soundManager.star(), s * 300);
+                    }
+                }
+            } else {
+                // Boss survived!
+                if (victoryTitle) victoryTitle.innerHTML = '⏳ ¡El Jefe ha resistido!';
+                scoreText.textContent = `${results.bossName || 'El Manzano Ancestral'} recuperó toda su energía. ¡Responde más rápido y mantén la racha para derrotarlo!`;
+
+                // Hide next button because boss wasn't beaten
+                if (nextBtn) {
+                    nextBtn.classList.add('hidden');
+                }
+                if (retryBtn) {
+                    retryBtn.textContent = '⚔️ Reintentar Batalla';
+                }
+
+                starsContainer.innerHTML = `
+                    <div style="font-size: 2.5rem; margin: 8px 0; animation: float 2s infinite;">🛡️</div>
+                    <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 8px;">El jefe resistió el combate. ¡Prueba otra estrategia!</p>
+                `;
+            }
+        } else {
+            // Normal level completed
+            if (victoryTitle) victoryTitle.innerHTML = '🎉 ¡Nivel Completado!';
+            scoreText.textContent = `Acertaste ${results.score} de ${results.total} preguntas`;
+            if (retryBtn) retryBtn.textContent = '🔄 Reintentar';
+
+            if (nextBtn) {
+                if (results.levelId >= LEVELS_DATA.length) {
+                    nextBtn.textContent = '🏆 ¡Aventura Completada!';
+                } else {
+                    nextBtn.textContent = `Siguiente Nivel (${results.levelId + 1}) ➔`;
+                }
+            }
+
+            this.triggerConfetti();
+            starsContainer.innerHTML = '';
+            for (let s = 1; s <= 3; s++) {
+                const star = document.createElement('div');
+                star.className = `victory-star ${s <= results.stars ? 'earned' : 'empty'}`;
+                star.innerHTML = s <= results.stars ? '⭐' : '☆';
+                starsContainer.appendChild(star);
+
+                if (s <= results.stars) {
+                    setTimeout(() => soundManager.star(), s * 300);
+                }
             }
         }
 

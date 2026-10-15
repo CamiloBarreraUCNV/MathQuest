@@ -75,6 +75,34 @@
             <span id="quiz-question-counter">Pregunta 1 de 5</span>
         </div>
 
+        <!-- Arena de Batalla de Jefe (Oculto en niveles normales) -->
+        <div class="boss-arena hidden" id="boss-arena">
+            <div class="boss-card">
+                <div class="boss-visual-row">
+                    <div class="boss-avatar-wrapper" id="boss-avatar-wrapper">
+                        <span class="boss-avatar" id="boss-avatar">🌳🍎</span>
+                        <div class="boss-damage-popup hidden" id="boss-damage-popup">-1.5</div>
+                    </div>
+                    <div class="boss-info">
+                        <div class="boss-name-row">
+                            <h3 class="boss-name" id="boss-name">El Manzano Ancestral</h3>
+                            <span class="boss-badge">JEFE</span>
+                        </div>
+                        <p class="boss-title" id="boss-title">Guardián de la Isla</p>
+                        <!-- Barra de vida del jefe -->
+                        <div class="boss-hp-container">
+                            <div class="boss-hp-bar" id="boss-hp-bar" style="width: 100%;"></div>
+                            <span class="boss-hp-text" id="boss-hp-text">6.0 / 6.0 HP</span>
+                        </div>
+                        <div class="boss-mechanic-indicator" id="boss-mechanic-indicator">
+                            <span class="pulse-dot"></span>
+                            <span id="boss-mechanic-text">🍃 Fotosíntesis: +0.2 HP/s</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Tarjeta de Pregunta -->
         <div class="quiz-card" id="quiz-card">
             <div class="quiz-prompt" id="quiz-prompt">Cargando desafío...</div>
@@ -102,7 +130,7 @@
          PANTALLA 3: VICTORIA DE NIVEL
          ======================================================== -->
     <section class="result-view hidden" id="victory-screen">
-        <h2>🎉 ¡Nivel Completado!</h2>
+        <h2 id="victory-title">🎉 ¡Nivel Completado!</h2>
         <h3 id="victory-level-title" style="color: #38bdf8;">Título del Nivel</h3>
 
         <div class="victory-stars" id="victory-stars-container">
@@ -119,7 +147,7 @@
                 <span class="stat-lbl">Experiencia</span>
             </div>
             <div class="stat-item">
-                <span class="stat-val" style="color: #10b981;">100%</span>
+                <span class="stat-val" id="victory-accuracy" style="color: #10b981;">100%</span>
                 <span class="stat-lbl">Precisión</span>
             </div>
         </div>

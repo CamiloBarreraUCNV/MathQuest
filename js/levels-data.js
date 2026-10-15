@@ -235,52 +235,89 @@ var LEVELS_DATA = [
     {
         id: 4,
         worldId: "world-1",
-        title: "Guardián de los Números",
-        subtitle: "Desafío de graduación del Mundo 1",
-        icon: "🛡️",
+        title: "El Manzano Ancestral (Jefe)",
+        subtitle: "¡Batalla de Jefe: El Árbol de las Manzanas!",
+        icon: "🌳",
+        isBoss: true,
+        boss: {
+            id: "manzano_ancestral",
+            name: "El Manzano Ancestral",
+            title: "Guardián de la Isla de los Números",
+            avatar: "🌳🍎",
+            maxHp: 6.0,
+            regenRate: 0.2, // recupera 0.2 HP cada segundo
+            baseDamage: 1.0,
+            streakBonus: 0.5,
+            mechanicType: "regen",
+            mechanicTitle: "Fotosíntesis Nutritiva",
+            mechanicDesc: "Recupera +0.2 HP por segundo. Cada acierto inflige 1 daño (+0.5 por racha).",
+            dialogue: {
+                intro: "¡Mis manzanas crecen al compás del tiempo! ¿Podrás contar más rápido que mi cosecha?",
+                hit: "¡Auuu! ¡Se han caído mis manzanas!",
+                defeat: "¡Increíble rapidez de conteo! Te entrego la Gema de los Números."
+            }
+        },
         theory: {
-            title: "Desafío del Guardián: ¡Demuestra tu maestría!",
+            title: "⚔️ Batalla de Jefe: El Manzano Ancestral",
             content: `
-                <p>Has aprendido a contar, comparar y clasificar los números.</p>
-                <p>El Guardián de la Isla pondrá a prueba tu rapidez mental para otorgarte la <strong>Gema del Conteo</strong> y abrir el paso al Valle Aritmético.</p>
-                <div class="theory-tip">🎯 Concéntrate y lee con atención cada condición.</div>
+                <p>En el corazón de la Isla habita el <strong>Manzano Ancestral</strong> 🌳🍎. Para ganarte su respeto debes poner a prueba todo lo aprendido:</p>
+                <ul>
+                    <li>Conteo rápido y orden numérico</li>
+                    <li>Comparación de cantidades ($>$ y $<$)</li>
+                    <li>Identificación de números pares e impares</li>
+                </ul>
+                <div class="theory-tip">
+                    🍎 <strong>Mecánica del Jefe:</strong> El árbol recupera <strong>0.2 de vida por segundo</strong>. Cada respuesta correcta le causa <strong>1 de daño</strong> más <strong>0.5 extra por racha</strong>. ¡Mantén la racha para derrotarlo antes de que sus frutos vuelvan a crecer!
+                </div>
             `
         },
         questions: [
             {
-                prompt: "Tengo un número que es <strong>mayor que 12</strong>, <strong>menor que 16</strong> y además es <strong>impar</strong>. ¿Cuál es?",
-                options: ["13", "14", "15", "13 y 15 son ambos correctos"],
-                correct: 3,
-                explanation: "Los números entre 12 y 16 son 13, 14, 15. Los impares son tanto 13 como 15.",
-                hint: "¿Cuáles son impares entre 12 y 16?"
-            },
-            {
-                prompt: "¿Cuál es el valor posicional del dígito 5 en el número <strong>54</strong>?",
-                options: ["5 unidades", "5 decenas (50)", "5 centenas (500)", "No tiene valor"],
+                prompt: "El árbol tiene 3 ramas: una con 4 🍎, otra con 7 🍎 y otra con 5 🍎. ¿Qué rama tiene el <strong>número IMPAR MENOR</strong>?",
+                options: ["La rama con 4 🍎", "La rama con 5 🍎", "La rama con 7 🍎", "Ninguna de las ramas"],
                 correct: 1,
-                explanation: "El 5 está en el lugar de las decenas, por lo que vale $5 \\times 10 = 50$.",
-                hint: "54 está formado por 5 decenas y 4 unidades."
+                explanation: "Las ramas impares son 5 y 7. El menor número impar entre ellas es 5.",
+                hint: "Primero descarta el número par 4, luego compara 5 y 7."
             },
             {
-                prompt: "Completa la serie: $2, 4, 6, 8, \\_\\_\\_$",
-                options: ["9", "10", "11", "12"],
+                prompt: "¿Qué canasta contiene una cantidad <strong>PAR</strong> de manzanas?",
+                options: ["Canasta con 9 🍎", "Canasta con 14 🍎", "Canasta con 21 🍎", "Canasta con 17 🍎"],
                 correct: 1,
-                explanation: "La serie suma 2 en cada paso (números pares consecutivos): $8 + 2 = 10$.",
-                hint: "Sigue el patrón de sumar 2."
+                explanation: "14 termina en 4 y se puede repartir en dos grupos exactos de 7 manzanas sin que sobre ninguna.",
+                hint: "Los números pares terminan en 0, 2, 4, 6 u 8."
             },
             {
-                prompt: "¿Cuál de las siguientes relaciones es FALSA?",
-                options: ["$18 > 11$", "$7 < 9$", "$15 = 15$", "$8 > 13$"],
-                correct: 3,
-                explanation: "$8 > 13$ es falso, pues 8 es menor que 13.",
-                hint: "8 no puede ser más grande que 13."
+                prompt: "Tengo un número de manzanas que es <strong>mayor que 15</strong>, <strong>menor que 20</strong> y además es <strong>PAR</strong>. ¿Cuántas son?",
+                options: ["17", "18", "19", "21"],
+                correct: 1,
+                explanation: "Entre 15 y 20, los números pares son 16 y 18. Entre las opciones, 18 es el correcto.",
+                hint: "17 y 19 son impares; 21 es mayor que 20."
             },
             {
-                prompt: "Si tienes 1 decena de lápices y le restas 3 lápices, ¿cuántos te quedan?",
-                options: ["7", "6", "8", "13"],
-                correct: 0,
-                explanation: "1 decena = 10 lápices. $10 - 3 = 7$ lápices.",
-                hint: "Recuerda que una decena equivale a 10."
+                prompt: "El árbol deja caer manzanas siguiendo este patrón: $3, 6, 9, 12, \\_\\_\\_$. ¿Cuántas caerán a continuación?",
+                options: ["14", "15", "16", "18"],
+                correct: 1,
+                explanation: "La serie va sumando 3 en cada paso (tabla del 3): $12 + 3 = 15$.",
+                hint: "Suma 3 unidades al último número (12)."
+            },
+            {
+                prompt: "¿Cuál de estas comparaciones entre canastas es <strong>CORRECTA</strong>?",
+                options: [
+                    "$25 \\text{ manzanas} < 18 \\text{ manzanas}$",
+                    "$32 \\text{ manzanas} > 40 \\text{ manzanas}$",
+                    "$19 \\text{ manzanas} = 19 \\text{ manzanas}$",
+                    "$12 \\text{ manzanas} > 30 \\text{ manzanas}$"
+                ],
+                correct: 2,
+                explanation: "$19 = 19$ expresa una igualdad exacta y verdadera.",
+                hint: "Busca la afirmación que sea matemáticamente cierta."
+            },
+            {
+                prompt: "Si recolectas 2 decenas de manzanas rojas y 6 manzanas verdes, ¿cuántas manzanas tienes en total?",
+                options: ["20 manzanas", "26 manzanas", "62 manzanas", "16 manzanas"],
+                correct: 1,
+                explanation: "2 decenas = 20 manzanas. Sumando las 6 verdes: $20 + 6 = 26$ manzanas.",
+                hint: "Una decena son 10 manzanas; 2 decenas son 20."
             }
         ]
     },
@@ -513,15 +550,34 @@ var LEVELS_DATA = [
     {
         id: 9,
         worldId: "world-2",
-        title: "Centinela Aritmético",
-        subtitle: "Jefe del Valle de la Aritmética",
+        title: "Centinela Aritmético (Jefe)",
+        subtitle: "¡Batalla de Jefe: El Centinela de Piedra Rúnica!",
         icon: "🗿",
+        isBoss: true,
+        boss: {
+            id: "centinela_aritmetico",
+            name: "El Centinela Aritmético",
+            title: "Guardián de Piedra del Valle",
+            avatar: "🗿⚡",
+            maxHp: 7.0,
+            regenRate: 0.15,
+            baseDamage: 1.2,
+            streakBonus: 0.5,
+            mechanicType: "polarity",
+            mechanicTitle: "Escudo de Polaridad (+ / -)",
+            mechanicDesc: "Recupera +0.15 HP/s. Aciertos consecutivos rompen su polaridad (+0.5 por racha).",
+            dialogue: {
+                intro: "¡Mis runas de suma y resta son impenetrables!",
+                hit: "¡Mis runas se agrietan!",
+                defeat: "El balance de los signos ha sido restaurado..."
+            }
+        },
         theory: {
             title: "Batalla contra el Centinela",
             content: `
                 <p>El Centinela de Piedra protege el paso hacia el Cañón de Factores.</p>
                 <p>Combina sumas, restas y números negativos con rapidez para desactivar su escudo rúnico.</p>
-                <div class="theory-tip">⚡ Recuerda: $+ (-x) = -x$ y $- (-x) = +x$.</div>
+                <div class="theory-tip">⚡ <strong>Mecánica:</strong> El Centinela regenera <strong>+0.15 HP/s</strong>. ¡Derrótalo con sumas, restas y ley de signos antes de que se agoten tus turnos!</div>
             `
         },
         questions: [
@@ -794,15 +850,34 @@ var LEVELS_DATA = [
     {
         id: 14,
         worldId: "world-3",
-        title: "El Golem Multiplicador",
-        subtitle: "Jefe del Cañón de Factores",
+        title: "El Golem Multiplicador (Jefe)",
+        subtitle: "¡Batalla de Jefe: El Coloso de Factores!",
         icon: "⚡",
+        isBoss: true,
+        boss: {
+            id: "golem_multiplicador",
+            name: "El Golem Multiplicador",
+            title: "Coloso del Cañón de Factores",
+            avatar: "⚡🤖",
+            maxHp: 8.0,
+            regenRate: 0.1,
+            baseDamage: 1.0,
+            streakBonus: 0.8,
+            mechanicType: "multiplier",
+            mechanicTitle: "Sobrecarga de Factores",
+            mechanicDesc: "Recupera +0.1 HP/s. Cada acierto en racha potencia el impacto (+0.8 por racha).",
+            dialogue: {
+                intro: "¡Mis engranajes multiplican tu esfuerzo por cero!",
+                hit: "¡Sobrecarga de factores!",
+                defeat: "¡El orden de tus operaciones ha sido impecable!"
+            }
+        },
         theory: {
             title: "Desafío del Golem",
             content: `
                 <p>El colosal Golem de Piedra y Rayos custodia la entrada al Bosque del Álgebra.</p>
                 <p>Resuelve problemas con multiplicación, división y jerarquía sin titubear para desintegrar su núcleo.</p>
-                <div class="theory-tip">🎯 Mantén la calma: identifica qué operación va primero.</div>
+                <div class="theory-tip">⚡ <strong>Mecánica:</strong> El Golem recupera <strong>+0.1 HP/s</strong>. ¡Encadena aciertos para sobrecargar su batería con daño potenciado!</div>
             `
         },
         questions: [
@@ -1083,9 +1158,28 @@ var LEVELS_DATA = [
     {
         id: 19,
         worldId: "world-4",
-        title: "La Esfinge Algebraica",
-        subtitle: "Jefe del Bosque del Álgebra",
+        title: "La Esfinge Algebraica (Jefe)",
+        subtitle: "¡Batalla de Jefe: El Enigma de la Incógnita!",
         icon: "🧝‍♀️",
+        isBoss: true,
+        boss: {
+            id: "esfinge_algebraica",
+            name: "La Esfinge Algebraica",
+            title: "Mística del Bosque de las Incógnitas",
+            avatar: "🧝‍♀️🔮",
+            maxHp: 8.0,
+            regenRate: 0.15,
+            baseDamage: 1.2,
+            streakBonus: 0.6,
+            mechanicType: "enigma",
+            mechanicTitle: "Niebla de la Variable X",
+            mechanicDesc: "Recupera +0.15 HP/s. Despeja las incógnitas para disipar su barrera mágica.",
+            dialogue: {
+                intro: "El valor de X decidirá tu destino...",
+                hit: "¡Has despejado mi misterio!",
+                defeat: "La incógnita se ha revelado ante ti."
+            }
+        },
         theory: {
             title: "El Enigma de la Esfinge",
             content: `
@@ -1093,7 +1187,7 @@ var LEVELS_DATA = [
                 <div class="theory-visual">
                     <span>$$a(x + b) = ax + ab$$</span>
                 </div>
-                <div class="theory-tip">🎯 Distribuye primero el factor fuera del paréntesis y despeja con precisión.</div>
+                <div class="theory-tip">🔮 <strong>Mecánica:</strong> La Esfinge recupera <strong>+0.15 HP/s</strong> de energía mágica. ¡Despeja $x$ rápidamente para disipar su escudo!</div>
             `
         },
         questions: [
@@ -1313,15 +1407,34 @@ var LEVELS_DATA = [
     {
         id: 23,
         worldId: "world-5",
-        title: "Navegante de Curvas",
-        subtitle: "Jefe del Pico de las Funciones",
+        title: "El Navegante de Curvas (Jefe)",
+        subtitle: "¡Batalla de Jefe: El Señor de las Pendientes!",
         icon: "🦅",
+        isBoss: true,
+        boss: {
+            id: "navegante_curvas",
+            name: "El Navegante de Curvas",
+            title: "Señor de las Pendientes y el Viento",
+            avatar: "🦅📈",
+            maxHp: 9.0,
+            regenRate: 0.18,
+            baseDamage: 1.4,
+            streakBonus: 0.7,
+            mechanicType: "slope",
+            mechanicTitle: "Viento Tangente",
+            mechanicDesc: "Gana altitud (+0.18 HP/s). Usa razones de cambio rápidas para derribar su escudo.",
+            dialogue: {
+                intro: "¡Vuelo a la velocidad de la pendiente máxima!",
+                hit: "¡Mi trayectoria se desestabiliza!",
+                defeat: "Has calculado mi razón de cambio a la perfección..."
+            }
+        },
         theory: {
             title: "El Vuelo del Navegante",
             content: `
                 <p>El Guardián Alado domina las corrientes de viento y las trayectorias parabólicas.</p>
                 <p>Demuestra tu entendimiento de funciones, pendientes y razones de cambio para ganarte el pase a la <strong>Cumbre del Cálculo</strong>.</p>
-                <div class="theory-tip">🎯 Visualiza la gráfica y calcula las razones de cambio paso a paso.</div>
+                <div class="theory-tip">📈 <strong>Mecánica:</strong> El Navegante recupera <strong>+0.18 HP/s</strong> al ascender. ¡Calcula razones de cambio certeras para vencerlo!</div>
             `
         },
         questions: [
@@ -1714,15 +1827,34 @@ var LEVELS_DATA = [
     {
         id: 30,
         worldId: "world-6",
-        title: "El Arquitecto del Infinito",
-        subtitle: "Gran Desafío Final: De los Números al Cálculo",
+        title: "El Arquitecto del Infinito (Jefe Final)",
+        subtitle: "¡Gran Desafío Final: El Supremo del Cálculo!",
         icon: "👑",
+        isBoss: true,
+        boss: {
+            id: "arquitecto_infinito",
+            name: "El Arquitecto del Infinito",
+            title: "Supremo Maestro del Cálculo Diferencial",
+            avatar: "👑🌌",
+            maxHp: 10.0,
+            regenRate: 0.22,
+            baseDamage: 1.5,
+            streakBonus: 0.8,
+            mechanicType: "calculus",
+            mechanicTitle: "Distorsión Temporal y Derivadas",
+            mechanicDesc: "Recupera +0.22 HP/s. Aplica todas las reglas de derivación para vencerlo antes del colapso.",
+            dialogue: {
+                intro: "El límite de tu comprensión matemática termina aquí...",
+                hit: "¡La derivada de mi poder es negativa!",
+                defeat: "¡Eres el verdadero Archimago del Cálculo y de los Números!"
+            }
+        },
         theory: {
             title: "La Gran Prueba del Conocimiento",
             content: `
                 <p>¡Has recorrido todo el camino! Desde contar estrellas en la Isla de los Números hasta dominar la tasa de cambio instantáneo en el Nexo del Cálculo.</p>
                 <p>El Arquitecto del Infinito evaluará tu maestría completa para otorgarte el título supremo de <strong>Archimago del Cálculo y de los Números</strong>.</p>
-                <div class="theory-tip">⭐ Recuerda todo tu entrenamiento: cada regla que aprendiste te trajo hasta aquí.</div>
+                <div class="theory-tip">🌌 <strong>Mecánica Final:</strong> El Arquitecto regenera <strong>+0.22 HP/s</strong>. ¡Encadena derivadas perfectas con racha de fuego para salvar el cosmos matemático!</div>
             `
         },
         questions: [
@@ -1785,6 +1917,9 @@ if (typeof window !== 'undefined') {
     window.getWorldById = getWorldById;
     window.getLevelById = getLevelById;
     window.getLevelsByWorld = getLevelsByWorld;
+}
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { WORLDS_DATA, LEVELS_DATA, getWorldById, getLevelById, getLevelsByWorld };
 }
 
 

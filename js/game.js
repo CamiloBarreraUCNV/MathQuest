@@ -1,7 +1,7 @@
 // MathQuest: Game State and Engine Manager
 var soundManager = (typeof window !== 'undefined' && window.soundManager) ? window.soundManager : (typeof soundManager !== 'undefined' ? soundManager : null);
 var LEVELS_DATA = (typeof window !== 'undefined' && window.LEVELS_DATA) ? window.LEVELS_DATA : (typeof LEVELS_DATA !== 'undefined' ? LEVELS_DATA : []);
-var getLevelById = (typeof window !== 'undefined' && window.getLevelById) ? window.getLevelById : (typeof getLevelById !== 'undefined' ? getLevelById : (id) => (window.LEVELS_DATA || LEVELS_DATA).find(l => l.id === Number(id)));
+var getLevelById = (typeof window !== 'undefined' && window.getLevelById) ? window.getLevelById : (typeof getLevelById !== 'undefined' ? getLevelById : (id) => ((typeof window !== 'undefined' ? window.LEVELS_DATA : LEVELS_DATA) || []).find(l => l.id === Number(id)));
 
 class MathQuestEngine {
     constructor() {
@@ -10,12 +10,64 @@ class MathQuestEngine {
 
         // Current active session
         this.currentLevel = null;
+        this.activeBoss = null;
         this.currentQuestionIdx = 0;
         this.sessionScore = 0;
         this.sessionErrors = 0;
         this.currentStreak = 0;
         this.bestStreakInSession = 0;
         this.isAnswerLocked = false;
+    }
+
+    playSound(method, ...args) {
+        const sm = (typeof window !== 'undefined' && window.soundManager) ? window.soundManager : (typeof soundManager !== 'undefined' ? soundManager : null);
+        if (sm && typeof sm[method] === 'function') {
+            sm[method](...args);
+        }
+    }
+
+    startLevel(levelId) {
+        const level = getLevelById(levelId);
+        if (!level) return null;
+
+        this.currentLevel = level;
+        this.currentQuestionIdx = 0;
+        this.sessionScore = 0;
+        this.sessionErrors = 0;
+        this.currentStreak = 0;
+        this.bestStreakInSession = 0;
+        this.isAnswerLocked = false;
+
+        // Initialize Boss if level is a boss fight
+        if (level.isBoss && level.boss) {
+            this.activeBoss = {
+                ...level.boss,
+                currentHp: level.boss.maxHp,
+                isDefeated: false,
+                lastDamage: 0
+            };
+        } else {
+            this.activeBoss = null;
+        }
+
+        return this.getCurrentQuestion();
+    }
+
+    tickBoss(deltaSeconds) {
+        if (!this.activeBoss || this.activeBoss.isDefeated || this.isAnswerLocked) {
+            return null;
+        }
+        if (this.activeBoss.regenRate > 0) {
+            this.activeBoss.currentHp = Math.min(
+                this.activeBoss.maxHp,
+                this.activeBoss.currentHp + (this.activeBoss.regenRate * deltaSeconds)
+            );
+        }
+        return {
+            currentHp: this.activeBoss.currentHp,
+            maxHp: this.activeBoss.maxHp,
+            percent: Math.max(0, Math.min(100, (this.activeBoss.currentHp / this.activeBoss.maxHp) * 100))
+        };
     }
 
     getDefaultState() {
@@ -93,21 +145,6 @@ class MathQuestEngine {
         return Object.values(this.state.completedLevels).reduce((acc, curr) => acc + (curr.stars || 0), 0);
     }
 
-    startLevel(levelId) {
-        const level = getLevelById(levelId);
-        if (!level) return null;
-
-        this.currentLevel = level;
-        this.currentQuestionIdx = 0;
-        this.sessionScore = 0;
-        this.sessionErrors = 0;
-        this.currentStreak = 0;
-        this.bestStreakInSession = 0;
-        this.isAnswerLocked = false;
-
-        return this.getCurrentQuestion();
-    }
-
     getCurrentQuestion() {
         if (!this.currentLevel) return null;
         return this.currentLevel.questions[this.currentQuestionIdx] || null;
@@ -121,6 +158,7 @@ class MathQuestEngine {
         if (!question) return null;
 
         const isCorrect = (optionIndex === question.correct);
+        let damage = 0;
 
         if (isCorrect) {
             this.currentStreak++;
@@ -133,12 +171,26 @@ class MathQuestEngine {
             this.state.xp += gainedXp;
             this.sessionScore++;
 
+            // Boss damage calculation: 1 base damage + (0.5 * streak)
+            if (this.activeBoss && !this.activeBoss.isDefeated) {
+                const bonusPerStreak = this.activeBoss.streakBonus || 0.5;
+                damage = (this.activeBoss.baseDamage || 1.0) + (this.currentStreak * bonusPerStreak);
+                this.activeBoss.currentHp = Math.max(0, this.activeBoss.currentHp - damage);
+
+                if (this.activeBoss.currentHp <= 0) {
+                    this.activeBoss.isDefeated = true;
+                    this.playSound('bossDefeat');
+                } else {
+                    this.playSound('bossHit');
+                }
+            } else {
+                this.playSound('correct', this.currentStreak);
+            }
+
             // Check streak achievement
             if (this.currentStreak >= 5) {
                 this.unlockAchievement("streak_5");
             }
-
-            soundManager.correct(this.currentStreak);
 
             return {
                 isCorrect: true,
@@ -146,7 +198,14 @@ class MathQuestEngine {
                 explanation: question.explanation,
                 gainedXp,
                 streak: this.currentStreak,
-                heartsRemaining: this.state.hearts
+                heartsRemaining: this.state.hearts,
+                boss: this.activeBoss ? {
+                    name: this.activeBoss.name,
+                    currentHp: this.activeBoss.currentHp,
+                    maxHp: this.activeBoss.maxHp,
+                    damage,
+                    isDefeated: this.activeBoss.isDefeated
+                } : null
             };
         } else {
             this.currentStreak = 0;
@@ -154,7 +213,7 @@ class MathQuestEngine {
             this.state.hearts = Math.max(0, this.state.hearts - 1);
             this.saveState();
 
-            soundManager.wrong();
+            this.playSound('wrong');
 
             return {
                 isCorrect: false,
@@ -162,13 +221,26 @@ class MathQuestEngine {
                 explanation: question.explanation,
                 gainedXp: 0,
                 streak: 0,
-                heartsRemaining: this.state.hearts
+                heartsRemaining: this.state.hearts,
+                boss: this.activeBoss ? {
+                    name: this.activeBoss.name,
+                    currentHp: this.activeBoss.currentHp,
+                    maxHp: this.activeBoss.maxHp,
+                    damage: 0,
+                    isDefeated: this.activeBoss.isDefeated
+                } : null
             };
         }
     }
 
     nextQuestion() {
         this.isAnswerLocked = false;
+        
+        // If boss was defeated, can transition to victory directly
+        if (this.activeBoss && this.activeBoss.isDefeated) {
+            return { finished: true, results: this.finishLevel() };
+        }
+
         this.currentQuestionIdx++;
         if (this.currentQuestionIdx >= this.currentLevel.questions.length) {
             return { finished: true, results: this.finishLevel() };
@@ -181,49 +253,68 @@ class MathQuestEngine {
         const accuracy = (this.sessionScore / totalQuestions);
 
         let stars = 1;
-        if (accuracy >= 1.0 && this.sessionErrors === 0) {
-            stars = 3;
-        } else if (accuracy >= 0.8) {
-            stars = 2;
+        let isBossSuccess = true;
+
+        if (this.activeBoss) {
+            if (this.activeBoss.isDefeated) {
+                // Defeated the boss!
+                stars = (this.sessionErrors === 0) ? 3 : 2;
+            } else {
+                // Boss survived!
+                isBossSuccess = false;
+                stars = 0;
+            }
+        } else {
+            if (accuracy >= 1.0 && this.sessionErrors === 0) {
+                stars = 3;
+            } else if (accuracy >= 0.8) {
+                stars = 2;
+            }
         }
 
         // Completion XP bonus
-        let bonusXp = 30 + (stars * 10);
+        let bonusXp = isBossSuccess ? (40 + (stars * 15)) : 10;
         this.state.xp += bonusXp;
 
-        // Unlock next level
+        // Unlock next level only if normal level passed or boss was defeated
         const currentId = this.currentLevel.id;
-        if (currentId >= this.state.unlockedLevel && currentId < LEVELS_DATA.length) {
+        if (isBossSuccess && currentId >= this.state.unlockedLevel && currentId < LEVELS_DATA.length) {
             this.state.unlockedLevel = currentId + 1;
         }
 
-        // Record stars
-        const prevStars = this.state.completedLevels[currentId]?.stars || 0;
-        this.state.completedLevels[currentId] = {
-            completed: true,
-            stars: Math.max(prevStars, stars),
-            score: this.sessionScore,
-            highStreak: Math.max(this.state.completedLevels[currentId]?.highStreak || 0, this.bestStreakInSession)
-        };
+        // Record stars if boss defeated or normal level
+        if (isBossSuccess) {
+            const prevStars = this.state.completedLevels[currentId]?.stars || 0;
+            this.state.completedLevels[currentId] = {
+                completed: true,
+                stars: Math.max(prevStars, stars),
+                score: this.sessionScore,
+                highStreak: Math.max(this.state.completedLevels[currentId]?.highStreak || 0, this.bestStreakInSession)
+            };
 
-        // Check Achievements
-        this.unlockAchievement("first_step");
-        if (stars === 3) {
-            this.unlockAchievement("perfect_level");
-        }
-        if (this.isLevelUnlocked(10)) {
-            this.unlockAchievement("arithmetic_master");
-        }
-        if (this.isLevelUnlocked(20)) {
-            this.unlockAchievement("algebra_sorcerer");
-        }
-        if (currentId === 30 && stars >= 1) {
-            this.unlockAchievement("calculus_god");
+            // Check Achievements
+            this.unlockAchievement("first_step");
+            if (stars === 3) {
+                this.unlockAchievement("perfect_level");
+            }
+            if (this.isLevelUnlocked(10)) {
+                this.unlockAchievement("arithmetic_master");
+            }
+            if (this.isLevelUnlocked(20)) {
+                this.unlockAchievement("algebra_sorcerer");
+            }
+            if (currentId === 30 && stars >= 1) {
+                this.unlockAchievement("calculus_god");
+            }
         }
 
         this.saveState();
 
-        soundManager.victory();
+        if (isBossSuccess) {
+            this.playSound('victory');
+        } else {
+            this.playSound('defeat');
+        }
 
         return {
             levelId: currentId,
@@ -234,7 +325,10 @@ class MathQuestEngine {
             bonusXp,
             totalXp: this.state.xp,
             bestStreak: this.bestStreakInSession,
-            isNextUnlocked: this.state.unlockedLevel > currentId
+            isNextUnlocked: this.state.unlockedLevel > currentId,
+            isBoss: !!this.activeBoss,
+            bossDefeated: this.activeBoss ? this.activeBoss.isDefeated : false,
+            bossName: this.activeBoss ? this.activeBoss.name : null
         };
     }
 
@@ -257,4 +351,7 @@ var gameEngine = new MathQuestEngine();
 if (typeof window !== 'undefined') {
     window.MathQuestEngine = MathQuestEngine;
     window.gameEngine = gameEngine;
+}
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { MathQuestEngine, gameEngine };
 }

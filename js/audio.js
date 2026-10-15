@@ -109,6 +109,20 @@ class SoundFX {
         this.playTone(520, 'sine', 0.1, 0.1, 0);
         this.playTone(680, 'sine', 0.15, 0.12, 0.06);
     }
+
+    bossHit() {
+        if (!this.enabled) return;
+        this.playTone(140, 'triangle', 0.1, 0.2, 0);
+        this.playTone(90, 'sawtooth', 0.25, 0.25, 0.04);
+    }
+
+    bossDefeat() {
+        if (!this.enabled) return;
+        const notes = [220, 277.18, 329.63, 440, 554.37, 659.25, 880];
+        notes.forEach((freq, idx) => {
+            this.playTone(freq, 'triangle', 0.2, 0.18, idx * 0.08);
+        });
+    }
 }
 
 var soundManager = new SoundFX();
