@@ -348,24 +348,27 @@
 
             // 3. Avatar recoil
             const avatar = document.getElementById('mockup-avatar-img');
-            avatar.style.transform = 'rotate(-28deg) translateX(-14px) scale(0.88)';
-            avatar.style.filter = 'brightness(1.4) drop-shadow(0 0 16px rgba(239,68,68,0.9))';
+            avatar.style.transform = 'rotate(-32deg) translateX(-28px) scale(0.84)';
+            avatar.style.filter = 'brightness(1.7) drop-shadow(0 0 24px rgba(239,68,68,0.95))';
             setTimeout(() => {
-                avatar.style.transform = 'rotate(14deg) scale(1.04)';
+                avatar.style.transform = 'rotate(16deg) translateX(12px) scale(1.06)';
                 setTimeout(() => {
-                    avatar.style.transform = 'rotate(0deg) scale(1)';
-                    avatar.style.filter = '';
-                }, 150);
-            }, 150);
+                    if (mockupHp <= 0) {
+                        avatar.style.transform = 'rotate(-90deg) translateY(32px) scale(0.88)';
+                        avatar.style.filter = 'grayscale(0.6) brightness(0.85) contrast(1.1)';
+                    } else {
+                        avatar.style.transform = 'rotate(0deg) scale(1)';
+                        avatar.style.filter = '';
+                    }
+                }, 160);
+            }, 160);
 
             // 4. Damage popup
             const popup = document.getElementById('mockup-damage-popup');
             popup.textContent = '-2.5 HP';
             popup.classList.remove('hidden');
-            popup.style.animation = 'none';
             void popup.offsetWidth;
-            popup.style.animation = '';
-            setTimeout(() => popup.classList.add('hidden'), 800);
+            setTimeout(() => popup.classList.add('hidden'), 900);
 
             // 5. HP Bar reduction
             mockupHp = Math.max(0, mockupHp - 2.5);
@@ -385,17 +388,15 @@
                     speech.textContent = hits[Math.floor(Math.random() * hits.length)];
                 }
             }
-
-            if (mockupHp <= 0) {
-                avatar.style.filter = 'grayscale(0.4) brightness(0.9)';
-            }
         }
 
         function resetMockupHp() {
             mockupHp = 20.0;
             document.getElementById('mockup-hp-bar').style.width = '100%';
             document.getElementById('mockup-hp-text').textContent = '20 / 20 HP';
-            document.getElementById('mockup-avatar-img').style.filter = '';
+            const avatar = document.getElementById('mockup-avatar-img');
+            avatar.style.filter = '';
+            avatar.style.transform = '';
             const speech = document.getElementById('mockup-speech-text');
             if (speech && ENEMIES[currentTarget]) speech.textContent = ENEMIES[currentTarget].intro;
         }

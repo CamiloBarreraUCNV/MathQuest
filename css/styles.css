@@ -630,29 +630,34 @@ body {
 /* Center Stage Area: Character & Slap & Comic Bubble */
 .stage-center-area {
     position: absolute;
-    bottom: 40px;
+    bottom: 36px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 5;
+    pointer-events: none;
 }
 
 .comic-speech-bubble {
-    position: absolute;
-    top: -24px;
-    left: 125px;
+    position: relative;
+    margin-bottom: 12px;
     background: #fefce8;
     color: #0f172a;
-    border: 2px solid #0f172a;
-    border-radius: 20px;
-    padding: 8px 16px;
+    border: 2.5px solid #0f172a;
+    border-radius: 18px;
+    padding: 8px 18px;
     font-family: 'Fredoka', sans-serif;
     font-size: 1.05rem;
     font-weight: 800;
-    white-space: nowrap;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    line-height: 1.35;
+    text-align: center;
+    max-width: 320px;
+    width: max-content;
+    white-space: normal;
+    word-break: break-word;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
     animation: speechFloat 2.5s ease-in-out infinite;
     z-index: 15;
 }
@@ -660,7 +665,8 @@ body {
 .speech-tail {
     position: absolute;
     bottom: -9px;
-    left: 18px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 0;
     height: 0;
     border-left: 8px solid transparent;
@@ -688,7 +694,7 @@ body {
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    transition: transform 0.15s ease;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .boss-avatar img {
@@ -698,6 +704,196 @@ body {
     filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.65));
     transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     pointer-events: none;
+}
+
+/* Big Cartoon Slap Hand Animation */
+.slap-hand {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    font-size: 6.5rem;
+    pointer-events: none;
+    z-index: 35;
+    margin-top: -3.25rem;
+    margin-left: -3.25rem;
+    filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.8));
+    transform-origin: bottom right;
+    display: none;
+}
+
+.slap-hand:not(.hidden) {
+    display: block;
+}
+
+.slap-hand.animate-slap {
+    animation: cartoonSlapSwing 0.45s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+}
+
+@keyframes cartoonSlapSwing {
+    0% {
+        opacity: 0;
+        transform: translate(95px, -45px) rotate(60deg) scale(1.8);
+    }
+    25% {
+        opacity: 1;
+        transform: translate(30px, -15px) rotate(25deg) scale(1.4);
+    }
+    45% {
+        opacity: 1;
+        transform: translate(-30px, 0px) rotate(-35deg) scale(1.25);
+    }
+    70% {
+        opacity: 0.9;
+        transform: translate(-70px, 20px) rotate(-55deg) scale(1.05);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-105px, 40px) rotate(-75deg) scale(0.8);
+    }
+}
+
+/* Comic Impact Burst "¡ZAS!" */
+.slap-impact {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #facc15;
+    color: #0f172a;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 1.85rem;
+    font-weight: 900;
+    padding: 8px 22px;
+    border-radius: 16px;
+    border: 3.5px solid #854d0e;
+    box-shadow: 0 0 35px rgba(250, 204, 21, 0.95), 0 8px 20px rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+    z-index: 40;
+    white-space: nowrap;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+    display: none;
+}
+
+.slap-impact:not(.hidden) {
+    display: block;
+    animation: comicBurstPop 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes comicBurstPop {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.2) rotate(-20deg);
+    }
+    30% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.4) rotate(8deg);
+    }
+    60% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.15) rotate(-4deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -75%) scale(0.9) rotate(0deg);
+    }
+}
+
+/* Large Floating Damage Popup */
+.boss-damage-popup {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    color: #ffffff;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 900;
+    font-size: 1.6rem;
+    padding: 6px 18px;
+    border-radius: 9999px;
+    border: 2.5px solid #ffffff;
+    box-shadow: 0 0 25px rgba(239, 68, 68, 0.9), 0 6px 16px rgba(0, 0, 0, 0.6);
+    pointer-events: none;
+    z-index: 42;
+    white-space: nowrap;
+    display: none;
+}
+
+.boss-damage-popup:not(.hidden) {
+    display: block;
+    animation: comicDamagePop 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes comicDamagePop {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(15px) scale(0.5);
+    }
+    25% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-10px) scale(1.25);
+    }
+    60% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-35px) scale(1.05);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-65px) scale(0.85);
+    }
+}
+
+/* Dramatic Avatar Recoil on Slap */
+.boss-avatar.slapped {
+    animation: cartoonAvatarRecoil 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes cartoonAvatarRecoil {
+    0% {
+        transform: scale(1) rotate(0deg);
+        filter: brightness(1);
+    }
+    20% {
+        transform: translateX(-28px) rotate(-32deg) scale(0.84);
+        filter: brightness(1.7) drop-shadow(0 0 24px rgba(239, 68, 68, 0.95));
+    }
+    50% {
+        transform: translateX(12px) rotate(16deg) scale(1.06);
+        filter: brightness(1.2);
+    }
+    75% {
+        transform: translateX(-6px) rotate(-8deg) scale(0.96);
+    }
+    100% {
+        transform: translateX(0) rotate(0deg) scale(1);
+        filter: brightness(1);
+    }
+}
+
+/* Defeated Knockout Pose */
+.boss-avatar.defeated {
+    transform: rotate(-90deg) translateY(32px) scale(0.88) !important;
+    filter: grayscale(0.6) brightness(0.85) contrast(1.1) !important;
+    transition: transform 0.6s cubic-bezier(0.18, 0.89, 0.32, 1.28), filter 0.6s ease;
+}
+
+.defeated-stars-burst {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2.2rem;
+    animation: starsSpin 1.8s linear infinite;
+    z-index: 30;
+    pointer-events: none;
+    text-shadow: 0 0 12px rgba(250, 204, 21, 0.95);
+    white-space: nowrap;
+}
+
+@keyframes starsSpin {
+    0% { transform: translateX(-50%) rotate(0deg) scale(0.9); }
+    50% { transform: translateX(-50%) rotate(180deg) scale(1.15); }
+    100% { transform: translateX(-50%) rotate(360deg) scale(0.9); }
 }
 
 /* Mechanic Pill Floating at Bottom of Stage */

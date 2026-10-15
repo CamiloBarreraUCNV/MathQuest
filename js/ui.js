@@ -451,9 +451,11 @@ class MathQuestUI {
 
                 const bossAvatarEl = document.getElementById('boss-avatar');
                 if (bossAvatarEl) {
-                    if (gameEngine.activeBoss.isDefeated) {
-                        bossAvatarEl.textContent = gameEngine.activeBoss.avatarDefeated || '😵';
-                    } else if (gameEngine.activeBoss.avatarImg) {
+                    bossAvatarEl.classList.remove('defeated', 'slapped');
+                    const oldStars = document.getElementById('defeated-stars');
+                    if (oldStars) oldStars.remove();
+
+                    if (gameEngine.activeBoss.avatarImg) {
                         bossAvatarEl.innerHTML = `<img src="${gameEngine.activeBoss.avatarImg}" alt="${gameEngine.activeBoss.name}" style="width: 100%; height: 100%; object-fit: contain; pointer-events: none;">`;
                     } else {
                         bossAvatarEl.textContent = gameEngine.activeBoss.avatar || '👾';
@@ -609,9 +611,17 @@ class MathQuestUI {
                     avatar.classList.add('slapped');
                     setTimeout(() => avatar.classList.remove('slapped'), 480);
 
-                    // If defeated, show knocked out avatar
+                    // If defeated, show knocked out avatar with fallen pose and dizzy stars
                     if (result.boss.isDefeated) {
-                        avatar.textContent = (gameEngine.activeBoss && gameEngine.activeBoss.avatarDefeated) || '😵';
+                        avatar.classList.add('defeated');
+                        let starsEl = document.getElementById('defeated-stars');
+                        if (!starsEl) {
+                            starsEl = document.createElement('div');
+                            starsEl.id = 'defeated-stars';
+                            starsEl.className = 'defeated-stars-burst';
+                            starsEl.innerHTML = '💫 😵 💫';
+                            avatar.parentElement.appendChild(starsEl);
+                        }
                     }
                 }
 
@@ -620,10 +630,8 @@ class MathQuestUI {
                 if (popup) {
                     popup.textContent = `-${result.boss.damage.toFixed(1)} HP`;
                     popup.classList.remove('hidden');
-                    popup.style.animation = 'none';
                     void popup.offsetWidth; // trigger reflow
-                    popup.style.animation = '';
-                    setTimeout(() => popup.classList.add('hidden'), 850);
+                    setTimeout(() => popup.classList.add('hidden'), 900);
                 }
 
                 // Comic speech bubble hit reaction
@@ -643,6 +651,10 @@ class MathQuestUI {
         const titleEl = document.getElementById('feedback-title');
         const explanationEl = document.getElementById('feedback-explanation');
         const gainedXpEl = document.getElementById('feedback-xp');
+        const continueBtn = document.getElementById('feedback-continue-btn');
+        if (continueBtn) {
+            continueBtn.textContent = (result.boss && result.boss.isDefeated) ? '🏆 ¡Reclamar Victoria!' : 'Continuar';
+        }
 
         if (result.isCorrect) {
             drawer.className = 'feedback-drawer success';

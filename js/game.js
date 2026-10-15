@@ -70,12 +70,30 @@ class MathQuestEngine {
                     questions: pool
                 };
             } else {
-                // Regular level with enemy (Level 1): use the level's own questions
-                this.currentLevel = level;
+                // Shuffle questions so they appear in a fresh random order every time
+                const pool = [...(level.questions || [])];
+                for (let i = pool.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [pool[i], pool[j]] = [pool[j], pool[i]];
+                }
+
+                this.currentLevel = {
+                    ...level,
+                    questions: pool
+                };
             }
         } else {
+            // Non-combat levels: also shuffle questions for variety
+            const pool = [...(level.questions || [])];
+            for (let i = pool.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pool[i], pool[j]] = [pool[j], pool[i]];
+            }
             this.activeBoss = null;
-            this.currentLevel = level;
+            this.currentLevel = {
+                ...level,
+                questions: pool
+            };
         }
 
         return this.getCurrentQuestion();
@@ -264,8 +282,8 @@ class MathQuestEngine {
     nextQuestion() {
         this.isAnswerLocked = false;
         
-        // If boss was defeated in a boss level, transition to victory directly
-        if (this.activeBoss && this.activeBoss.isDefeated && this.currentLevel.isBoss) {
+        // If enemy or boss was defeated, transition to victory directly!
+        if (this.activeBoss && this.activeBoss.isDefeated) {
             return { finished: true, results: this.finishLevel() };
         }
 
@@ -278,25 +296,31 @@ class MathQuestEngine {
 
     finishLevel() {
         const totalQuestions = this.currentLevel.questions.length;
-        const isBossFight = !!(this.activeBoss && this.currentLevel.isBoss);
+        const hasCombat = !!this.activeBoss;
         const answeredCount = Math.max(1, this.sessionScore + this.sessionErrors);
-        const displayTotal = isBossFight ? answeredCount : totalQuestions;
+        const displayTotal = hasCombat ? answeredCount : totalQuestions;
         const accuracy = (this.sessionScore / displayTotal);
 
         let stars = 1;
         let isSuccess = true;
 
-        if (isBossFight) {
+        if (hasCombat) {
             if (this.activeBoss.isDefeated) {
-                // Defeated the boss!
+                // Defeated the enemy or boss!
                 stars = (this.sessionErrors === 0) ? 3 : 2;
+                isSuccess = true;
             } else {
-                // Boss survived!
-                isSuccess = false;
-                stars = 0;
+                if (this.currentLevel.isBoss) {
+                    // Boss survived!
+                    isSuccess = false;
+                    stars = 0;
+                } else {
+                    stars = Math.max(1, Math.round(accuracy * 3));
+                    isSuccess = accuracy >= 0.6;
+                }
             }
         } else {
-            // Normal level or enemy level (e.g. Level 1)
+            // Normal level without enemy
             if (accuracy >= 1.0 && this.sessionErrors === 0) {
                 stars = 3;
             } else if (accuracy >= 0.75) {
