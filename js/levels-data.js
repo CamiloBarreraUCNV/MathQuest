@@ -190,7 +190,7 @@ var LEVELS_DATA = [
                 <p><strong>Números Impares:</strong> Al dividirlos en pares siempre sobra uno. Terminan en $1, 3, 5, 7, 9$.</p>
                 <p>En la <strong>recta numérica</strong>, los números crecen hacia la derecha:</p>
                 <div class="theory-visual">
-                    <span>$$\\leftarrow\\quad 0 \\quad-\\quad 1 \\quad-\\quad 2 \\quad-\\quad 3 \\quad-\\quad 4 \\quad-\\quad 5 \\quad\\rightarrow$$</span>
+                    <span>$$\\leftarrow\\, 0 - 1 - 2 - 3 - 4 \\,\\rightarrow$$</span>
                 </div>
             `
         },
