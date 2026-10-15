@@ -1130,10 +1130,10 @@ body {
    PANTALLA DE VICTORIA & DERROTA
    ========================================== */
 .result-view {
-    max-width: 480px;
+    max-width: 520px;
     width: 92%;
     margin: 40px auto;
-    padding: 36px 28px;
+    padding: 36px 24px;
     text-align: center;
     background: var(--bg-card);
     border: 2px solid var(--border-color);
@@ -1242,8 +1242,26 @@ body {
 }
 
 .actions-row .btn-3d {
-    flex: 1;
-    min-width: 120px;
+    flex: 1 1 180px;
+    min-width: 0;
+    padding: 12px 14px;
+    font-size: 0.94rem;
+    letter-spacing: 0.02em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    .actions-row {
+        flex-direction: column;
+    }
+    .actions-row .btn-3d {
+        width: 100%;
+        flex: none;
+    }
 }
 
 /* ==========================================
