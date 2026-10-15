@@ -46,8 +46,29 @@ class MathQuestEngine {
                 isDefeated: false,
                 lastDamage: 0
             };
+
+            // Gather all questions from previous levels in the same world
+            const levelsList = (typeof window !== 'undefined' ? window.LEVELS_DATA : LEVELS_DATA) || [];
+            const prevLevels = levelsList.filter(l => l.worldId === level.worldId && l.id < level.id);
+            const allPrevQuestions = prevLevels.flatMap(l => l.questions || []);
+
+            // Combine previous levels' questions with boss level questions
+            const combined = [...allPrevQuestions, ...(level.questions || [])];
+
+            // Fisher-Yates shuffle
+            const pool = [...combined];
+            for (let i = pool.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [pool[i], pool[j]] = [pool[j], pool[i]];
+            }
+
+            this.currentLevel = {
+                ...level,
+                questions: pool
+            };
         } else {
             this.activeBoss = null;
+            this.currentLevel = level;
         }
 
         return this.getCurrentQuestion();
@@ -250,7 +271,9 @@ class MathQuestEngine {
 
     finishLevel() {
         const totalQuestions = this.currentLevel.questions.length;
-        const accuracy = (this.sessionScore / totalQuestions);
+        const answeredCount = Math.max(1, this.sessionScore + this.sessionErrors);
+        const displayTotal = this.activeBoss ? answeredCount : totalQuestions;
+        const accuracy = (this.sessionScore / displayTotal);
 
         let stars = 1;
         let isBossSuccess = true;
@@ -320,7 +343,7 @@ class MathQuestEngine {
             levelId: currentId,
             levelTitle: this.currentLevel.title,
             score: this.sessionScore,
-            total: totalQuestions,
+            total: displayTotal,
             stars,
             bonusXp,
             totalXp: this.state.xp,

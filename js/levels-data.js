@@ -118,6 +118,111 @@ var LEVELS_DATA = [
                 correct: 1,
                 explanation: "El 7 representa la menor cantidad entre las opciones.",
                 hint: "¿Cuál aparece primero al contar desde el 1?"
+            },
+            {
+                prompt: "¿Qué número está justo ANTES del 15 en la recta de conteo?",
+                options: ["14", "16", "13", "12"],
+                correct: 0,
+                explanation: "El número anterior (antecesor) de 15 es $15 - 1 = 14$.",
+                hint: "Réstale 1 al 15."
+            },
+            {
+                prompt: "¿Cuántos dedos hay en total en dos manos humanas juntas?",
+                options: ["5", "8", "10", "12"],
+                correct: 2,
+                explanation: "Cada mano tiene 5 dedos, por lo que $5 + 5 = 10$ dedos en total (una decena).",
+                hint: "Cuenta los dedos de tus dos manos."
+            },
+            {
+                prompt: "¿Qué número se forma con 2 decenas y 4 unidades?",
+                options: ["42", "24", "204", "6"],
+                correct: 1,
+                explanation: "2 decenas valen 20, más 4 unidades: $20 + 4 = 24$.",
+                hint: "El 2 va en las decenas y el 4 en las unidades."
+            },
+            {
+                prompt: "Contando de 2 en 2: $2, 4, 6, 8, \\_\\_\\_$. ¿Qué número sigue?",
+                options: ["9", "10", "12", "14"],
+                correct: 1,
+                explanation: "Sumando 2 unidades al 8 obtenemos: $8 + 2 = 10$.",
+                hint: "Avanza dos pasos después del 8."
+            },
+            {
+                prompt: "¿Cuántos círculos azules hay aquí?: 🔵 🔵 🔵 🔵 🔵 🔵",
+                options: ["5", "7", "6", "8"],
+                correct: 2,
+                explanation: "Contamos los círculos uno a uno: 1, 2, 3, 4, 5 y 6.",
+                hint: "Cuéntalos despacio: hay más de 5."
+            },
+            {
+                prompt: "¿Cuál es el número sucesor de 19?",
+                options: ["20", "18", "21", "29"],
+                correct: 0,
+                explanation: "El sucesor es el número inmediatamente posterior: $19 + 1 = 20$.",
+                hint: "¿Qué número viene después de contar hasta 19?"
+            },
+            {
+                prompt: "¿Qué número falta en la secuencia: $11, 12, \\_\\_\\_, 14, 15$?",
+                options: ["16", "13", "10", "17"],
+                correct: 1,
+                explanation: "La serie avanza de uno en uno: después del 12 va el 13.",
+                hint: "Suma 1 al 12."
+            },
+            {
+                prompt: "Si una canasta tiene 8 peras y te comes 1, ¿cuántas peras quedan?",
+                options: ["9", "6", "7", "8"],
+                correct: 2,
+                explanation: "Al quitar 1 pera de las 8 originales: $8 - 1 = 7$.",
+                hint: "Cuenta hacia atrás un paso desde el 8."
+            },
+            {
+                prompt: "¿Qué cantidad representa exactamente 3 decenas?",
+                options: ["13", "30", "3", "300"],
+                correct: 1,
+                explanation: "Cada decena vale 10, así que 3 decenas son $10 + 10 + 10 = 30$.",
+                hint: "Multiplica 3 por 10."
+            },
+            {
+                prompt: "Contando hacia atrás desde el 5: $5, 4, 3, 2, \\_\\_\\_$. ¿Qué número falta?",
+                options: ["1", "0", "6", "3"],
+                correct: 0,
+                explanation: "La cuenta regresiva continúa restando 1: $2 - 1 = 1$.",
+                hint: "El número antes del 2 al contar hacia atrás."
+            },
+            {
+                prompt: "¿Cuál de los siguientes números representa la MAYOR cantidad?",
+                options: ["18", "25", "14", "21"],
+                correct: 1,
+                explanation: "25 tiene dos decenas y 5 unidades, superando a 18, 14 y 21.",
+                hint: "Compara las decenas y unidades de cada número."
+            },
+            {
+                prompt: "Contando de 5 en 5: $5, 10, 15, 20, \\_\\_\\_$. ¿Qué número sigue?",
+                options: ["22", "24", "25", "30"],
+                correct: 2,
+                explanation: "Sumando 5 unidades a 20: $20 + 5 = 25$.",
+                hint: "Suma 5 al número 20."
+            },
+            {
+                prompt: "En el número 37, ¿cuál es el dígito que ocupa la posición de las DECENAS?",
+                options: ["3", "7", "30", "10"],
+                correct: 0,
+                explanation: "En 37, el 7 son las unidades y el 3 son las decenas (representa 30).",
+                hint: "El dígito de la izquierda representa las decenas."
+            },
+            {
+                prompt: "¿Cuántos corazones hay en total?: 💖 💖 💖 💖 💖 💖 💖",
+                options: ["6", "8", "5", "7"],
+                correct: 3,
+                explanation: "Contamos los corazones de izquierda a derecha y son exactamente 7.",
+                hint: "Son 4 corazones más 3 corazones."
+            },
+            {
+                prompt: "Si partes del número 0 y sumas 1 nueve veces seguidas, ¿a qué número llegas?",
+                options: ["8", "9", "10", "11"],
+                correct: 1,
+                explanation: "Partiendo de 0 y sumando 1 nueve veces: $0 + 9 \\times 1 = 9$.",
+                hint: "Cada suma de 1 avanza un número."
             }
         ]
     },
@@ -174,6 +279,111 @@ var LEVELS_DATA = [
                 correct: 0,
                 explanation: "25 tiene 5 unidades más que 20, por lo que $25 > 20$ es verdad.",
                 hint: "25 contiene dos decenas y cinco unidades."
+            },
+            {
+                prompt: "¿Qué símbolo matemático completa correctamente: $7 + 3 \\; \\_\\_\\_ \\; 10$?",
+                options: ["<", ">", "=", "+"],
+                correct: 2,
+                explanation: "$7 + 3 = 10$, por lo que ambos lados tienen exactamente el mismo valor: $10 = 10$.",
+                hint: "Calcula primero la suma de la izquierda."
+            },
+            {
+                prompt: "¿Cuál es el número MENOR del siguiente grupo: $32, 19, 45, 28$?",
+                options: ["32", "19", "45", "28"],
+                correct: 1,
+                explanation: "19 tiene solo 1 decena y 9 unidades, siendo menor que los demás.",
+                hint: "Compara el dígito de las decenas de cada número."
+            },
+            {
+                prompt: "¿Qué valor de $x$ hace VERDADERA la expresión $x > 15$?",
+                options: ["12", "15", "14", "18"],
+                correct: 3,
+                explanation: "18 es estrictamente mayor que 15 ($18 > 15$).",
+                hint: "Busca el número que sea más grande que 15."
+            },
+            {
+                prompt: "Ordena los números de MAYOR a MENOR: $8, 21, 15$",
+                options: ["$21 > 15 > 8$", "$8 > 15 > 21$", "$15 > 21 > 8$", "$21 > 8 > 15$"],
+                correct: 0,
+                explanation: "El más grande es 21, le sigue 15 y el menor es 8.",
+                hint: "Comienza por el número más grande."
+            },
+            {
+                prompt: "¿Cuál de las siguientes comparaciones es FALSA?",
+                options: ["$11 < 13$", "$20 > 19$", "$14 < 9$", "$8 = 8$"],
+                correct: 2,
+                explanation: "$14 < 9$ es falsa porque 14 es mayor que 9, no menor.",
+                hint: "¿14 tiene menos unidades que 9?"
+            },
+            {
+                prompt: "¿Qué relación de orden es correcta entre $4 + 2$ y $9$?",
+                options: ["$4 + 2 > 9$", "$4 + 2 = 9$", "$4 + 2 < 9$", "$4 + 2 \\ge 10$"],
+                correct: 2,
+                explanation: "$4 + 2 = 6$, y como $6 < 9$, se cumple que $4 + 2 < 9$.",
+                hint: "Suma $4 + 2$ y compara el resultado con 9."
+            },
+            {
+                prompt: "Si Lucía tiene 12 lápices y Tomás tiene 15 lápices, ¿cuál comparación es correcta?",
+                options: ["Lucía tiene más ($12 > 15$)", "Tomás tiene más ($15 > 12$)", "Tienen igual ($12 = 15$)", "Tomás tiene menos ($15 < 12$)"],
+                correct: 1,
+                explanation: "15 es mayor que 12, por lo que Tomás tiene más lápices.",
+                hint: "Compara 15 con 12."
+            },
+            {
+                prompt: "¿Qué símbolo completa la relación: $50 \\; \\_\\_\\_ \\; 49$?",
+                options: ["<", ">", "=", "-"],
+                correct: 1,
+                explanation: "50 es una unidad mayor que 49 ($50 > 49$).",
+                hint: "50 va después de 49."
+            },
+            {
+                prompt: "¿Cuál de estos números puede colocarse en el espacio para que sea cierto: $8 < \\_\\_\\_ < 12$?",
+                options: ["7", "10", "13", "8"],
+                correct: 1,
+                explanation: "10 es mayor que 8 y menor que 12, por lo que $8 < 10 < 12$.",
+                hint: "Busca un número que esté estrictamente entre 8 y 12."
+            },
+            {
+                prompt: "Si $a = 14$ y $b = 14$, ¿cuál de las siguientes afirmaciones es correcta?",
+                options: ["$a > b$", "$a < b$", "$a = b$", "$a \\neq b$"],
+                correct: 2,
+                explanation: "Ambas variables tienen exactamente el mismo valor numérico, por lo que $a = b$.",
+                hint: "Tienen la misma cantidad."
+            },
+            {
+                prompt: "¿Cuál de las siguientes afirmaciones sobre los números 30 y 35 es verdadera?",
+                options: ["$30 > 35$", "$30 < 35$", "$30 = 35$", "$35 < 30$"],
+                correct: 1,
+                explanation: "30 es menor que 35 porque tiene 5 unidades menos.",
+                hint: "¿Cuál número está más a la izquierda en la recta?"
+            },
+            {
+                prompt: "Compara los dos resultados: $3 + 3 \\; \\_\\_\\_ \\; 2 + 4$",
+                options: [">", "<", "=", "+"],
+                correct: 2,
+                explanation: "Ambas operaciones dan 6 ($3+3=6$ y $2+4=6$), por lo tanto $6 = 6$.",
+                hint: "Calcula el valor de cada lado."
+            },
+            {
+                prompt: "¿Cuál de los siguientes números es MAYOR que 40 y MENOR que 45?",
+                options: ["39", "40", "42", "46"],
+                correct: 2,
+                explanation: "42 cumple ambas condiciones: $40 < 42 < 45$.",
+                hint: "Debe estar entre 41 y 44."
+            },
+            {
+                prompt: "¿Cuál de estas listas está ordenada correctamente de MENOR a MAYOR?",
+                options: ["$5, 12, 9$", "$2, 8, 14$", "$20, 10, 5$", "$7, 6, 8$"],
+                correct: 1,
+                explanation: "$2 < 8 < 14$ sigue un orden estrictamente creciente.",
+                hint: "Cada número debe ser mayor que el anterior."
+            },
+            {
+                prompt: "Si en una carrera el corredor A tardó 18 segundos y el corredor B tardó 22 segundos, ¿quién fue más rápido?",
+                options: ["El corredor A ($18 < 22$ s)", "El corredor B ($22 > 18$ s)", "Llegaron empatados", "No se puede saber"],
+                correct: 0,
+                explanation: "En carreras, el más rápido es quien tarda MENOS tiempo ($18 < 22$).",
+                hint: "Menor tiempo significa mayor velocidad."
             }
         ]
     },
@@ -229,6 +439,111 @@ var LEVELS_DATA = [
                 correct: 1,
                 explanation: "Son: 1, 3, 5, 7 y 9 (exactamente 5 números impares).",
                 hint: "Cuéntalos: 1, 3, 5, 7, 9."
+            },
+            {
+                prompt: "Si en la recta numérica estás en el número 9 y retrocedes 4 saltos a la izquierda, ¿dónde quedas?",
+                options: ["4", "5", "6", "13"],
+                correct: 1,
+                explanation: "Retroceder a la izquierda significa restar: $9 - 4 = 5$.",
+                hint: "Resta 4 unidades al 9."
+            },
+            {
+                prompt: "¿Cuál de los siguientes números termina en cifra PAR?",
+                options: ["35", "47", "52", "61"],
+                correct: 2,
+                explanation: "52 termina en 2, que es una cifra par.",
+                hint: "Las cifras pares son 0, 2, 4, 6 y 8."
+            },
+            {
+                prompt: "¿Qué número PAR se encuentra exactamente entre el 11 y el 13?",
+                options: ["10", "12", "14", "15"],
+                correct: 1,
+                explanation: "El número entero entre 11 y 13 es 12, el cual es par ($6 + 6$).",
+                hint: "Es el número que sigue al 11."
+            },
+            {
+                prompt: "¿Qué sucede al sumar un número par con un número impar (por ejemplo, $2 + 3$)?",
+                options: ["Siempre da un número par", "Siempre da un número impar", "Siempre da 0", "Depende de los números"],
+                correct: 1,
+                explanation: "Al sumar un par y un impar el resultado siempre es impar ($2 + 3 = 5$, $4 + 7 = 11$).",
+                hint: "Prueba sumando $2 + 1$ o $4 + 3$."
+            },
+            {
+                prompt: "¿Cuál es el MENOR número par positivo?",
+                options: ["0", "1", "2", "4"],
+                correct: 2,
+                explanation: "El primer número par mayor que cero es el 2.",
+                hint: "Es el primer número que se reparte exactamente en 2 partes de 1."
+            },
+            {
+                prompt: "En la recta numérica, ¿qué número está exactamente en el punto medio entre el 2 y el 6?",
+                options: ["3", "4", "5", "7"],
+                correct: 1,
+                explanation: "El promedio es $(2 + 6) / 2 = 8 / 2 = 4$. Está a 2 unidades de distancia de ambos.",
+                hint: "Suma 2 unidades al 2."
+            },
+            {
+                prompt: "¿Cuál de los siguientes números NO es par?",
+                options: ["16", "28", "33", "44"],
+                correct: 2,
+                explanation: "33 termina en 3 (cifra impar), por lo que no es un número par.",
+                hint: "Revisa cuál termina en número impar."
+            },
+            {
+                prompt: "¿Cuál es la distancia en unidades entre el número 3 y el número 10 en la recta numérica?",
+                options: ["6", "7", "8", "13"],
+                correct: 1,
+                explanation: "La distancia es la diferencia: $10 - 3 = 7$ unidades.",
+                hint: "Cuenta cuántos saltos hay de 3 a 10."
+            },
+            {
+                prompt: "Si sumas dos números impares (por ejemplo, $3 + 5 = 8$), el resultado obtenido es:",
+                options: ["Siempre par", "Siempre impar", "Siempre primo", "Siempre negativo"],
+                correct: 0,
+                explanation: "Dos unidades 'sobrantes' de los impares se emparejan, dando siempre un número par.",
+                hint: "Comprueba: $1+1=2$, $3+5=8$, $7+3=10$."
+            },
+            {
+                prompt: "¿Qué número impar es MAYOR que 20 y MENOR que 23?",
+                options: ["19", "21", "22", "25"],
+                correct: 1,
+                explanation: "Entre 20 y 23 están el 21 (impar) y el 22 (par). Por tanto, 21 es el impar buscado.",
+                hint: "Termina en 1."
+            },
+            {
+                prompt: "Si estás en el número 0 y das 4 saltos de 2 unidades cada uno hacia la derecha, ¿a qué número llegas?",
+                options: ["6", "8", "10", "4"],
+                correct: 1,
+                explanation: "4 saltos de 2 unidades equivalen a $4 \\times 2 = 8$.",
+                hint: "Cuenta: 2, 4, 6..."
+            },
+            {
+                prompt: "Todos los números que terminan en el dígito 0 (como 10, 20, 30...) son clasificables como:",
+                options: ["Números impares", "Números pares", "Números negativos", "Fracciones"],
+                correct: 1,
+                explanation: "Cualquier número terminado en 0 es divisible entre 2, por lo que es par.",
+                hint: "10 se divide en 5 y 5."
+            },
+            {
+                prompt: "En la recta numérica, ¿cuál de estos números está más cerca del 15?",
+                options: ["10", "12", "17", "19"],
+                correct: 2,
+                explanation: "La distancia de 17 a 15 es $|17 - 15| = 2$. Los demás están a distancias de 3, 4 o 5.",
+                hint: "Calcula cuántos pasos separan a cada opción de 15."
+            },
+            {
+                prompt: "¿Cuál de las siguientes series contiene ÚNICAMENTE números impares?",
+                options: ["$2, 4, 6, 8$", "$1, 3, 5, 7, 9$", "$1, 2, 3, 4, 5$", "$0, 2, 4, 6$"],
+                correct: 1,
+                explanation: "1, 3, 5, 7 y 9 son todos números impares que no se dividen exactamente entre 2.",
+                hint: "Ninguno debe terminar en cifra par."
+            },
+            {
+                prompt: "Si a un número par le restas 1 (por ejemplo, $8 - 1 = 7$), el resultado siempre es:",
+                options: ["Un número par", "Un número impar", "Cero", "Un número decimal"],
+                correct: 1,
+                explanation: "Al quitarle 1 a una cantidad par, se rompe el emparejamiento exacto y se obtiene un número impar.",
+                hint: "Prueba con $4 - 1 = 3$ o $10 - 1 = 9$."
             }
         ]
     },
@@ -244,7 +559,7 @@ var LEVELS_DATA = [
             name: "El Manzano Ancestral",
             title: "Guardián de la Isla de los Números",
             avatar: "🌳🍎",
-            maxHp: 6.0,
+            maxHp: 20.0,
             regenRate: 0.2, // recupera 0.2 HP cada segundo
             baseDamage: 1.0,
             streakBonus: 0.5,
@@ -267,7 +582,7 @@ var LEVELS_DATA = [
                     <li>Identificación de números pares e impares</li>
                 </ul>
                 <div class="theory-tip">
-                    🍎 <strong>Mecánica del Jefe:</strong> El árbol recupera <strong>0.2 de vida por segundo</strong>. Cada respuesta correcta le causa <strong>1 de daño</strong> más <strong>0.5 extra por racha</strong>. ¡Mantén la racha para derrotarlo antes de que sus frutos vuelvan a crecer!
+                    🍎 <strong>Mecánica del Jefe:</strong> El árbol posee <strong>20 de vida</strong> y recupera <strong>0.2 de vida por segundo</strong>. Cada respuesta correcta le causa <strong>1 de daño</strong> más <strong>0.5 extra por racha</strong>. ¡Mantén la racha para derrotarlo antes de que sus frutos vuelvan a crecer!
                 </div>
             `
         },
@@ -318,6 +633,104 @@ var LEVELS_DATA = [
                 correct: 1,
                 explanation: "2 decenas = 20 manzanas. Sumando las 6 verdes: $20 + 6 = 26$ manzanas.",
                 hint: "Una decena son 10 manzanas; 2 decenas son 20."
+            },
+            {
+                prompt: "Si el manzano tenía 16 manzanas y el viento derriba 7 al suelo, ¿cuántas manzanas quedan en el árbol?",
+                options: ["8 manzanas", "9 manzanas", "10 manzanas", "11 manzanas"],
+                correct: 1,
+                explanation: "Restamos las caídas: $16 - 7 = 9$ manzanas en el árbol.",
+                hint: "Resta 7 a 16."
+            },
+            {
+                prompt: "Una canasta tiene 11 manzanas y otra tiene 15 manzanas. ¿Cuántas manzanas le faltan a la primera para igualar a la segunda?",
+                options: ["3 manzanas", "4 manzanas", "5 manzanas", "6 manzanas"],
+                correct: 1,
+                explanation: "Calculamos la diferencia: $15 - 11 = 4$ manzanas.",
+                hint: "¿Cuánto le falta a 11 para llegar a 15?"
+            },
+            {
+                prompt: "¿Cuál de las siguientes cantidades de manzanas cosechadas es IMPAR?",
+                options: ["12 🍎", "18 🍎", "23 🍎", "30 🍎"],
+                correct: 2,
+                explanation: "23 termina en 3, cifra impar no divisible en dos partes enteras.",
+                hint: "Busca la cantidad que termine en 1, 3, 5, 7 o 9."
+            },
+            {
+                prompt: "Si ordenas las siguientes cosechas de MENOR a MAYOR: 8 🍎, 19 🍎, 13 🍎, ¿cuál es el orden correcto?",
+                options: ["$8 < 13 < 19$", "$19 < 13 < 8$", "$8 < 19 < 13$", "$13 < 8 < 19$"],
+                correct: 0,
+                explanation: "El orden creciente correcto es 8, luego 13 y finalmente 19.",
+                hint: "Comienza por la canasta que tiene menos manzanas."
+            },
+            {
+                prompt: "En una rama hay 5 manzanas y en otra rama hay exactamente el DOBLE. ¿Cuántas manzanas hay en la segunda rama?",
+                options: ["7 manzanas", "8 manzanas", "10 manzanas", "15 manzanas"],
+                correct: 2,
+                explanation: "El doble de 5 es $5 \\times 2 = 10$ manzanas.",
+                hint: "Suma $5 + 5$."
+            },
+            {
+                prompt: "El manzano hace crecer manzanas en parejas: 2, 4, 6, 8, 10... ¿Cómo se denominan estos números?",
+                options: ["Números impares", "Números pares", "Números negativos", "Números fraccionarios"],
+                correct: 1,
+                explanation: "Las cantidades agrupables de 2 en 2 sin sobrantes son números pares.",
+                hint: "Se pueden dividir entre 2 exactamente."
+            },
+            {
+                prompt: "Si tienes 3 bolsas con 4 manzanas en cada una, ¿cuántas manzanas tienes en total?",
+                options: ["7 manzanas", "10 manzanas", "12 manzanas", "14 manzanas"],
+                correct: 2,
+                explanation: "3 grupos de 4 equivalen a $3 \\times 4 = 12$ manzanas.",
+                hint: "Suma $4 + 4 + 4$."
+            },
+            {
+                prompt: "En el árbol hay 30 manzanas: la mitad son rojas y la otra mitad son verdes. ¿Cuántas manzanas rojas hay?",
+                options: ["10 manzanas", "15 manzanas", "20 manzanas", "25 manzanas"],
+                correct: 1,
+                explanation: "La mitad de 30 es $30 / 2 = 15$ manzanas rojas.",
+                hint: "¿Qué número sumado consigo mismo da 30?"
+            },
+            {
+                prompt: "En el sendero de árboles estás en el árbol número 7 y avanzas 6 posiciones a la derecha. ¿En qué árbol terminas?",
+                options: ["Árbol 11", "Árbol 12", "Árbol 13", "Árbol 14"],
+                correct: 2,
+                explanation: "Avanzar a la derecha en la recta: $7 + 6 = 13$.",
+                hint: "Suma 6 al árbol 7."
+            },
+            {
+                prompt: "¿Qué símbolo compara correctamente una canasta con $8 + 5$ manzanas frente a otra con $14$ manzanas?",
+                options: [">", "<", "=", "+"],
+                correct: 1,
+                explanation: "$8 + 5 = 13$ manzanas, y como $13 < 14$, el símbolo correcto es $<$.",
+                hint: "Calcula $8 + 5$ primero."
+            },
+            {
+                prompt: "Si el manzano tenía 20 manzanas y un recolector toma 8 manzanas, ¿cuántas manzanas quedan en el árbol?",
+                options: ["10 manzanas", "11 manzanas", "12 manzanas", "14 manzanas"],
+                correct: 2,
+                explanation: "Restamos las cosechadas: $20 - 8 = 12$ manzanas.",
+                hint: "A 20 réstale 8."
+            },
+            {
+                prompt: "¿Cuál es el número PAR inmediatamente ANTERIOR a 16 manzanas?",
+                options: ["15 manzanas", "14 manzanas", "12 manzanas", "18 manzanas"],
+                correct: 1,
+                explanation: "El par anterior a 16 se obtiene restando 2: $16 - 2 = 14$.",
+                hint: "15 es impar; el par anterior es 14."
+            },
+            {
+                prompt: "Si intentas repartir 17 manzanas en parejas exactas de 2, ¿cuántas manzanas sobran al final?",
+                options: ["No sobra ninguna", "Sobra 1 manzana", "Sobran 2 manzanas", "Sobran 3 manzanas"],
+                correct: 1,
+                explanation: "17 es impar ($8 \\times 2 + 1 = 17$), por lo que sobra exactamente 1 manzana.",
+                hint: "16 se agrupa exacto, por lo que queda una sola."
+            },
+            {
+                prompt: "El Guardián Ancestral te reta: 'Tengo un número de frutos que es mayor que 25, menor que 29 y es IMPAR'. ¿Cuántos son?",
+                options: ["26", "27", "28", "30"],
+                correct: 1,
+                explanation: "Entre 25 y 29 están 26 (par), 27 (impar) y 28 (par). El número impar es 27.",
+                hint: "Termina en 7."
             }
         ]
     },

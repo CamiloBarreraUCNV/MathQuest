@@ -408,7 +408,14 @@ class MathQuestUI {
         const barFill = document.getElementById('quiz-progress-bar-fill');
         if (barFill) barFill.style.width = `${percent}%`;
 
-        document.getElementById('quiz-question-counter').textContent = `Pregunta ${current} de ${total}`;
+        const counterEl = document.getElementById('quiz-question-counter');
+        if (counterEl) {
+            if (gameEngine.activeBoss) {
+                counterEl.textContent = `Desafío ${current} • ⚔️ Batalla de Jefe`;
+            } else {
+                counterEl.textContent = `Pregunta ${current} de ${total}`;
+            }
+        }
         document.getElementById('quiz-level-tag').textContent = `${level.icon} Nivel ${level.id}: ${level.title}`;
 
         // Boss Arena setup
