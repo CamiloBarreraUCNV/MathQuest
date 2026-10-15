@@ -366,7 +366,7 @@ class MathQuestUI {
 
         const startBtn = document.getElementById('start-challenge-btn');
         if (startBtn) {
-            startBtn.textContent = level.isBoss ? '⚔️ ¡Iniciar Batalla de Jefe!' : (level.hasEnemy ? '🏴‍☠️ ¡Desafiar al Pirata!' : '¡Comenzar Desafío!');
+            startBtn.textContent = level.isBoss ? '⚔️ ¡Iniciar Batalla de Jefe!' : (level.hasEnemy ? (level.enemy ? `🏴‍☠️ ¡Desafiar a ${level.enemy.name}!` : '🏴‍☠️ ¡Desafiar al Pirata!') : '¡Comenzar Desafío!');
         }
 
         modal.classList.remove('hidden');
@@ -625,7 +625,7 @@ class MathQuestUI {
         } else {
             drawer.className = 'feedback-drawer error';
             if (result.boss) {
-                titleEl.innerHTML = '💔 ¡Casi! Pero el jefe se regenera...';
+                titleEl.innerHTML = (result.boss.regenRate > 0) ? '💔 ¡Casi! Pero el jefe se regenera...' : '💔 ¡Casi! El enemigo sigue en pie...';
             } else {
                 titleEl.innerHTML = '💡 ¡Casi! Pero no te rindas';
             }
@@ -726,8 +726,10 @@ class MathQuestUI {
             }
         } else {
             // Normal level completed
-            if (victoryTitle) victoryTitle.innerHTML = '🎉 ¡Nivel Completado!';
-            scoreText.textContent = `Acertaste ${results.score} de ${results.total} preguntas`;
+            if (victoryTitle) victoryTitle.innerHTML = results.bossDefeated ? '🏴‍☠️ ¡Victoria Pirata!' : '🎉 ¡Nivel Completado!';
+            scoreText.textContent = (results.bossDefeated && results.bossName)
+                ? `Acertaste ${results.score} de ${results.total} preguntas • ¡Venciste a ${results.bossName}! 🍎`
+                : `Acertaste ${results.score} de ${results.total} preguntas`;
             if (retryBtn) retryBtn.textContent = '🔄 Reintentar';
 
             if (nextBtn) {

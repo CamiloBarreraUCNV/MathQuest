@@ -253,8 +253,31 @@ var LEVELS_DATA = [
         id: 2,
         worldId: "world-1",
         title: "Mayor, Menor e Igual",
-        subtitle: "Comparación de magnitudes numéricas",
+        subtitle: "¡Desafía al Capitán Manzana y compara magnitudes!",
         icon: "⚖️",
+        hasEnemy: true,
+        enemy: {
+            id: "capitan_manzana",
+            name: "Capitán Manzana",
+            title: "Comandante del Galeón Mayor y Menor",
+            avatar: "🍎⚔️",
+            avatarDefeated: "😵⚔️",
+            avatarImg: "assets/pirate-apple-captain-80s.png",
+            badge: "CAPITÁN",
+            badgeClass: "captain",
+            maxHp: 20.0,
+            regenRate: 0,
+            baseDamage: 1.0,
+            streakBonus: 0.5,
+            mechanicType: "slap",
+            mechanicTitle: "¡Duelo de Cachetadas!",
+            mechanicDesc: "✋ ¡Cada acierto le propina una bofetada al Capitán!",
+            dialogue: {
+                intro: "¡Por las barbas de Neptuno! ¡Nadie surca mis aguas sin dominar las comparaciones!",
+                hit: "¡Rayos y centellas! ¡Esa bofetada fue MAYOR que mi paciencia!",
+                defeat: "¡Mis velas han caído! ¡Has demostrado ser el amo de las magnitudes!"
+            }
+        },
         theory: {
             title: "El Secreto de los Signos: > y <",
             content: `
@@ -414,8 +437,31 @@ var LEVELS_DATA = [
         id: 3,
         worldId: "world-1",
         title: "Pares, Impares y Recta",
-        subtitle: "Patrones y orden espacial",
+        subtitle: "¡Desafía a la Manzana Comandante con pares, impares y posiciones!",
         icon: "📏",
+        hasEnemy: true,
+        enemy: {
+            id: "manzana_comandante",
+            name: "Manzana Comandante",
+            title: "Comandante de la Guardia del Manzano",
+            avatar: "🍎🎖️",
+            avatarDefeated: "😵🎖️",
+            avatarImg: "assets/pirate-apple-commander-80s.png",
+            badge: "COMANDANTE",
+            badgeClass: "pirate",
+            maxHp: 30.0,
+            regenRate: 0,
+            baseDamage: 1.0,
+            streakBonus: 0.5,
+            mechanicType: "slap",
+            mechanicTitle: "¡Rompe la formación!",
+            mechanicDesc: "🎖️ ¡Acierta pares, impares y posiciones para romper su formación!",
+            dialogue: {
+                intro: "¡Tropa, formen parejas! ¡Nadie llegará al Manzano sin superar mis filas!",
+                hit: "¡Mis filas! ¡Has roto la formación!",
+                defeat: "¡Retirada! Has demostrado un dominio impecable de los números."
+            }
+        },
         theory: {
             title: "Pares, Impares y la Recta Numérica",
             content: `

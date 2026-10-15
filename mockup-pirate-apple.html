@@ -138,50 +138,57 @@
 <body>
 
     <div class="showcase-header">
-        <h1>🏴‍☠️ Asset Mockup: Manzana Pirata</h1>
-        <p>Diseño conceptual, sprite 2D de alta resolución y demostración interactiva de bofetada.</p>
+        <h1>🏴‍☠️ Galería de Enemigos: Piratas del Mundo 1</h1>
+        <p>Assets oficiales estilo años 80 y demostración interactiva de bofetadas para Nivel 1 y Nivel 2.</p>
     </div>
 
     <div class="mockup-grid">
-        <!-- Tarjeta 1: Asset Ilustrado Estilo Años 80 -->
+        <!-- Tarjeta 1: Nivel 1 - Manzana Pirata -->
         <div class="asset-card">
-            <h3>🎨 Asset Oficial (Estilo Años 80)</h3>
+            <h3>🍎 Nivel 1: Manzana Pirata (Grumete)</h3>
             <div class="asset-preview-container">
                 <img src="assets/pirate-apple-80s.png" alt="Manzana Pirata Años 80" class="asset-preview-img" id="hires-img">
             </div>
             <p style="color: #94a3b8; font-size: 0.88rem; margin-bottom: 16px;">
-                Ilustración estilo animación clásica de los 80: trazado de tinta definido, bandana pirata, parche, sonrisa traviesa y sable de madera.
+                <strong>Archivo:</strong> <code>assets/pirate-apple-80s.png</code><br>
+                Corsario novato: bandana roja, parche, sonrisa pícara y sable de madera.
             </p>
             <div class="demo-btn-group">
                 <button class="btn-3d" onclick="testSlap('hires-img')">👋 Dar Cachetada</button>
             </div>
         </div>
 
-        <!-- Tarjeta 2: Especificaciones del Asset -->
+        <!-- Tarjeta 2: Nivel 2 - Capitán Manzana -->
         <div class="asset-card">
-            <h3>📜 Especificaciones de Integración</h3>
-            <div class="asset-preview-container" style="background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(15, 23, 42, 0.8) 70%); border-color: #10b981;">
-                <img src="assets/pirate-apple-80s.png" alt="Manzana Pirata Preview" class="asset-preview-img" id="vector-img" style="transform: scale(0.9);">
+            <h3>⚔️ Nivel 2: Capitán Manzana Pirata</h3>
+            <div class="asset-preview-container" style="background: radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, rgba(15, 23, 42, 0.8) 70%); border-color: #f59e0b;">
+                <img src="assets/pirate-apple-captain-80s.png" alt="Capitán Manzana Años 80" class="asset-preview-img" id="captain-img">
             </div>
             <p style="color: #94a3b8; font-size: 0.88rem; margin-bottom: 16px;">
-                Archivo: <code>assets/pirate-apple-80s.png</code><br>
-                Fondo con canal alfa transparente, resolución nítida y compatibilidad nativa con la arena de batalla.
+                <strong>Archivo:</strong> <code>assets/pirate-apple-captain-80s.png</code><br>
+                Comandante corsario: tricornio con ribete dorado, casaca azul marino con charreteras y espada curvada.
             </p>
             <div class="demo-btn-group">
-                <button class="btn-3d" onclick="testSlap('vector-img')">👋 Dar Cachetada</button>
+                <button class="btn-3d" onclick="testSlap('captain-img')">👋 Dar Cachetada</button>
             </div>
         </div>
 
         <!-- Tarjeta 3: Integración en la Interfaz de Batalla del Juego -->
         <div class="asset-card interactive-arena-card">
             <h3>🎮 Mockup de Integración en la Arena de Combate</h3>
-            <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 20px;">
-                Así se visualiza el nuevo asset directamente dentro de la barra de vida y HUD de batalla:
+            <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 16px;">
+                Selecciona al enemigo que deseas enfrentar en la arena:
             </p>
+
+            <!-- Selector de Enemigo -->
+            <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 20px;">
+                <button class="btn-3d" id="btn-select-minion" onclick="selectArenaEnemy('minion')" style="background: #4f46e5;">🍎 Nivel 1: Manzana Pirata</button>
+                <button class="btn-3d secondary" id="btn-select-captain" onclick="selectArenaEnemy('captain')">⚔️ Nivel 2: Capitán Manzana</button>
+            </div>
 
             <div class="live-arena-mockup">
                 <div class="boss-arena" style="margin-bottom: 16px;">
-                    <div class="boss-card" style="border-color: #6366f1;">
+                    <div class="boss-card" id="arena-card-border" style="border-color: #6366f1;">
                         <div class="boss-visual-row">
                             <div class="boss-avatar-wrapper" id="mockup-avatar-wrapper" style="width: 76px; height: 76px;">
                                 <img src="assets/pirate-apple-80s.png" id="mockup-avatar-img" style="width: 64px; height: 64px; object-fit: contain; border-radius: 50%;">
@@ -191,10 +198,10 @@
                             </div>
                             <div class="boss-info">
                                 <div class="boss-name-row">
-                                    <h3 class="boss-name">Manzana Pirata</h3>
-                                    <span class="boss-badge pirate">PIRATA</span>
+                                    <h3 class="boss-name" id="mockup-boss-name">Manzana Pirata</h3>
+                                    <span class="boss-badge pirate" id="mockup-boss-badge">PIRATA</span>
                                 </div>
-                                <p class="boss-title">Pirata de la Bahía Numérica</p>
+                                <p class="boss-title" id="mockup-boss-title">Pirata de la Bahía Numérica</p>
                                 <div class="boss-hp-container">
                                     <div class="boss-hp-bar" id="mockup-hp-bar" style="width: 85%;"></div>
                                     <span class="boss-hp-text" id="mockup-hp-text">17.0 / 20.0 HP</span>
@@ -222,6 +229,54 @@
     <script src="js/audio.js"></script>
     <script>
         let mockupHp = 17.0;
+        let currentTarget = 'minion';
+
+        const ENEMIES = {
+            minion: {
+                name: 'Manzana Pirata',
+                title: 'Pirata de la Bahía Numérica',
+                img: 'assets/pirate-apple-80s.png',
+                badgeText: 'PIRATA',
+                badgeClass: 'boss-badge pirate',
+                borderColor: '#6366f1'
+            },
+            captain: {
+                name: 'Capitán Manzana',
+                title: 'Comandante del Galeón Mayor y Menor',
+                img: 'assets/pirate-apple-captain-80s.png',
+                badgeText: 'CAPITÁN',
+                badgeClass: 'boss-badge captain',
+                borderColor: '#f59e0b'
+            }
+        };
+
+        function selectArenaEnemy(key) {
+            currentTarget = key;
+            const enemy = ENEMIES[key];
+            document.getElementById('mockup-avatar-img').src = enemy.img;
+            document.getElementById('mockup-boss-name').textContent = enemy.name;
+            document.getElementById('mockup-boss-title').textContent = enemy.title;
+            const badgeEl = document.getElementById('mockup-boss-badge');
+            badgeEl.textContent = enemy.badgeText;
+            badgeEl.className = enemy.badgeClass;
+            document.getElementById('arena-card-border').style.borderColor = enemy.borderColor;
+
+            const btnMinion = document.getElementById('btn-select-minion');
+            const btnCaptain = document.getElementById('btn-select-captain');
+            if (key === 'minion') {
+                btnMinion.className = 'btn-3d';
+                btnMinion.style.background = '#4f46e5';
+                btnCaptain.className = 'btn-3d secondary';
+                btnCaptain.style.background = '';
+            } else {
+                btnCaptain.className = 'btn-3d';
+                btnCaptain.style.background = '#f59e0b';
+                btnMinion.className = 'btn-3d secondary';
+                btnMinion.style.background = '';
+            }
+
+            resetMockupHp();
+        }
 
         function testSlap(imgId) {
             if (window.soundManager) soundManager.slap();
