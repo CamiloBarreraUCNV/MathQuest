@@ -173,17 +173,33 @@
             </div>
         </div>
 
-        <!-- Tarjeta 3: Integración en la Interfaz de Batalla del Juego -->
+        <!-- Tarjeta 3: Nivel 4 - General Guardián Ancestral (Jefe) -->
+        <div class="asset-card">
+            <h3>🌳 Nivel 4: General Guardián Ancestral (Jefe)</h3>
+            <div class="asset-preview-container" style="background: radial-gradient(circle, rgba(124, 58, 237, 0.25) 0%, rgba(15, 23, 42, 0.8) 70%); border-color: #7c3aed;">
+                <img src="assets/island-guardian-general-80s.png" alt="General Guardián Años 80" class="asset-preview-img" id="guardian-img">
+            </div>
+            <p style="color: #94a3b8; font-size: 0.88rem; margin-bottom: 16px;">
+                <strong>Archivo:</strong> <code>assets/island-guardian-general-80s.png</code><br>
+                Comandante Supremo del Manzano: árbol majestuoso con uniforme militar, charreteras doradas, medallas de honor y catalejo.
+            </p>
+            <div class="demo-btn-group">
+                <button class="btn-3d" onclick="testSlap('guardian-img')">👋 Dar Cachetada</button>
+            </div>
+        </div>
+
+        <!-- Tarjeta 4: Integración en la Interfaz de Batalla del Juego -->
         <div class="asset-card interactive-arena-card">
             <h3>🎮 Mockup de Integración en la Arena de Combate</h3>
             <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 16px;">
-                Selecciona al enemigo que deseas enfrentar en la arena:
+                Selecciona al enemigo o jefe que deseas enfrentar en la arena:
             </p>
 
             <!-- Selector de Enemigo -->
-            <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 20px;">
+            <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;">
                 <button class="btn-3d" id="btn-select-minion" onclick="selectArenaEnemy('minion')" style="background: #4f46e5;">🍎 Nivel 1: Manzana Pirata</button>
                 <button class="btn-3d secondary" id="btn-select-captain" onclick="selectArenaEnemy('captain')">⚔️ Nivel 2: Capitán Manzana</button>
+                <button class="btn-3d secondary" id="btn-select-boss" onclick="selectArenaEnemy('boss')">🌳 Nivel 4: General Guardián</button>
             </div>
 
             <div class="live-arena-mockup" style="max-width: 780px; width: 100%;">
@@ -274,6 +290,15 @@
                 badgeClass: 'stage-enemy-badge captain',
                 borderColor: '#f59e0b',
                 intro: '¡Nadie navega aquí sin dominar las magnitudes!'
+            },
+            boss: {
+                name: 'General Guardián Ancestral',
+                title: 'Comandante Supremo del Manzano',
+                img: 'assets/island-guardian-general-80s.png',
+                badgeText: 'JEFE',
+                badgeClass: 'stage-enemy-badge boss',
+                borderColor: '#7c3aed',
+                intro: '¡Firmes! ¡Soy el General Guardián de la Isla!'
             }
         };
 
@@ -293,16 +318,26 @@
 
             const btnMinion = document.getElementById('btn-select-minion');
             const btnCaptain = document.getElementById('btn-select-captain');
+            const btnBoss = document.getElementById('btn-select-boss');
+
+            btnMinion.className = 'btn-3d secondary';
+            btnMinion.style.background = '';
+            btnCaptain.className = 'btn-3d secondary';
+            btnCaptain.style.background = '';
+            if (btnBoss) {
+                btnBoss.className = 'btn-3d secondary';
+                btnBoss.style.background = '';
+            }
+
             if (key === 'minion') {
                 btnMinion.className = 'btn-3d';
                 btnMinion.style.background = '#4f46e5';
-                btnCaptain.className = 'btn-3d secondary';
-                btnCaptain.style.background = '';
-            } else {
+            } else if (key === 'captain') {
                 btnCaptain.className = 'btn-3d';
                 btnCaptain.style.background = '#f59e0b';
-                btnMinion.className = 'btn-3d secondary';
-                btnMinion.style.background = '';
+            } else if (key === 'boss' && btnBoss) {
+                btnBoss.className = 'btn-3d';
+                btnBoss.style.background = '#7c3aed';
             }
 
             resetMockupHp();

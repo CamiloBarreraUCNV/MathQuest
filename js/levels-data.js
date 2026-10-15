@@ -621,27 +621,29 @@ var LEVELS_DATA = [
         id: 4,
         worldId: "world-1",
         title: "El Manzano Ancestral (Jefe)",
-        subtitle: "¡Batalla de Jefe: El Árbol de las Manzanas!",
+        subtitle: "¡Batalla de Jefe: General Guardián del Manzano!",
         icon: "🌳",
         isBoss: true,
         boss: {
-            id: "manzano_ancestral",
-            name: "El Manzano Ancestral",
-            title: "Guardián de la Isla de los Números",
-            avatar: "🌳🍎",
-            avatarDefeated: "🌳💫",
+            id: "general_guardian_ancestral",
+            name: "General Guardián Ancestral",
+            title: "Comandante Supremo del Manzano",
+            avatar: "🌳🎖️",
+            avatarDefeated: "😵🌳",
+            avatarImg: "assets/island-guardian-general-80s.png",
             badge: "JEFE",
+            badgeClass: "boss",
             maxHp: 20.0,
             regenRate: 0.2, // recupera 0.2 HP cada segundo
             baseDamage: 1.0,
             streakBonus: 0.5,
             mechanicType: "regen",
-            mechanicTitle: "Fotosíntesis Nutritiva",
+            mechanicTitle: "Fotosíntesis del General",
             mechanicDesc: "Recupera +0.2 HP por segundo. Cada acierto inflige 1 daño (+0.5 por racha).",
             dialogue: {
-                intro: "¡Mis manzanas crecen al compás del tiempo! ¿Podrás contar más rápido que mi cosecha?",
-                hit: "¡Auuu! ¡Se han caído mis manzanas!",
-                defeat: "¡Increíble rapidez de conteo! Te entrego la Gema de los Números."
+                intro: "¡Firmes! ¡Soy el General Guardián de la Isla! ¡Mis manzanas crecen al compás de mi comando!",
+                hit: "¡Rayos y ramas rotas! ¡Esa bofetada desordenó mis medallas!",
+                defeat: "¡Sobresaliente disciplina! ¡Te concedo la Medalla de Honor y la Gema de los Números!"
             }
         },
         theory: {
