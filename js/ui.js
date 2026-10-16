@@ -436,6 +436,17 @@ class MathQuestUI {
         if (bossArena) {
             if (gameEngine.activeBoss) {
                 bossArena.classList.remove('hidden');
+
+                // Dynamic battle stage background by world
+                const backdropEl = document.getElementById('battle-stage-backdrop');
+                if (backdropEl) {
+                    const world = typeof WORLDS_DATA !== 'undefined' ? WORLDS_DATA.find(w => w.id === level.worldId) : null;
+                    const bgUrl = level.battleBg || (world && world.battleBg) || 'assets/world-1/battle-stage-clean.jpg';
+                    backdropEl.style.backgroundImage = `url('${bgUrl}')`;
+                    backdropEl.classList.remove('world-1', 'world-2', 'world-3', 'world-4', 'world-5', 'world-6');
+                    if (level.worldId) backdropEl.classList.add(level.worldId);
+                }
+
                 const bossNameEl = document.getElementById('boss-name');
                 if (bossNameEl) bossNameEl.textContent = gameEngine.activeBoss.name;
                 const bossTitleEl = document.getElementById('boss-title');

@@ -8,6 +8,7 @@ var WORLDS_DATA = [
         color: "#10b981",
         bgGradient: "linear-gradient(135deg, #059669, #10b981)",
         icon: "🌱",
+        battleBg: "assets/world-1/battle-stage-clean.jpg",
         description: "El punto de partida de todo gran matemático: comprender el valor, el orden y los patrones de los números."
     },
     {
@@ -18,6 +19,7 @@ var WORLDS_DATA = [
         color: "#0284c7",
         bgGradient: "linear-gradient(135deg, #0369a1, #0ea5e9)",
         icon: "🎪",
+        battleBg: "assets/world-2/circus-battle-background-80s.png",
         description: "¡El Circo de las Sumas ha llegado a la ciudad! Enfrenta al Payaso Globo, al Malabarista y al Forzudo para dominar el cálculo."
     },
     {

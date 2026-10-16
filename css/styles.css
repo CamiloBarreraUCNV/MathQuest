@@ -517,10 +517,19 @@ body {
     position: relative;
     width: 100%;
     height: 380px;
-    background: url('../assets/battle-stage-clean.jpg') center bottom / cover no-repeat;
+    background: url('../assets/world-1/battle-stage-clean.jpg') center bottom / cover no-repeat;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: background-image 0.3s ease;
+}
+
+.battle-stage-backdrop.world-1 {
+    background-image: url('../assets/world-1/battle-stage-clean.jpg');
+}
+
+.battle-stage-backdrop.world-2 {
+    background-image: url('../assets/world-2/circus-battle-background-80s.png');
 }
 
 /* Floating Enemy HUD (Top Left) */
