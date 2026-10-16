@@ -23,6 +23,8 @@
                 <span>MathQuest</span>
             </div>
 
+            <button class="worlds-home-btn" id="worlds-home-btn">🌐 Mis mundos</button>
+
             <div class="header-stats">
                 <!-- Vidas / Corazones -->
                 <div class="stat-pill clickable" id="hearts-display" title="Vidas (Haz clic para recargar)">
@@ -96,14 +98,14 @@
                     </div>
                 </div>
 
-                <!-- Centro de Combate: Personaje + Diálogo + Cachetadas -->
-                <div class="stage-center-area">
-                    <!-- Bocadillo de Diálogo Comic -->
-                    <div class="comic-speech-bubble" id="enemy-speech-bubble">
-                        <span id="enemy-speech-text">¡A ver si sabes contar!</span>
-                        <div class="speech-tail"></div>
-                    </div>
+                <!-- Diálogo junto al HUD, con espacio propio para evitar superposiciones -->
+                <div class="comic-speech-bubble" id="enemy-speech-bubble">
+                    <span id="enemy-speech-text">¡A ver si sabes contar!</span>
+                    <div class="speech-tail"></div>
+                </div>
 
+                <!-- Centro de Combate: Personaje + Cachetadas -->
+                <div class="stage-center-area">
                     <!-- Contenedor del Avatar y Efectos de Cachetada -->
                     <div class="stage-avatar-wrapper" id="boss-avatar-wrapper">
                         <div class="boss-avatar" id="boss-avatar">🍎🏴‍☠️</div>

@@ -17,6 +17,8 @@ class MathQuestEngine {
         this.currentStreak = 0;
         this.bestStreakInSession = 0;
         this.isAnswerLocked = false;
+        this.sessionStatus = 'idle';
+        this.lastResults = null;
     }
 
     playSound(method, ...args) {
@@ -28,7 +30,7 @@ class MathQuestEngine {
 
     startLevel(levelId) {
         const level = getLevelById(levelId);
-        if (!level) return null;
+        if (!level || this.state.hearts <= 0) return null;
 
         this.currentLevel = level;
         this.currentQuestionIdx = 0;
@@ -37,6 +39,8 @@ class MathQuestEngine {
         this.currentStreak = 0;
         this.bestStreakInSession = 0;
         this.isAnswerLocked = false;
+        this.sessionStatus = 'playing';
+        this.lastResults = null;
 
         // Initialize Boss or Enemy if level has combat
         const combatTarget = (level.isBoss && level.boss) ? level.boss : (level.hasEnemy && level.enemy ? level.enemy : null);
@@ -96,11 +100,45 @@ class MathQuestEngine {
             };
         }
 
+        // Shuffle copies of the options, keeping the answer attached to its original index.
+        this.currentLevel.questions = this.currentLevel.questions.map(question => {
+            const answerCount = level.answerOptionCount || question.options.length;
+            const texts = [...question.options, ...(question.bossDistractors || [])].slice(0, answerCount);
+            const options = texts.map((text, index) => ({ text, index }));
+            for (let i = options.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [options[i], options[j]] = [options[j], options[i]];
+            }
+            return {
+                ...question,
+                options: options.map(option => option.text),
+                correct: options.findIndex(option => option.index === question.correct)
+            };
+        });
         return this.getCurrentQuestion();
     }
 
+    shuffleCurrentOptions() {
+        if (this.sessionStatus !== 'playing' || this.state.hearts <= 0 || this.isAnswerLocked ||
+            !this.activeBoss || this.activeBoss.isDefeated || this.activeBoss.mechanicType !== 'answer-shuffle') return false;
+        const question = this.getCurrentQuestion();
+        if (!question || question.options.length < 2) return false;
+        const order = question.options.map((_, index) => index);
+        for (let i = order.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [order[i], order[j]] = [order[j], order[i]];
+        }
+        // A shuffle must visibly change the order, even when random returns the identity.
+        if (order.every((index, position) => index === position)) [order[0], order[order.length - 1]] = [order[order.length - 1], order[0]];
+        const previous = question.options;
+        const correct = question.correct;
+        question.options = order.map(index => previous[index]);
+        question.correct = order.indexOf(correct);
+        return true;
+    }
+
     tickBoss(deltaSeconds) {
-        if (!this.activeBoss || this.activeBoss.isDefeated || this.isAnswerLocked) {
+        if (this.sessionStatus !== 'playing' || !this.activeBoss || this.activeBoss.isDefeated || this.isAnswerLocked) {
             return null;
         }
         if (this.activeBoss.regenRate > 0) {
@@ -121,15 +159,19 @@ class MathQuestEngine {
             hearts: 5,
             maxHearts: 5,
             xp: 0,
-            unlockedLevel: 1,
+            schemaVersion: 2,
+            worldProgress: Object.fromEntries(
+                [...new Set(LEVELS_DATA.map(level => level.worldId))].map(worldId =>
+                    [worldId, { unlockedLevelId: this.getWorldLevels(worldId)[0].id }])
+            ),
             completedLevels: {}, // levelId: { stars: 1-3, score: number, highStreak: number }
             achievements: {
                 first_step: { id: "first_step", name: "Primer Paso", desc: "Completa tu primer nivel", icon: "🌱", unlocked: false },
                 perfect_level: { id: "perfect_level", name: "Perfección Absoluta", desc: "Obtén 3 estrellas en cualquier nivel", icon: "⭐", unlocked: false },
                 streak_5: { id: "streak_5", name: "En Racha de Fuego", desc: "Consigue una racha de 5 aciertos seguidos", icon: "🔥", unlocked: false },
-                arithmetic_master: { id: "arithmetic_master", name: "Señor de la Aritmética", desc: "Supera el Valle Aritmético (Mundo 2)", icon: "🛡️", unlocked: false },
+                arithmetic_master: { id: "arithmetic_master", name: "Señor de la Aritmética", desc: "Supera el Circo de las Sumas (Mundo 2)", icon: "🛡️", unlocked: false },
                 algebra_sorcerer: { id: "algebra_sorcerer", name: "Mago del Álgebra", desc: "Supera el Bosque del Álgebra (Mundo 4)", icon: "🔮", unlocked: false },
-                calculus_god: { id: "calculus_god", name: "Archimago del Infinito", desc: "Vence al Arquitecto del Infinito (Nivel 30)", icon: "👑", unlocked: false }
+                calculus_god: { id: "calculus_god", name: "Archimago del Infinito", desc: "Vence al Arquitecto del Infinito (Mundo 6)", icon: "👑", unlocked: false }
             }
         };
     }
@@ -139,15 +181,40 @@ class MathQuestEngine {
             const raw = localStorage.getItem(this.STORAGE_KEY);
             if (raw) {
                 const parsed = JSON.parse(raw);
-                const defaultState = this.getDefaultState();
-                return {
-                    ...defaultState,
-                    ...parsed,
-                    achievements: {
-                        ...defaultState.achievements,
-                        ...(parsed.achievements || {})
-                    }
-                };
+                const state = this.getDefaultState();
+                if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return state;
+                const integer = (value, fallback, min = 0, max = Number.MAX_SAFE_INTEGER) =>
+                    Number.isSafeInteger(value) ? Math.max(min, Math.min(max, value)) : fallback;
+                state.hearts = integer(parsed.hearts, state.hearts, 0, state.maxHearts);
+                state.xp = integer(parsed.xp, 0);
+                for (const level of LEVELS_DATA) {
+                    const saved = parsed.completedLevels?.[level.id];
+                    if (!saved || !Number.isInteger(saved.stars) || saved.stars < 1 || saved.stars > 3) continue;
+                    state.completedLevels[level.id] = {
+                        completed: true,
+                        stars: saved.stars,
+                        score: integer(saved.score, 0),
+                        highStreak: integer(saved.highStreak, 0)
+                    };
+                }
+                for (const id of Object.keys(state.achievements)) {
+                    state.achievements[id].unlocked = parsed.achievements?.[id]?.unlocked === true;
+                }
+                // Keep the same save key: migrate old global unlocks without losing stars or XP.
+                for (const worldId of Object.keys(state.worldProgress)) {
+                    const levels = this.getWorldLevels(worldId);
+                    const savedId = parsed.schemaVersion === 2
+                        ? parsed.worldProgress?.[worldId]?.unlockedLevelId
+                        : integer(parsed.unlockedLevel, 1, 1, LEVELS_DATA.length);
+                    let unlockedIndex = parsed.schemaVersion === 2
+                        ? Math.max(0, levels.findIndex(level => level.id === savedId))
+                        : Math.max(0, levels.findLastIndex(level => level.id <= savedId));
+                    levels.forEach((level, index) => {
+                        if (state.completedLevels[level.id]) unlockedIndex = Math.max(unlockedIndex, Math.min(index + 1, levels.length - 1));
+                    });
+                    state.worldProgress[worldId].unlockedLevelId = levels[unlockedIndex].id;
+                }
+                return state;
             }
         } catch (e) {
             console.error("Error loading MathQuest save data", e);
@@ -164,6 +231,15 @@ class MathQuestEngine {
     }
 
     resetProgress() {
+        this.cancelSession();
+        this.currentLevel = null;
+        this.activeBoss = null;
+        this.currentQuestionIdx = 0;
+        this.sessionScore = 0;
+        this.sessionErrors = 0;
+        this.currentStreak = 0;
+        this.bestStreakInSession = 0;
+        this.lastResults = null;
         this.state = this.getDefaultState();
         this.saveState();
     }
@@ -180,7 +256,39 @@ class MathQuestEngine {
     }
 
     isLevelUnlocked(levelId) {
-        return Number(levelId) <= this.state.unlockedLevel;
+        const level = getLevelById(levelId);
+        if (!level) return false;
+        return level.id <= this.state.worldProgress[level.worldId].unlockedLevelId;
+    }
+
+    getWorldLevels(worldId) {
+        return LEVELS_DATA.filter(level => level.worldId === worldId).sort((a, b) => a.id - b.id);
+    }
+
+    getLocalLevelNumber(levelId) {
+        const level = getLevelById(levelId);
+        return level ? this.getWorldLevels(level.worldId).findIndex(item => item.id === level.id) + 1 : 0;
+    }
+
+    getNextLevelId(levelId) {
+        const level = getLevelById(levelId);
+        if (!level) return null;
+        const levels = this.getWorldLevels(level.worldId);
+        return levels[levels.findIndex(item => item.id === level.id) + 1]?.id ?? null;
+    }
+
+    getWorldProgress(worldId) {
+        const levels = this.getWorldLevels(worldId);
+        const completedCount = levels.filter(level => this.getLevelStars(level.id) > 0).length;
+        return {
+            completedCount,
+            total: levels.length,
+            stars: levels.reduce((sum, level) => sum + this.getLevelStars(level.id), 0),
+            maxStars: levels.length * 3,
+            unlockedLevelId: this.state.worldProgress[worldId]?.unlockedLevelId ?? null,
+            nextLevelId: levels.find(level => this.isLevelUnlocked(level.id) && !this.getLevelStars(level.id))?.id ?? null,
+            completed: levels.length > 0 && completedCount === levels.length
+        };
     }
 
     getLevelStars(levelId) {
@@ -197,11 +305,10 @@ class MathQuestEngine {
     }
 
     submitAnswer(optionIndex) {
-        if (this.isAnswerLocked) return null;
-        this.isAnswerLocked = true;
-
+        if (this.sessionStatus !== 'playing' || this.isAnswerLocked || this.state.hearts <= 0) return null;
         const question = this.getCurrentQuestion();
-        if (!question) return null;
+        if (!question || !Number.isInteger(optionIndex) || optionIndex < 0 || optionIndex >= question.options.length) return null;
+        this.isAnswerLocked = true;
 
         const isCorrect = (optionIndex === question.correct);
         let damage = 0;
@@ -237,6 +344,7 @@ class MathQuestEngine {
             if (this.currentStreak >= 5) {
                 this.unlockAchievement("streak_5");
             }
+            this.saveState();
 
             return {
                 isCorrect: true,
@@ -257,6 +365,7 @@ class MathQuestEngine {
             this.currentStreak = 0;
             this.sessionErrors++;
             this.state.hearts = Math.max(0, this.state.hearts - 1);
+            if (this.state.hearts === 0) this.sessionStatus = 'defeated';
             this.saveState();
 
             this.playSound('wrong');
@@ -280,6 +389,9 @@ class MathQuestEngine {
     }
 
     nextQuestion() {
+        if (this.lastResults) return { finished: true, results: this.lastResults };
+        if (this.sessionStatus === 'defeated') return { finished: true, results: this.finishLevel() };
+        if (this.sessionStatus !== 'playing' || !this.isAnswerLocked) return null;
         this.isAnswerLocked = false;
         
         // If enemy or boss was defeated, transition to victory directly!
@@ -295,6 +407,10 @@ class MathQuestEngine {
     }
 
     finishLevel() {
+        if (this.lastResults) return this.lastResults;
+        if (!this.currentLevel || !['playing', 'defeated'].includes(this.sessionStatus)) return null;
+        const exhausted = this.currentQuestionIdx >= this.currentLevel.questions.length;
+        if (this.sessionStatus === 'playing' && !exhausted && !this.activeBoss?.isDefeated) return null;
         const totalQuestions = this.currentLevel.questions.length;
         const hasCombat = !!this.activeBoss;
         const isBossFight = !!(this.activeBoss && this.currentLevel.isBoss);
@@ -302,43 +418,23 @@ class MathQuestEngine {
         const displayTotal = hasCombat ? answeredCount : totalQuestions;
         const accuracy = (this.sessionScore / displayTotal);
 
-        let stars = 1;
-        let isSuccess = true;
-
-        if (hasCombat) {
-            if (this.activeBoss.isDefeated) {
-                // Defeated the enemy or boss!
-                stars = (this.sessionErrors === 0) ? 3 : 2;
-                isSuccess = true;
-            } else {
-                if (this.currentLevel.isBoss) {
-                    // Boss survived!
-                    isSuccess = false;
-                    stars = 0;
-                } else {
-                    stars = Math.max(1, Math.round(accuracy * 3));
-                    isSuccess = accuracy >= 0.6;
-                }
-            }
-        } else {
-            // Normal level without enemy
-            if (accuracy >= 1.0 && this.sessionErrors === 0) {
-                stars = 3;
-            } else if (accuracy >= 0.75) {
-                stars = 2;
-            } else {
-                stars = 1;
-            }
-        }
+        const outOfLives = this.sessionStatus === 'defeated' || this.state.hearts <= 0;
+        const isSuccess = !outOfLives &&
+            (hasCombat ? this.activeBoss.isDefeated : exhausted && accuracy >= 0.6);
+        const stars = !isSuccess ? 0 : accuracy === 1 ? 3 : accuracy >= 0.75 ? 2 : 1;
+        this.sessionStatus = 'finished';
+        this.isAnswerLocked = true;
 
         // Completion XP bonus
-        let bonusXp = isSuccess ? (40 + (stars * 15)) : 10;
+        const bonusXp = isSuccess ? (40 + (stars * 15)) : 0;
         this.state.xp += bonusXp;
 
         // Unlock next level only if normal level passed or enemy/boss was defeated
         const currentId = this.currentLevel.id;
-        if (isSuccess && currentId < LEVELS_DATA.length) {
-            this.state.unlockedLevel = Math.max(this.state.unlockedLevel || 1, currentId + 1);
+        const nextLevelId = this.getNextLevelId(currentId);
+        if (isSuccess && nextLevelId !== null) {
+            const progress = this.state.worldProgress[this.currentLevel.worldId];
+            progress.unlockedLevelId = Math.max(progress.unlockedLevelId, nextLevelId);
         }
 
         // Record stars if level succeeded
@@ -356,10 +452,10 @@ class MathQuestEngine {
             if (stars === 3) {
                 this.unlockAchievement("perfect_level");
             }
-            if (this.isLevelUnlocked(10)) {
+            if (this.getWorldProgress('world-2').completed) {
                 this.unlockAchievement("arithmetic_master");
             }
-            if (this.isLevelUnlocked(20)) {
+            if (this.getWorldProgress('world-4').completed) {
                 this.unlockAchievement("algebra_sorcerer");
             }
             if (currentId === 30 && stars >= 1) {
@@ -375,7 +471,9 @@ class MathQuestEngine {
             this.playSound('defeat');
         }
 
-        return {
+        this.lastResults = {
+            isSuccess,
+            failureReason: isSuccess ? null : outOfLives ? 'hearts' : hasCombat ? 'enemy' : 'accuracy',
             levelId: currentId,
             levelTitle: this.currentLevel.title,
             score: this.sessionScore,
@@ -384,11 +482,20 @@ class MathQuestEngine {
             bonusXp,
             totalXp: this.state.xp,
             bestStreak: this.bestStreakInSession,
-            isNextUnlocked: this.state.unlockedLevel > currentId,
+            nextLevelId,
+            worldId: this.currentLevel.worldId,
+            worldCompleted: this.getWorldProgress(this.currentLevel.worldId).completed,
+            isNextUnlocked: nextLevelId !== null && this.isLevelUnlocked(nextLevelId),
             isBoss: isBossFight,
             bossDefeated: this.activeBoss ? this.activeBoss.isDefeated : false,
             bossName: this.activeBoss ? this.activeBoss.name : null
         };
+        return this.lastResults;
+    }
+
+    cancelSession() {
+        this.sessionStatus = 'idle';
+        this.isAnswerLocked = true;
     }
 
     refillHearts() {

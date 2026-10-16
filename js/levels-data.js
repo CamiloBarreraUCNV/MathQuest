@@ -9,28 +9,35 @@ var WORLDS_DATA = [
         bgGradient: "linear-gradient(135deg, #059669, #10b981)",
         icon: "🌱",
         battleBg: "assets/world-1/battle-stage-clean.jpg",
+        cardCharacter: "assets/world-1/pirate-apple-80s.png",
+        cardTopics: "Conteo · Comparación · Pares e impares",
         description: "El punto de partida de todo gran matemático: comprender el valor, el orden y los patrones de los números."
     },
     {
         id: "world-2",
         num: 2,
         title: "Circo de las Sumas",
-        subtitle: "Aprende a sumar y calcular con los artistas de globos inflables",
+        subtitle: "Sumas, restas y retos paso a paso con los artistas de globos",
         color: "#0284c7",
         bgGradient: "linear-gradient(135deg, #0369a1, #0ea5e9)",
         icon: "🎪",
         battleBg: "assets/world-2/circus-battle-background-80s.png",
-        description: "¡El Circo de las Sumas ha llegado a la ciudad! Enfrenta al Payaso Globo, al Malabarista y al Forzudo para dominar el cálculo."
+        cardCharacter: "assets/world-2/circus-balloon-two-headed-dragon-80s.png",
+        cardTopics: "Sumas · Restas · Cantidades que faltan",
+        description: "¡El Circo de las Sumas ha llegado! Practica con cantidades pequeñas y avanza a problemas de dos pasos y números de dos cifras."
     },
     {
         id: "world-3",
         num: 3,
-        title: "Cañón de Factores",
-        subtitle: "Multiplicación, división y el orden sagrado de operaciones",
+        title: "Reino del Jaque Dulce",
+        subtitle: "Multiplicación y división en un reino de golosinas (9–12 años)",
         color: "#f59e0b",
-        bgGradient: "linear-gradient(135deg, #d97706, #f59e0b)",
-        icon: "⚡",
-        description: "Acelera tus cálculos con sumas repetidas, repartos exactos y la jerarquía matemática."
+        bgGradient: "linear-gradient(135deg, #9d174d, #db2777)",
+        icon: "♟️",
+        battleBg: "assets/world-3/candy-chess-battle-background-80s.png",
+        cardCharacter: "assets/world-3/candy-chess-queen-80s.png",
+        cardTopics: "Multiplicación · División · Ajedrez de golosinas",
+        description: "Un reino de golosinas gobernado por piezas de ajedrez. Practica multiplicación y división y desafía a la Reina de Azúcar."
     },
     {
         id: "world-4",
@@ -153,11 +160,11 @@ var LEVELS_DATA = [
                 hint: "5 en una mano y 5 en la otra: 5 + 5 = 10."
             },
             {
-                prompt: "¿Qué número va justo ANTES del 6 cuando contamos hacia atrás?",
+                prompt: "¿Qué número es uno menos que 6?",
                 options: ["4", "5", "7", "8"],
                 correct: 1,
-                explanation: "¡Excelente! Antes del 6 está el número 5.",
-                hint: "Piensa: ¿qué número dices justo antes de llegar al 6?"
+                explanation: "Si a 6 le quitas 1, quedan 5: $6 - 1 = 5$.",
+                hint: "Desde el 6, retrocede un solo paso."
             },
             {
                 prompt: "¿Cuántos patitos nadan en el agua? 🦆 🦆 🦆 🦆",
@@ -400,10 +407,10 @@ var LEVELS_DATA = [
                 hint: "Es el número que está más cerca del 20."
             },
             {
-                prompt: "Si tienes 7 años y tu prima tiene 7 años, ¿quién es mayor?",
-                options: ["Tienen la misma edad (=)", "Tú eres mayor", "Tu prima es mayor", "Ninguno"],
+                prompt: "Tú tienes 7 años y tu prima tiene 7 años. ¿Cómo se comparan sus edades en años?",
+                options: ["Tienen la misma edad (=)", "Tú tienes más años", "Tu prima tiene más años", "Tú tienes un año menos"],
                 correct: 0,
-                explanation: "¡Son del mismo año! Los dos tienen 7, por eso tienen la misma edad.",
+                explanation: "Las dos edades son 7 años. Como $7 = 7$, tienen la misma edad en años.",
                 hint: "7 y 7 son exactamente iguales."
             },
             {
@@ -534,10 +541,10 @@ var LEVELS_DATA = [
                 hint: "10 se reparte en dos manos de 5 dedos cada una."
             },
             {
-                prompt: "Tienes 5 cerezas 🍒🍒🍒🍒🍒. Si las juntas de a dos en dos, ¿cuántas cerezas quedan solitas sin pareja?",
-                options: ["Ninguna", "1 cereza", "2 cerezas", "3 cerezas"],
+                prompt: "Tienes 5 manzanas: 🍎 🍎 🍎 🍎 🍎. Si las juntas de dos en dos, ¿cuántas quedan sin pareja?",
+                options: ["Ninguna", "1 manzana", "2 manzanas", "3 manzanas"],
                 correct: 1,
-                explanation: "¡Exacto! Haces 2 parejas (4 cerezas) y queda 1 cereza solita.",
+                explanation: "Formas 2 parejas con 4 manzanas y queda 1 manzana sin pareja.",
                 hint: "2 + 2 = 4, y para llegar a 5 falta..."
             },
             {
@@ -808,7 +815,7 @@ var LEVELS_DATA = [
     },
 
     // ==========================================
-    // MUNDO 2: VALLE ARITMÉTICO (NIVELES 5 - 9)
+    // MUNDO 2: CIRCO DE LAS SUMAS (NIVELES 5 - 9)
     // ==========================================
     {
         id: 5,
@@ -826,7 +833,7 @@ var LEVELS_DATA = [
             avatarImg: "assets/world-2/circus-balloon-clown-80s.png",
             badge: "CIRCO",
             badgeClass: "circus",
-            maxHp: 20.0,
+            maxHp: 8.0,
             regenRate: 0,
             baseDamage: 1.0,
             streakBonus: 0.5,
@@ -840,51 +847,173 @@ var LEVELS_DATA = [
             }
         },
         theory: {
-            title: "La Adición o Suma",
+            title: "Sumar es Juntar",
             content: `
-                <p>Sumar es juntar dos o más cantidades en una sola. Los números que sumamos se llaman <strong>sumandos</strong> y el resultado se llama <strong>suma</strong> o total.</p>
-                <div class="theory-visual">
-                    <span>$$a + b = c$$</span>
-                    <span>$$7 + 5 = 12$$</span>
-                </div>
-                <p><strong>Propiedad Conmutativa:</strong> El orden de los sumandos no cambia el resultado ($3 + 8 = 8 + 3 = 11$).</p>
+                <p>Sumar es <strong>juntar</strong>. Si tienes 3 globos y recibes 2 más, cuentas todos los globos juntos.</p>
+                <div class="theory-visual"><span>🎈🎈🎈 + 🎈🎈 = <strong>5 globos</strong></span><span>$$3 + 2 = 5$$</span></div>
+                <p>Empieza por el grupo más grande y cuenta los que añades. Para $8 + 4$, suma 2 para llegar a 10 y después otros 2: <strong>12</strong>. En este nivel practicarás sumas hasta 20.</p>
             `
         },
         questions: [
             {
-                prompt: "Calcula: $17 + 8$",
-                options: ["23", "25", "26", "24"],
-                correct: 1,
-                explanation: "$17 + 8 = 17 + 3 + 5 = 20 + 5 = 25$.",
-                hint: "Suma primero 3 para llegar a 20, luego suma 5."
-            },
-            {
-                prompt: "Si sumamos $45 + 30$, ¿cuál es el total?",
-                options: ["70", "75", "85", "65"],
-                correct: 1,
-                explanation: "Sumando las decenas: $40 + 30 = 70$. Más 5 unidades: $75$.",
-                hint: "Suma las decenas (40 + 30) y agrega 5."
-            },
-            {
-                prompt: "¿Qué número falta en la igualdad: $14 + \\_\\_\\_ = 20$?",
-                options: ["5", "6", "7", "8"],
-                correct: 1,
-                explanation: "$20 - 14 = 6$, por lo tanto $14 + 6 = 20$.",
-                hint: "¿Cuánto le falta a 14 para llegar a 20?"
-            },
-            {
-                prompt: "Calcula mentalmente: $99 + 1$",
-                options: ["100", "101", "110", "98"],
+                prompt: "Calcula: $2 + 3$",
+                options: ["5","6","4","7"],
                 correct: 0,
-                explanation: "Al sumar 1 a 99 alcanzamos la primera centena: 100.",
-                hint: "El siguiente número después de 99."
+                explanation: "$2 + 3 = 5$.",
+                hint: "Empieza en 2 y cuenta tres más.",
+                bossDistractors: ["3","8","2","10"]
             },
             {
-                prompt: "En un cofre hay 23 gemas rojas y 19 gemas azules. ¿Cuántas gemas hay en total?",
-                options: ["41", "42", "40", "43"],
-                correct: 1,
-                explanation: "$23 + 19 = 23 + 20 - 1 = 43 - 1 = 42$.",
-                hint: "Puedes sumar 20 y luego restar 1."
+                prompt: "Calcula: $4 + 1$",
+                options: ["5","6","4","7"],
+                correct: 0,
+                explanation: "$4 + 1 = 5$.",
+                hint: "Añade uno al 4.",
+                bossDistractors: ["3","8","2","10"]
+            },
+            {
+                prompt: "Calcula: $3 + 4$",
+                options: ["7","8","6","9"],
+                correct: 0,
+                explanation: "$3 + 4 = 7$.",
+                hint: "Cuenta cuatro pasos desde el 3.",
+                bossDistractors: ["5","10","4","12"]
+            },
+            {
+                prompt: "Calcula: $5 + 2$",
+                options: ["7","8","6","9"],
+                correct: 0,
+                explanation: "$5 + 2 = 7$.",
+                hint: "Después de 5 vienen 6 y 7.",
+                bossDistractors: ["5","10","4","12"]
+            },
+            {
+                prompt: "Calcula: $6 + 3$",
+                options: ["9","10","8","11"],
+                correct: 0,
+                explanation: "$6 + 3 = 9$.",
+                hint: "Cuenta 7, 8 y 9.",
+                bossDistractors: ["7","12","6","14"]
+            },
+            {
+                prompt: "Calcula: $0 + 8$",
+                options: ["8","9","7","10"],
+                correct: 0,
+                explanation: "Sumar cero deja la misma cantidad: $0 + 8 = 8$.",
+                hint: "No se añade ningún objeto.",
+                bossDistractors: ["6","11","5","13"]
+            },
+            {
+                prompt: "Calcula: $4 + 4$",
+                options: ["8","9","7","10"],
+                correct: 0,
+                explanation: "$4 + 4 = 8$.",
+                hint: "Es el doble de 4.",
+                bossDistractors: ["6","11","5","13"]
+            },
+            {
+                prompt: "Calcula: $7 + 3$",
+                options: ["10","11","9","12"],
+                correct: 0,
+                explanation: "$7 + 3 = 10$.",
+                hint: "Completa una decena.",
+                bossDistractors: ["8","13","7","15"]
+            },
+            {
+                prompt: "Calcula: $8 + 2$",
+                options: ["10","11","9","12"],
+                correct: 0,
+                explanation: "$8 + 2 = 10$.",
+                hint: "Cuenta dos más desde 8.",
+                bossDistractors: ["8","13","7","15"]
+            },
+            {
+                prompt: "Calcula: $5 + 5$",
+                options: ["10","11","9","12"],
+                correct: 0,
+                explanation: "$5 + 5 = 10$.",
+                hint: "Piensa en los dedos de las dos manos.",
+                bossDistractors: ["8","13","7","15"]
+            },
+            {
+                prompt: "El payaso tiene 3 globos rojos y 2 azules. ¿Cuántos tiene en total?",
+                options: ["5","6","4","7"],
+                correct: 0,
+                explanation: "Juntamos los globos: $3 + 2 = 5$.",
+                hint: "Cuenta los dos grupos juntos.",
+                bossDistractors: ["3","8","2","10"]
+            },
+            {
+                prompt: "Hay 4 niños en la fila y llegan 3 más. ¿Cuántos niños hay ahora?",
+                options: ["7","8","6","9"],
+                correct: 0,
+                explanation: "$4 + 3 = 7$ niños.",
+                hint: "Empieza con los cuatro que ya estaban.",
+                bossDistractors: ["5","10","4","12"]
+            },
+            {
+                prompt: "En una caja hay 6 pelotas y en otra hay 4. ¿Cuántas hay entre las dos?",
+                options: ["10","11","9","12"],
+                correct: 0,
+                explanation: "$6 + 4 = 10$ pelotas.",
+                hint: "Seis y cuatro completan diez.",
+                bossDistractors: ["8","13","7","15"]
+            },
+            {
+                prompt: "El músico lleva 2 tambores y su amiga trae 5. ¿Cuántos tambores hay?",
+                options: ["7","8","6","9"],
+                correct: 0,
+                explanation: "$2 + 5 = 7$ tambores.",
+                hint: "Puedes contar desde 5 y añadir 2.",
+                bossDistractors: ["5","10","4","12"]
+            },
+            {
+                prompt: "Hay 7 banderines y cuelgan 2 más. ¿Cuántos hay ahora?",
+                options: ["9","10","8","11"],
+                correct: 0,
+                explanation: "$7 + 2 = 9$ banderines.",
+                hint: "Cuenta dos pasos después de 7.",
+                bossDistractors: ["7","12","6","14"]
+            },
+            {
+                prompt: "El payaso reparte 8 entradas y luego 4 más. ¿Cuántas reparte?",
+                options: ["12","13","11","14"],
+                correct: 0,
+                explanation: "$8 + 4 = 8 + 2 + 2 = 12$ entradas.",
+                hint: "Añade dos para llegar a diez y luego otros dos.",
+                bossDistractors: ["10","15","9","17"]
+            },
+            {
+                prompt: "Hay 9 estrellas de papel y preparan 3 más. ¿Cuántas estrellas hay?",
+                options: ["12","13","11","14"],
+                correct: 0,
+                explanation: "$9 + 3 = 10 + 2 = 12$.",
+                hint: "Falta una para llegar a diez.",
+                bossDistractors: ["10","15","9","17"]
+            },
+            {
+                prompt: "Una artista tiene 10 cintas y recibe 5 más. ¿Cuántas tiene?",
+                options: ["15","16","14","17"],
+                correct: 0,
+                explanation: "$10 + 5 = 15$ cintas.",
+                hint: "Cuenta cinco después de diez.",
+                bossDistractors: ["13","18","12","20"]
+            },
+            {
+                prompt: "Entran 6 personas por una puerta y 7 por otra. ¿Cuántas entran?",
+                options: ["13","14","12","15"],
+                correct: 0,
+                explanation: "$6 + 7 = 13$ personas.",
+                hint: "Suma cuatro a seis y luego tres.",
+                bossDistractors: ["11","16","10","18"]
+            },
+            {
+                prompt: "Hay 10 globos amarillos y 10 verdes. ¿Cuántos globos hay?",
+                options: ["20","21","19","22"],
+                correct: 0,
+                explanation: "$10 + 10 = 20$ globos.",
+                hint: "Dos grupos de diez forman veinte.",
+                bossDistractors: ["18","23","17","25"]
             }
         ]
     },
@@ -904,7 +1033,7 @@ var LEVELS_DATA = [
             avatarImg: "assets/world-2/circus-balloon-juggler-80s.png",
             badge: "CIRCO",
             badgeClass: "circus",
-            maxHp: 20.0,
+            maxHp: 10.0,
             regenRate: 0,
             baseDamage: 1.0,
             streakBonus: 0.5,
@@ -918,58 +1047,180 @@ var LEVELS_DATA = [
             }
         },
         theory: {
-            title: "La Sustracción o Resta",
+            title: "Restar es Quitar",
             content: `
-                <p>Restar es quitar una cantidad de otra para encontrar la <strong>diferencia</strong>.</p>
-                <div class="theory-visual">
-                    <span>$$\\text{Minuendo} - \\text{Sustraendo} = \\text{Diferencia}$$</span>
-                    <span>$$15 - 6 = 9$$</span>
-                </div>
-                <p>La resta es la operación inversa de la suma: si $15 - 6 = 9$, entonces $9 + 6 = 15$.</p>
+                <p>Restar es <strong>quitar</strong>. Si tienes 7 pelotas y guardas 3, quedan 4 fuera de la caja.</p>
+                <div class="theory-visual"><span>$$7 - 3 = 4$$</span></div>
+                <p>Puedes contar hacia atrás: desde 7, cuenta <strong>6, 5, 4</strong>. Comprueba juntando otra vez: $4 + 3 = 7$. Trabajaremos con cantidades hasta 20 y siempre quedarán cero o más objetos.</p>
             `
         },
         questions: [
             {
-                prompt: "Calcula: $34 - 12$",
-                options: ["22", "24", "18", "20"],
+                prompt: "Calcula: $5 - 2$",
+                options: ["3","4","2","5"],
                 correct: 0,
-                explanation: "Restamos unidades ($4 - 2 = 2$) y decenas ($3 - 1 = 2$), dando 22.",
-                hint: "Resta 30 - 10 y luego 4 - 2."
+                explanation: "$5 - 2 = 3$.",
+                hint: "Cuenta dos pasos hacia atrás desde 5.",
+                bossDistractors: ["1","6","0","8"]
             },
             {
-                prompt: "Calcula: $50 - 18$",
-                options: ["38", "32", "34", "42"],
-                correct: 1,
-                explanation: "$50 - 10 = 40$, y $40 - 8 = 32$.",
-                hint: "Resta 20 y luego devuelve 2."
-            },
-            {
-                prompt: "Tenías 45 monedas y gastaste 17 en pociones. ¿Cuántas te quedan?",
-                options: ["28", "27", "32", "29"],
+                prompt: "Calcula: $7 - 3$",
+                options: ["4","5","3","6"],
                 correct: 0,
-                explanation: "$45 - 17 = 28$. Comprobación: $28 + 17 = 45$.",
-                hint: "$45 - 15 = 30$, y $30 - 2 = 28$."
+                explanation: "$7 - 3 = 4$.",
+                hint: "Quita tres de siete.",
+                bossDistractors: ["2","7","1","9"]
             },
             {
-                prompt: "¿Qué número completa la operación: $\\_\\_\\_ - 15 = 30$?",
-                options: ["15", "40", "45", "50"],
-                correct: 2,
-                explanation: "Sumamos la diferencia con el sustraendo: $30 + 15 = 45$.",
-                hint: "Aplica la operación inversa: suma 30 + 15."
+                prompt: "Calcula: $9 - 4$",
+                options: ["5","6","4","7"],
+                correct: 0,
+                explanation: "$9 - 4 = 5$.",
+                hint: "Cuenta 8, 7, 6 y 5.",
+                bossDistractors: ["3","8","2","10"]
             },
             {
-                prompt: "Calcula: $100 - 37$",
-                options: ["67", "63", "73", "53"],
-                correct: 1,
-                explanation: "$100 - 30 = 70$, y $70 - 7 = 63$.",
-                hint: "Lo que le falta a 37 para llegar a 100."
+                prompt: "Calcula: $8 - 1$",
+                options: ["7","8","6","9"],
+                correct: 0,
+                explanation: "$8 - 1 = 7$.",
+                hint: "Busca el número anterior a 8.",
+                bossDistractors: ["5","10","4","12"]
+            },
+            {
+                prompt: "Calcula: $6 - 6$",
+                options: ["0","1","2","3"],
+                correct: 0,
+                explanation: "Si quitas todas las pelotas, quedan cero: $6 - 6 = 0$.",
+                hint: "Se van todos los objetos.",
+                bossDistractors: ["5","10","4","6"]
+            },
+            {
+                prompt: "Calcula: $10 - 0$",
+                options: ["10","11","9","12"],
+                correct: 0,
+                explanation: "Restar cero no quita nada: $10 - 0 = 10$.",
+                hint: "La cantidad se queda igual.",
+                bossDistractors: ["8","13","7","15"]
+            },
+            {
+                prompt: "Calcula: $10 - 5$",
+                options: ["5","6","4","7"],
+                correct: 0,
+                explanation: "$10 - 5 = 5$.",
+                hint: "De las dos manos, tapa una.",
+                bossDistractors: ["3","8","2","10"]
+            },
+            {
+                prompt: "Calcula: $12 - 2$",
+                options: ["10","11","9","12"],
+                correct: 0,
+                explanation: "$12 - 2 = 10$.",
+                hint: "Quita las dos unidades que sobran de diez.",
+                bossDistractors: ["8","13","7","15"]
+            },
+            {
+                prompt: "Calcula: $15 - 5$",
+                options: ["10","11","9","12"],
+                correct: 0,
+                explanation: "$15 - 5 = 10$.",
+                hint: "Cuenta cinco hacia atrás.",
+                bossDistractors: ["8","13","7","15"]
+            },
+            {
+                prompt: "Calcula: $14 - 7$",
+                options: ["7","8","6","9"],
+                correct: 0,
+                explanation: "$14 - 7 = 7$.",
+                hint: "Siete más siete da catorce.",
+                bossDistractors: ["5","10","4","12"]
+            },
+            {
+                prompt: "El malabarista tiene 6 pelotas y guarda 2. ¿Cuántas quedan fuera?",
+                options: ["4","5","3","6"],
+                correct: 0,
+                explanation: "$6 - 2 = 4$ pelotas.",
+                hint: "Quita dos pelotas del grupo.",
+                bossDistractors: ["2","7","1","9"]
+            },
+            {
+                prompt: "Había 8 globos y se desinflaron 3. ¿Cuántos siguen inflados?",
+                options: ["5","6","4","7"],
+                correct: 0,
+                explanation: "$8 - 3 = 5$ globos.",
+                hint: "Empieza con ocho y quita tres.",
+                bossDistractors: ["3","8","2","10"]
+            },
+            {
+                prompt: "De 10 entradas se venden 4. ¿Cuántas quedan?",
+                options: ["6","7","5","8"],
+                correct: 0,
+                explanation: "$10 - 4 = 6$ entradas.",
+                hint: "¿Cuánto falta de cuatro a diez?",
+                bossDistractors: ["4","9","3","11"]
+            },
+            {
+                prompt: "Hay 13 sillas y se ocupan 3. ¿Cuántas quedan libres?",
+                options: ["10","11","9","12"],
+                correct: 0,
+                explanation: "$13 - 3 = 10$ sillas.",
+                hint: "Quita las tres unidades.",
+                bossDistractors: ["8","13","7","15"]
+            },
+            {
+                prompt: "La artista lleva 16 cintas y regala 6. ¿Cuántas conserva?",
+                options: ["10","11","9","12"],
+                correct: 0,
+                explanation: "$16 - 6 = 10$ cintas.",
+                hint: "Dieciséis son diez y seis.",
+                bossDistractors: ["8","13","7","15"]
+            },
+            {
+                prompt: "El payaso tiene 11 flores y entrega 5. ¿Cuántas le quedan?",
+                options: ["6","7","5","8"],
+                correct: 0,
+                explanation: "$11 - 5 = 6$ flores.",
+                hint: "Quita una para llegar a diez y después cuatro.",
+                bossDistractors: ["4","9","3","11"]
+            },
+            {
+                prompt: "De 18 luces se apagan 8. ¿Cuántas siguen encendidas?",
+                options: ["10","11","9","12"],
+                correct: 0,
+                explanation: "$18 - 8 = 10$ luces.",
+                hint: "Quita ocho de dieciocho.",
+                bossDistractors: ["8","13","7","15"]
+            },
+            {
+                prompt: "En una caja hay 20 narices rojas y sacan 10. ¿Cuántas quedan?",
+                options: ["10","11","9","12"],
+                correct: 0,
+                explanation: "$20 - 10 = 10$ narices.",
+                hint: "Quita un grupo de diez.",
+                bossDistractors: ["8","13","7","15"]
+            },
+            {
+                prompt: "Hay 17 niños en la carpa y salen 4. ¿Cuántos quedan dentro?",
+                options: ["13","14","12","15"],
+                correct: 0,
+                explanation: "$17 - 4 = 13$ niños.",
+                hint: "Cuenta cuatro hacia atrás desde diecisiete.",
+                bossDistractors: ["11","16","10","18"]
+            },
+            {
+                prompt: "El músico tiene 19 cascabeles y pierde 7. ¿Cuántos conserva?",
+                options: ["12","13","11","14"],
+                correct: 0,
+                explanation: "$19 - 7 = 12$ cascabeles.",
+                hint: "Resta siete a las nueve unidades.",
+                bossDistractors: ["10","15","9","17"]
             }
         ]
     },
     {
         id: 7,
         worldId: "world-2",
-        title: "Cálculo Combinado",
+        title: "Sumas y Restas Paso a Paso",
         subtitle: "¡Desafía al Forzudo Globo y sus pesas de aire!",
         icon: "🧮",
         hasEnemy: true,
@@ -982,206 +1233,625 @@ var LEVELS_DATA = [
             avatarImg: "assets/world-2/circus-balloon-strongman-80s.png",
             badge: "CIRCO",
             badgeClass: "circus",
-            maxHp: 20.0,
+            maxHp: 12.0,
             regenRate: 0,
             baseDamage: 1.0,
             streakBonus: 0.5,
             mechanicType: "slap",
             mechanicTitle: "¡Fuerza de Globos!",
-            mechanicDesc: "✋ ¡Calcula rápido para desinflar las pesas del gran forzudo!",
+            mechanicDesc: "✋ ¡Resuelve paso a paso para desinflar las pesas del forzudo!",
             dialogue: {
-                intro: "¡Mira mis músculos de aire puro! ¡Mis pesas requieren números gigantes!",
+                intro: "¡Primero juntamos globos y después quitamos algunos! ¡Vamos paso a paso!",
                 hit: "¡Grrr! ¡Esa bofetada dobló mis barras de globo!",
                 defeat: "¡Me has vencido en fuerza y mente! ¡Eres el verdadero titán!"
             }
         },
         theory: {
-            title: "Combinando Sumas y Restas",
+            title: "Primero un Paso, Después el Otro",
             content: `
-                <p>Cuando tenemos sumas y restas juntas en una misma línea, las resolvemos <strong>de izquierda a derecha</strong>:</p>
-                <div class="theory-visual">
-                    <span>$$25 + 10 - 7 = 35 - 7 = 28$$</span>
-                </div>
-                <p>¡El secreto es avanzar paso a paso y mantener el orden!</p>
+                <p>Tienes 5 globos, recibes 3 y regalas 2. Haz <strong>un paso cada vez</strong>: primero juntas los globos y después quitas los que regalas.</p>
+                <div class="theory-visual"><span>$$5 + 3 = 8 \\qquad 8 - 2 = 6$$</span></div>
+                <p>Si ves $5 + 3 - 2$, avanza <strong>de izquierda a derecha</strong>. También practicarás con decenas: $20 + 10 - 5 = 25$. Las cantidades llegarán hasta 50.</p>
             `
         },
         questions: [
             {
-                prompt: "Calcula: $20 + 15 - 8$",
-                options: ["25", "27", "29", "23"],
-                correct: 1,
-                explanation: "Primero $20 + 15 = 35$, luego $35 - 8 = 27$.",
-                hint: "Resuelve de izquierda a derecha."
-            },
-            {
-                prompt: "Calcula: $50 - 20 + 14$",
-                options: ["44", "34", "54", "16"],
+                prompt: "Calcula: $5 + 3 - 2$",
+                options: ["6","7","5","8"],
                 correct: 0,
-                explanation: "$50 - 20 = 30$, y $30 + 14 = 44$.",
-                hint: "Primero resta $50 - 20$, luego suma 14."
+                explanation: "Primero $5 + 3 = 8$; luego $8 - 2 = 6$.",
+                hint: "Haz primero la suma.",
+                bossDistractors: ["4","9","3","11"]
             },
             {
-                prompt: "Calcula: $100 - 40 - 25$",
-                options: ["45", "35", "25", "30"],
-                correct: 1,
-                explanation: "$100 - 40 = 60$, y $60 - 25 = 35$.",
-                hint: "$60 - 25$."
-            },
-            {
-                prompt: "Un tren parte con 40 pasajeros. En la estación A suben 18 y bajan 12. ¿Cuántos viajan ahora?",
-                options: ["46", "48", "50", "42"],
+                prompt: "Calcula: $9 - 4 + 2$",
+                options: ["7","8","6","9"],
                 correct: 0,
-                explanation: "$40 + 18 - 12 = 58 - 12 = 46$ pasajeros.",
-                hint: "40 + 18 - 12."
+                explanation: "Primero $9 - 4 = 5$; luego $5 + 2 = 7$.",
+                hint: "Avanza de izquierda a derecha.",
+                bossDistractors: ["5","10","4","12"]
             },
             {
-                prompt: "Calcula: $75 + 25 - 50$",
-                options: ["100", "0", "50", "75"],
-                correct: 2,
-                explanation: "$75 + 25 = 100$, y $100 - 50 = 50$.",
-                hint: "75 + 25 da una centena."
+                prompt: "Calcula: $10 + 5 - 3$",
+                options: ["12","13","11","14"],
+                correct: 0,
+                explanation: "$10 + 5 = 15$ y $15 - 3 = 12$.",
+                hint: "Empieza juntando diez y cinco.",
+                bossDistractors: ["10","15","9","17"]
+            },
+            {
+                prompt: "Calcula: $12 - 2 + 6$",
+                options: ["16","17","15","18"],
+                correct: 0,
+                explanation: "$12 - 2 = 10$ y $10 + 6 = 16$.",
+                hint: "Llega primero a diez.",
+                bossDistractors: ["14","19","13","21"]
+            },
+            {
+                prompt: "Calcula: $8 + 4 - 5$",
+                options: ["7","8","6","9"],
+                correct: 0,
+                explanation: "$8 + 4 = 12$ y $12 - 5 = 7$.",
+                hint: "Calcula un paso cada vez.",
+                bossDistractors: ["5","10","4","12"]
+            },
+            {
+                prompt: "Calcula: $15 - 5 + 8$",
+                options: ["18","19","17","20"],
+                correct: 0,
+                explanation: "$15 - 5 = 10$ y $10 + 8 = 18$.",
+                hint: "Haz primero la resta.",
+                bossDistractors: ["16","21","15","23"]
+            },
+            {
+                prompt: "Calcula: $20 + 10 - 5$",
+                options: ["25","26","24","27"],
+                correct: 0,
+                explanation: "$20 + 10 = 30$ y $30 - 5 = 25$.",
+                hint: "Junta primero las decenas.",
+                bossDistractors: ["23","28","22","30"]
+            },
+            {
+                prompt: "Calcula: $30 - 10 + 4$",
+                options: ["24","25","23","26"],
+                correct: 0,
+                explanation: "$30 - 10 = 20$ y $20 + 4 = 24$.",
+                hint: "Quita una decena y añade cuatro.",
+                bossDistractors: ["22","27","21","29"]
+            },
+            {
+                prompt: "Calcula: $24 + 5 - 3$",
+                options: ["26","27","25","28"],
+                correct: 0,
+                explanation: "$24 + 5 = 29$ y $29 - 3 = 26$.",
+                hint: "Suma cinco y después quita tres.",
+                bossDistractors: ["24","29","23","31"]
+            },
+            {
+                prompt: "Calcula: $40 - 20 + 7$",
+                options: ["27","28","26","29"],
+                correct: 0,
+                explanation: "$40 - 20 = 20$ y $20 + 7 = 27$.",
+                hint: "Resta las decenas antes de sumar siete.",
+                bossDistractors: ["25","30","24","32"]
+            },
+            {
+                prompt: "El forzudo tiene 6 globos, recibe 4 y regala 3. ¿Cuántos conserva?",
+                options: ["7","8","6","9"],
+                correct: 0,
+                explanation: "$6 + 4 = 10$ y $10 - 3 = 7$ globos.",
+                hint: "Junta lo que tiene y recibe; después quita lo que regala.",
+                bossDistractors: ["5","10","4","12"]
+            },
+            {
+                prompt: "Hay 12 niños, salen 2 y llegan 5. ¿Cuántos hay al final?",
+                options: ["15","16","14","17"],
+                correct: 0,
+                explanation: "$12 - 2 = 10$ y $10 + 5 = 15$ niños.",
+                hint: "Resta los que salen y suma los que llegan.",
+                bossDistractors: ["13","18","12","20"]
+            },
+            {
+                prompt: "Preparan 10 cintas, añaden 8 y usan 6. ¿Cuántas quedan?",
+                options: ["12","13","11","14"],
+                correct: 0,
+                explanation: "$10 + 8 = 18$ y $18 - 6 = 12$ cintas.",
+                hint: "Primero añade las ocho cintas.",
+                bossDistractors: ["10","15","9","17"]
+            },
+            {
+                prompt: "Hay 20 sillas, retiran 5 y traen 3. ¿Cuántas hay ahora?",
+                options: ["18","19","17","20"],
+                correct: 0,
+                explanation: "$20 - 5 = 15$ y $15 + 3 = 18$ sillas.",
+                hint: "Haz los cambios en el orden en que ocurren.",
+                bossDistractors: ["16","21","15","23"]
+            },
+            {
+                prompt: "El músico lleva 14 cascabeles, guarda 4 y recibe 10. ¿Cuántos lleva ahora?",
+                options: ["20","21","19","22"],
+                correct: 0,
+                explanation: "$14 - 4 = 10$ y $10 + 10 = 20$ cascabeles.",
+                hint: "Quita cuatro y después añade diez.",
+                bossDistractors: ["18","23","17","25"]
+            },
+            {
+                prompt: "En una caja hay 25 pelotas, añaden 5 y sacan 10. ¿Cuántas quedan?",
+                options: ["20","21","19","22"],
+                correct: 0,
+                explanation: "$25 + 5 = 30$ y $30 - 10 = 20$ pelotas.",
+                hint: "Llega primero a treinta.",
+                bossDistractors: ["18","23","17","25"]
+            },
+            {
+                prompt: "Se venden 15 entradas y luego 5 más; se devuelven 4. ¿Cuántas siguen vendidas?",
+                options: ["16","17","15","18"],
+                correct: 0,
+                explanation: "$15 + 5 = 20$ y $20 - 4 = 16$ entradas.",
+                hint: "Junta las ventas y quita las devoluciones.",
+                bossDistractors: ["14","19","13","21"]
+            },
+            {
+                prompt: "Hay 30 globos, se desinflan 10 y llegan 6 nuevos. ¿Cuántos están inflados?",
+                options: ["26","27","25","28"],
+                correct: 0,
+                explanation: "$30 - 10 = 20$ y $20 + 6 = 26$ globos.",
+                hint: "Quita diez antes de añadir seis.",
+                bossDistractors: ["24","29","23","31"]
+            },
+            {
+                prompt: "El forzudo reúne 18 monedas, recibe 2 y gasta 7. ¿Cuántas le quedan?",
+                options: ["13","14","12","15"],
+                correct: 0,
+                explanation: "$18 + 2 = 20$ y $20 - 7 = 13$ monedas.",
+                hint: "Completa veinte antes de restar.",
+                bossDistractors: ["11","16","10","18"]
+            },
+            {
+                prompt: "Hay 40 banderines, cuelgan 10 más y quitan 8. ¿Cuántos quedan colgados?",
+                options: ["42","43","41","44"],
+                correct: 0,
+                explanation: "$40 + 10 = 50$ y $50 - 8 = 42$ banderines.",
+                hint: "Suma las decenas y después resta ocho.",
+                bossDistractors: ["40","45","39","47"]
             }
         ]
     },
     {
         id: 8,
         worldId: "world-2",
-        title: "El Reino Bajo Cero",
-        subtitle: "Introducción a los números negativos",
-        icon: "❄️",
+        title: "La Caja Misteriosa",
+        subtitle: "¡Descubre los secretos de la caja del Payaso Sorpresa!",
+        icon: "🎁",
+        hasEnemy: true,
+        enemy: {
+            id: "payaso_sorpresa",
+            name: "Payaso Sorpresa",
+            title: "El Bromista de la Caja Misteriosa",
+            avatar: "🎈🎩",
+            avatarDefeated: "😵🎩",
+            avatarImg: "assets/world-2/circus-balloon-surprise-clown-80s.png",
+            badge: "CIRCO",
+            badgeClass: "circus",
+            maxHp: 16.0,
+            regenRate: 0,
+            baseDamage: 1.0,
+            streakBonus: 0.5,
+            mechanicType: "slap",
+            mechanicTitle: "¡La Sorpresa que Falta!",
+            mechanicDesc: "🎁 ¡Descubre cuántos faltan para desinflar al Payaso Sorpresa!",
+            dialogue: {
+                intro: "¡Dentro de mi caja hay una sorpresa! ¿Puedes descubrir cuántos globos faltan?",
+                hit: "¡Oh, oh! ¡Has descubierto otro secreto de mi caja!",
+                defeat: "¡Sorpresa! ¡El gran truco era pensar paso a paso!"
+            }
+        },
         theory: {
-            title: "Los Números Negativos",
+            title: "¿Cuántos Faltan?",
             content: `
-                <p>¿Qué pasa si a 3 le quitamos 5? ¡Entramos al territorio de los <strong>números negativos</strong>!</p>
-                <div class="theory-visual">
-                    <span>$$3 - 5 = -2$$</span>
-                </div>
-                <p>Se usan para representar temperaturas bajo cero, deudas o profundidades. En la recta numérica están <strong>a la izquierda del cero</strong>:</p>
-                <div class="theory-visual">
-                    <span>$$\\dots -3 < -2 < -1 < 0 < 1 < 2 < 3 \\dots$$</span>
-                </div>
-                <p>Regla clave: $-(-a) = +a$. Restar un negativo equivale a sumar.</p>
+                <p>Si tienes 4 globos y quieres llegar a 6, cuenta los que faltan: <strong>5, 6</strong>. Has añadido 2 globos.</p>
+                <div class="theory-visual"><span>$$4 + 2 = 6$$</span></div>
+                <p>Para saber cuánto falta también puedes restar: $6 - 4 = 2$. Si tenías algunas pelotas, sacaste 3 y quedaron 7, devuelve las 3 para saber cuántas había.</p>
+                <div class="theory-visual"><span>$$7 + 3 = 10$$</span></div>
+                <p>Lee qué cambió: ¿llegaron objetos o se fueron? Puedes dibujarlos y contarlos. No hace falta usar letras ni números por debajo de cero.</p>
             `
         },
         questions: [
             {
-                prompt: "Calcula: $4 - 7$",
-                options: ["3", "-3", "-4", "11"],
-                correct: 1,
-                explanation: "Como 7 es mayor que 4, el resultado es negativo: $4 - 7 = -3$.",
-                hint: "Imagina que tienes $4 y compras algo de $7: quedas debiendo $3."
-            },
-            {
-                prompt: "La temperatura era de $2^\\circ\\text{C}$ y bajó $5^\\circ\\text{C}$. ¿Cuál es la nueva temperatura?",
-                options: ["$-3^\\circ\\text{C}$", "$3^\\circ\\text{C}$", "$-7^\\circ\\text{C}$", "$0^\\circ\\text{C}$"],
+                prompt: "Tienes 4 globos y necesitas 6. ¿Cuántos te faltan?",
+                options: ["2","3","1","4"],
                 correct: 0,
-                explanation: "$2 - 5 = -3^\\circ\\text{C}$.",
-                hint: "Baja 2 grados para llegar a 0, y bajan 3 grados más."
+                explanation: "De 4 a 6 faltan 2: $4 + 2 = 6$.",
+                hint: "Cuenta desde cuatro hasta seis.",
+                bossDistractors: ["0","5","7","12"]
             },
             {
-                prompt: "Calcula: $-8 + 10$",
-                options: ["-18", "2", "-2", "18"],
-                correct: 1,
-                explanation: "Debes 8 pero pagas 10, te sobran 2: $-8 + 10 = +2$.",
-                hint: "Es lo mismo que $10 - 8$."
+                prompt: "Hay 3 pelotas en una caja. ¿Cuántas añades para tener 8?",
+                options: ["5","6","4","7"],
+                correct: 0,
+                explanation: "$3 + 5 = 8$ pelotas.",
+                hint: "Cuenta cinco más desde tres.",
+                bossDistractors: ["3","8","2","10"]
             },
             {
-                prompt: "Calcula: $-4 - 6$",
-                options: ["-2", "2", "-10", "10"],
-                correct: 2,
-                explanation: "Dos negativos se acumulan: debes 4 y luego debes 6, en total debes 10 ($-10$).",
-                hint: "Se suman los valores absolutos con signo negativo."
+                prompt: "El payaso tiene 7 flores y quiere 10. ¿Cuántas le faltan?",
+                options: ["3","4","2","5"],
+                correct: 0,
+                explanation: "$7 + 3 = 10$ flores.",
+                hint: "Completa una decena.",
+                bossDistractors: ["1","6","0","8"]
             },
             {
-                prompt: "¿Cuál de estos números es el MAYOR?",
-                options: ["-15", "-2", "-8", "-20"],
-                correct: 1,
-                explanation: "$-2$ es el más cercano al cero por la izquierda, por tanto es el mayor de los negativos.",
-                hint: "En los negativos, el que está más cerca del cero es mayor."
+                prompt: "Hay 5 sillas vacías. Añaden algunas y ahora hay 9. ¿Cuántas añadieron?",
+                options: ["4","5","3","6"],
+                correct: 0,
+                explanation: "$5 + 4 = 9$ sillas.",
+                hint: "Busca la diferencia entre nueve y cinco.",
+                bossDistractors: ["2","7","1","9"]
+            },
+            {
+                prompt: "El músico tenía 8 cascabeles y ahora tiene 5. ¿Cuántos guardó?",
+                options: ["3","4","2","5"],
+                correct: 0,
+                explanation: "$8 - 3 = 5$ cascabeles.",
+                hint: "¿Qué debes quitar de ocho para dejar cinco?",
+                bossDistractors: ["1","6","0","8"]
+            },
+            {
+                prompt: "De una caja de 10 narices rojas quedan 6. ¿Cuántas sacaron?",
+                options: ["4","5","3","6"],
+                correct: 0,
+                explanation: "$10 - 4 = 6$ narices.",
+                hint: "Seis más cuatro da diez.",
+                bossDistractors: ["2","7","1","9"]
+            },
+            {
+                prompt: "La artista tiene 6 cintas y su amigo tiene 9. ¿Cuántas más necesita ella para tener las mismas?",
+                options: ["3","4","2","5"],
+                correct: 0,
+                explanation: "$9 - 6 = 3$ cintas.",
+                hint: "Compara nueve con seis.",
+                bossDistractors: ["1","6","0","8"]
+            },
+            {
+                prompt: "El malabarista tiene 12 pelotas. ¿Cuántas guarda para quedarse con 10?",
+                options: ["2","3","1","4"],
+                correct: 0,
+                explanation: "$12 - 2 = 10$ pelotas.",
+                hint: "Quita las dos unidades.",
+                bossDistractors: ["0","5","7","12"]
+            },
+            {
+                prompt: "Había algunos globos. Llegaron 4 y ahora hay 10. ¿Cuántos había al principio?",
+                options: ["6","7","5","8"],
+                correct: 0,
+                explanation: "$6 + 4 = 10$ globos.",
+                hint: "Quita los cuatro que llegaron del total de diez.",
+                bossDistractors: ["4","9","3","11"]
+            },
+            {
+                prompt: "Había algunas sillas. Retiraron 3 y quedaron 7. ¿Cuántas había?",
+                options: ["10","11","9","12"],
+                correct: 0,
+                explanation: "$10 - 3 = 7$ sillas.",
+                hint: "Devuelve las tres sillas a las siete que quedaron.",
+                bossDistractors: ["8","13","7","15"]
+            },
+            {
+                prompt: "Hay 10 entradas en una mesa. ¿Cuántas faltan para tener 15?",
+                options: ["5","6","4","7"],
+                correct: 0,
+                explanation: "$10 + 5 = 15$ entradas.",
+                hint: "Cuenta desde diez hasta quince.",
+                bossDistractors: ["3","8","2","10"]
+            },
+            {
+                prompt: "El payaso tiene 13 globos y quiere 20. ¿Cuántos necesita?",
+                options: ["7","8","6","9"],
+                correct: 0,
+                explanation: "$13 + 7 = 20$ globos.",
+                hint: "Busca lo que falta para completar veinte.",
+                bossDistractors: ["5","10","4","12"]
+            },
+            {
+                prompt: "El músico tenía 15 cascabeles y quedan 9. ¿Cuántos perdió?",
+                options: ["6","7","5","8"],
+                correct: 0,
+                explanation: "$15 - 6 = 9$ cascabeles.",
+                hint: "Cuenta desde nueve hasta quince.",
+                bossDistractors: ["4","9","3","11"]
+            },
+            {
+                prompt: "La artista tiene 8 cintas rojas y algunas azules. En total son 14. ¿Cuántas son azules?",
+                options: ["6","7","5","8"],
+                correct: 0,
+                explanation: "$8 + 6 = 14$ cintas.",
+                hint: "Quita las ocho rojas del total de catorce.",
+                bossDistractors: ["4","9","3","11"]
+            },
+            {
+                prompt: "En una fila hay 12 niños y en otra 18. ¿Cuántos deben llegar a la primera para que haya la misma cantidad?",
+                options: ["6","7","5","8"],
+                correct: 0,
+                explanation: "$18 - 12 = 6$ niños.",
+                hint: "Busca la diferencia entre las dos filas.",
+                bossDistractors: ["4","9","3","11"]
+            },
+            {
+                prompt: "Había algunas pelotas. Sacaron 5 y quedaron 15. ¿Cuántas había antes?",
+                options: ["20","21","19","22"],
+                correct: 0,
+                explanation: "$20 - 5 = 15$ pelotas.",
+                hint: "Devuelve cinco a las quince que quedaron.",
+                bossDistractors: ["18","23","17","25"]
+            },
+            {
+                prompt: "Tienes 20 monedas y necesitas 30 para una entrada. ¿Cuántas te faltan?",
+                options: ["10","11","9","12"],
+                correct: 0,
+                explanation: "$20 + 10 = 30$ monedas.",
+                hint: "Falta una decena.",
+                bossDistractors: ["8","13","7","15"]
+            },
+            {
+                prompt: "Hay 25 banderines. ¿Cuántos añades para llegar a 30?",
+                options: ["5","6","4","7"],
+                correct: 0,
+                explanation: "$25 + 5 = 30$ banderines.",
+                hint: "Completa la siguiente decena.",
+                bossDistractors: ["3","8","2","10"]
+            },
+            {
+                prompt: "De 30 globos quedan 20 inflados. ¿Cuántos se desinflaron?",
+                options: ["10","11","9","12"],
+                correct: 0,
+                explanation: "$30 - 10 = 20$ globos.",
+                hint: "Busca la diferencia entre treinta y veinte.",
+                bossDistractors: ["8","13","7","15"]
+            },
+            {
+                prompt: "Hay 20 sillas en una fila y 35 en otra. ¿Cuántas le faltan a la primera para igualar la segunda?",
+                options: ["15","16","14","17"],
+                correct: 0,
+                explanation: "$35 - 20 = 15$ sillas.",
+                hint: "Quita veinte a treinta y cinco.",
+                bossDistractors: ["13","18","12","20"]
             }
         ]
     },
     {
         id: 9,
         worldId: "world-2",
-        title: "Centinela Aritmético (Jefe)",
-        subtitle: "¡Batalla de Jefe: El Centinela de Piedra Rúnica!",
-        icon: "🗿",
+        title: "Dragón Globo de Dos Cabezas (Jefe)",
+        subtitle: "¡El gran desafío del Circo: ocho alternativas por pregunta!",
+        icon: "🐲",
         isBoss: true,
+        answerOptionCount: 8,
         boss: {
-            id: "centinela_aritmetico",
-            name: "El Centinela Aritmético",
-            title: "Guardián de Piedra del Valle",
-            avatar: "🗿⚡",
-            maxHp: 7.0,
-            regenRate: 0.15,
+            id: "dragon_globo_dos_cabezas",
+            name: "Dragón Globo de Dos Cabezas",
+            title: "Gran Final del Circo de las Sumas",
+            avatar: "🐲🎈",
+            avatarImg: "assets/world-2/circus-balloon-two-headed-dragon-80s.png",
+            badge: "JEFE DEL CIRCO",
+            badgeClass: "circus",
+            maxHp: 40.0,
+            regenRate: 0,
             baseDamage: 1.2,
             streakBonus: 0.5,
-            mechanicType: "polarity",
-            mechanicTitle: "Escudo de Polaridad (+ / -)",
-            mechanicDesc: "Recupera +0.15 HP/s. Aciertos consecutivos rompen su polaridad (+0.5 por racha).",
+            mechanicType: "eight-options",
+            mechanicTitle: "¡Doble Cabeza, Doble Desafío!",
+            mechanicDesc: "🐲 Ocho alternativas. ¡Encadena aciertos para desinflar al dragón!",
             dialogue: {
-                intro: "¡Mis runas de suma y resta son impenetrables!",
-                hit: "¡Mis runas se agrietan!",
-                defeat: "El balance de los signos ha sido restaurado..."
+                intro: "¡Dos cabezas, ocho opciones! ¿Podrás con nuestro gran espectáculo?",
+                hit: "¡Fiuuu! ¡Ese cálculo nos ha quitado el aire!",
+                defeat: "¡Nos desinflaste a las dos! ¡El aplauso final es para ti!"
             }
         },
         theory: {
-            title: "Batalla contra el Centinela",
+            title: "El Gran Final: Dos Cabezas, Ocho Alternativas",
             content: `
-                <p>El Centinela de Piedra protege el paso hacia el Cañón de Factores.</p>
-                <p>Combina sumas, restas y números negativos con rapidez para desactivar su escudo rúnico.</p>
-                <div class="theory-tip">⚡ <strong>Mecánica:</strong> El Centinela regenera <strong>+0.15 HP/s</strong>. ¡Derrótalo con sumas, restas y ley de signos antes de que se agoten tus turnos!</div>
+                <p>El Dragón Globo de Dos Cabezas cierra el espectáculo del circo.</p>
+                <p>Su combate mezcla al azar las <strong>100 preguntas</strong> del mundo 2: sumas, restas, problemas de dos pasos y cantidades que faltan. No aparecen temas nuevos ni se repiten preguntas dentro del intento.</p>
+                <div class="theory-tip">🐲 <strong>Doble desafío:</strong> Cada pregunta tiene <strong>ocho alternativas</strong> y una sola correcta. Usa las teclas <strong>1 a 8</strong> o pulsa una respuesta. El dragón tiene <strong>40 HP</strong>, no se regenera y los aciertos en racha aumentan el daño. ¡Tómate tu tiempo para pensar!</div>
             `
         },
         questions: [
             {
-                prompt: "Calcula: $15 - (-5)$",
-                options: ["10", "20", "-10", "-20"],
-                correct: 1,
-                explanation: "Menos por menos da más: $15 - (-5) = 15 + 5 = 20$.",
-                hint: "Restar un negativo es lo mismo que sumar."
-            },
-            {
-                prompt: "Calcula: $-12 + 25 - 8$",
-                options: ["5", "13", "-5", "21"],
+                prompt: "La cabeza turquesa trae 4 globos y la morada 5. ¿Cuántos traen juntas?",
+                options: ["9","10","8","11"],
                 correct: 0,
-                explanation: "$-12 + 25 = 13$, y $13 - 8 = 5$.",
-                hint: "Primero haz $-12 + 25$."
+                explanation: "$4 + 5 = 9$ globos.",
+                hint: "Junta los dos grupos de globos.",
+                bossDistractors: ["7","12","6","14"]
             },
             {
-                prompt: "Un submarino está a $-40$ metros y desciende $25$ metros más. ¿A qué profundidad se encuentra?",
-                options: ["$-15$ m", "$-65$ m", "$65$ m", "$-55$ m"],
-                correct: 1,
-                explanation: "Descender es restar: $-40 - 25 = -65$ metros.",
-                hint: "Baja aún más en lo negativo: $-40 - 25$."
-            },
-            {
-                prompt: "Resuelve: $100 - (30 + 45)$",
-                options: ["25", "35", "115", "15"],
+                prompt: "El dragón tiene 10 pelotas y guarda 3. ¿Cuántas quedan fuera?",
+                options: ["7","8","6","9"],
                 correct: 0,
-                explanation: "Resolvemos primero el paréntesis: $30 + 45 = 75$. Luego: $100 - 75 = 25$.",
-                hint: "Primero resuelve lo que está entre paréntesis."
+                explanation: "$10 - 3 = 7$ pelotas.",
+                hint: "Cuenta tres hacia atrás desde diez.",
+                bossDistractors: ["5","10","4","12"]
             },
             {
-                prompt: "¿Qué valor de $x$ hace cierta la ecuación: $x - 7 = -2$?",
-                options: ["-9", "5", "-5", "9"],
-                correct: 1,
-                explanation: "Sumamos 7 a ambos lados: $x = -2 + 7 = 5$.",
-                hint: "Pasa el $-7$ sumando al otro lado: $-2 + 7$."
+                prompt: "Calcula: $6 + 6$",
+                options: ["12","13","11","14"],
+                correct: 0,
+                explanation: "$6 + 6 = 12$.",
+                hint: "Es el doble de seis.",
+                bossDistractors: ["10","15","9","17"]
+            },
+            {
+                prompt: "Calcula: $16 - 4$",
+                options: ["12","13","11","14"],
+                correct: 0,
+                explanation: "$16 - 4 = 12$.",
+                hint: "Quita cuatro a las seis unidades.",
+                bossDistractors: ["10","15","9","17"]
+            },
+            {
+                prompt: "El dragón tiene 9 globos y quiere 15. ¿Cuántos le faltan?",
+                options: ["6","7","5","8"],
+                correct: 0,
+                explanation: "$9 + 6 = 15$ globos.",
+                hint: "Añade uno para llegar a diez y después cinco.",
+                bossDistractors: ["4","9","3","11"]
+            },
+            {
+                prompt: "Calcula: $7 + 5$",
+                options: ["12","13","11","14"],
+                correct: 0,
+                explanation: "$7 + 3 + 2 = 12$.",
+                hint: "Completa diez antes de sumar dos más.",
+                bossDistractors: ["10","15","9","17"]
+            },
+            {
+                prompt: "Calcula: $18 - 9$",
+                options: ["9","10","8","11"],
+                correct: 0,
+                explanation: "$18 - 9 = 9$.",
+                hint: "Nueve más nueve da dieciocho.",
+                bossDistractors: ["7","12","6","14"]
+            },
+            {
+                prompt: "Una cabeza lleva 10 cintas y la otra 7. ¿Cuántas tienen entre las dos?",
+                options: ["17","18","16","19"],
+                correct: 0,
+                explanation: "$10 + 7 = 17$ cintas.",
+                hint: "Junta una decena y siete unidades.",
+                bossDistractors: ["15","20","14","22"]
+            },
+            {
+                prompt: "Calcula: $14 + 3 - 5$",
+                options: ["12","13","11","14"],
+                correct: 0,
+                explanation: "$14 + 3 = 17$ y $17 - 5 = 12$.",
+                hint: "Suma tres y después quita cinco.",
+                bossDistractors: ["10","15","9","17"]
+            },
+            {
+                prompt: "Calcula: $20 - 6 + 4$",
+                options: ["18","19","17","20"],
+                correct: 0,
+                explanation: "$20 - 6 = 14$ y $14 + 4 = 18$.",
+                hint: "Haz una operación cada vez.",
+                bossDistractors: ["16","21","15","23"]
+            },
+            {
+                prompt: "El dragón reúne 12 monedas y recibe 8 más. ¿Cuántas tiene?",
+                options: ["20","21","19","22"],
+                correct: 0,
+                explanation: "$12 + 8 = 20$ monedas.",
+                hint: "Completa dos decenas.",
+                bossDistractors: ["18","23","17","25"]
+            },
+            {
+                prompt: "De 20 globos del dragón se desinflan 7. ¿Cuántos quedan inflados?",
+                options: ["13","14","12","15"],
+                correct: 0,
+                explanation: "$20 - 7 = 13$ globos.",
+                hint: "Cuenta siete hacia atrás.",
+                bossDistractors: ["11","16","10","18"]
+            },
+            {
+                prompt: "La cabeza morada tiene 11 cintas y la turquesa 16. ¿Cuántas le faltan a la morada para igualarla?",
+                options: ["5","6","4","7"],
+                correct: 0,
+                explanation: "$16 - 11 = 5$ cintas.",
+                hint: "Compara dieciséis y once.",
+                bossDistractors: ["3","8","2","10"]
+            },
+            {
+                prompt: "El dragón tenía algunas pelotas. Recibió 6 y ahora tiene 18. ¿Cuántas tenía?",
+                options: ["12","13","11","14"],
+                correct: 0,
+                explanation: "$12 + 6 = 18$ pelotas.",
+                hint: "Quita las seis nuevas del total.",
+                bossDistractors: ["10","15","9","17"]
+            },
+            {
+                prompt: "Calcula: $20 + 20$",
+                options: ["40","41","39","42"],
+                correct: 0,
+                explanation: "$20 + 20 = 40$.",
+                hint: "Dos decenas y dos decenas forman cuatro decenas.",
+                bossDistractors: ["38","43","37","45"]
+            },
+            {
+                prompt: "Calcula: $35 - 10$",
+                options: ["25","26","24","27"],
+                correct: 0,
+                explanation: "$35 - 10 = 25$.",
+                hint: "Quita una decena.",
+                bossDistractors: ["23","28","22","30"]
+            },
+            {
+                prompt: "El dragón tiene 24 globos, recibe 6 y regala 5. ¿Cuántos conserva?",
+                options: ["25","26","24","27"],
+                correct: 0,
+                explanation: "$24 + 6 = 30$ y $30 - 5 = 25$ globos.",
+                hint: "Llega a treinta y después resta cinco.",
+                bossDistractors: ["23","28","22","30"]
+            },
+            {
+                prompt: "Calcula: $30 + 8$",
+                options: ["38","39","37","40"],
+                correct: 0,
+                explanation: "$30 + 8 = 38$.",
+                hint: "Junta tres decenas y ocho unidades.",
+                bossDistractors: ["36","41","35","43"]
+            },
+            {
+                prompt: "El dragón tenía 40 entradas y vendió 15. ¿Cuántas quedan?",
+                options: ["25","26","24","27"],
+                correct: 0,
+                explanation: "$40 - 10 = 30$ y $30 - 5 = 25$ entradas.",
+                hint: "Quita diez y después cinco.",
+                bossDistractors: ["23","28","22","30"]
+            },
+            {
+                prompt: "Calcula: $25 + 5 - 10$",
+                options: ["20","21","19","22"],
+                correct: 0,
+                explanation: "$25 + 5 = 30$ y $30 - 10 = 20$.",
+                hint: "Completa treinta y después quita diez.",
+                bossDistractors: ["18","23","17","25"]
             }
         ]
     },
 
     // ==========================================
-    // MUNDO 3: CAÑÓN DE FACTORES (NIVELES 10 - 14)
+    // MUNDO 3: REINO DEL JAQUE DULCE (NIVELES 10 - 14)
     // ==========================================
     {
         id: 10,
         worldId: "world-3",
         title: "Multiplicación Elemental",
         subtitle: "La suma repetida y tablas iniciales (2 al 5)",
-        icon: "✖️",
+        icon: "♟️",
+        hasEnemy: true,
+        enemy: {
+            "id": "peon_malvavisco",
+            "name": "Peón de Malvavisco",
+            "title": "Guardia de la Primera Casilla",
+            "avatar": "♟️",
+            "avatarDefeated": "😵",
+            "avatarImg": "assets/world-3/candy-chess-pawn-80s.png",
+            "badge": "JAQUE DULCE",
+            "badgeClass": "candy",
+            "maxHp": 8,
+            "regenRate": 0,
+            "baseDamage": 1,
+            "streakBonus": 0.5,
+            "mechanicType": "slap",
+            "mechanicTitle": "Duelo de Golosinas",
+            "mechanicDesc": "¡Cada multiplicación abre paso entre las filas del peón!",
+            "dialogue": {
+                "intro": "¡Mis filas de golosinas están listas! ¿Cuántas hay en total?",
+                "hit": "¡Me has quitado una fila de dulces!",
+                "defeat": "¡Bien calculado! Puedes pasar a la siguiente casilla."
+            }
+        },
         theory: {
             title: "¿Qué es Multiplicar?",
             content: `
@@ -1236,7 +1906,30 @@ var LEVELS_DATA = [
         worldId: "world-3",
         title: "Tablas Maestras",
         subtitle: "Multiplicaciones avanzadas (6 al 10 y potencias de 10)",
-        icon: "✨",
+        icon: "♞",
+        hasEnemy: true,
+        enemy: {
+            "id": "caballo_chocolate",
+            "name": "Caballo de Chocolate",
+            "title": "Jinete de las Tablas",
+            "avatar": "♞",
+            "avatarDefeated": "😵",
+            "avatarImg": "assets/world-3/candy-chess-knight-80s.png",
+            "badge": "JAQUE DULCE",
+            "badgeClass": "candy",
+            "maxHp": 9,
+            "regenRate": 0,
+            "baseDamage": 1,
+            "streakBonus": 0.5,
+            "mechanicType": "slap",
+            "mechanicTitle": "Duelo de Golosinas",
+            "mechanicDesc": "¡Acierta las tablas para alcanzar al caballo!",
+            "dialogue": {
+                "intro": "¡Mis saltos van de grupo en grupo! ¡Atrápame con tus tablas!",
+                "hit": "¡Menudo salto de cálculo!",
+                "defeat": "¡Has llegado antes que yo! ¡Buen dominio de las tablas!"
+            }
+        },
         theory: {
             title: "Las Grandes Tablas",
             content: `
@@ -1292,7 +1985,30 @@ var LEVELS_DATA = [
         worldId: "world-3",
         title: "La División: El Reparto",
         subtitle: "Operación inversa de la multiplicación",
-        icon: "➗",
+        icon: "♝",
+        hasEnemy: true,
+        enemy: {
+            "id": "alfil_caramelo",
+            "name": "Alfil de Caramelo",
+            "title": "Maestro del Reparto Real",
+            "avatar": "♝",
+            "avatarDefeated": "😵",
+            "avatarImg": "assets/world-3/candy-chess-bishop-80s.png",
+            "badge": "JAQUE DULCE",
+            "badgeClass": "candy",
+            "maxHp": 10,
+            "regenRate": 0,
+            "baseDamage": 1,
+            "streakBonus": 0.5,
+            "mechanicType": "slap",
+            "mechanicTitle": "Duelo de Golosinas",
+            "mechanicDesc": "¡Reparte las cantidades por igual para vencer al alfil!",
+            "dialogue": {
+                "intro": "¡En mi reino todos reciben la misma cantidad! ¿Sabes repartir?",
+                "hit": "¡Has repartido mis caramelos con precisión!",
+                "defeat": "¡Un reparto perfecto! La siguiente casilla es tuya."
+            }
+        },
         theory: {
             title: "¿Qué es Dividir?",
             content: `
@@ -1347,7 +2063,30 @@ var LEVELS_DATA = [
         worldId: "world-3",
         title: "Jerarquía de Operaciones",
         subtitle: "El orden estricto de la matemática (PEMDAS)",
-        icon: "👑",
+        icon: "♜",
+        hasEnemy: true,
+        enemy: {
+            "id": "torre_barquillo",
+            "name": "Torre de Barquillo",
+            "title": "Fortaleza de las Operaciones",
+            "avatar": "♜",
+            "avatarDefeated": "😵",
+            "avatarImg": "assets/world-3/candy-chess-rook-80s.png",
+            "badge": "JAQUE DULCE",
+            "badgeClass": "candy",
+            "maxHp": 11,
+            "regenRate": 0,
+            "baseDamage": 1,
+            "streakBonus": 0.5,
+            "mechanicType": "slap",
+            "mechanicTitle": "Duelo de Golosinas",
+            "mechanicDesc": "¡Respeta el orden de las operaciones para derribar su defensa!",
+            "dialogue": {
+                "intro": "¡Mi defensa tiene varias capas! ¡Resuelve cada operación en orden!",
+                "hit": "¡Se ha roto una capa de mi escudo!",
+                "defeat": "¡Has encontrado el orden correcto! El palacio de la reina te espera."
+            }
+        },
         theory: {
             title: "El Orden Sagrado (PEMDAS)",
             content: `
@@ -1404,34 +2143,38 @@ var LEVELS_DATA = [
     {
         id: 14,
         worldId: "world-3",
-        title: "El Golem Multiplicador (Jefe)",
-        subtitle: "¡Batalla de Jefe: El Coloso de Factores!",
-        icon: "⚡",
+        title: "Reina de Azúcar (Jefa)",
+        subtitle: "¡Jaque de Azúcar: las alternativas cambian de lugar!",
+        icon: "♛",
         isBoss: true,
         boss: {
-            id: "golem_multiplicador",
-            name: "El Golem Multiplicador",
-            title: "Coloso del Cañón de Factores",
-            avatar: "⚡🤖",
-            maxHp: 8.0,
-            regenRate: 0.1,
-            baseDamage: 1.0,
-            streakBonus: 0.8,
-            mechanicType: "multiplier",
-            mechanicTitle: "Sobrecarga de Factores",
-            mechanicDesc: "Recupera +0.1 HP/s. Cada acierto en racha potencia el impacto (+0.8 por racha).",
-            dialogue: {
-                intro: "¡Mis engranajes multiplican tu esfuerzo por cero!",
-                hit: "¡Sobrecarga de factores!",
-                defeat: "¡El orden de tus operaciones ha sido impecable!"
+            "id": "reina_azucar",
+            "name": "Reina de Azúcar",
+            "title": "Soberana del Reino del Jaque Dulce",
+            "avatar": "♛",
+            "avatarImg": "assets/world-3/candy-chess-queen-80s.png",
+            "badge": "REINA",
+            "badgeClass": "candy",
+            "maxHp": 20,
+            "regenRate": 0,
+            "baseDamage": 1,
+            "streakBonus": 0.5,
+            "mechanicType": "answer-shuffle",
+            "shuffleIntervalMs": 2000,
+            "mechanicTitle": "¡Jaque de Azúcar!",
+            "mechanicDesc": "♛ ¡Las respuestas cambian de casilla cada 2 segundos!",
+            "dialogue": {
+                "intro": "¡Mis dulces cambian de casilla! Sigue el resultado, no su posición.",
+                "hit": "¡Has encontrado tu respuesta entre mis movimientos!",
+                "defeat": "¡Jaque mate! Has vencido a la Reina de Azúcar."
             }
         },
         theory: {
-            title: "Desafío del Golem",
+            title: "El Desafío de la Reina de Azúcar",
             content: `
-                <p>El colosal Golem de Piedra y Rayos custodia la entrada al Bosque del Álgebra.</p>
-                <p>Resuelve problemas con multiplicación, división y jerarquía sin titubear para desintegrar su núcleo.</p>
-                <div class="theory-tip">⚡ <strong>Mecánica:</strong> El Golem recupera <strong>+0.1 HP/s</strong>. ¡Encadena aciertos para sobrecargar su batería con daño potenciado!</div>
+                <p>La Reina de Azúcar gobierna las piezas del Reino del Jaque Dulce. Su combate mezcla las preguntas de este mundo.</p>
+                <p><strong>Jaque de Azúcar:</strong> las alternativas cambian de posición cada <strong>2 segundos</strong>. Sigue el valor de tu respuesta, no el número del botón.</p>
+                <div class="theory-tip">♛ La mezcla se detiene al responder y mientras consultas el perfil o las lecciones. Elige con el ratón, el dedo o las teclas del 1 al 4. La reina tiene 20 HP y no se regenera.</div>
             `
         },
         questions: [
