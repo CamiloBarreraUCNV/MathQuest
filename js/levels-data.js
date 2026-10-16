@@ -13,12 +13,12 @@ var WORLDS_DATA = [
     {
         id: "world-2",
         num: 2,
-        title: "Valle Aritmético",
-        subtitle: "Domina las sumas, restas y descubre los números negativos",
+        title: "Circo de las Sumas",
+        subtitle: "Aprende a sumar y calcular con los artistas de globos inflables",
         color: "#0284c7",
         bgGradient: "linear-gradient(135deg, #0369a1, #0ea5e9)",
-        icon: "🌊",
-        description: "Aprende a combinar cantidades, calcular diferencias y adentrarte en el mundo bajo cero."
+        icon: "🎪",
+        description: "¡El Circo de las Sumas ha llegado a la ciudad! Enfrenta al Payaso Globo, al Malabarista y al Forzudo para dominar el cálculo."
     },
     {
         id: "world-3",
@@ -79,7 +79,7 @@ var LEVELS_DATA = [
             title: "Pirata de la Bahía Numérica",
             avatar: "🍎🏴‍☠️",
             avatarDefeated: "😵🏴‍☠️",
-            avatarImg: "assets/pirate-apple-80s.png",
+            avatarImg: "assets/world-1/pirate-apple-80s.png",
             badge: "PIRATA",
             badgeClass: "pirate",
             maxHp: 20.0,
@@ -263,7 +263,7 @@ var LEVELS_DATA = [
             title: "Comandante del Galeón Mayor y Menor",
             avatar: "🍎⚔️",
             avatarDefeated: "😵⚔️",
-            avatarImg: "assets/pirate-apple-captain-80s.png",
+            avatarImg: "assets/world-1/pirate-apple-captain-80s.png",
             badge: "CAPITÁN",
             badgeClass: "captain",
             maxHp: 20.0,
@@ -447,7 +447,7 @@ var LEVELS_DATA = [
             title: "Comandante de la Guardia del Manzano",
             avatar: "🍎🎖️",
             avatarDefeated: "😵🎖️",
-            avatarImg: "assets/pirate-apple-commander-80s.png",
+            avatarImg: "assets/world-1/pirate-apple-commander-80s.png",
             badge: "COMANDANTE",
             badgeClass: "pirate",
             maxHp: 30.0,
@@ -630,7 +630,7 @@ var LEVELS_DATA = [
             title: "Comandante Supremo del Manzano",
             avatar: "🌳🎖️",
             avatarDefeated: "😵🌳",
-            avatarImg: "assets/island-guardian-general-80s.png",
+            avatarImg: "assets/world-1/island-guardian-general-80s.png",
             badge: "JEFE",
             badgeClass: "boss",
             maxHp: 20.0,
@@ -812,8 +812,31 @@ var LEVELS_DATA = [
         id: 5,
         worldId: "world-2",
         title: "El Poder de la Suma",
-        subtitle: "Uniendo fuerzas y cantidades",
+        subtitle: "¡Desafía al Payaso Globo en el Circo de las Sumas!",
         icon: "➕",
+        hasEnemy: true,
+        enemy: {
+            id: "payaso_globo",
+            name: "Payaso Globo",
+            title: "Acróbata Risueño del Circo",
+            avatar: "🎈🤡",
+            avatarDefeated: "😵🎈",
+            avatarImg: "assets/world-2/circus-balloon-clown-80s.png",
+            badge: "CIRCO",
+            badgeClass: "circus",
+            maxHp: 20.0,
+            regenRate: 0,
+            baseDamage: 1.0,
+            streakBonus: 0.5,
+            mechanicType: "slap",
+            mechanicTitle: "¡Duelo de Cachetadas Inflables!",
+            mechanicDesc: "✋ ¡Cada acierto de suma le propina una bofetada al payaso!",
+            dialogue: {
+                intro: "¡Jojojo! ¡Bienvenidos al circo! ¡A ver si puedes sumar mis globos!",
+                hit: "¡Pooop! ¡Casi me desinflas!",
+                defeat: "¡Fiuuuu! ¡Menuda suma, me quedé sin aire!"
+            }
+        },
         theory: {
             title: "La Adición o Suma",
             content: `
@@ -867,8 +890,31 @@ var LEVELS_DATA = [
         id: 6,
         worldId: "world-2",
         title: "El Arte de la Resta",
-        subtitle: "Diferencias y sustracción",
+        subtitle: "¡Desafía al Malabarista Globo en el Trapecio!",
         icon: "➖",
+        hasEnemy: true,
+        enemy: {
+            id: "malabarista_globo",
+            name: "Malabarista Globo",
+            title: "Estrella del Trapecio Numérico",
+            avatar: "🎈🤹",
+            avatarDefeated: "😵🤹",
+            avatarImg: "assets/world-2/circus-balloon-juggler-80s.png",
+            badge: "CIRCO",
+            badgeClass: "circus",
+            maxHp: 20.0,
+            regenRate: 0,
+            baseDamage: 1.0,
+            streakBonus: 0.5,
+            mechanicType: "slap",
+            mechanicTitle: "¡Malabares en el Aire!",
+            mechanicDesc: "✋ ¡Acierta restas para desarmar los malabares del artista!",
+            dialogue: {
+                intro: "¡Un globo aquí, dos por allá! ¡Resta antes de que caigan!",
+                hit: "¡Rayos! ¡Se me cayó una pelotita!",
+                defeat: "¡Aplaudo tu precisión! ¡Gran espectáculo de cálculo!"
+            }
+        },
         theory: {
             title: "La Sustracción o Resta",
             content: `
@@ -922,8 +968,31 @@ var LEVELS_DATA = [
         id: 7,
         worldId: "world-2",
         title: "Cálculo Combinado",
-        subtitle: "Sumas y restas de doble dígito en acción",
+        subtitle: "¡Desafía al Forzudo Globo y sus pesas de aire!",
         icon: "🧮",
+        hasEnemy: true,
+        enemy: {
+            id: "forzudo_globo",
+            name: "Forzudo Globo",
+            title: "Campeón de Peso Inflable",
+            avatar: "🎈💪",
+            avatarDefeated: "😵💪",
+            avatarImg: "assets/world-2/circus-balloon-strongman-80s.png",
+            badge: "CIRCO",
+            badgeClass: "circus",
+            maxHp: 20.0,
+            regenRate: 0,
+            baseDamage: 1.0,
+            streakBonus: 0.5,
+            mechanicType: "slap",
+            mechanicTitle: "¡Fuerza de Globos!",
+            mechanicDesc: "✋ ¡Calcula rápido para desinflar las pesas del gran forzudo!",
+            dialogue: {
+                intro: "¡Mira mis músculos de aire puro! ¡Mis pesas requieren números gigantes!",
+                hit: "¡Grrr! ¡Esa bofetada dobló mis barras de globo!",
+                defeat: "¡Me has vencido en fuerza y mente! ¡Eres el verdadero titán!"
+            }
+        },
         theory: {
             title: "Combinando Sumas y Restas",
             content: `

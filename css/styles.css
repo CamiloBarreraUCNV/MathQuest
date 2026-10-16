@@ -582,6 +582,12 @@ body {
     box-shadow: 0 0 10px rgba(124, 58, 237, 0.7);
 }
 
+.stage-enemy-badge.circus {
+    background: linear-gradient(135deg, #0284c7, #06b6d4);
+    color: #ffffff;
+    box-shadow: 0 0 8px rgba(2, 132, 199, 0.6);
+}
+
 .stage-enemy-title {
     font-size: 0.8rem;
     color: #94a3b8;

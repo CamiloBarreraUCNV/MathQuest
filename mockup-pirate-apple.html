@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mockup - Manzana Pirata (Asset & Animaciones)</title>
+    <title>Mockup - Galería de Enemigos (Mundos 1 y 2)</title>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <style>
@@ -20,7 +20,7 @@
 
         .showcase-header {
             text-align: center;
-            max-width: 650px;
+            max-width: 800px;
             margin-bottom: 30px;
         }
 
@@ -38,42 +38,64 @@
             margin: 0;
         }
 
-        .mockup-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-            max-width: 900px;
-            width: 100%;
+        .world-section-title {
+            grid-column: 1 / -1;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.6rem;
+            margin: 20px 0 10px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #334155;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        @media (max-width: 768px) {
-            .mockup-grid {
-                grid-template-columns: 1fr;
-            }
+        .world-section-title.w1 {
+            color: #34d399;
+            border-color: rgba(52, 211, 153, 0.3);
+        }
+
+        .world-section-title.w2 {
+            color: #38bdf8;
+            border-color: rgba(56, 189, 248, 0.3);
+        }
+
+        .mockup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 22px;
+            max-width: 1200px;
+            width: 100%;
         }
 
         .asset-card {
             background: #1e293b;
             border: 2px solid #334155;
             border-radius: 20px;
-            padding: 24px;
+            padding: 22px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .asset-card:hover {
+            transform: translateY(-4px);
+            border-color: #6366f1;
         }
 
         .asset-card h3 {
             font-family: 'Fredoka', sans-serif;
-            font-size: 1.3rem;
-            margin: 0 0 16px 0;
+            font-size: 1.15rem;
+            margin: 0 0 14px 0;
             color: #38bdf8;
         }
 
         .asset-preview-container {
-            width: 220px;
-            height: 220px;
+            width: 200px;
+            height: 200px;
             background: radial-gradient(circle, rgba(99,102,241,0.2) 0%, rgba(15,23,42,0.8) 70%);
             border: 2px dashed #4f46e5;
             border-radius: 16px;
@@ -82,12 +104,12 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .asset-preview-img {
-            max-width: 88%;
-            max-height: 88%;
+            max-width: 86%;
+            max-height: 86%;
             object-fit: contain;
             filter: drop-shadow(0 10px 18px rgba(0,0,0,0.5));
             transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -95,9 +117,10 @@
 
         .demo-btn-group {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
             justify-content: center;
+            margin-top: auto;
         }
 
         .interactive-arena-card {
@@ -107,102 +130,226 @@
             border-radius: 20px;
             padding: 24px;
             box-shadow: 0 0 30px rgba(99, 102, 241, 0.25);
+            margin-top: 10px;
         }
 
         .interactive-arena-card h3 {
             margin-top: 0;
             color: #a5b4fc;
             font-family: 'Fredoka', sans-serif;
+            font-size: 1.4rem;
+        }
+
+        .arena-selector-group {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .arena-group-label {
+            width: 100%;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 6px;
+            color: #94a3b8;
         }
 
         .live-arena-mockup {
-            max-width: 580px;
+            max-width: 680px;
             margin: 0 auto;
         }
 
         .back-link {
-            margin-top: 30px;
+            margin-top: 35px;
             color: #38bdf8;
             text-decoration: none;
             font-weight: 700;
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            padding: 10px 20px;
+            background: #1e293b;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            transition: all 0.2s ease;
         }
 
         .back-link:hover {
-            text-decoration: underline;
+            background: #334155;
+            border-color: #38bdf8;
         }
     </style>
 </head>
 <body>
 
     <div class="showcase-header">
-        <h1>🏴‍☠️ Galería de Enemigos: Piratas del Mundo 1</h1>
-        <p>Assets oficiales estilo años 80 y demostración interactiva de bofetadas para Nivel 1 y Nivel 2.</p>
+        <h1>🎪 Galería de Enemigos: Mundos 1 y 2</h1>
+        <p>Assets estilo animación clásica de los 80 organizados por mundos (Piratas & Circo de Globos) con arena de bofetadas interactiva.</p>
     </div>
 
     <div class="mockup-grid">
-        <!-- Tarjeta 1: Nivel 1 - Manzana Pirata -->
+
+        <!-- ============================================== -->
+        <!-- SECCIÓN: MUNDO 1 (ISLA DE LOS NÚMEROS)         -->
+        <!-- ============================================== -->
+        <h2 class="world-section-title w1">🌱 Mundo 1: Isla de los Números (Piratas Manzana)</h2>
+
+        <!-- Nivel 1: Manzana Pirata -->
         <div class="asset-card">
-            <h3>🍎 Nivel 1: Manzana Pirata (Grumete)</h3>
+            <h3>🍎 Nivel 1: Manzana Pirata</h3>
             <div class="asset-preview-container">
-                <img src="assets/pirate-apple-80s.png" alt="Manzana Pirata Años 80" class="asset-preview-img" id="hires-img">
+                <img src="assets/world-1/pirate-apple-80s.png" alt="Manzana Pirata Años 80" class="asset-preview-img" id="img-m1-n1">
             </div>
-            <p style="color: #94a3b8; font-size: 0.88rem; margin-bottom: 16px;">
-                <strong>Archivo:</strong> <code>assets/pirate-apple-80s.png</code><br>
-                Corsario novato: bandana roja, parche, sonrisa pícara y sable de madera.
+            <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 14px;">
+                <strong>Archivo:</strong> <code>assets/world-1/pirate-apple-80s.png</code><br>
+                Corsario novato con bandana roja, parche y sable de madera.
             </p>
             <div class="demo-btn-group">
-                <button class="btn-3d" onclick="testSlap('hires-img')">👋 Dar Cachetada</button>
+                <button class="btn-3d" onclick="testSlap('img-m1-n1')">👋 Dar Cachetada</button>
             </div>
         </div>
 
-        <!-- Tarjeta 2: Nivel 2 - Capitán Manzana -->
+        <!-- Nivel 2: Capitán Manzana Pirata -->
         <div class="asset-card">
-            <h3>⚔️ Nivel 2: Capitán Manzana Pirata</h3>
+            <h3>⚔️ Nivel 2: Capitán Manzana</h3>
             <div class="asset-preview-container" style="background: radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, rgba(15, 23, 42, 0.8) 70%); border-color: #f59e0b;">
-                <img src="assets/pirate-apple-captain-80s.png" alt="Capitán Manzana Años 80" class="asset-preview-img" id="captain-img">
+                <img src="assets/world-1/pirate-apple-captain-80s.png" alt="Capitán Manzana Años 80" class="asset-preview-img" id="img-m1-n2">
             </div>
-            <p style="color: #94a3b8; font-size: 0.88rem; margin-bottom: 16px;">
-                <strong>Archivo:</strong> <code>assets/pirate-apple-captain-80s.png</code><br>
-                Comandante corsario: tricornio con ribete dorado, casaca azul marino con charreteras y espada curvada.
+            <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 14px;">
+                <strong>Archivo:</strong> <code>assets/world-1/pirate-apple-captain-80s.png</code><br>
+                Tricornio con ribete dorado, casaca azul marino y espada curva.
             </p>
             <div class="demo-btn-group">
-                <button class="btn-3d" onclick="testSlap('captain-img')">👋 Dar Cachetada</button>
+                <button class="btn-3d" onclick="testSlap('img-m1-n2')">👋 Dar Cachetada</button>
             </div>
         </div>
 
-        <!-- Tarjeta 3: Nivel 4 - General Guardián Ancestral (Jefe) -->
+        <!-- Nivel 3: Comandante Manzana Pirata -->
         <div class="asset-card">
-            <h3>🌳 Nivel 4: General Guardián Ancestral (Jefe)</h3>
-            <div class="asset-preview-container" style="background: radial-gradient(circle, rgba(124, 58, 237, 0.25) 0%, rgba(15, 23, 42, 0.8) 70%); border-color: #7c3aed;">
-                <img src="assets/island-guardian-general-80s.png" alt="General Guardián Años 80" class="asset-preview-img" id="guardian-img">
+            <h3>🎖️ Nivel 3: Comandante Manzana</h3>
+            <div class="asset-preview-container" style="background: radial-gradient(circle, rgba(239, 68, 68, 0.2) 0%, rgba(15, 23, 42, 0.8) 70%); border-color: #ef4444;">
+                <img src="assets/world-1/pirate-apple-commander-80s.png" alt="Comandante Manzana Años 80" class="asset-preview-img" id="img-m1-n3">
             </div>
-            <p style="color: #94a3b8; font-size: 0.88rem; margin-bottom: 16px;">
-                <strong>Archivo:</strong> <code>assets/island-guardian-general-80s.png</code><br>
-                Comandante Supremo del Manzano: árbol majestuoso con uniforme militar, charreteras doradas, medallas de honor y catalejo.
+            <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 14px;">
+                <strong>Archivo:</strong> <code>assets/world-1/pirate-apple-commander-80s.png</code><br>
+                Oficial superior con sable desenvainado y charreteras de batalla.
             </p>
             <div class="demo-btn-group">
-                <button class="btn-3d" onclick="testSlap('guardian-img')">👋 Dar Cachetada</button>
+                <button class="btn-3d" onclick="testSlap('img-m1-n3')">👋 Dar Cachetada</button>
             </div>
         </div>
 
-        <!-- Tarjeta 4: Integración en la Interfaz de Batalla del Juego -->
+        <!-- Nivel 4: General Guardián Ancestral (Jefe) -->
+        <div class="asset-card">
+            <h3>🌳 Nivel 4: General Guardián (Jefe)</h3>
+            <div class="asset-preview-container" style="background: radial-gradient(circle, rgba(124, 58, 237, 0.25) 0%, rgba(15, 23, 42, 0.8) 70%); border-color: #7c3aed;">
+                <img src="assets/world-1/island-guardian-general-80s.png" alt="General Guardián Años 80" class="asset-preview-img" id="img-m1-n4">
+            </div>
+            <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 14px;">
+                <strong>Archivo:</strong> <code>assets/world-1/island-guardian-general-80s.png</code><br>
+                Comandante Supremo del Manzano: árbol con uniforme militar y medallas.
+            </p>
+            <div class="demo-btn-group">
+                <button class="btn-3d" onclick="testSlap('img-m1-n4')">👋 Dar Cachetada</button>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- SECCIÓN: MUNDO 2 (CIRCO DE LAS SUMAS)          -->
+        <!-- ============================================== -->
+        <h2 class="world-section-title w2">🎪 Mundo 2: Circo de las Sumas (Globos Inflables)</h2>
+
+        <!-- Nivel 5: Payaso Globo -->
+        <div class="asset-card">
+            <h3>🎈 Nivel 5: Payaso Globo</h3>
+            <div class="asset-preview-container" style="background: radial-gradient(circle, rgba(2, 132, 199, 0.25) 0%, rgba(15, 23, 42, 0.8) 70%); border-color: #0284c7;">
+                <img src="assets/world-2/circus-balloon-clown-80s.png" alt="Payaso Globo Años 80" class="asset-preview-img" id="img-m2-n5">
+            </div>
+            <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 14px;">
+                <strong>Archivo:</strong> <code>assets/world-2/circus-balloon-clown-80s.png</code><br>
+                Globo rojo coral, corbatín turquesa con lunares, guantes y zapatones.
+            </p>
+            <div class="demo-btn-group">
+                <button class="btn-3d" onclick="testSlap('img-m2-n5')">👋 Dar Cachetada</button>
+            </div>
+        </div>
+
+        <!-- Nivel 6: Malabarista Globo -->
+        <div class="asset-card">
+            <h3>🤹 Nivel 6: Malabarista Globo</h3>
+            <div class="asset-preview-container" style="background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, rgba(15, 23, 42, 0.8) 70%); border-color: #a855f7;">
+                <img src="assets/world-2/circus-balloon-juggler-80s.png" alt="Malabarista Globo Años 80" class="asset-preview-img" id="img-m2-n6">
+            </div>
+            <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 14px;">
+                <strong>Archivo:</strong> <code>assets/world-2/circus-balloon-juggler-80s.png</code><br>
+                Cuerpo púrpura elástico, chaleco circense y 3 pelotas flotantes en arco.
+            </p>
+            <div class="demo-btn-group">
+                <button class="btn-3d" onclick="testSlap('img-m2-n6')">👋 Dar Cachetada</button>
+            </div>
+        </div>
+
+        <!-- Nivel 7: Forzudo Globo -->
+        <div class="asset-card">
+            <h3>💪 Nivel 7: Forzudo Globo</h3>
+            <div class="asset-preview-container" style="background: radial-gradient(circle, rgba(14, 165, 233, 0.25) 0%, rgba(15, 23, 42, 0.8) 70%); border-color: #0ea5e9;">
+                <img src="assets/world-2/circus-balloon-strongman-80s.png" alt="Forzudo Globo Años 80" class="asset-preview-img" id="img-m2-n7">
+            </div>
+            <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 14px;">
+                <strong>Archivo:</strong> <code>assets/world-2/circus-balloon-strongman-80s.png</code><br>
+                Musculatura de tubos inflables, bigote victoriano y barra con pesas de globo.
+            </p>
+            <div class="demo-btn-group">
+                <button class="btn-3d" onclick="testSlap('img-m2-n7')">👋 Dar Cachetada</button>
+            </div>
+        </div>
+
+        <!-- Nivel 8/9: Dragón de Dos Cabezas -->
+        <div class="asset-card">
+            <h3>🐉 Nivel 8/9: Dragón de Dos Cabezas</h3>
+            <div class="asset-preview-container" style="background: radial-gradient(circle, rgba(236, 72, 153, 0.25) 0%, rgba(15, 23, 42, 0.8) 70%); border-color: #ec4899;">
+                <img src="assets/world-2/circus-balloon-two-headed-dragon-80s.png" alt="Dragón Globo Dos Cabezas" class="asset-preview-img" id="img-m2-dragon">
+            </div>
+            <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 14px;">
+                <strong>Archivo:</strong> <code>assets/world-2/circus-balloon-two-headed-dragon-80s.png</code><br>
+                Dragón mítico de látex inflable con dos cabezas gemelas y alas de globo.
+            </p>
+            <div class="demo-btn-group">
+                <button class="btn-3d" onclick="testSlap('img-m2-dragon')">👋 Dar Cachetada</button>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- ARENA DE COMBATE INTERACTIVA                   -->
+        <!-- ============================================== -->
         <div class="asset-card interactive-arena-card">
-            <h3>🎮 Mockup de Integración en la Arena de Combate</h3>
-            <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 16px;">
-                Selecciona al enemigo o jefe que deseas enfrentar en la arena:
+            <h3>🎮 Arena de Combate Interactiva (Prueba de Efectos y Bofetada)</h3>
+            <p style="color: #94a3b8; font-size: 0.95rem; margin-bottom: 14px;">
+                Selecciona al combatiente de cualquier mundo para probar su apariencia, vida, diálogos y reacción a las cachetadas:
             </p>
 
-            <!-- Selector de Enemigo -->
-            <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap;">
-                <button class="btn-3d" id="btn-select-minion" onclick="selectArenaEnemy('minion')" style="background: #4f46e5;">🍎 Nivel 1: Manzana Pirata</button>
-                <button class="btn-3d secondary" id="btn-select-captain" onclick="selectArenaEnemy('captain')">⚔️ Nivel 2: Capitán Manzana</button>
-                <button class="btn-3d secondary" id="btn-select-boss" onclick="selectArenaEnemy('boss')">🌳 Nivel 4: General Guardián</button>
+            <div class="arena-group-label">🌱 Mundo 1: Isla de los Números</div>
+            <div class="arena-selector-group">
+                <button class="btn-3d" id="btn-enemy-m1-n1" onclick="selectArenaEnemy('m1_n1')" style="background: #4f46e5;">🍎 N1: Manzana Pirata</button>
+                <button class="btn-3d secondary" id="btn-enemy-m1-n2" onclick="selectArenaEnemy('m1_n2')">⚔️ N2: Capitán Manzana</button>
+                <button class="btn-3d secondary" id="btn-enemy-m1-n3" onclick="selectArenaEnemy('m1_n3')">🎖️ N3: Comandante Manzana</button>
+                <button class="btn-3d secondary" id="btn-enemy-m1-n4" onclick="selectArenaEnemy('m1_n4')">🌳 N4: General Guardián</button>
             </div>
 
-            <div class="live-arena-mockup" style="max-width: 780px; width: 100%;">
+            <div class="arena-group-label">🎪 Mundo 2: Circo de las Sumas</div>
+            <div class="arena-selector-group" style="margin-bottom: 24px;">
+                <button class="btn-3d secondary" id="btn-enemy-m2-n5" onclick="selectArenaEnemy('m2_n5')">🎈 N5: Payaso Globo</button>
+                <button class="btn-3d secondary" id="btn-enemy-m2-n6" onclick="selectArenaEnemy('m2_n6')">🤹 N6: Malabarista Globo</button>
+                <button class="btn-3d secondary" id="btn-enemy-m2-n7" onclick="selectArenaEnemy('m2_n7')">💪 N7: Forzudo Globo</button>
+                <button class="btn-3d secondary" id="btn-enemy-m2-dragon" onclick="selectArenaEnemy('m2_dragon')">🐉 Dragón de Dos Cabezas</button>
+            </div>
+
+            <div class="live-arena-mockup">
                 <div class="boss-arena" style="margin-bottom: 20px;">
                     <div class="battle-stage-backdrop">
                         <!-- Floating HUD -->
@@ -226,7 +373,7 @@
                             </div>
                             <div class="stage-avatar-wrapper" id="mockup-avatar-wrapper">
                                 <div class="boss-avatar">
-                                    <img src="assets/pirate-apple-80s.png" id="mockup-avatar-img" alt="Enemigo">
+                                    <img src="assets/world-1/pirate-apple-80s.png" id="mockup-avatar-img" alt="Enemigo">
                                 </div>
                                 <div class="slap-hand hidden" id="mockup-slap-hand">✋</div>
                                 <div class="slap-impact hidden" id="mockup-slap-impact">💥 ¡ZAS!</div>
@@ -235,16 +382,16 @@
                         </div>
 
                         <!-- Mechanic Pill -->
-                        <div class="stage-mechanic-pill">
-                            <span class="mechanic-icon">🗡️</span>
-                            <span>Cada acierto debilita al enemigo.</span>
+                        <div class="stage-mechanic-pill" id="mockup-mechanic-pill">
+                            <span class="mechanic-icon" id="mockup-mechanic-icon">🗡️</span>
+                            <span id="mockup-mechanic-text">Cada acierto debilita al enemigo.</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Preview Tarjeta Dorada de Pregunta -->
                 <div class="quiz-card" style="margin-bottom: 20px;">
-                    <div class="quiz-prompt">¿Cuántas estrellas hay aquí? ⭐ ⭐ ⭐ ⭐</div>
+                    <div class="quiz-prompt" id="mockup-quiz-prompt">¿Cuántas estrellas hay aquí? ⭐ ⭐ ⭐ ⭐</div>
                     <div class="options-grid">
                         <button class="option-card" onclick="testArenaSlap()"><span class="option-key">1</span><span class="option-text">3</span></button>
                         <button class="option-card correct" onclick="testArenaSlap()"><span class="option-key">2</span><span class="option-text">4 (Correcto)</span></button>
@@ -252,11 +399,11 @@
                         <button class="option-card" onclick="testArenaSlap()"><span class="option-key">4</span><span class="option-text">6</span></button>
                     </div>
                     <div class="quiz-action-hint">
-                        <span>⚔️ Elige tu respuesta para atacar.</span>
+                        <span>⚔️ Elige tu respuesta para propinar un slap.</span>
                     </div>
                 </div>
 
-                <div style="display: flex; gap: 12px; justify-content: center; margin-top: 15px;">
+                <div style="display: flex; gap: 12px; justify-content: center; margin-top: 15px; flex-wrap: wrap;">
                     <button class="btn-3d" onclick="testArenaSlap()">⚡ Probar Bofetada + Efectos de Sonido</button>
                     <button class="btn-3d secondary" onclick="resetMockupHp()">🔄 Restaurar Vida</button>
                 </div>
@@ -270,41 +417,130 @@
     <script src="js/audio.js"></script>
     <script>
         let mockupHp = 17.0;
-        let currentTarget = 'minion';
+        let currentTarget = 'm1_n1';
 
         const ENEMIES = {
-            minion: {
+            m1_n1: {
                 name: 'Manzana Pirata',
                 title: 'Pirata de la Bahía Numérica',
-                img: 'assets/pirate-apple-80s.png',
+                img: 'assets/world-1/pirate-apple-80s.png',
                 badgeText: 'ENEMIGO',
                 badgeClass: 'stage-enemy-badge pirate',
                 borderColor: '#ca8a04',
-                intro: '¡A ver si sabes contar!'
+                color: '#4f46e5',
+                mechanicIcon: '🗡️',
+                mechanicDesc: 'Cada acierto le propina una cachetada al grumete.',
+                intro: '¡A ver si sabes contar!',
+                hitDialogues: ['¡Rayos y centellas! ¡Menuda bofetada!', '¡Auuu! ¡Eso dolió!', '¡Mi bandana! ¡Qué golpe!'],
+                defeat: '¡Me rindo, marinero de los números!'
             },
-            captain: {
+            m1_n2: {
                 name: 'Capitán Manzana',
                 title: 'Comandante del Galeón Mayor y Menor',
-                img: 'assets/pirate-apple-captain-80s.png',
+                img: 'assets/world-1/pirate-apple-captain-80s.png',
                 badgeText: 'CAPITÁN',
                 badgeClass: 'stage-enemy-badge captain',
                 borderColor: '#f59e0b',
-                intro: '¡Nadie navega aquí sin dominar las magnitudes!'
+                color: '#f59e0b',
+                mechanicIcon: '⚖️',
+                mechanicDesc: 'Compara números para acertar el golpe al Capitán.',
+                intro: '¡Nadie navega aquí sin dominar las magnitudes!',
+                hitDialogues: ['¡Esa bofetada fue MAYOR que mi paciencia!', '¡Por Neptuno! ¡Qué derechazo!', '¡Mis charreteras!'],
+                defeat: '¡El rumbo es tuyo, navegante de las cifras!'
             },
-            boss: {
+            m1_n3: {
+                name: 'Comandante Manzana',
+                title: 'Lugarteniente de la Armada Frutal',
+                img: 'assets/world-1/pirate-apple-commander-80s.png',
+                badgeText: 'COMANDANTE',
+                badgeClass: 'stage-enemy-badge captain',
+                borderColor: '#ef4444',
+                color: '#ef4444',
+                mechanicIcon: '⚔️',
+                mechanicDesc: 'Acierta números pares e impares para desarmarlo.',
+                intro: '¡Atención corsarios! ¡No pasarán de este bastión!',
+                hitDialogues: ['¡Rompiste mi formación!', '¡Qué fuerza tiene tu cálculo!', '¡Retrocedan!'],
+                defeat: '¡He caído! ¡Avanza hacia el Manzano Ancestral!'
+            },
+            m1_n4: {
                 name: 'General Guardián Ancestral',
                 title: 'Comandante Supremo del Manzano',
-                img: 'assets/island-guardian-general-80s.png',
+                img: 'assets/world-1/island-guardian-general-80s.png',
                 badgeText: 'JEFE',
                 badgeClass: 'stage-enemy-badge boss',
                 borderColor: '#7c3aed',
-                intro: '¡Firmes! ¡Soy el General Guardián de la Isla!'
+                color: '#7c3aed',
+                mechanicIcon: '🌳',
+                mechanicDesc: 'Fotosíntesis: ¡Recupera vida con sus frutos!',
+                intro: '¡Firmes! ¡Soy el General Guardián de la Isla! ¡Mis manzanas crecen con disciplina!',
+                hitDialogues: ['¡Rayos y ramas rotas! ¡Desordenaste mis medallas!', '¡Crujen mis raíces!', '¡Sólido impacto!'],
+                defeat: '¡Sobresaliente disciplina! ¡Te concedo la Medalla de Honor!'
+            },
+            m2_n5: {
+                name: 'Payaso Globo',
+                title: 'Acróbata Risueño del Circo',
+                img: 'assets/world-2/circus-balloon-clown-80s.png',
+                badgeText: 'CIRCO',
+                badgeClass: 'stage-enemy-badge circus',
+                borderColor: '#0284c7',
+                color: '#0284c7',
+                mechanicIcon: '➕',
+                mechanicDesc: '¡Cada suma correcta le da un cachetadón inflable!',
+                intro: '¡Jojojo! ¡Bienvenidos al circo! ¡A ver si puedes sumar mis globos!',
+                hitDialogues: ['¡Pooop! ¡Casi me desinflas!', '¡Jajaja! ¡Qué slap tan ruidoso!', '¡Oye, mi corbatín!'],
+                defeat: '¡Fiuuuu! ¡Menuda suma, me quedé sin aire!'
+            },
+            m2_n6: {
+                name: 'Malabarista Globo',
+                title: 'Estrella del Trapecio Numérico',
+                img: 'assets/world-2/circus-balloon-juggler-80s.png',
+                badgeText: 'CIRCO',
+                badgeClass: 'stage-enemy-badge circus',
+                borderColor: '#a855f7',
+                color: '#a855f7',
+                mechanicIcon: '🤹',
+                mechanicDesc: 'Acierta restas para desarmar los malabares del artista.',
+                intro: '¡Un globo aquí, dos por allá! ¡Resta antes de que caigan!',
+                hitDialogues: ['¡Rayos! ¡Se me cayó una pelotita!', '¡Qué puntería en la resta!', '¡Casi pierdo el equilibrio!'],
+                defeat: '¡Aplaudo tu precisión! ¡Gran espectáculo de cálculo!'
+            },
+            m2_n7: {
+                name: 'Forzudo Globo',
+                title: 'Campeón de Peso Inflable',
+                img: 'assets/world-2/circus-balloon-strongman-80s.png',
+                badgeText: 'CIRCO',
+                badgeClass: 'stage-enemy-badge circus',
+                borderColor: '#0ea5e9',
+                color: '#0ea5e9',
+                mechanicIcon: '💪',
+                mechanicDesc: 'Cálculo combinado: ¡Desinfla sus pesas de aire!',
+                intro: '¡Mira mis músculos de aire puro! ¡Mis pesas requieren números gigantes!',
+                hitDialogues: ['¡Grrr! ¡Esa bofetada dobló mis barras de globo!', '¡Siento cómo se escapa mi aire!', '¡Buen derechazo!'],
+                defeat: '¡Me has vencido en fuerza y mente! ¡Eres el titán!'
+            },
+            m2_dragon: {
+                name: 'Dragón de Dos Cabezas',
+                title: 'Gran Atracción Mitológica Inflable',
+                img: 'assets/world-2/circus-balloon-two-headed-dragon-80s.png',
+                badgeText: 'JEFE CIRCO',
+                badgeClass: 'stage-enemy-badge boss',
+                borderColor: '#ec4899',
+                color: '#ec4899',
+                mechanicIcon: '🐉',
+                mechanicDesc: '¡Doble cabeza, doble desafío de cálculo!',
+                intro: '¡Roaaar! ¡Dos cabezas piensan mejor que una en la carpa central!',
+                hitDialogues: ['¡Pooof! ¡Mi cabeza izquierda vio estrellas!', '¡Rayos de látex! ¡Qué bofetada!', '¡Pffft, perdiendo presión!'],
+                defeat: '¡Psssssh! ¡Nos has desinflado por completo, genio de las sumas!'
             }
         };
+
+        const ENEMY_KEYS = ['m1_n1', 'm1_n2', 'm1_n3', 'm1_n4', 'm2_n5', 'm2_n6', 'm2_n7', 'm2_dragon'];
 
         function selectArenaEnemy(key) {
             currentTarget = key;
             const enemy = ENEMIES[key];
+            if (!enemy) return;
+
             document.getElementById('mockup-avatar-img').src = enemy.img;
             document.getElementById('mockup-boss-name').textContent = enemy.name;
             document.getElementById('mockup-boss-title').textContent = enemy.title;
@@ -316,28 +552,24 @@
             const speechText = document.getElementById('mockup-speech-text');
             if (speechText) speechText.textContent = enemy.intro;
 
-            const btnMinion = document.getElementById('btn-select-minion');
-            const btnCaptain = document.getElementById('btn-select-captain');
-            const btnBoss = document.getElementById('btn-select-boss');
+            const iconEl = document.getElementById('mockup-mechanic-icon');
+            if (iconEl) iconEl.textContent = enemy.mechanicIcon;
+            const textEl = document.getElementById('mockup-mechanic-text');
+            if (textEl) textEl.textContent = enemy.mechanicDesc;
 
-            btnMinion.className = 'btn-3d secondary';
-            btnMinion.style.background = '';
-            btnCaptain.className = 'btn-3d secondary';
-            btnCaptain.style.background = '';
-            if (btnBoss) {
-                btnBoss.className = 'btn-3d secondary';
-                btnBoss.style.background = '';
-            }
+            // Reset buttons style
+            ENEMY_KEYS.forEach(k => {
+                const btn = document.getElementById('btn-enemy-' + k.replace('_', '-'));
+                if (btn) {
+                    btn.className = 'btn-3d secondary';
+                    btn.style.background = '';
+                }
+            });
 
-            if (key === 'minion') {
-                btnMinion.className = 'btn-3d';
-                btnMinion.style.background = '#4f46e5';
-            } else if (key === 'captain') {
-                btnCaptain.className = 'btn-3d';
-                btnCaptain.style.background = '#f59e0b';
-            } else if (key === 'boss' && btnBoss) {
-                btnBoss.className = 'btn-3d';
-                btnBoss.style.background = '#7c3aed';
+            const activeBtn = document.getElementById('btn-enemy-' + key.replace('_', '-'));
+            if (activeBtn) {
+                activeBtn.className = 'btn-3d';
+                activeBtn.style.background = enemy.color;
             }
 
             resetMockupHp();
@@ -346,6 +578,7 @@
         function testSlap(imgId) {
             if (window.soundManager) soundManager.slap();
             const img = document.getElementById(imgId);
+            if (!img) return;
             img.style.transform = 'rotate(-25deg) translateX(-18px) scale(0.9)';
             img.style.filter = 'brightness(1.4) drop-shadow(0 0 16px rgba(239, 68, 68, 0.9))';
             
@@ -373,7 +606,7 @@
 
             // 2. Comic impact
             const impact = document.getElementById('mockup-slap-impact');
-            const sounds = ['💥 ¡ZAS!', '👋 ¡PLAF!', '⚡ ¡TOMA!', '💥 ¡SLAP!'];
+            const sounds = ['💥 ¡ZAS!', '👋 ¡PLAF!', '⚡ ¡TOMA!', '💥 ¡SLAP!', '🎈 ¡POF!'];
             impact.textContent = sounds[Math.floor(Math.random() * sounds.length)];
             impact.classList.remove('hidden');
             impact.style.animation = 'none';
@@ -413,13 +646,12 @@
 
             // 6. Speech Bubble reaction
             const speech = document.getElementById('mockup-speech-text');
-            if (speech) {
+            const enemy = ENEMIES[currentTarget];
+            if (speech && enemy) {
                 if (mockupHp <= 0) {
-                    speech.textContent = '¡Me rindo, marinero de los números!';
+                    speech.textContent = enemy.defeat;
                 } else {
-                    const hits = currentTarget === 'minion' 
-                        ? ['¡Rayos y centellas! ¡Menuda bofetada!', '¡Auuu! ¡Eso dolió!', '¡Mi bandana! ¡Qué golpe!'] 
-                        : ['¡Esa bofetada fue MAYOR que mi paciencia!', '¡Por Neptuno! ¡Qué derechazo!', '¡Mis charreteras!'];
+                    const hits = enemy.hitDialogues;
                     speech.textContent = hits[Math.floor(Math.random() * hits.length)];
                 }
             }
