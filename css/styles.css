@@ -634,6 +634,15 @@ body {
     white-space: nowrap;
 }
 
+@media (max-width: 700px) {
+    .quiz-subbar { display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 8px; }
+    .subbar-level-pill { min-width: 0; }
+    .subbar-level-title { overflow-wrap: anywhere; }
+    .subbar-stepper-container { grid-column: 1 / -1; min-width: 0; padding: 4px 0; }
+    .subbar-stepper { width: 100%; gap: 2px; justify-content: space-between; }
+    .subbar-mode-badge { grid-column: 1 / -1; justify-self: start; max-width: 100%; white-space: normal; }
+}
+
 /* ==========================================
    ARENA DE BATALLA ESCÉNICA (ESTILO MOCKUP)
    ========================================== */
@@ -1143,6 +1152,19 @@ body {
     margin-bottom: 22px;
 }
 
+/* Small learning diagrams share the question area without adding image assets. */
+.curriculum-table-wrap { max-width: 100%; overflow-x: auto; margin: 12px 0 16px; }
+.curriculum-table { width: 100%; border-collapse: collapse; font-size: 1rem; line-height: 1.4; text-align: center; }
+.curriculum-table caption { padding: 6px; color: #fde68a; font-weight: 700; font-size: .9rem; }
+.curriculum-table th, .curriculum-table td { border: 1px solid #54718f; padding: 8px; overflow-wrap: anywhere; }
+.curriculum-table thead, .curriculum-table tbody th { background: #16273e; }
+.curriculum-table tbody th { font-weight: 600; }
+.curriculum-table td { background: #0c1930; }
+.curriculum-tiles { display: grid; grid-template-columns: repeat(var(--tile-columns), 24px); gap: 4px; width: max-content; max-width: 100%; margin: 12px auto; }
+.curriculum-tiles > span { width: 24px; height: 24px; border: 2px solid #fef3c7; background: #192941; border-radius: 3px; }
+.curriculum-tiles > .filled { background: #be185d; }
+.option-text { overflow-wrap: anywhere; min-width: 0; }
+
 .options-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1168,6 +1190,7 @@ body {
 }
 
 @media (max-width: 420px) {
+    .options-grid,
     .options-grid-expanded {
         grid-template-columns: minmax(0, 1fr);
     }

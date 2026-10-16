@@ -1,1836 +1,4337 @@
 // MathQuest: Base de datos de Mundos, Niveles, Teoría y Preguntas
+// Mundos 1–3: contenido de scripts/build-primary-content.cjs.
 var WORLDS_DATA = [
     {
-        id: "world-1",
-        num: 1,
-        title: "Isla de los Números",
-        subtitle: "Aprende las bases fundamentales del conteo y comparación",
-        color: "#10b981",
-        bgGradient: "linear-gradient(135deg, #059669, #10b981)",
-        icon: "🌱",
-        battleBg: "assets/world-1/battle-stage-clean.jpg",
-        cardCharacter: "assets/world-1/pirate-apple-80s.png",
-        cardTopics: "Conteo · Comparación · Pares e impares",
-        description: "El punto de partida de todo gran matemático: comprender el valor, el orden y los patrones de los números."
+        "id": "world-1",
+        "num": 1,
+        "title": "Isla de los Números",
+        "subtitle": "1.º básico: números, primeras operaciones y exploración de la isla",
+        "color": "#10b981",
+        "bgGradient": "linear-gradient(135deg, #059669, #10b981)",
+        "icon": "🌱",
+        "battleBg": "assets/world-1/battle-stage-clean.jpg",
+        "cardCharacter": "assets/world-1/pirate-apple-80s.png",
+        "cardTopics": "1.º básico · Números · Formas · Medidas",
+        "description": "Cuenta el tesoro de los piratas, resuelve sumas y restas hasta 20 y explora formas, medidas y datos entre manzanos.",
+        "grade": 1
     },
     {
-        id: "world-2",
-        num: 2,
-        title: "Circo de las Sumas",
-        subtitle: "Sumas, restas y retos paso a paso con los artistas de globos",
-        color: "#0284c7",
-        bgGradient: "linear-gradient(135deg, #0369a1, #0ea5e9)",
-        icon: "🎪",
-        battleBg: "assets/world-2/circus-battle-background-80s.png",
-        cardCharacter: "assets/world-2/circus-balloon-two-headed-dragon-80s.png",
-        cardTopics: "Sumas · Restas · Cantidades que faltan",
-        description: "¡El Circo de las Sumas ha llegado! Practica con cantidades pequeñas y avanza a problemas de dos pasos y números de dos cifras."
+        "id": "world-2",
+        "num": 2,
+        "title": "Circo de las Sumas",
+        "subtitle": "2.º básico: operaciones hasta 100, grupos iguales y datos del circo",
+        "color": "#0284c7",
+        "bgGradient": "linear-gradient(135deg, #0369a1, #0ea5e9)",
+        "icon": "🎪",
+        "battleBg": "assets/world-2/circus-battle-background-80s.png",
+        "cardCharacter": "assets/world-2/circus-balloon-two-headed-dragon-80s.png",
+        "cardTopics": "2.º básico · Sumas · Grupos · Datos",
+        "description": "Organiza los globos del circo: trabaja hasta 100, descubre las tablas del 2, 5 y 10 y aprende con figuras, horarios y gráficos.",
+        "grade": 2
     },
     {
-        id: "world-3",
-        num: 3,
-        title: "Reino del Jaque Dulce",
-        subtitle: "Multiplicación y división en un reino de golosinas (9–12 años)",
-        color: "#f59e0b",
-        bgGradient: "linear-gradient(135deg, #9d174d, #db2777)",
-        icon: "♟️",
-        battleBg: "assets/world-3/candy-chess-battle-background-80s.png",
-        cardCharacter: "assets/world-3/candy-chess-queen-80s.png",
-        cardTopics: "Multiplicación · División · Ajedrez de golosinas",
-        description: "Un reino de golosinas gobernado por piezas de ajedrez. Practica multiplicación y división y desafía a la Reina de Azúcar."
+        "id": "world-3",
+        "num": 3,
+        "title": "Reino del Jaque Dulce",
+        "subtitle": "3.º básico: tablas, división, fracciones y desafíos del reino",
+        "color": "#f59e0b",
+        "bgGradient": "linear-gradient(135deg, #9d174d, #db2777)",
+        "icon": "♟️",
+        "battleBg": "assets/world-3/candy-chess-battle-background-80s.png",
+        "cardCharacter": "assets/world-3/candy-chess-queen-80s.png",
+        "cardTopics": "3.º básico · Tablas · División · Fracciones",
+        "description": "Resuelve operaciones hasta 1.000, reparte golosinas, explora fracciones, mapas y medidas y desafía a la Reina de Azúcar.",
+        "grade": 3
     },
     {
-        id: "world-4",
-        num: 4,
-        title: "Bosque del Álgebra",
-        subtitle: "Despeja las incógnitas y descifra el lenguaje de los símbolos",
-        color: "#8b5cf6",
-        bgGradient: "linear-gradient(135deg, #7c3aed, #a855f7)",
-        icon: "🔮",
-        description: "Descubre el misterio de la variable x, resuelve ecuaciones lineales y desbloquea el poder de las potencias."
+        "id": "world-4",
+        "num": 4,
+        "title": "Bosque del Álgebra",
+        "subtitle": "Despeja las incógnitas y descifra el lenguaje de los símbolos",
+        "color": "#8b5cf6",
+        "bgGradient": "linear-gradient(135deg, #7c3aed, #a855f7)",
+        "icon": "🔮",
+        "description": "Descubre el misterio de la variable x, resuelve ecuaciones lineales y desbloquea el poder de las potencias."
     },
     {
-        id: "world-5",
-        num: 5,
-        title: "Pico de las Funciones",
-        subtitle: "Conecta entradas con salidas, pendientes y razones de cambio",
-        color: "#06b6d4",
-        bgGradient: "linear-gradient(135deg, #0891b2, #06b6d4)",
-        icon: "🏔️",
-        description: "Explora la máquina de transformar números f(x), gráficas en el plano cartesiano y la inclinación de las rectas."
+        "id": "world-5",
+        "num": 5,
+        "title": "Pico de las Funciones",
+        "subtitle": "Conecta entradas con salidas, pendientes y razones de cambio",
+        "color": "#06b6d4",
+        "bgGradient": "linear-gradient(135deg, #0891b2, #06b6d4)",
+        "icon": "🏔️",
+        "description": "Explora la máquina de transformar números f(x), gráficas en el plano cartesiano y la inclinación de las rectas."
     },
     {
-        id: "world-6",
-        num: 6,
-        title: "Nexo del Cálculo",
-        subtitle: "La cumbre matemática: La recta tangente y las reglas de derivación",
-        color: "#ec4899",
-        bgGradient: "linear-gradient(135deg, #db2777, #f43f5e)",
-        icon: "🌌",
-        description: "El poder de medir el cambio instantáneo. Domina la regla de la potencia, constantes, polinomios y funciones trigonométricas."
+        "id": "world-6",
+        "num": 6,
+        "title": "Nexo del Cálculo",
+        "subtitle": "La cumbre matemática: La recta tangente y las reglas de derivación",
+        "color": "#ec4899",
+        "bgGradient": "linear-gradient(135deg, #db2777, #f43f5e)",
+        "icon": "🌌",
+        "description": "El poder de medir el cambio instantáneo. Domina la regla de la potencia, constantes, polinomios y funciones trigonométricas."
     }
 ];
 
 var LEVELS_DATA = [
-    // ==========================================
-    // MUNDO 1: ISLA DE LOS NÚMEROS (NIVELES 1 - 4)
-    // ==========================================
     {
-        id: 1,
-        worldId: "world-1",
-        title: "Conteo y Cantidades",
-        subtitle: "¡Enfrenta a la Manzana Pirata y domina los números!",
-        icon: "🔢",
-        hasEnemy: true,
-        enemy: {
-            id: "manzana_pirata",
-            name: "Manzana Pirata",
-            title: "Pirata de la Bahía Numérica",
-            avatar: "🍎🏴‍☠️",
-            avatarDefeated: "😵🏴‍☠️",
-            avatarImg: "assets/world-1/pirate-apple-80s.png",
-            badge: "PIRATA",
-            badgeClass: "pirate",
-            maxHp: 20.0,
-            regenRate: 0,
-            baseDamage: 1.0,
-            streakBonus: 0.5,
-            mechanicType: "slap",
-            mechanicTitle: "¡Duelo de Cachetadas!",
-            mechanicDesc: "✋ ¡Cada acierto le propina una buena cachetada!",
-            dialogue: {
-                intro: "¡Arrr! ¡Nadie cuenta más rápido que este corsario!",
-                hit: "¡Rayos y centellas! ¡Menuda bofetada!",
-                defeat: "¡Me rindo, marinero de los números!"
+        "id": 1,
+        "worldId": "world-1",
+        "title": "El tesoro de las decenas",
+        "subtitle": "1.º básico · Cuenta, compara y organiza las manzanas del pirata.",
+        "icon": "🔢",
+        "hasEnemy": true,
+        "enemy": {
+            "id": "manzana_pirata",
+            "name": "Manzana Pirata",
+            "title": "Pirata de la Bahía Numérica",
+            "avatar": "🍎🏴‍☠️",
+            "avatarDefeated": "😵🏴‍☠️",
+            "avatarImg": "assets/world-1/pirate-apple-80s.png",
+            "badge": "PIRATA",
+            "badgeClass": "pirate",
+            "maxHp": 20,
+            "regenRate": 0,
+            "baseDamage": 1,
+            "streakBonus": 0.5,
+            "mechanicType": "slap",
+            "mechanicTitle": "¡Duelo de Cachetadas!",
+            "mechanicDesc": "✋ ¡Cuenta y organiza el tesoro para vencer al pirata!",
+            "dialogue": {
+                "intro": "¡Arrr! ¡Cuenta mi tesoro con calma, marinero!",
+                "hit": "¡Rayos y centellas! ¡Menuda bofetada!",
+                "defeat": "¡Me rindo, marinero de los números!"
             }
         },
-        theory: {
-            title: "¡Aprendiendo a Contar!",
-            content: `
-                <p>¡Bienvenido a la aventura de los números! 🎈</p>
-                <p>Los <strong>números</strong> nos sirven para contar cuántas cosas tenemos en el mundo real, como juguetes, frutas o animalitos.</p>
-                <div class="theory-visual">
-                    <span>🍎 🍎 🍎 = <strong>3 manzanas</strong></span>
-                    <span>⭐ ⭐ ⭐ ⭐ ⭐ = <strong>5 estrellas</strong></span>
-                </div>
-                <p>¡Contar es como subir una escalera, paso a pasito sumando 1! Cada número es una unidad más grande que el anterior.</p>
-            `
+        "theory": {
+            "title": "El tesoro de las decenas",
+            "content": "<p><strong>1.º básico.</strong> Cuenta, compara y organiza las manzanas del pirata.</p><h3>Contar y ordenar</h3><p>Cuenta cada objeto una vez. Para avanzar de 2 en 2 suma 2; de 5 en 5 suma 5; de 10 en 10 suma 10. También puedes retroceder. Practicaremos estos conteos hasta 100. Primero, segundo y tercero indican una posición; décimo es el lugar 10.</p><h3>Decenas y unidades</h3><p>Diez manzanas forman <strong>una decena</strong>. 14 son 1 decena y 4 unidades: 10 + 4. Separar un número de distintas maneras ayuda a calcular: 8 = 5 + 3.</p><h3>Comparar y estimar</h3><p>Entre 8 y 12, el menor es 8. Si ves un grupo parecido a otro de 10 objetos, puedes estimar que tiene cerca de 10 sin contar exactamente.</p>"
         },
-        questions: [
+        "questions": [
             {
-                prompt: "¿Cuántas manzanas tiene el pirata? 🍎 🍎 🍎",
-                options: ["2", "3", "4", "5"],
-                correct: 1,
-                explanation: "¡Eso es! Contamos juntos: una, dos y tres manzanas (3).",
-                hint: "Cuenta las manzanas con tu dedito una por una."
+                "id": "w1-l1-q1",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "conteo",
+                "prompt": "¿Cuántas manzanas tiene el pirata? 🍎 🍎 🍎 🍎",
+                "options": [
+                    "4",
+                    "3",
+                    "5",
+                    "6"
+                ],
+                "correct": 0,
+                "explanation": "Hay 4: contamos una manzana cada vez.",
+                "hint": "Señala cada manzana una sola vez."
             },
             {
-                prompt: "¿Cuántas estrellas brillantes ves aquí? ⭐ ⭐ ⭐ ⭐ ⭐",
-                options: ["4", "5", "6", "7"],
-                correct: 1,
-                explanation: "¡Muy bien! Hay exactamente 5 estrellas brillantes.",
-                hint: "Cuenta despacio: 1, 2, 3, 4 y..."
+                "id": "w1-l1-q2",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "cero",
+                "prompt": "El cofre del pirata está vacío. ¿Cuántas manzanas contiene?",
+                "options": [
+                    "0",
+                    "1",
+                    "2",
+                    "3"
+                ],
+                "correct": 0,
+                "explanation": "Cero representa que no hay manzanas.",
+                "hint": "Vacío significa que no tiene ninguna."
             },
             {
-                prompt: "Cuando contamos: 1, 2, 3... ¿qué número viene después del 3?",
-                options: ["2", "4", "5", "6"],
-                correct: 1,
-                explanation: "¡Correcto! Después del 3 viene el número 4.",
-                hint: "Di los números en voz alta: 1, 2, 3..."
+                "id": "w1-l1-q3",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "conteo",
+                "prompt": "El pirata cuenta 6, 7, 8. ¿Qué número sigue?",
+                "options": [
+                    "9",
+                    "7",
+                    "10",
+                    "6"
+                ],
+                "correct": 0,
+                "explanation": "Al avanzar uno desde 8 llegamos a 9.",
+                "hint": "Avanza un lugar en la cuenta."
             },
             {
-                prompt: "Si tienes 2 autitos de juguete 🚗 🚗 y te regalan 1 más 🚗, ¿cuántos tienes ahora?",
-                options: ["2", "3", "4", "5"],
-                correct: 1,
-                explanation: "¡Genial! 2 autitos más 1 autito son 3 autitos en total.",
-                hint: "Junta los autitos: 2 + 1 = ?"
+                "id": "w1-l1-q4",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "conteo",
+                "prompt": "Retrocede desde 12: 12, 11, 10, __. ¿Qué sigue?",
+                "options": [
+                    "9",
+                    "8",
+                    "11",
+                    "12"
+                ],
+                "correct": 0,
+                "explanation": "Después de 10, al retroceder, viene 9.",
+                "hint": "Quita uno al último número."
             },
             {
-                prompt: "¿Cuántos dedos tienes en una sola mano? 🖐️",
-                options: ["4", "5", "6", "10"],
-                correct: 1,
-                explanation: "¡Exacto! En una mano tenemos 5 dedos.",
-                hint: "Cuenta los deditos de tu mano."
+                "id": "w1-l1-q5",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "conteo por saltos",
+                "prompt": "Cuenta manzanas de 2 en 2: 2, 4, 6, __.",
+                "options": [
+                    "8",
+                    "7",
+                    "9",
+                    "10"
+                ],
+                "correct": 0,
+                "explanation": "Cada salto suma 2: 6 + 2 = 8.",
+                "hint": "Haz otro salto de dos."
             },
             {
-                prompt: "¿Cuántos dedos tienes en tus dos manos juntas? 🖐️ 🖐️",
-                options: ["5", "8", "10", "12"],
-                correct: 2,
-                explanation: "¡Muy bien! 5 dedos en una mano más 5 en la otra suman 10 dedos.",
-                hint: "5 en una mano y 5 en la otra: 5 + 5 = 10."
+                "id": "w1-l1-q6",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "conteo por saltos",
+                "prompt": "Cuenta sacos de 5 en 5: 5, 10, 15, __.",
+                "options": [
+                    "20",
+                    "16",
+                    "18",
+                    "19"
+                ],
+                "correct": 0,
+                "explanation": "Después de 15, cinco más son 20.",
+                "hint": "Cuenta cinco pasos desde 15."
             },
             {
-                prompt: "¿Qué número es uno menos que 6?",
-                options: ["4", "5", "7", "8"],
-                correct: 1,
-                explanation: "Si a 6 le quitas 1, quedan 5: $6 - 1 = 5$.",
-                hint: "Desde el 6, retrocede un solo paso."
+                "id": "w1-l1-q7",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "conteo por saltos",
+                "prompt": "Cuenta hasta el puerto de 10 en 10: 60, 70, 80, __.",
+                "options": [
+                    "90",
+                    "81",
+                    "85",
+                    "100"
+                ],
+                "correct": 0,
+                "explanation": "Un salto de diez desde 80 llega a 90.",
+                "hint": "Conserva el salto de diez."
             },
             {
-                prompt: "¿Cuántos patitos nadan en el agua? 🦆 🦆 🦆 🦆",
-                options: ["3", "4", "5", "6"],
-                correct: 1,
-                explanation: "¡Cuac, cuac! Hay 4 patitos nadando felices.",
-                hint: "Cuenta cada patito: 1, 2, 3..."
+                "id": "w1-l1-q8",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "conteo por saltos",
+                "prompt": "El barco retrocede: 100, 90, 80, __.",
+                "options": [
+                    "70",
+                    "60",
+                    "79",
+                    "90"
+                ],
+                "correct": 0,
+                "explanation": "Se retrocede de diez en diez: después de 80 viene 70.",
+                "hint": "Cada paso quita diez."
             },
             {
-                prompt: "¿Cuál de estos números es el más pequeñito?",
-                options: ["8", "2", "6", "9"],
-                correct: 1,
-                explanation: "¡Bien pensado! El 2 es el número más chiquito de todos estos.",
-                hint: "¿Cuál aparece primero cuando empezamos a contar desde el 1?"
+                "id": "w1-l1-q9",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "ordinales",
+                "prompt": "El capitán llega después del segundo pirata. ¿Qué lugar ocupa?",
+                "options": [
+                    "tercero",
+                    "primero",
+                    "cuarto",
+                    "quinto"
+                ],
+                "correct": 0,
+                "explanation": "Después del segundo lugar está el tercero.",
+                "hint": "Cuenta lugares: primero, segundo..."
             },
             {
-                prompt: "Tienes 4 galletas ricas 🍪 y te comes 1. ¿Cuántas galletas te quedan?",
-                options: ["2", "3", "4", "5"],
-                correct: 1,
-                explanation: "¡Rico y correcto! Si a 4 galletas le quitas 1, te quedan 3.",
-                hint: "Si tienes 4 y te comes una: 4 menos 1."
+                "id": "w1-l1-q10",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "ordinales",
+                "prompt": "La décima caja ocupa el lugar número…",
+                "options": [
+                    "10",
+                    "1",
+                    "9",
+                    "20"
+                ],
+                "correct": 0,
+                "explanation": "Décima significa que ocupa el lugar 10.",
+                "hint": "Los ordinales indican posiciones."
             },
             {
-                prompt: "¿Cuántos corazones hay en este dibujo? ❤️ ❤️ ❤️ ❤️ ❤️ ❤️",
-                options: ["5", "6", "7", "8"],
-                correct: 1,
-                explanation: "¡Perfecto! Hay 6 corazones llenos de cariño.",
-                hint: "Cuenta de izquierda a derecha despacito."
+                "id": "w1-l1-q11",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "comparación",
+                "prompt": "Un pirata tiene 8 manzanas y otro 13. ¿Cuántas tiene el que tiene más?",
+                "options": [
+                    "13",
+                    "8",
+                    "5",
+                    "12"
+                ],
+                "correct": 0,
+                "explanation": "13 es mayor que 8.",
+                "hint": "Piensa qué cantidad está más adelante al contar."
             },
             {
-                prompt: "¿Qué número falta en el medio?: 6, ___, 8",
-                options: ["5", "7", "9", "10"],
-                correct: 1,
-                explanation: "¡Eso es! El número que va entre el 6 y el 8 es el 7.",
-                hint: "Cuenta: 6, luego sigue... y después el 8."
+                "id": "w1-l1-q12",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "comparación",
+                "prompt": "Entre 17, 12, 9 y 15, ¿cuál es el número menor?",
+                "options": [
+                    "9",
+                    "12",
+                    "15",
+                    "17"
+                ],
+                "correct": 0,
+                "explanation": "9 está antes que los otros números al contar.",
+                "hint": "Busca la cantidad más pequeña."
             },
             {
-                prompt: "¿Cuántas ruedas tiene una bicicleta normal? 🚲",
-                options: ["1", "2", "3", "4"],
-                correct: 1,
-                explanation: "¡Bip bip! Una bicicleta tiene 2 ruedas, una adelante y otra atrás.",
-                hint: "Una rueda adelante y otra atrás."
+                "id": "w1-l1-q13",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "valor posicional",
+                "prompt": "¿Cuántas manzanas forman una decena?",
+                "options": [
+                    "10",
+                    "1",
+                    "5",
+                    "20"
+                ],
+                "correct": 0,
+                "explanation": "Una decena es un grupo de diez unidades.",
+                "hint": "Piensa en un grupo de diez."
             },
             {
-                prompt: "El pirata encontró 5 monedas de oro 🪙 y luego halló 2 más. ¿Cuántas tiene ahora?",
-                options: ["6", "7", "8", "9"],
-                correct: 1,
-                explanation: "¡Arrr, tesoro encontrado! 5 + 2 = 7 monedas de oro.",
-                hint: "Empieza en 5 y cuenta dos más: 6, 7."
+                "id": "w1-l1-q14",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "valor posicional",
+                "prompt": "En 14 manzanas hay 1 decena. ¿Cuántas unidades quedan sueltas?",
+                "options": [
+                    "4",
+                    "1",
+                    "10",
+                    "14"
+                ],
+                "correct": 0,
+                "explanation": "14 = 10 + 4: hay cuatro unidades sueltas.",
+                "hint": "Separa un grupo de diez."
             },
             {
-                prompt: "¿Cuántos globos de fiesta ves aquí? 🎈 🎈 🎈 🎈 🎈 🎈 🎈",
-                options: ["6", "7", "8", "9"],
-                correct: 1,
-                explanation: "¡Fiesta total! Hay 7 globos flotando.",
-                hint: "Cuenta los globos uno por uno con tu dedo."
+                "id": "w1-l1-q15",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "valor posicional",
+                "prompt": "Hay 1 decena y 7 manzanas sueltas. ¿Cuántas hay en total?",
+                "options": [
+                    "17",
+                    "7",
+                    "10",
+                    "18"
+                ],
+                "correct": 0,
+                "explanation": "10 + 7 = 17 manzanas.",
+                "hint": "Una decena vale diez."
             },
             {
-                prompt: "Si tu plato está completamente vacío, ¿cuántas manzanas tienes?",
-                options: ["0 manzanas", "1 manzana", "5 manzanas", "10 manzanas"],
-                correct: 0,
-                explanation: "¡Exacto! Cuando no hay nada, el número es el cero (0).",
-                hint: "El número que representa 'nada' o 'vacío' es el 0."
+                "id": "w1-l1-q16",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "composición",
+                "prompt": "El tesoro tiene 8 monedas: 5 en una bolsa y __ en otra.",
+                "options": [
+                    "3",
+                    "2",
+                    "4",
+                    "5"
+                ],
+                "correct": 0,
+                "explanation": "5 + 3 = 8. Faltan tres monedas.",
+                "hint": "Cuenta desde 5 hasta 8."
             },
             {
-                prompt: "¿Qué número viene inmediatamente después del 9?",
-                options: ["8", "10", "11", "12"],
-                correct: 1,
-                explanation: "¡Viva! Al llegar a 9 y sumar 1 llegamos al 10.",
-                hint: "Es el número de dedos que tienes en las dos manos."
+                "id": "w1-l1-q17",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "composición",
+                "prompt": "¿Qué cantidad forman 10 manzanas y 9 manzanas?",
+                "options": [
+                    "19",
+                    "9",
+                    "18",
+                    "20"
+                ],
+                "correct": 0,
+                "explanation": "10 + 9 = 19.",
+                "hint": "Junta la decena con las unidades."
             },
             {
-                prompt: "¿Cuántos gatitos juguetones están aquí? 🐱 🐱 🐱 🐱 🐱 🐱 🐱 🐱",
-                options: ["7", "8", "9", "10"],
-                correct: 1,
-                explanation: "¡Miau! Contamos y son exactamente 8 lindos gatitos.",
-                hint: "Hay 4 arriba imaginarios y 4 abajo: 4 + 4 = 8."
+                "id": "w1-l1-q18",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "representación",
+                "prompt": "¿Qué número representa la palabra «dieciséis»?",
+                "options": [
+                    "16",
+                    "6",
+                    "15",
+                    "17"
+                ],
+                "correct": 0,
+                "explanation": "Dieciséis se escribe 16.",
+                "hint": "Son diez y seis."
             },
             {
-                prompt: "Tienes 6 caramelos 🍬 y le regalas 2 a tu mejor amigo. ¿Cuántos caramelos te quedan?",
-                options: ["3", "4", "5", "6"],
-                correct: 1,
-                explanation: "¡Gran amigo! Si a 6 le quitas 2, te quedan 4 caramelos.",
-                hint: "Cuenta hacia atrás dos pasos desde el 6: 5, 4."
+                "id": "w1-l1-q19",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "estimación",
+                "prompt": "Una cesta tiene casi lo mismo que otra de 10 manzanas. ¿Qué estimación es razonable?",
+                "options": [
+                    "cerca de 10",
+                    "cerca de 1",
+                    "cerca de 50",
+                    "cerca de 100"
+                ],
+                "correct": 0,
+                "explanation": "Si se parece al grupo de diez, estimamos cerca de diez.",
+                "hint": "Usa como referencia la cesta conocida."
             },
             {
-                prompt: "¿Cuántos pedazos de pizza deliciosos hay? 🍕 🍕 🍕 🍕 🍕 🍕 🍕 🍕 🍕",
-                options: ["8", "9", "10", "11"],
-                correct: 1,
-                explanation: "¡Ñam ñam! Hay 9 rebanadas de pizza.",
-                hint: "Casi son 10, pero falta una rebanadita: son 9."
+                "id": "w1-l1-q20",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "orden",
+                "prompt": "En la ruta faltó un número: 16, 17, __, 19, 20. ¿Cuál?",
+                "options": [
+                    "18",
+                    "15",
+                    "17",
+                    "20"
+                ],
+                "correct": 0,
+                "explanation": "18 está entre 17 y 19.",
+                "hint": "Avanza uno desde 17."
             }
+        ],
+        "grade": 1,
+        "skills": [
+            "conteo",
+            "cero",
+            "conteo por saltos",
+            "ordinales",
+            "comparación",
+            "valor posicional",
+            "composición",
+            "representación",
+            "estimación",
+            "orden"
         ]
     },
     {
-        id: 2,
-        worldId: "world-1",
-        title: "Mayor, Menor e Igual",
-        subtitle: "¡Desafía al Capitán Manzana y compara magnitudes!",
-        icon: "⚖️",
-        hasEnemy: true,
-        enemy: {
-            id: "capitan_manzana",
-            name: "Capitán Manzana",
-            title: "Comandante del Galeón Mayor y Menor",
-            avatar: "🍎⚔️",
-            avatarDefeated: "😵⚔️",
-            avatarImg: "assets/world-1/pirate-apple-captain-80s.png",
-            badge: "CAPITÁN",
-            badgeClass: "captain",
-            maxHp: 20.0,
-            regenRate: 0,
-            baseDamage: 1.0,
-            streakBonus: 0.5,
-            mechanicType: "slap",
-            mechanicTitle: "¡Duelo de Cachetadas!",
-            mechanicDesc: "✋ ¡Cada acierto le propina una bofetada al Capitán!",
-            dialogue: {
-                intro: "¡Por las barbas de Neptuno! ¡Nadie surca mis aguas sin dominar las comparaciones!",
-                hit: "¡Rayos y centellas! ¡Esa bofetada fue MAYOR que mi paciencia!",
-                defeat: "¡Mis velas han caído! ¡Has demostrado ser el amo de las magnitudes!"
+        "id": 2,
+        "worldId": "world-1",
+        "title": "Las cuentas del capitán",
+        "subtitle": "1.º básico · Junta, quita y descubre patrones hasta 20.",
+        "icon": "⚖️",
+        "hasEnemy": true,
+        "enemy": {
+            "id": "capitan_manzana",
+            "name": "Capitán Manzana",
+            "title": "Comandante del Galeón Mayor y Menor",
+            "avatar": "🍎⚔️",
+            "avatarDefeated": "😵⚔️",
+            "avatarImg": "assets/world-1/pirate-apple-captain-80s.png",
+            "badge": "CAPITÁN",
+            "badgeClass": "captain",
+            "maxHp": 20,
+            "regenRate": 0,
+            "baseDamage": 1,
+            "streakBonus": 0.5,
+            "mechanicType": "slap",
+            "mechanicTitle": "¡Duelo de Cachetadas!",
+            "mechanicDesc": "✋ ¡Resuelve las cuentas y los patrones del capitán!",
+            "dialogue": {
+                "intro": "¡Junta mis manzanas y descubre los patrones de mi barco!",
+                "hit": "¡Rayos y centellas! ¡Esa bofetada fue MAYOR que mi paciencia!",
+                "defeat": "¡Mis velas han caído! ¡Has demostrado ser el amo de las magnitudes!"
             }
         },
-        theory: {
-            title: "¡El Cocodrilo Comilón! (> y <)",
-            content: `
-                <p>¿Quién tiene más y quién tiene menos? ¡Te presentamos al <strong>cocodrilo comilón</strong> 🐊!</p>
-                <ul>
-                    <li><strong>> (Mayor que):</strong> La boca abierta del cocodrilo siempre apunta hacia el número más grande porque tiene mucha hambre. Ejemplo: $7 > 2$.</li>
-                    <li><strong>< (Menor que):</strong> La colita o punta cerrada apunta hacia el número más chiquitito. Ejemplo: $3 < 8$.</li>
-                    <li><strong>= (Igual a):</strong> Ambas partes tienen exactamente la misma cantidad. Ejemplo: $4 = 4$.</li>
-                </ul>
-                <div class="theory-tip">💡 <em>Truco:</em> ¡El cocodrilo siempre abre su bocaza hacia donde hay más comida!</div>
-            `
+        "theory": {
+            "title": "Las cuentas del capitán",
+            "content": "<p><strong>1.º básico.</strong> Junta, quita y descubre patrones hasta 20.</p><h3>Juntar y quitar</h3><p>Sumar junta cantidades: 4 + 3 = 7. Restar quita o encuentra lo que falta: 7 − 3 = 4. Son operaciones inversas. Sumar o quitar cero deja la misma cantidad.</p><h3>Estrategias</h3><p>Para 8 + 5, toma 2 del 5 y completa diez: 8 + 2 + 3 = 13. Para 6 + 6 usa un doble. Puedes contar hacia atrás para restar.</p><h3>Patrones y equilibrio</h3><p>En 🍎 🍐 🍎 🍐 se repite manzana, pera. En 2, 4, 6, 8 se suma 2. El signo = indica que ambos lados valen lo mismo, como una balanza equilibrada: 4 + 2 = 6.</p>"
         },
-        questions: [
+        "questions": [
             {
-                prompt: "¿Cuál número es el MÁS GRANDE (mayor)?",
-                options: ["3", "9", "5", "2"],
-                correct: 1,
-                explanation: "¡Eso es! El 9 es el número más grande de todos.",
-                hint: "Imagina que son caramelos: ¿con cuál número comes más?"
+                "id": "w1-l2-q1",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "suma hasta 20",
+                "prompt": "El capitán junta 4 manzanas con 3 más. ¿Cuántas tiene?",
+                "options": [
+                    "7",
+                    "8",
+                    "6",
+                    "9"
+                ],
+                "correct": 0,
+                "explanation": "4 + 3 = 7. Junta las cantidades; puedes completar diez.",
+                "hint": "Junta las cantidades; puedes completar diez.",
+                "calculation": {
+                    "operation": "add",
+                    "operands": [
+                        4,
+                        3
+                    ]
+                }
             },
             {
-                prompt: "¿Cuál número es el MÁS PEQUEÑO (menor)?",
-                options: ["7", "1", "4", "8"],
-                correct: 1,
-                explanation: "¡Muy bien! El 1 es el número más chiquitito aquí.",
-                hint: "¿Cuál es el primer número que decimos al contar?"
+                "id": "w1-l2-q2",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "suma hasta 20",
+                "prompt": "El capitán junta 5 manzanas con 0 más. ¿Cuántas tiene?",
+                "options": [
+                    "5",
+                    "6",
+                    "4",
+                    "7"
+                ],
+                "correct": 0,
+                "explanation": "5 + 0 = 5. Junta las cantidades; puedes completar diez.",
+                "hint": "Junta las cantidades; puedes completar diez.",
+                "calculation": {
+                    "operation": "add",
+                    "operands": [
+                        5,
+                        0
+                    ]
+                }
             },
             {
-                prompt: "Al cocodrilo comilón le gusta comerse siempre al número más grande. Entre 4 y 7, ¿a cuál se comerá? 🐊",
-                options: ["Al 7", "Al 4", "A ninguno", "A los dos"],
-                correct: 0,
-                explanation: "¡Ñam! El cocodrilo abre su bocaza hacia el 7 porque 7 es mayor que 4.",
-                hint: "¿Cuál número es más grande: 4 o 7?"
+                "id": "w1-l2-q3",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "suma hasta 20",
+                "prompt": "El capitán junta 6 manzanas con 6 más. ¿Cuántas tiene?",
+                "options": [
+                    "12",
+                    "13",
+                    "11",
+                    "14"
+                ],
+                "correct": 0,
+                "explanation": "6 + 6 = 12. Junta las cantidades; puedes completar diez.",
+                "hint": "Junta las cantidades; puedes completar diez.",
+                "calculation": {
+                    "operation": "add",
+                    "operands": [
+                        6,
+                        6
+                    ]
+                }
             },
             {
-                prompt: "Si en tu canasta tienes 5 manzanas 🍎 y tu amigo tiene 5 manzanas 🍎, ¿cómo son las canastas?",
-                options: ["Tienen igual cantidad (=)", "La tuya tiene más (>)", "La tuya tiene menos (<)", "Están vacías"],
-                correct: 0,
-                explanation: "¡Exacto! Los dos tienen 5 manzanas, así que son iguales ($5 = 5$).",
-                hint: "Los dos números son el mismo: 5 y 5."
+                "id": "w1-l2-q4",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "suma hasta 20",
+                "prompt": "El capitán junta 8 manzanas con 5 más. ¿Cuántas tiene?",
+                "options": [
+                    "13",
+                    "14",
+                    "12",
+                    "15"
+                ],
+                "correct": 0,
+                "explanation": "8 + 5 = 13. Junta las cantidades; puedes completar diez.",
+                "hint": "Junta las cantidades; puedes completar diez.",
+                "calculation": {
+                    "operation": "add",
+                    "operands": [
+                        8,
+                        5
+                    ]
+                }
             },
             {
-                prompt: "¿Cuál de estos números es MAYOR que 10?",
-                options: ["6", "8", "14", "9"],
-                correct: 2,
-                explanation: "¡Súper! El 14 es más grande que el 10.",
-                hint: "Cuenta después del 10: 11, 12, 13..."
+                "id": "w1-l2-q5",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "suma hasta 20",
+                "prompt": "El capitán junta 9 manzanas con 7 más. ¿Cuántas tiene?",
+                "options": [
+                    "16",
+                    "17",
+                    "15",
+                    "18"
+                ],
+                "correct": 0,
+                "explanation": "9 + 7 = 16. Junta las cantidades; puedes completar diez.",
+                "hint": "Junta las cantidades; puedes completar diez.",
+                "calculation": {
+                    "operation": "add",
+                    "operands": [
+                        9,
+                        7
+                    ]
+                }
             },
             {
-                prompt: "¿Cuál de estos números es MENOR que 5?",
-                options: ["2", "6", "7", "9"],
-                correct: 0,
-                explanation: "¡Correcto! El 2 es más pequeño que el 5.",
-                hint: "Busca un número que venga antes del 5."
+                "id": "w1-l2-q6",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "suma hasta 20",
+                "prompt": "El capitán junta 10 manzanas con 8 más. ¿Cuántas tiene?",
+                "options": [
+                    "18",
+                    "19",
+                    "17",
+                    "20"
+                ],
+                "correct": 0,
+                "explanation": "10 + 8 = 18. Junta las cantidades; puedes completar diez.",
+                "hint": "Junta las cantidades; puedes completar diez.",
+                "calculation": {
+                    "operation": "add",
+                    "operands": [
+                        10,
+                        8
+                    ]
+                }
             },
             {
-                prompt: "¿Qué signo ponemos para decir que 8 es mayor que 3?: 8 ___ 3",
-                options: [">", "<", "=", "+"],
-                correct: 0,
-                explanation: "¡Bravo! Ponemos > con la boca abierta hacia el 8 ($8 > 3$).",
-                hint: "Abre la boca del cocodrilo hacia el 8: >."
+                "id": "w1-l2-q7",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "resta hasta 20",
+                "prompt": "De 7 manzanas del barco se entregan 3. ¿Cuántas quedan?",
+                "options": [
+                    "4",
+                    "5",
+                    "3",
+                    "6"
+                ],
+                "correct": 0,
+                "explanation": "7 − 3 = 4. Quita la cantidad entregada y cuenta lo que queda.",
+                "hint": "Quita la cantidad entregada y cuenta lo que queda.",
+                "calculation": {
+                    "operation": "subtract",
+                    "operands": [
+                        7,
+                        3
+                    ]
+                }
             },
             {
-                prompt: "¿Qué signo ponemos para decir que 2 es menor que 6?: 2 ___ 6",
-                options: ["<", ">", "=", "-"],
-                correct: 0,
-                explanation: "¡Eso es! La puntita apunta al 2 porque es el más chiquito ($2 < 6$).",
-                hint: "La boca abierta apunta al 6: <."
+                "id": "w1-l2-q8",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "resta hasta 20",
+                "prompt": "De 10 manzanas del barco se entregan 4. ¿Cuántas quedan?",
+                "options": [
+                    "6",
+                    "7",
+                    "5",
+                    "8"
+                ],
+                "correct": 0,
+                "explanation": "10 − 4 = 6. Quita la cantidad entregada y cuenta lo que queda.",
+                "hint": "Quita la cantidad entregada y cuenta lo que queda.",
+                "calculation": {
+                    "operation": "subtract",
+                    "operands": [
+                        10,
+                        4
+                    ]
+                }
             },
             {
-                prompt: "En una rama hay 4 pajaritos 🐦 y en otra hay 7 pajaritos 🐦. ¿En qué rama hay MÁS pajaritos?",
-                options: ["En la de 7", "En la de 4", "Hay igual en las dos", "En ninguna"],
-                correct: 0,
-                explanation: "¡Muy bien! 7 es más que 4, así que en la rama de 7 hay más pajaritos.",
-                hint: "7 pajaritos son más que 4."
+                "id": "w1-l2-q9",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "resta hasta 20",
+                "prompt": "De 15 manzanas del barco se entregan 5. ¿Cuántas quedan?",
+                "options": [
+                    "10",
+                    "11",
+                    "9",
+                    "12"
+                ],
+                "correct": 0,
+                "explanation": "15 − 5 = 10. Quita la cantidad entregada y cuenta lo que queda.",
+                "hint": "Quita la cantidad entregada y cuenta lo que queda.",
+                "calculation": {
+                    "operation": "subtract",
+                    "operands": [
+                        15,
+                        5
+                    ]
+                }
             },
             {
-                prompt: "¿Cuál de estas listas está ordenada del más chiquito al más grande?",
-                options: ["2, 5, 9", "9, 5, 2", "5, 2, 9", "9, 2, 5"],
-                correct: 0,
-                explanation: "¡Perfecto! 2 es el más chico, luego 5 y al final el 9.",
-                hint: "Empieza por el número más pequeñito."
+                "id": "w1-l2-q10",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "resta hasta 20",
+                "prompt": "De 18 manzanas del barco se entregan 6. ¿Cuántas quedan?",
+                "options": [
+                    "12",
+                    "13",
+                    "11",
+                    "14"
+                ],
+                "correct": 0,
+                "explanation": "18 − 6 = 12. Quita la cantidad entregada y cuenta lo que queda.",
+                "hint": "Quita la cantidad entregada y cuenta lo que queda.",
+                "calculation": {
+                    "operation": "subtract",
+                    "operands": [
+                        18,
+                        6
+                    ]
+                }
             },
             {
-                prompt: "El Capitán Pirata tiene 8 cofres 🪙 y tú tienes 12 cofres 🪙. ¿Quién tiene MÁS cofres?",
-                options: ["Tú (12 cofres)", "El Capitán (8 cofres)", "Tienen igual", "Nadie"],
-                correct: 0,
-                explanation: "¡Ganaste tú! 12 cofres es una cantidad mayor que 8 cofres.",
-                hint: "12 es más grande que 8."
+                "id": "w1-l2-q11",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "resta hasta 20",
+                "prompt": "De 12 manzanas del barco se entregan 0. ¿Cuántas quedan?",
+                "options": [
+                    "12",
+                    "13",
+                    "11",
+                    "14"
+                ],
+                "correct": 0,
+                "explanation": "12 − 0 = 12. Quita la cantidad entregada y cuenta lo que queda.",
+                "hint": "Quita la cantidad entregada y cuenta lo que queda.",
+                "calculation": {
+                    "operation": "subtract",
+                    "operands": [
+                        12,
+                        0
+                    ]
+                }
             },
             {
-                prompt: "Si tienes 4 lápices y compras 1 más, tienes 5. ¿Cómo es comparado con 5? (4 + 1 ___ 5)",
-                options: ["=", ">", "<", "x"],
-                correct: 0,
-                explanation: "¡Exacto! $4 + 1 = 5$, así que ambos lados son iguales: $5 = 5$.",
-                hint: "Suma 4 + 1 y compara con 5."
+                "id": "w1-l2-q12",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "resta hasta 20",
+                "prompt": "De 20 manzanas del barco se entregan 9. ¿Cuántas quedan?",
+                "options": [
+                    "11",
+                    "12",
+                    "10",
+                    "13"
+                ],
+                "correct": 0,
+                "explanation": "20 − 9 = 11. Quita la cantidad entregada y cuenta lo que queda.",
+                "hint": "Quita la cantidad entregada y cuenta lo que queda.",
+                "calculation": {
+                    "operation": "subtract",
+                    "operands": [
+                        20,
+                        9
+                    ]
+                }
             },
             {
-                prompt: "¿Qué número es más chiquito que el 8 pero más grande que el 5?",
-                options: ["3", "6", "9", "10"],
-                correct: 1,
-                explanation: "¡Genial! El 6 está justo entre el 5 y el 8.",
-                hint: "Cuenta: 5, luego viene el... y después 7, 8."
+                "id": "w1-l2-q13",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "operaciones inversas",
+                "prompt": "Si 7 + 5 = 12, ¿cuánto es 12 − 5?",
+                "options": [
+                    "7",
+                    "5",
+                    "12",
+                    "17"
+                ],
+                "correct": 0,
+                "explanation": "Quitar las cinco que agregamos nos devuelve a siete.",
+                "hint": "Deshaz la suma."
             },
             {
-                prompt: "¿Dónde hay MENOS frutas?: 🍌 🍌 o 🍌 🍌 🍌 🍌",
-                options: ["Donde hay 2 plátanos", "Donde hay 4 plátanos", "Tienen igual", "No hay plátanos"],
-                correct: 0,
-                explanation: "¡Correcto! 2 plátanos es una cantidad menor que 4 plátanos.",
-                hint: "¿Dónde ves menos cantidad con tus ojos?"
+                "id": "w1-l2-q14",
+                "grade": 1,
+                "axis": "Patrones y álgebra",
+                "skill": "igualdad",
+                "prompt": "La balanza tiene 8 monedas a un lado y 5 al otro. ¿Cuántas agregas al lado de 5 para equilibrarla?",
+                "options": [
+                    "3",
+                    "2",
+                    "4",
+                    "5"
+                ],
+                "correct": 0,
+                "explanation": "5 + 3 = 8: los dos lados quedan iguales.",
+                "hint": "Busca cuánto falta desde cinco hasta ocho."
             },
             {
-                prompt: "¿Cuál de estos números es el más grande de todos?",
-                options: ["11", "15", "19", "13"],
-                correct: 2,
-                explanation: "¡Excelente! El 19 es el campeón, es el mayor de la lista.",
-                hint: "Es el número que está más cerca del 20."
+                "id": "w1-l2-q15",
+                "grade": 1,
+                "axis": "Patrones y álgebra",
+                "skill": "igualdad",
+                "prompt": "Completa para que ambos lados valgan lo mismo: 6 + __ = 10.",
+                "options": [
+                    "4",
+                    "3",
+                    "5",
+                    "6"
+                ],
+                "correct": 0,
+                "explanation": "6 + 4 = 10.",
+                "hint": "Cuenta desde seis hasta diez."
             },
             {
-                prompt: "Tú tienes 7 años y tu prima tiene 7 años. ¿Cómo se comparan sus edades en años?",
-                options: ["Tienen la misma edad (=)", "Tú tienes más años", "Tu prima tiene más años", "Tú tienes un año menos"],
-                correct: 0,
-                explanation: "Las dos edades son 7 años. Como $7 = 7$, tienen la misma edad en años.",
-                hint: "7 y 7 son exactamente iguales."
+                "id": "w1-l2-q16",
+                "grade": 1,
+                "axis": "Patrones y álgebra",
+                "skill": "patrón repetitivo",
+                "prompt": "Continúa las frutas del capitán: 🍎 🍐 🍎 🍐 __.",
+                "options": [
+                    "🍎",
+                    "🍐",
+                    "🍌",
+                    "🍇"
+                ],
+                "correct": 0,
+                "explanation": "Se repite manzana, pera; ahora toca manzana.",
+                "hint": "Observa el grupo que vuelve a empezar."
             },
             {
-                prompt: "¿Qué número hace que esto sea verdad: 3 es menor que ___?",
-                options: ["1", "2", "8", "0"],
-                correct: 2,
-                explanation: "¡Bien hecho! El 3 es menor que el 8 ($3 < 8$).",
-                hint: "Busca un número que sea más grande que 3."
+                "id": "w1-l2-q17",
+                "grade": 1,
+                "axis": "Patrones y álgebra",
+                "skill": "patrón repetitivo",
+                "prompt": "El tambor suena: fuerte, suave, suave, fuerte, suave, __.",
+                "options": [
+                    "suave",
+                    "fuerte",
+                    "silencio",
+                    "dos golpes fuertes"
+                ],
+                "correct": 0,
+                "explanation": "El grupo es fuerte, suave, suave. Falta el segundo suave.",
+                "hint": "Busca el grupo de tres sonidos."
             },
             {
-                prompt: "Compara una bolsa con 15 dulces y otra con 20 dulces. ¿Qué bolsa tiene MÁS dulces?",
-                options: ["La bolsa con 20", "La bolsa con 15", "Tienen igual", "Ninguna"],
-                correct: 0,
-                explanation: "¡Qué rico! La bolsa con 20 dulces tiene más que la de 15.",
-                hint: "20 es un número mayor que 15."
+                "id": "w1-l2-q18",
+                "grade": 1,
+                "axis": "Patrones y álgebra",
+                "skill": "patrón numérico",
+                "prompt": "Los barcos avanzan: 3, 6, 9, __. ¿Qué número sigue?",
+                "options": [
+                    "12",
+                    "10",
+                    "11",
+                    "15"
+                ],
+                "correct": 0,
+                "explanation": "Se suma tres cada vez: 9 + 3 = 12.",
+                "hint": "Mira cuánto aumenta entre dos números."
             },
             {
-                prompt: "¿Qué signo completa la comparación: 10 ___ 10?",
-                options: ["=", ">", "<", "-"],
-                correct: 0,
-                explanation: "¡Eso es! Como son el mismo número, usamos el signo igual ($10 = 10$).",
-                hint: "El signo de dos rayitas acostadas: =."
+                "id": "w1-l2-q19",
+                "grade": 1,
+                "axis": "Patrones y álgebra",
+                "skill": "patrón numérico",
+                "prompt": "Las cajas bajan: 20, 18, 16, __.",
+                "options": [
+                    "14",
+                    "12",
+                    "15",
+                    "18"
+                ],
+                "correct": 0,
+                "explanation": "Se resta dos: 16 − 2 = 14.",
+                "hint": "Cada paso baja dos."
             },
             {
-                prompt: "Si ordenas tus juguetes del MÁS CHICO al MÁS GRANDE, ¿cuál pones primero? (Juguetes: 8, 3, 6)",
-                options: ["El 3", "El 6", "El 8", "Cualquiera"],
-                correct: 0,
-                explanation: "¡Perfecto! El 3 es el más chiquito, así que va al principio de la fila.",
-                hint: "¿Cuál es el número menor entre 3, 6 y 8?"
+                "id": "w1-l2-q20",
+                "grade": 1,
+                "axis": "Patrones y álgebra",
+                "skill": "comparación",
+                "prompt": "La balanza tiene 9 monedas a la izquierda y 6 a la derecha. ¿Qué lado tiene más?",
+                "options": [
+                    "izquierda",
+                    "derecha",
+                    "ambos por igual",
+                    "ninguno"
+                ],
+                "correct": 0,
+                "explanation": "Nueve es mayor que seis; el lado izquierdo tiene más.",
+                "hint": "Compara las dos cantidades."
             }
+        ],
+        "grade": 1,
+        "skills": [
+            "suma hasta 20",
+            "resta hasta 20",
+            "operaciones inversas",
+            "igualdad",
+            "patrón repetitivo",
+            "patrón numérico",
+            "comparación"
         ]
     },
     {
-        id: 3,
-        worldId: "world-1",
-        title: "Pares, Impares y Recta",
-        subtitle: "¡Desafía a la Manzana Comandante con pares, impares y posiciones!",
-        icon: "📏",
-        hasEnemy: true,
-        enemy: {
-            id: "manzana_comandante",
-            name: "Manzana Comandante",
-            title: "Comandante de la Guardia del Manzano",
-            avatar: "🍎🎖️",
-            avatarDefeated: "😵🎖️",
-            avatarImg: "assets/world-1/pirate-apple-commander-80s.png",
-            badge: "COMANDANTE",
-            badgeClass: "pirate",
-            maxHp: 30.0,
-            regenRate: 0,
-            baseDamage: 1.0,
-            streakBonus: 0.5,
-            mechanicType: "slap",
-            mechanicTitle: "¡Rompe la formación!",
-            mechanicDesc: "🎖️ ¡Acierta pares, impares y posiciones para romper su formación!",
-            dialogue: {
-                intro: "¡Tropa, formen parejas! ¡Nadie llegará al Manzano sin superar mis filas!",
-                hit: "¡Mis filas! ¡Has roto la formación!",
-                defeat: "¡Retirada! Has demostrado un dominio impecable de los números."
+        "id": 3,
+        "worldId": "world-1",
+        "title": "El mapa de la isla",
+        "subtitle": "1.º básico · Explora formas, posiciones, medidas y pictogramas.",
+        "icon": "📏",
+        "hasEnemy": true,
+        "enemy": {
+            "id": "manzana_comandante",
+            "name": "Manzana Comandante",
+            "title": "Comandante de la Guardia del Manzano",
+            "avatar": "🍎🎖️",
+            "avatarDefeated": "😵🎖️",
+            "avatarImg": "assets/world-1/pirate-apple-commander-80s.png",
+            "badge": "COMANDANTE",
+            "badgeClass": "pirate",
+            "maxHp": 30,
+            "regenRate": 0,
+            "baseDamage": 1,
+            "streakBonus": 0.5,
+            "mechanicType": "slap",
+            "mechanicTitle": "¡Rompe la formación!",
+            "mechanicDesc": "🎖️ ¡Explora formas, medidas y datos para romper la formación!",
+            "dialogue": {
+                "intro": "¡Sigue el mapa y lee los registros de mi tropa!",
+                "hit": "¡Mis filas! ¡Has roto la formación!",
+                "defeat": "¡Retirada! Has demostrado un dominio impecable de los números."
             }
         },
-        theory: {
-            title: "¡Pares, Impares y Saltos de Ranita!",
-            content: `
-                <p>¡Descubre el secreto de los números <strong>pares</strong> e <strong>impares</strong>!</p>
-                <ul>
-                    <li><strong>Números Pares:</strong> ¡Tienen amigos! Se pueden juntar de a 2 en 2 (como los zapatos 👟👟 o calcetines 🧦🧦) sin que sobre ninguno. Terminan en $0, 2, 4, 6, 8$.</li>
-                    <li><strong>Números Impares:</strong> Al juntarlos de a 2, siempre queda uno solito sin pareja. Terminan en $1, 3, 5, 7, 9$.</li>
-                </ul>
-                <p>En el camino de números (la recta), dar un salto hacia adelante es sumar $+1$ y dar un paso hacia atrás es restar $-1$. 🐸</p>
-            `
+        "theory": {
+            "title": "El mapa de la isla",
+            "content": "<p><strong>1.º básico.</strong> Explora formas, posiciones, medidas y pictogramas.</p><h3>Figuras y posiciones</h3><p>Un triángulo tiene 3 lados rectos; un cuadrado tiene 4 lados iguales; un círculo tiene borde curvo. Una esfera es un cuerpo como una pelota; un cubo es como un dado. Arriba, abajo, dentro y fuera describen posiciones.</p><h3>Comparar y ordenar</h3><p>Para comparar largos, alinea un extremo de los objetos. Puedes usar clips iguales como unidad: 5 clips es más largo que 3. Primero desayunamos, después navegamos. Un día dura más que una hora. Los meses y los días de la semana también tienen un orden: después de marzo viene abril y después del lunes viene el martes.</p><h3>Leer datos</h3><p>En un pictograma cada dibujo representa una cantidad. Lee siempre cuánto vale cada dibujo. Aquí Ana tiene 3 manzanas y Sol tiene 4. <div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Cosecha de la isla · cada 🍎 representa 1 manzana</caption><thead><tr><th scope=\"col\">Pirata</th><th scope=\"col\">Manzanas</th></tr></thead><tbody><tr><th scope=\"row\">Ana</th><td>🍎 🍎 🍎</td></tr><tr><th scope=\"row\">Leo</th><td>🍎 🍎</td></tr><tr><th scope=\"row\">Sol</th><td>🍎 🍎 🍎 🍎</td></tr></tbody></table></div></p>"
         },
-        questions: [
+        "questions": [
             {
-                prompt: "Los números PARES se pueden juntar de 2 en 2 sin que sobre ninguno (como los zapatos 👟👟). ¿Cuál de estos es PAR?",
-                options: ["3", "4", "5", "7"],
-                correct: 1,
-                explanation: "¡Eso es! 4 se junta en 2 parejitas de 2 y no sobra nada.",
-                hint: "Piensa en dos pares de zapatos: 2 y 2 hacen 4."
+                "id": "w1-l3-q1",
+                "grade": 1,
+                "axis": "Geometría",
+                "skill": "figuras 2D",
+                "prompt": "¿Qué figura de la bandera tiene 3 lados rectos?",
+                "options": [
+                    "triángulo",
+                    "cuadrado",
+                    "círculo",
+                    "rectángulo"
+                ],
+                "correct": 0,
+                "explanation": "Un triángulo tiene tres lados rectos.",
+                "hint": "Cuenta los lados de cada figura."
             },
             {
-                prompt: "Si tienes 3 caramelos e intentas hacer parejas de 2, te sobra 1 solito. ¿El 3 es PAR o IMPAR?",
-                options: ["Es IMPAR", "Es PAR", "Es los dos", "Ninguno"],
-                correct: 0,
-                explanation: "¡Muy bien! Como sobra 1 caramelo solito, el 3 es un número IMPAR.",
-                hint: "Cuando sobra uno sin pareja, siempre es impar."
+                "id": "w1-l3-q2",
+                "grade": 1,
+                "axis": "Geometría",
+                "skill": "figuras 2D",
+                "prompt": "¿Qué figura plana tiene un borde curvo, sin lados rectos?",
+                "options": [
+                    "círculo",
+                    "triángulo",
+                    "cuadrado",
+                    "rectángulo"
+                ],
+                "correct": 0,
+                "explanation": "El borde del círculo es una curva cerrada.",
+                "hint": "Piensa en la forma de una moneda vista de frente."
             },
             {
-                prompt: "Una ranita 🐸 está en el número 2 y salta 1 paso hacia adelante. ¿A qué número llega?",
-                options: ["1", "3", "4", "5"],
-                correct: 1,
-                explanation: "¡Boing! Estaba en el 2 y avanzó 1: $2 + 1 = 3$.",
-                hint: "Suma 1 paso al 2: 2 más 1."
+                "id": "w1-l3-q3",
+                "grade": 1,
+                "axis": "Geometría",
+                "skill": "figuras 2D",
+                "prompt": "Una baldosa plana tiene 4 lados iguales y 4 esquinas como las de una hoja. ¿Qué figura es?",
+                "options": [
+                    "cuadrado",
+                    "triángulo",
+                    "círculo",
+                    "rectángulo alargado"
+                ],
+                "correct": 0,
+                "explanation": "El cuadrado tiene cuatro lados iguales y cuatro ángulos rectos.",
+                "hint": "Imagina una baldosa cuadrada."
             },
             {
-                prompt: "¿Cuántos guantes 🧤 forman un par completo de guantes?",
-                options: ["1 guante", "2 guantes", "3 guantes", "4 guantes"],
-                correct: 1,
-                explanation: "¡Exacto! Un par siempre tiene 2 guantes, uno para cada mano.",
-                hint: "¿Cuántas manos tienes para ponerte guantes?"
+                "id": "w1-l3-q4",
+                "grade": 1,
+                "axis": "Geometría",
+                "skill": "figuras 3D",
+                "prompt": "¿Qué cuerpo tiene forma de pelota?",
+                "options": [
+                    "esfera",
+                    "cubo",
+                    "cono",
+                    "cilindro"
+                ],
+                "correct": 0,
+                "explanation": "Una pelota tiene forma de esfera.",
+                "hint": "Piensa en una forma redonda en todas las direcciones."
             },
             {
-                prompt: "¿Cuál de estos números es IMPAR (siempre queda uno sin pareja)?",
-                options: ["2", "4", "6", "7"],
-                correct: 3,
-                explanation: "¡Genial! 7 es impar porque hacemos 3 parejas y nos queda 1 solito.",
-                hint: "Los números impares terminan en 1, 3, 5, 7 o 9."
+                "id": "w1-l3-q5",
+                "grade": 1,
+                "axis": "Geometría",
+                "skill": "figuras 3D",
+                "prompt": "Un dado del pirata tiene forma de…",
+                "options": [
+                    "cubo",
+                    "esfera",
+                    "cono",
+                    "círculo"
+                ],
+                "correct": 0,
+                "explanation": "El dado es un cubo: es un cuerpo con caras cuadradas.",
+                "hint": "Piensa en las caras planas de un dado."
             },
             {
-                prompt: "En el camino de números: 1, 2, 3, 4, 5... ¿qué número está justo después del 5?",
-                options: ["4", "6", "7", "3"],
-                correct: 1,
-                explanation: "¡Correcto! El número que sigue después del 5 es el 6.",
-                hint: "Cuenta: 4, 5... y sigue el..."
+                "id": "w1-l3-q6",
+                "grade": 1,
+                "axis": "Geometría",
+                "skill": "líneas",
+                "prompt": "¿Qué camino no se dobla ni se curva?",
+                "options": [
+                    "línea recta",
+                    "línea curva",
+                    "círculo",
+                    "espiral"
+                ],
+                "correct": 0,
+                "explanation": "Una línea recta conserva su dirección.",
+                "hint": "Piensa en el borde de una regla."
             },
             {
-                prompt: "En el camino de números, si estás en el 8 y das un paso hacia ATRÁS, ¿a qué número vas?",
-                options: ["7", "9", "6", "10"],
-                correct: 0,
-                explanation: "¡Eso es! Al dar un paso atrás le quitamos 1 al 8: $8 - 1 = 7$.",
-                hint: "¿Qué número dices antes de llegar al 8?"
+                "id": "w1-l3-q7",
+                "grade": 1,
+                "axis": "Geometría",
+                "skill": "posiciones",
+                "prompt": "En este orden: 🍎 ⭐ 🌳. ¿Dónde está la estrella respecto de la manzana?",
+                "options": [
+                    "derecha",
+                    "izquierda",
+                    "arriba",
+                    "abajo"
+                ],
+                "correct": 0,
+                "explanation": "La estrella está a la derecha de la manzana.",
+                "hint": "Lee el orden de izquierda a derecha."
             },
             {
-                prompt: "Los números pares terminan en 0, 2, 4, 6 u 8. ¿Cuál de estos es un número PAR?",
-                options: ["10", "11", "13", "15"],
-                correct: 0,
-                explanation: "¡Súper! El 10 termina en 0, por lo que es un número par.",
-                hint: "10 se reparte en dos manos de 5 dedos cada una."
+                "id": "w1-l3-q8",
+                "grade": 1,
+                "axis": "Geometría",
+                "skill": "posiciones",
+                "prompt": "La manzana está guardada en el interior del cofre. ¿Dónde está?",
+                "options": [
+                    "dentro",
+                    "fuera",
+                    "arriba",
+                    "debajo"
+                ],
+                "correct": 0,
+                "explanation": "Estar en el interior significa estar dentro.",
+                "hint": "Busca la palabra que significa interior."
             },
             {
-                prompt: "Tienes 5 manzanas: 🍎 🍎 🍎 🍎 🍎. Si las juntas de dos en dos, ¿cuántas quedan sin pareja?",
-                options: ["Ninguna", "1 manzana", "2 manzanas", "3 manzanas"],
-                correct: 1,
-                explanation: "Formas 2 parejas con 4 manzanas y queda 1 manzana sin pareja.",
-                hint: "2 + 2 = 4, y para llegar a 5 falta..."
+                "id": "w1-l3-q9",
+                "grade": 1,
+                "axis": "Medición",
+                "skill": "longitud",
+                "prompt": "Una cuerda mide 5 clips iguales y otra 3. ¿Cuál es más larga?",
+                "options": [
+                    "la de 5 clips",
+                    "la de 3 clips",
+                    "son iguales",
+                    "no se pueden comparar"
+                ],
+                "correct": 0,
+                "explanation": "Con clips iguales, cinco unidades cubren más largo que tres.",
+                "hint": "Compara cuántas veces cabe la misma unidad."
             },
             {
-                prompt: "La ranita 🐸 está parada en el 4 y da 2 saltos hacia adelante. ¿En qué número cae?",
-                options: ["5", "6", "7", "8"],
-                correct: 1,
-                explanation: "¡Gran salto! $4 + 2 = 6$. Aterrizó en el número 6.",
-                hint: "Cuenta dos pasos después del 4: 5, 6."
+                "id": "w1-l3-q10",
+                "grade": 1,
+                "axis": "Medición",
+                "skill": "longitud",
+                "prompt": "Un palo mide 2 lápices iguales y otro 4. ¿Cuál es más corto?",
+                "options": [
+                    "el de 2 lápices",
+                    "el de 4 lápices",
+                    "son iguales",
+                    "ninguno"
+                ],
+                "correct": 0,
+                "explanation": "Dos lápices representan menos longitud que cuatro.",
+                "hint": "Las unidades deben ser iguales."
             },
             {
-                prompt: "¿Cuál de estos números es PAR?",
-                options: ["1", "5", "8", "9"],
-                correct: 2,
-                explanation: "¡Bien pensado! El 8 es par porque $4 + 4 = 8$ parejas exactas.",
-                hint: "El 8 se puede repartir entre dos personas de forma igual."
+                "id": "w1-l3-q11",
+                "grade": 1,
+                "axis": "Medición",
+                "skill": "tiempo",
+                "prompt": "¿Qué dura más: una hora o un día?",
+                "options": [
+                    "un día",
+                    "una hora",
+                    "duran igual",
+                    "un instante"
+                ],
+                "correct": 0,
+                "explanation": "Un día contiene muchas horas.",
+                "hint": "Piensa en todo lo que haces durante un día."
             },
             {
-                prompt: "Si tienes 6 calcetines 🧦, ¿cuántos pares de calcetines completos puedes armar?",
-                options: ["2 pares", "3 pares", "4 pares", "6 pares"],
-                correct: 1,
-                explanation: "¡Qué ordenado! 6 calcetines forman 3 pares de 2 calcetines cada uno.",
-                hint: "Cuenta de 2 en 2: 2, 4, 6... son 3 pares."
+                "id": "w1-l3-q12",
+                "grade": 1,
+                "axis": "Medición",
+                "skill": "secuencia temporal",
+                "prompt": "Para plantar un manzano: primero haces un hoyo, luego pones la semilla y al final riegas. ¿Qué haces después del hoyo?",
+                "options": [
+                    "poner la semilla",
+                    "regar",
+                    "cosechar",
+                    "comer la manzana"
+                ],
+                "correct": 0,
+                "explanation": "La semilla se pone después de hacer el hoyo.",
+                "hint": "Sigue el orden indicado."
             },
             {
-                prompt: "¿Cuál de estos números es IMPAR?",
-                options: ["2", "6", "9", "12"],
-                correct: 2,
-                explanation: "¡Perfecto! El 9 es impar porque no se puede dividir en dos partes iguales.",
-                hint: "Termina en 9, cifra impar."
+                "id": "w1-l3-q13",
+                "grade": 1,
+                "axis": "Medición",
+                "skill": "calendario",
+                "prompt": "Si hoy es lunes, ¿qué día será mañana?",
+                "options": [
+                    "martes",
+                    "domingo",
+                    "miércoles",
+                    "viernes"
+                ],
+                "correct": 0,
+                "explanation": "Después del lunes viene el martes.",
+                "hint": "Avanza un día en la semana."
             },
             {
-                prompt: "Si cuentas de dos en dos como un canguro: 2, 4, 6... ¿qué número viene ahora? 🦘",
-                options: ["7", "8", "9", "10"],
-                correct: 1,
-                explanation: "¡Boing boing! Sumando 2 al 6 llegamos al 8.",
-                hint: "Suma 2 al 6: 6 + 2 = ?"
+                "id": "w1-l3-q14",
+                "grade": 1,
+                "axis": "Datos y probabilidades",
+                "skill": "pictograma",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Cosecha de la isla · cada 🍎 representa 1 manzana</caption><thead><tr><th scope=\"col\">Pirata</th><th scope=\"col\">Manzanas</th></tr></thead><tbody><tr><th scope=\"row\">Ana</th><td>🍎 🍎 🍎</td></tr><tr><th scope=\"row\">Leo</th><td>🍎 🍎</td></tr><tr><th scope=\"row\">Sol</th><td>🍎 🍎 🍎 🍎</td></tr></tbody></table></div>¿Cuántas manzanas recogió Leo?",
+                "options": [
+                    "2",
+                    "3",
+                    "4",
+                    "5"
+                ],
+                "correct": 0,
+                "explanation": "La fila de Leo tiene dos dibujos; cada uno vale una manzana.",
+                "hint": "Cuenta los dibujos de la fila de Leo."
             },
             {
-                prompt: "¿Qué número está justo en el MEDIO entre el 2 y el 4?",
-                options: ["1", "3", "5", "6"],
-                correct: 1,
-                explanation: "¡Eso es! El número del medio es el 3 (2, 3, 4).",
-                hint: "Cuenta: 2, ___, 4."
+                "id": "w1-l3-q15",
+                "grade": 1,
+                "axis": "Datos y probabilidades",
+                "skill": "pictograma",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Cosecha de la isla · cada 🍎 representa 1 manzana</caption><thead><tr><th scope=\"col\">Pirata</th><th scope=\"col\">Manzanas</th></tr></thead><tbody><tr><th scope=\"row\">Ana</th><td>🍎 🍎 🍎</td></tr><tr><th scope=\"row\">Leo</th><td>🍎 🍎</td></tr><tr><th scope=\"row\">Sol</th><td>🍎 🍎 🍎 🍎</td></tr></tbody></table></div>¿Cuántas manzanas recogió Sol?",
+                "options": [
+                    "4",
+                    "2",
+                    "3",
+                    "5"
+                ],
+                "correct": 0,
+                "explanation": "Sol tiene cuatro dibujos de una manzana cada uno.",
+                "hint": "Lee la fila de Sol."
             },
             {
-                prompt: "El número 1 está solito y no tiene pareja. ¿Es par o impar?",
-                options: ["Es IMPAR", "Es PAR", "Es mágico", "Ninguno"],
-                correct: 0,
-                explanation: "¡Exacto! El 1 es el primer número impar porque no tiene compañero.",
-                hint: "Para ser par necesita al menos 2."
+                "id": "w1-l3-q16",
+                "grade": 1,
+                "axis": "Datos y probabilidades",
+                "skill": "comparar datos",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Cosecha de la isla · cada 🍎 representa 1 manzana</caption><thead><tr><th scope=\"col\">Pirata</th><th scope=\"col\">Manzanas</th></tr></thead><tbody><tr><th scope=\"row\">Ana</th><td>🍎 🍎 🍎</td></tr><tr><th scope=\"row\">Leo</th><td>🍎 🍎</td></tr><tr><th scope=\"row\">Sol</th><td>🍎 🍎 🍎 🍎</td></tr></tbody></table></div>¿Quién recogió más manzanas?",
+                "options": [
+                    "Sol",
+                    "Ana",
+                    "Leo",
+                    "todos igual"
+                ],
+                "correct": 0,
+                "explanation": "Sol tiene cuatro, más que tres y dos.",
+                "hint": "Busca la fila con más dibujos."
             },
             {
-                prompt: "Un conejito 🐰 está en el 0 y da 3 saltos de 2 números cada uno (0 -> 2 -> 4...). ¿A dónde llega?",
-                options: ["5", "6", "7", "8"],
-                correct: 1,
-                explanation: "¡Buen salto, conejito! 2, 4 y luego 6. Llega al número 6.",
-                hint: "Cuenta de dos en dos tres veces: 2, 4, 6."
+                "id": "w1-l3-q17",
+                "grade": 1,
+                "axis": "Datos y probabilidades",
+                "skill": "comparar datos",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Cosecha de la isla · cada 🍎 representa 1 manzana</caption><thead><tr><th scope=\"col\">Pirata</th><th scope=\"col\">Manzanas</th></tr></thead><tbody><tr><th scope=\"row\">Ana</th><td>🍎 🍎 🍎</td></tr><tr><th scope=\"row\">Leo</th><td>🍎 🍎</td></tr><tr><th scope=\"row\">Sol</th><td>🍎 🍎 🍎 🍎</td></tr></tbody></table></div>¿Quién recogió menos manzanas?",
+                "options": [
+                    "Leo",
+                    "Ana",
+                    "Sol",
+                    "todos igual"
+                ],
+                "correct": 0,
+                "explanation": "Leo tiene dos, la menor cantidad.",
+                "hint": "Busca la fila con menos dibujos."
             },
             {
-                prompt: "¿Cuál de estas opciones tiene SOLO números pares?",
-                options: ["2, 4, 6", "1, 3, 5", "2, 3, 4", "1, 2, 3"],
-                correct: 0,
-                explanation: "¡Excelente! 2, 4 y 6 son todos números pares.",
-                hint: "Ninguno de ellos debe ser impar."
+                "id": "w1-l3-q18",
+                "grade": 1,
+                "axis": "Datos y probabilidades",
+                "skill": "registro de datos",
+                "prompt": "El pirata registra sus monedas con rayitas: | | | | |. ¿Cuántas registró?",
+                "options": [
+                    "5",
+                    "4",
+                    "6",
+                    "3"
+                ],
+                "correct": 0,
+                "explanation": "Cada rayita registra una moneda: hay cinco.",
+                "hint": "Cuenta cada marca una vez."
             },
             {
-                prompt: "¿Cuál es el número par que viene justo después del 8?",
-                options: ["9", "10", "11", "12"],
-                correct: 1,
-                explanation: "¡Viva! El 9 es impar, así que el siguiente par es el 10.",
-                hint: "El 9 es impar, súmale otro pasito."
+                "id": "w1-l3-q19",
+                "grade": 1,
+                "axis": "Datos y probabilidades",
+                "skill": "pictograma",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Cosecha de la isla · cada 🍎 representa 1 manzana</caption><thead><tr><th scope=\"col\">Pirata</th><th scope=\"col\">Manzanas</th></tr></thead><tbody><tr><th scope=\"row\">Ana</th><td>🍎 🍎 🍎</td></tr><tr><th scope=\"row\">Leo</th><td>🍎 🍎</td></tr><tr><th scope=\"row\">Sol</th><td>🍎 🍎 🍎 🍎</td></tr></tbody></table></div>¿Cuántas manzanas recogieron Ana y Leo juntos?",
+                "options": [
+                    "5",
+                    "3",
+                    "4",
+                    "6"
+                ],
+                "correct": 0,
+                "explanation": "Ana tiene 3 y Leo 2; 3 + 2 = 5.",
+                "hint": "Junta los dibujos de ambas filas."
             },
             {
-                prompt: "Si tienes 7 galletas 🍪, ¿puedes repartirlas entre 2 amigos para que tengan exactamente lo mismo sin romper ninguna?",
-                options: ["No, porque 7 es impar y sobra 1", "Sí, a cada uno le tocan 4", "Sí, porque 7 es par", "No tienen hambre"],
-                correct: 0,
-                explanation: "¡Muy inteligente! 7 es impar: a cada amigo le tocan 3 galletas y sobra 1 solita.",
-                hint: "3 + 3 = 6, y sobra 1 para llegar a 7."
+                "id": "w1-l3-q20",
+                "grade": 1,
+                "axis": "Datos y probabilidades",
+                "skill": "recolectar datos",
+                "prompt": "Quieres saber la fruta favorita de los piratas. ¿Qué pregunta sirve?",
+                "options": [
+                    "¿Qué fruta prefieres?",
+                    "¿Cuánto mide el barco?",
+                    "¿Qué hora es?",
+                    "¿Cuántas velas tiene el barco?"
+                ],
+                "correct": 0,
+                "explanation": "Preguntar por la fruta favorita permite registrar esas preferencias.",
+                "hint": "La pregunta debe tratar sobre lo que quieres averiguar."
             }
+        ],
+        "grade": 1,
+        "skills": [
+            "figuras 2D",
+            "figuras 3D",
+            "líneas",
+            "posiciones",
+            "longitud",
+            "tiempo",
+            "secuencia temporal",
+            "calendario",
+            "pictograma",
+            "comparar datos",
+            "registro de datos",
+            "recolectar datos"
         ]
     },
     {
-        id: 4,
-        worldId: "world-1",
-        title: "El Manzano Ancestral (Jefe)",
-        subtitle: "¡Batalla de Jefe: General Guardián del Manzano!",
-        icon: "🌳",
-        isBoss: true,
-        boss: {
-            id: "general_guardian_ancestral",
-            name: "General Guardián Ancestral",
-            title: "Comandante Supremo del Manzano",
-            avatar: "🌳🎖️",
-            avatarDefeated: "😵🌳",
-            avatarImg: "assets/world-1/island-guardian-general-80s.png",
-            badge: "JEFE",
-            badgeClass: "boss",
-            maxHp: 20.0,
-            regenRate: 0.2, // recupera 0.2 HP cada segundo
-            baseDamage: 1.0,
-            streakBonus: 0.5,
-            mechanicType: "regen",
-            mechanicTitle: "Fotosíntesis del General",
-            mechanicDesc: "Recupera +0.2 HP por segundo. Cada acierto inflige 1 daño (+0.5 por racha).",
-            dialogue: {
-                intro: "¡Firmes! ¡Soy el General Guardián de la Isla! ¡Mis manzanas crecen al compás de mi comando!",
-                hit: "¡Rayos y ramas rotas! ¡Esa bofetada desordenó mis medallas!",
-                defeat: "¡Sobresaliente disciplina! ¡Te concedo la Medalla de Honor y la Gema de los Números!"
+        "id": 4,
+        "worldId": "world-1",
+        "title": "El desafío del Manzano Ancestral",
+        "subtitle": "1.º básico · Repasa los tesoros, las cuentas y el mapa de la isla.",
+        "icon": "🌳",
+        "isBoss": true,
+        "boss": {
+            "id": "general_guardian_ancestral",
+            "name": "General Guardián Ancestral",
+            "title": "Comandante Supremo del Manzano",
+            "avatar": "🌳🎖️",
+            "avatarDefeated": "😵🌳",
+            "avatarImg": "assets/world-1/island-guardian-general-80s.png",
+            "badge": "JEFE",
+            "badgeClass": "boss",
+            "maxHp": 20,
+            "regenRate": 0,
+            "baseDamage": 1,
+            "streakBonus": 0.5,
+            "mechanicType": "regen",
+            "mechanicTitle": "Fotosíntesis del General",
+            "mechanicDesc": "🎖️ ¡Repasa la isla con calma! El general no recupera vida.",
+            "dialogue": {
+                "intro": "¡Firmes! ¡Demuestra todo lo que aprendiste en mi isla!",
+                "hit": "¡Rayos y ramas rotas! ¡Esa bofetada desordenó mis medallas!",
+                "defeat": "¡Sobresaliente disciplina! ¡Te concedo la Medalla de Honor y la Gema de los Números!"
             }
         },
-        theory: {
-            title: "⚔️ Batalla de Jefe: El Manzano Ancestral",
-            content: `
-                <p>¡Has llegado ante el gran <strong>Manzano Ancestral</strong> 🌳🍎!</p>
-                <p>Para vencer a este jefe mágico, usa todo lo que aprendiste:</p>
-                <ul>
-                    <li>Contar manzanas y frutas muy rápido 🍎</li>
-                    <li>Saber qué canasta es más grande con el cocodrilo ($>$ y $<$) 🐊</li>
-                    <li>Elegir números pares e impares para hacer combos 🧦</li>
-                </ul>
-                <div class="theory-tip">
-                    🍎 <strong>Mecánica del Jefe:</strong> ¡El árbol recupera vida cada segundo con sus frutos! Responde rápido y mantén la racha para darle fuertes golpes y derrotarlo.
-                </div>
-            `
+        "theory": {
+            "title": "El desafío del Manzano Ancestral",
+            "content": "<p><strong>1.º básico.</strong> Repasa los tesoros, las cuentas y el mapa de la isla.</p><h3>Prepara tu estrategia</h3><p>Este guardián mezcla lo practicado: números y decenas, sumas y restas hasta 20, patrones, figuras, medidas y datos. Lee la leyenda si aparece un pictograma.</p><h3>Un ejemplo de repaso</h3><p>Si hay 10 manzanas en una caja y 3 sueltas, hay 13. Si entregas 2 de las sueltas quedan 11. Contar, dibujar o deshacer una operación te ayuda a comprobar.</p>"
         },
-        questions: [
+        "questions": [
             {
-                prompt: "El gran Manzano 🌳 tiene 3 manzanas rojas 🍎 y 3 manzanas verdes 🍏. ¿Cuántas manzanas tiene en total?",
-                options: ["5", "6", "7", "8"],
-                correct: 1,
-                explanation: "¡Eso es! 3 manzanas rojas más 3 verdes suman 6 manzanas ($3 + 3 = 6$).",
-                hint: "Suma: 3 + 3 = ?"
+                "id": "w1-l4-q1",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "conteo",
+                "prompt": "El general cuenta 13, 14, 15, __. ¿Cómo continúa?",
+                "options": [
+                    "16",
+                    "14",
+                    "17",
+                    "18"
+                ],
+                "correct": 0,
+                "explanation": "Un paso después de 15 es 16.",
+                "hint": "Suma uno."
             },
             {
-                prompt: "Para lanzarle un ataque al árbol, elige la canasta que tiene un número PAR de manzanas:",
-                options: ["Canasta con 5 🍎", "Canasta con 8 🍎", "Canasta con 7 🍎", "Canasta con 3 🍎"],
-                correct: 1,
-                explanation: "¡Zas! 8 es un número par porque se divide en 4 y 4 parejitas exactas.",
-                hint: "Los números pares terminan en 0, 2, 4, 6 u 8."
+                "id": "w1-l4-q2",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "conteo por saltos",
+                "prompt": "Las tropas marchan de 5 en 5: 20, 25, 30, __.",
+                "options": [
+                    "35",
+                    "31",
+                    "40",
+                    "25"
+                ],
+                "correct": 0,
+                "explanation": "30 más cinco son 35.",
+                "hint": "Conserva el salto de cinco."
             },
             {
-                prompt: "Un pajarito 🐦 comelón se llevó 2 manzanas de una rama que tenía 6 🍎. ¿Cuántas manzanas quedaron en la rama?",
-                options: ["3", "4", "5", "6"],
-                correct: 1,
-                explanation: "¡Pajarito travieso! Si a 6 le quitamos 2: $6 - 2 = 4$ manzanas.",
-                hint: "Cuenta dos pasos hacia atrás desde el 6."
+                "id": "w1-l4-q3",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "valor posicional",
+                "prompt": "El general reúne 1 decena y 8 unidades. ¿Cuántas manzanas hay?",
+                "options": [
+                    "18",
+                    "8",
+                    "10",
+                    "19"
+                ],
+                "correct": 0,
+                "explanation": "10 + 8 = 18.",
+                "hint": "Una decena equivale a diez."
             },
             {
-                prompt: "¿Cuál canasta tiene MÁS manzanas para ganar energía?",
-                options: ["Canasta con 10 🍎", "Canasta con 8 🍎", "Canasta con 15 🍎", "Canasta con 6 🍎"],
-                correct: 2,
-                explanation: "¡Súper! 15 es el número más grande de todos.",
-                hint: "15 es mayor que 10, 8 y 6."
+                "id": "w1-l4-q4",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "ordinales",
+                "prompt": "El noveno soldado deja pasar a uno delante de él. ¿Qué lugar ocupa ahora?",
+                "options": [
+                    "décimo",
+                    "octavo",
+                    "noveno",
+                    "primero"
+                ],
+                "correct": 0,
+                "explanation": "Al pasar uno delante, su posición pasa de nueve a diez.",
+                "hint": "La posición aumenta en uno."
             },
             {
-                prompt: "El árbol sacude sus hojas y caen 5 manzanas 🍎. Si recoges 2, ¿cuántas manzanas quedan en el pasto?",
-                options: ["2", "3", "4", "5"],
-                correct: 1,
-                explanation: "¡Buena recolecta! Si había 5 y recogiste 2, quedan 3 ($5 - 2 = 3$).",
-                hint: "A 5 quítale 2 con tus deditos."
+                "id": "w1-l4-q5",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "suma hasta 20",
+                "prompt": "El manzano tiene 7 manzanas y crecen 6 más. ¿Cuántas hay?",
+                "options": [
+                    "13",
+                    "14",
+                    "12",
+                    "15"
+                ],
+                "correct": 0,
+                "explanation": "7 + 6 = 13. Completa diez con tres de las seis y luego suma las otras tres.",
+                "hint": "Completa diez con tres de las seis y luego suma las otras tres.",
+                "calculation": {
+                    "operation": "add",
+                    "operands": [
+                        7,
+                        6
+                    ]
+                }
             },
             {
-                prompt: "¿Cuál de estos números de manzanas es IMPAR (siempre sobra una al juntarlas de a dos)?",
-                options: ["4 manzanas", "6 manzanas", "7 manzanas", "8 manzanas"],
-                correct: 2,
-                explanation: "¡Exacto! El 7 es impar porque hacemos 3 parejas y sobra 1 manzana solita.",
-                hint: "Los impares terminan en 1, 3, 5, 7 o 9."
+                "id": "w1-l4-q6",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "resta hasta 20",
+                "prompt": "El general guarda 16 manzanas y entrega 7. ¿Cuántas conserva?",
+                "options": [
+                    "9",
+                    "10",
+                    "8",
+                    "11"
+                ],
+                "correct": 0,
+                "explanation": "16 − 7 = 9. Quita siete; puedes pasar por diez.",
+                "hint": "Quita siete; puedes pasar por diez.",
+                "calculation": {
+                    "operation": "subtract",
+                    "operands": [
+                        16,
+                        7
+                    ]
+                }
             },
             {
-                prompt: "En la rama izquierda hay 5 manzanas y en la derecha hay 9 manzanas. ¿Qué rama tiene MENOS manzanas?",
-                options: ["La de 5 manzanas", "La de 9 manzanas", "Tienen igual", "Ninguna"],
-                correct: 0,
-                explanation: "¡Bien visto! 5 es menor que 9, así que la rama de 5 tiene menos.",
-                hint: "5 es más chiquito que 9."
+                "id": "w1-l4-q7",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "suma hasta 20",
+                "prompt": "Dos ramas tienen 8 manzanas cada una. ¿Cuántas tienen juntas?",
+                "options": [
+                    "16",
+                    "17",
+                    "15",
+                    "18"
+                ],
+                "correct": 0,
+                "explanation": "8 + 8 = 16. Usa el doble de ocho.",
+                "hint": "Usa el doble de ocho.",
+                "calculation": {
+                    "operation": "add",
+                    "operands": [
+                        8,
+                        8
+                    ]
+                }
             },
             {
-                prompt: "El Manzano te regala 8 semillas mágicas 🌱. Si plantas 3 en la tierra, ¿cuántas semillas te quedan?",
-                options: ["4", "5", "6", "7"],
-                correct: 1,
-                explanation: "¡Qué buen jardinero! $8 - 3 = 5$ semillas mágicas te quedan.",
-                hint: "Resta 3 al número 8: 7, 6, 5."
+                "id": "w1-l4-q8",
+                "grade": 1,
+                "axis": "Números y operaciones",
+                "skill": "comparación",
+                "prompt": "Elige la menor cantidad para la cesta pequeña: 11, 7, 15 o 19.",
+                "options": [
+                    "7",
+                    "11",
+                    "15",
+                    "19"
+                ],
+                "correct": 0,
+                "explanation": "Siete es la menor de esas cantidades.",
+                "hint": "Busca la cantidad que aparece antes al contar."
             },
             {
-                prompt: "Contando manzanas de una en una: 10, 11, 12... ¿qué número dices a continuación?",
-                options: ["13", "14", "9", "15"],
-                correct: 0,
-                explanation: "¡Perfecto! Después del 12 viene el 13.",
-                hint: "Suma 1 paso al 12."
+                "id": "w1-l4-q9",
+                "grade": 1,
+                "axis": "Patrones y álgebra",
+                "skill": "patrón repetitivo",
+                "prompt": "La guardia sigue: hoja, hoja, manzana, hoja, hoja, __.",
+                "options": [
+                    "manzana",
+                    "hoja",
+                    "rama",
+                    "flor"
+                ],
+                "correct": 0,
+                "explanation": "Se repite hoja, hoja, manzana.",
+                "hint": "Busca el grupo de tres."
             },
             {
-                prompt: "¿Qué canasta tiene la cantidad más pequeñita de manzanas?",
-                options: ["Canasta con 2 🍎", "Canasta con 7 🍎", "Canasta con 5 🍎", "Canasta con 9 🍎"],
-                correct: 0,
-                explanation: "¡Correcto! 2 manzanas es la cantidad menor.",
-                hint: "El 2 es el número más chico."
+                "id": "w1-l4-q10",
+                "grade": 1,
+                "axis": "Patrones y álgebra",
+                "skill": "patrón numérico",
+                "prompt": "Completa la escalera: 4, 8, 12, __.",
+                "options": [
+                    "16",
+                    "14",
+                    "15",
+                    "18"
+                ],
+                "correct": 0,
+                "explanation": "La escalera suma cuatro en cada paso.",
+                "hint": "Compara dos números vecinos."
             },
             {
-                prompt: "Tienes 2 canastas vacías y recoges 6 manzanas. Si pones la misma cantidad en cada canasta, ¿cuántas pones en cada una?",
-                options: ["2 manzanas", "3 manzanas", "4 manzanas", "5 manzanas"],
-                correct: 1,
-                explanation: "¡Reparto perfecto! 3 manzanas en una canasta y 3 en la otra ($3 + 3 = 6$).",
-                hint: "¿Qué número sumado dos veces da 6?"
+                "id": "w1-l4-q11",
+                "grade": 1,
+                "axis": "Patrones y álgebra",
+                "skill": "igualdad",
+                "prompt": "La balanza del general debe quedar igual: 9 + __ = 12.",
+                "options": [
+                    "3",
+                    "2",
+                    "4",
+                    "5"
+                ],
+                "correct": 0,
+                "explanation": "Nueve más tres son doce.",
+                "hint": "Cuenta cuánto falta hasta doce."
             },
             {
-                prompt: "El árbol tiene 9 manzanas doradas ✨. ¿El número 9 es PAR o IMPAR?",
-                options: ["Es IMPAR", "Es PAR", "Es cero", "No se sabe"],
-                correct: 0,
-                explanation: "¡Genial! El 9 es impar porque no se puede dividir en dos grupos exactos sin romper una manzana.",
-                hint: "Si haces parejas de 2, te sobra 1."
+                "id": "w1-l4-q12",
+                "grade": 1,
+                "axis": "Geometría",
+                "skill": "figuras 2D",
+                "prompt": "La señal del general tiene 3 lados rectos. ¿Qué figura es?",
+                "options": [
+                    "triángulo",
+                    "círculo",
+                    "cuadrado",
+                    "rectángulo"
+                ],
+                "correct": 0,
+                "explanation": "Tres lados rectos forman un triángulo.",
+                "hint": "Cuenta los lados."
             },
             {
-                prompt: "Si recoges 7 manzanas en la mañana y 3 en la tarde, ¿cuántas manzanas tienes al final del día?",
-                options: ["9", "10", "11", "12"],
-                correct: 1,
-                explanation: "¡Cosecha abundante! $7 + 3 = 10$ manzanas en total.",
-                hint: "Suma 7 + 3: llega al número de dos cifras."
+                "id": "w1-l4-q13",
+                "grade": 1,
+                "axis": "Geometría",
+                "skill": "figuras 3D",
+                "prompt": "La pelota del entrenamiento tiene forma de…",
+                "options": [
+                    "esfera",
+                    "cubo",
+                    "cono",
+                    "cuadrado"
+                ],
+                "correct": 0,
+                "explanation": "La esfera es redonda como una pelota.",
+                "hint": "Distingue un cuerpo de una figura plana."
             },
             {
-                prompt: "Una oruguita 🐛 camina por el tronco: está en la marca 3 y avanza 4 marcas hacia arriba. ¿A qué marca llega?",
-                options: ["6", "7", "8", "9"],
-                correct: 1,
-                explanation: "¡Arriba, oruguita! $3 + 4 = 7$. Llegó a la marca 7.",
-                hint: "Cuenta 4 pasos después del 3: 4, 5, 6, 7."
+                "id": "w1-l4-q14",
+                "grade": 1,
+                "axis": "Geometría",
+                "skill": "posiciones",
+                "prompt": "En el orden 🌳 🍎 ⭐, ¿dónde queda la manzana respecto de la estrella?",
+                "options": [
+                    "izquierda",
+                    "derecha",
+                    "arriba",
+                    "abajo"
+                ],
+                "correct": 0,
+                "explanation": "La manzana aparece a la izquierda de la estrella.",
+                "hint": "Observa qué aparece antes de la estrella."
             },
             {
-                prompt: "¿Qué signo ponemos entre dos canastas que tienen 6 manzanas cada una: 6 ___ 6?",
-                options: ["=", ">", "<", "+"],
-                correct: 0,
-                explanation: "¡Exacto! Como tienen la misma cantidad, usamos el signo igual ($6 = 6$).",
-                hint: "Tienen la misma cantidad."
+                "id": "w1-l4-q15",
+                "grade": 1,
+                "axis": "Medición",
+                "skill": "longitud",
+                "prompt": "Dos ramas miden 6 y 4 clips iguales. ¿Cuántos clips mide la más larga?",
+                "options": [
+                    "6",
+                    "4",
+                    "2",
+                    "10"
+                ],
+                "correct": 0,
+                "explanation": "La rama de seis clips es más larga.",
+                "hint": "Usa la misma unidad para comparar."
             },
             {
-                prompt: "El Manzano Ancestral te pregunta: '¿Qué número va justo ANTES del 15?'",
-                options: ["13", "14", "16", "17"],
-                correct: 1,
-                explanation: "¡Muy bien! Justo antes del 15 está el 14.",
-                hint: "A 15 quítale 1."
+                "id": "w1-l4-q16",
+                "grade": 1,
+                "axis": "Medición",
+                "skill": "secuencia temporal",
+                "prompt": "El general desayuna y después entrena. ¿Qué hace primero?",
+                "options": [
+                    "desayunar",
+                    "entrenar",
+                    "ambas a la vez",
+                    "ninguna"
+                ],
+                "correct": 0,
+                "explanation": "Desayunar ocurre antes de entrenar.",
+                "hint": "Busca la primera acción."
             },
             {
-                prompt: "En tu bolsa tienes 4 manzanas rojas 🍎 y encuentras 1 manzana verde 🍏. ¿Cuántas frutas tienes en total?",
-                options: ["3", "4", "5", "6"],
-                correct: 2,
-                explanation: "¡Rico postre! 4 más 1 son 5 ricas frutas en total.",
-                hint: "4 + 1 = ?"
+                "id": "w1-l4-q17",
+                "grade": 1,
+                "axis": "Medición",
+                "skill": "calendario",
+                "prompt": "El general celebra su cumpleaños en abril, el mes después de marzo. ¿Qué mes viene después de marzo?",
+                "options": [
+                    "abril",
+                    "enero",
+                    "febrero",
+                    "mayo"
+                ],
+                "correct": 0,
+                "explanation": "En el calendario, después de marzo viene abril.",
+                "hint": "Sigue el orden de los meses."
             },
             {
-                prompt: "El árbol pierde 4 hojas 🍃 con el viento y luego caen 2 hojas más. ¿Cuántas hojas cayeron en total?",
-                options: ["5", "6", "7", "8"],
-                correct: 1,
-                explanation: "¡Otoño mágico! $4 + 2 = 6$ hojas en total.",
-                hint: "Suma 4 + 2."
+                "id": "w1-l4-q18",
+                "grade": 1,
+                "axis": "Datos y probabilidades",
+                "skill": "pictograma",
+                "prompt": "Cada 🍎 vale una manzana. La cesta del general muestra 🍎 🍎 🍎 🍎 🍎 🍎. ¿Cuántas tiene?",
+                "options": [
+                    "6",
+                    "5",
+                    "7",
+                    "8"
+                ],
+                "correct": 0,
+                "explanation": "Seis dibujos representan seis manzanas.",
+                "hint": "Lee cuánto vale cada dibujo."
             },
             {
-                prompt: "Para el golpe final, ¿cuál es el número PAR más grande entre 2, 5, 8 y 9?",
-                options: ["2", "5", "8", "9"],
-                correct: 2,
-                explanation: "¡Golpe crítico! 8 es el número par más grande (el 9 es más grande pero es impar).",
-                hint: "Recuerda que debe ser par y el más grande."
+                "id": "w1-l4-q19",
+                "grade": 1,
+                "axis": "Datos y probabilidades",
+                "skill": "comparar datos",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Cestas del general</caption><thead><tr><th scope=\"col\">Cesta</th><th scope=\"col\">Manzanas</th></tr></thead><tbody><tr><th scope=\"row\">Roja</th><td>6</td></tr><tr><th scope=\"row\">Azul</th><td>3</td></tr><tr><th scope=\"row\">Verde</th><td>4</td></tr></tbody></table></div>¿Qué cesta tiene más?",
+                "options": [
+                    "roja",
+                    "azul",
+                    "verde",
+                    "todas igual"
+                ],
+                "correct": 0,
+                "explanation": "La roja tiene seis, que es la cantidad mayor.",
+                "hint": "Compara las tres cantidades."
             },
             {
-                prompt: "¡El Manzano se rinde si le dices cuántas manzanas son 10 más 2! ¿Cuántas son?",
-                options: ["11", "12", "13", "20"],
-                correct: 1,
-                explanation: "¡VICTORIA! 10 manzanas más 2 manzanas son 12 manzanas. ¡Has ganado la batalla!",
-                hint: "10 más dos: 11, 12."
+                "id": "w1-l4-q20",
+                "grade": 1,
+                "axis": "Datos y probabilidades",
+                "skill": "registro de datos",
+                "prompt": "El general registra hojas: | | | |. ¿Cuántas hojas anotó?",
+                "options": [
+                    "4",
+                    "3",
+                    "5",
+                    "6"
+                ],
+                "correct": 0,
+                "explanation": "Hay cuatro marcas; cada una representa una hoja.",
+                "hint": "Cuenta las marcas."
             }
-        ]
-    },
-
-    // ==========================================
-    // MUNDO 2: CIRCO DE LAS SUMAS (NIVELES 5 - 9)
-    // ==========================================
-    {
-        id: 5,
-        worldId: "world-2",
-        title: "El Poder de la Suma",
-        subtitle: "¡Desafía al Payaso Globo en el Circo de las Sumas!",
-        icon: "➕",
-        hasEnemy: true,
-        enemy: {
-            id: "payaso_globo",
-            name: "Payaso Globo",
-            title: "Acróbata Risueño del Circo",
-            avatar: "🎈🤡",
-            avatarDefeated: "😵🎈",
-            avatarImg: "assets/world-2/circus-balloon-clown-80s.png",
-            badge: "CIRCO",
-            badgeClass: "circus",
-            maxHp: 8.0,
-            regenRate: 0,
-            baseDamage: 1.0,
-            streakBonus: 0.5,
-            mechanicType: "slap",
-            mechanicTitle: "¡Duelo de Cachetadas Inflables!",
-            mechanicDesc: "✋ ¡Cada acierto de suma le propina una bofetada al payaso!",
-            dialogue: {
-                intro: "¡Jojojo! ¡Bienvenidos al circo! ¡A ver si puedes sumar mis globos!",
-                hit: "¡Pooop! ¡Casi me desinflas!",
-                defeat: "¡Fiuuuu! ¡Menuda suma, me quedé sin aire!"
-            }
-        },
-        theory: {
-            title: "Sumar es Juntar",
-            content: `
-                <p>Sumar es <strong>juntar</strong>. Si tienes 3 globos y recibes 2 más, cuentas todos los globos juntos.</p>
-                <div class="theory-visual"><span>🎈🎈🎈 + 🎈🎈 = <strong>5 globos</strong></span><span>$$3 + 2 = 5$$</span></div>
-                <p>Empieza por el grupo más grande y cuenta los que añades. Para $8 + 4$, suma 2 para llegar a 10 y después otros 2: <strong>12</strong>. En este nivel practicarás sumas hasta 20.</p>
-            `
-        },
-        questions: [
-            {
-                prompt: "Calcula: $2 + 3$",
-                options: ["5","6","4","7"],
-                correct: 0,
-                explanation: "$2 + 3 = 5$.",
-                hint: "Empieza en 2 y cuenta tres más.",
-                bossDistractors: ["3","8","2","10"]
-            },
-            {
-                prompt: "Calcula: $4 + 1$",
-                options: ["5","6","4","7"],
-                correct: 0,
-                explanation: "$4 + 1 = 5$.",
-                hint: "Añade uno al 4.",
-                bossDistractors: ["3","8","2","10"]
-            },
-            {
-                prompt: "Calcula: $3 + 4$",
-                options: ["7","8","6","9"],
-                correct: 0,
-                explanation: "$3 + 4 = 7$.",
-                hint: "Cuenta cuatro pasos desde el 3.",
-                bossDistractors: ["5","10","4","12"]
-            },
-            {
-                prompt: "Calcula: $5 + 2$",
-                options: ["7","8","6","9"],
-                correct: 0,
-                explanation: "$5 + 2 = 7$.",
-                hint: "Después de 5 vienen 6 y 7.",
-                bossDistractors: ["5","10","4","12"]
-            },
-            {
-                prompt: "Calcula: $6 + 3$",
-                options: ["9","10","8","11"],
-                correct: 0,
-                explanation: "$6 + 3 = 9$.",
-                hint: "Cuenta 7, 8 y 9.",
-                bossDistractors: ["7","12","6","14"]
-            },
-            {
-                prompt: "Calcula: $0 + 8$",
-                options: ["8","9","7","10"],
-                correct: 0,
-                explanation: "Sumar cero deja la misma cantidad: $0 + 8 = 8$.",
-                hint: "No se añade ningún objeto.",
-                bossDistractors: ["6","11","5","13"]
-            },
-            {
-                prompt: "Calcula: $4 + 4$",
-                options: ["8","9","7","10"],
-                correct: 0,
-                explanation: "$4 + 4 = 8$.",
-                hint: "Es el doble de 4.",
-                bossDistractors: ["6","11","5","13"]
-            },
-            {
-                prompt: "Calcula: $7 + 3$",
-                options: ["10","11","9","12"],
-                correct: 0,
-                explanation: "$7 + 3 = 10$.",
-                hint: "Completa una decena.",
-                bossDistractors: ["8","13","7","15"]
-            },
-            {
-                prompt: "Calcula: $8 + 2$",
-                options: ["10","11","9","12"],
-                correct: 0,
-                explanation: "$8 + 2 = 10$.",
-                hint: "Cuenta dos más desde 8.",
-                bossDistractors: ["8","13","7","15"]
-            },
-            {
-                prompt: "Calcula: $5 + 5$",
-                options: ["10","11","9","12"],
-                correct: 0,
-                explanation: "$5 + 5 = 10$.",
-                hint: "Piensa en los dedos de las dos manos.",
-                bossDistractors: ["8","13","7","15"]
-            },
-            {
-                prompt: "El payaso tiene 3 globos rojos y 2 azules. ¿Cuántos tiene en total?",
-                options: ["5","6","4","7"],
-                correct: 0,
-                explanation: "Juntamos los globos: $3 + 2 = 5$.",
-                hint: "Cuenta los dos grupos juntos.",
-                bossDistractors: ["3","8","2","10"]
-            },
-            {
-                prompt: "Hay 4 niños en la fila y llegan 3 más. ¿Cuántos niños hay ahora?",
-                options: ["7","8","6","9"],
-                correct: 0,
-                explanation: "$4 + 3 = 7$ niños.",
-                hint: "Empieza con los cuatro que ya estaban.",
-                bossDistractors: ["5","10","4","12"]
-            },
-            {
-                prompt: "En una caja hay 6 pelotas y en otra hay 4. ¿Cuántas hay entre las dos?",
-                options: ["10","11","9","12"],
-                correct: 0,
-                explanation: "$6 + 4 = 10$ pelotas.",
-                hint: "Seis y cuatro completan diez.",
-                bossDistractors: ["8","13","7","15"]
-            },
-            {
-                prompt: "El músico lleva 2 tambores y su amiga trae 5. ¿Cuántos tambores hay?",
-                options: ["7","8","6","9"],
-                correct: 0,
-                explanation: "$2 + 5 = 7$ tambores.",
-                hint: "Puedes contar desde 5 y añadir 2.",
-                bossDistractors: ["5","10","4","12"]
-            },
-            {
-                prompt: "Hay 7 banderines y cuelgan 2 más. ¿Cuántos hay ahora?",
-                options: ["9","10","8","11"],
-                correct: 0,
-                explanation: "$7 + 2 = 9$ banderines.",
-                hint: "Cuenta dos pasos después de 7.",
-                bossDistractors: ["7","12","6","14"]
-            },
-            {
-                prompt: "El payaso reparte 8 entradas y luego 4 más. ¿Cuántas reparte?",
-                options: ["12","13","11","14"],
-                correct: 0,
-                explanation: "$8 + 4 = 8 + 2 + 2 = 12$ entradas.",
-                hint: "Añade dos para llegar a diez y luego otros dos.",
-                bossDistractors: ["10","15","9","17"]
-            },
-            {
-                prompt: "Hay 9 estrellas de papel y preparan 3 más. ¿Cuántas estrellas hay?",
-                options: ["12","13","11","14"],
-                correct: 0,
-                explanation: "$9 + 3 = 10 + 2 = 12$.",
-                hint: "Falta una para llegar a diez.",
-                bossDistractors: ["10","15","9","17"]
-            },
-            {
-                prompt: "Una artista tiene 10 cintas y recibe 5 más. ¿Cuántas tiene?",
-                options: ["15","16","14","17"],
-                correct: 0,
-                explanation: "$10 + 5 = 15$ cintas.",
-                hint: "Cuenta cinco después de diez.",
-                bossDistractors: ["13","18","12","20"]
-            },
-            {
-                prompt: "Entran 6 personas por una puerta y 7 por otra. ¿Cuántas entran?",
-                options: ["13","14","12","15"],
-                correct: 0,
-                explanation: "$6 + 7 = 13$ personas.",
-                hint: "Suma cuatro a seis y luego tres.",
-                bossDistractors: ["11","16","10","18"]
-            },
-            {
-                prompt: "Hay 10 globos amarillos y 10 verdes. ¿Cuántos globos hay?",
-                options: ["20","21","19","22"],
-                correct: 0,
-                explanation: "$10 + 10 = 20$ globos.",
-                hint: "Dos grupos de diez forman veinte.",
-                bossDistractors: ["18","23","17","25"]
-            }
-        ]
-    },
-    {
-        id: 6,
-        worldId: "world-2",
-        title: "El Arte de la Resta",
-        subtitle: "¡Desafía al Malabarista Globo en el Trapecio!",
-        icon: "➖",
-        hasEnemy: true,
-        enemy: {
-            id: "malabarista_globo",
-            name: "Malabarista Globo",
-            title: "Estrella del Trapecio Numérico",
-            avatar: "🎈🤹",
-            avatarDefeated: "😵🤹",
-            avatarImg: "assets/world-2/circus-balloon-juggler-80s.png",
-            badge: "CIRCO",
-            badgeClass: "circus",
-            maxHp: 10.0,
-            regenRate: 0,
-            baseDamage: 1.0,
-            streakBonus: 0.5,
-            mechanicType: "slap",
-            mechanicTitle: "¡Malabares en el Aire!",
-            mechanicDesc: "✋ ¡Acierta restas para desarmar los malabares del artista!",
-            dialogue: {
-                intro: "¡Un globo aquí, dos por allá! ¡Resta antes de que caigan!",
-                hit: "¡Rayos! ¡Se me cayó una pelotita!",
-                defeat: "¡Aplaudo tu precisión! ¡Gran espectáculo de cálculo!"
-            }
-        },
-        theory: {
-            title: "Restar es Quitar",
-            content: `
-                <p>Restar es <strong>quitar</strong>. Si tienes 7 pelotas y guardas 3, quedan 4 fuera de la caja.</p>
-                <div class="theory-visual"><span>$$7 - 3 = 4$$</span></div>
-                <p>Puedes contar hacia atrás: desde 7, cuenta <strong>6, 5, 4</strong>. Comprueba juntando otra vez: $4 + 3 = 7$. Trabajaremos con cantidades hasta 20 y siempre quedarán cero o más objetos.</p>
-            `
-        },
-        questions: [
-            {
-                prompt: "Calcula: $5 - 2$",
-                options: ["3","4","2","5"],
-                correct: 0,
-                explanation: "$5 - 2 = 3$.",
-                hint: "Cuenta dos pasos hacia atrás desde 5.",
-                bossDistractors: ["1","6","0","8"]
-            },
-            {
-                prompt: "Calcula: $7 - 3$",
-                options: ["4","5","3","6"],
-                correct: 0,
-                explanation: "$7 - 3 = 4$.",
-                hint: "Quita tres de siete.",
-                bossDistractors: ["2","7","1","9"]
-            },
-            {
-                prompt: "Calcula: $9 - 4$",
-                options: ["5","6","4","7"],
-                correct: 0,
-                explanation: "$9 - 4 = 5$.",
-                hint: "Cuenta 8, 7, 6 y 5.",
-                bossDistractors: ["3","8","2","10"]
-            },
-            {
-                prompt: "Calcula: $8 - 1$",
-                options: ["7","8","6","9"],
-                correct: 0,
-                explanation: "$8 - 1 = 7$.",
-                hint: "Busca el número anterior a 8.",
-                bossDistractors: ["5","10","4","12"]
-            },
-            {
-                prompt: "Calcula: $6 - 6$",
-                options: ["0","1","2","3"],
-                correct: 0,
-                explanation: "Si quitas todas las pelotas, quedan cero: $6 - 6 = 0$.",
-                hint: "Se van todos los objetos.",
-                bossDistractors: ["5","10","4","6"]
-            },
-            {
-                prompt: "Calcula: $10 - 0$",
-                options: ["10","11","9","12"],
-                correct: 0,
-                explanation: "Restar cero no quita nada: $10 - 0 = 10$.",
-                hint: "La cantidad se queda igual.",
-                bossDistractors: ["8","13","7","15"]
-            },
-            {
-                prompt: "Calcula: $10 - 5$",
-                options: ["5","6","4","7"],
-                correct: 0,
-                explanation: "$10 - 5 = 5$.",
-                hint: "De las dos manos, tapa una.",
-                bossDistractors: ["3","8","2","10"]
-            },
-            {
-                prompt: "Calcula: $12 - 2$",
-                options: ["10","11","9","12"],
-                correct: 0,
-                explanation: "$12 - 2 = 10$.",
-                hint: "Quita las dos unidades que sobran de diez.",
-                bossDistractors: ["8","13","7","15"]
-            },
-            {
-                prompt: "Calcula: $15 - 5$",
-                options: ["10","11","9","12"],
-                correct: 0,
-                explanation: "$15 - 5 = 10$.",
-                hint: "Cuenta cinco hacia atrás.",
-                bossDistractors: ["8","13","7","15"]
-            },
-            {
-                prompt: "Calcula: $14 - 7$",
-                options: ["7","8","6","9"],
-                correct: 0,
-                explanation: "$14 - 7 = 7$.",
-                hint: "Siete más siete da catorce.",
-                bossDistractors: ["5","10","4","12"]
-            },
-            {
-                prompt: "El malabarista tiene 6 pelotas y guarda 2. ¿Cuántas quedan fuera?",
-                options: ["4","5","3","6"],
-                correct: 0,
-                explanation: "$6 - 2 = 4$ pelotas.",
-                hint: "Quita dos pelotas del grupo.",
-                bossDistractors: ["2","7","1","9"]
-            },
-            {
-                prompt: "Había 8 globos y se desinflaron 3. ¿Cuántos siguen inflados?",
-                options: ["5","6","4","7"],
-                correct: 0,
-                explanation: "$8 - 3 = 5$ globos.",
-                hint: "Empieza con ocho y quita tres.",
-                bossDistractors: ["3","8","2","10"]
-            },
-            {
-                prompt: "De 10 entradas se venden 4. ¿Cuántas quedan?",
-                options: ["6","7","5","8"],
-                correct: 0,
-                explanation: "$10 - 4 = 6$ entradas.",
-                hint: "¿Cuánto falta de cuatro a diez?",
-                bossDistractors: ["4","9","3","11"]
-            },
-            {
-                prompt: "Hay 13 sillas y se ocupan 3. ¿Cuántas quedan libres?",
-                options: ["10","11","9","12"],
-                correct: 0,
-                explanation: "$13 - 3 = 10$ sillas.",
-                hint: "Quita las tres unidades.",
-                bossDistractors: ["8","13","7","15"]
-            },
-            {
-                prompt: "La artista lleva 16 cintas y regala 6. ¿Cuántas conserva?",
-                options: ["10","11","9","12"],
-                correct: 0,
-                explanation: "$16 - 6 = 10$ cintas.",
-                hint: "Dieciséis son diez y seis.",
-                bossDistractors: ["8","13","7","15"]
-            },
-            {
-                prompt: "El payaso tiene 11 flores y entrega 5. ¿Cuántas le quedan?",
-                options: ["6","7","5","8"],
-                correct: 0,
-                explanation: "$11 - 5 = 6$ flores.",
-                hint: "Quita una para llegar a diez y después cuatro.",
-                bossDistractors: ["4","9","3","11"]
-            },
-            {
-                prompt: "De 18 luces se apagan 8. ¿Cuántas siguen encendidas?",
-                options: ["10","11","9","12"],
-                correct: 0,
-                explanation: "$18 - 8 = 10$ luces.",
-                hint: "Quita ocho de dieciocho.",
-                bossDistractors: ["8","13","7","15"]
-            },
-            {
-                prompt: "En una caja hay 20 narices rojas y sacan 10. ¿Cuántas quedan?",
-                options: ["10","11","9","12"],
-                correct: 0,
-                explanation: "$20 - 10 = 10$ narices.",
-                hint: "Quita un grupo de diez.",
-                bossDistractors: ["8","13","7","15"]
-            },
-            {
-                prompt: "Hay 17 niños en la carpa y salen 4. ¿Cuántos quedan dentro?",
-                options: ["13","14","12","15"],
-                correct: 0,
-                explanation: "$17 - 4 = 13$ niños.",
-                hint: "Cuenta cuatro hacia atrás desde diecisiete.",
-                bossDistractors: ["11","16","10","18"]
-            },
-            {
-                prompt: "El músico tiene 19 cascabeles y pierde 7. ¿Cuántos conserva?",
-                options: ["12","13","11","14"],
-                correct: 0,
-                explanation: "$19 - 7 = 12$ cascabeles.",
-                hint: "Resta siete a las nueve unidades.",
-                bossDistractors: ["10","15","9","17"]
-            }
+        ],
+        "grade": 1,
+        "skills": [
+            "conteo",
+            "conteo por saltos",
+            "valor posicional",
+            "ordinales",
+            "suma hasta 20",
+            "resta hasta 20",
+            "comparación",
+            "patrón repetitivo",
+            "patrón numérico",
+            "igualdad",
+            "figuras 2D",
+            "figuras 3D",
+            "posiciones",
+            "longitud",
+            "secuencia temporal",
+            "calendario",
+            "pictograma",
+            "comparar datos",
+            "registro de datos"
         ]
     },
     {
-        id: 7,
-        worldId: "world-2",
-        title: "Sumas y Restas Paso a Paso",
-        subtitle: "¡Desafía al Forzudo Globo y sus pesas de aire!",
-        icon: "🧮",
-        hasEnemy: true,
-        enemy: {
-            id: "forzudo_globo",
-            name: "Forzudo Globo",
-            title: "Campeón de Peso Inflable",
-            avatar: "🎈💪",
-            avatarDefeated: "😵💪",
-            avatarImg: "assets/world-2/circus-balloon-strongman-80s.png",
-            badge: "CIRCO",
-            badgeClass: "circus",
-            maxHp: 12.0,
-            regenRate: 0,
-            baseDamage: 1.0,
-            streakBonus: 0.5,
-            mechanicType: "slap",
-            mechanicTitle: "¡Fuerza de Globos!",
-            mechanicDesc: "✋ ¡Resuelve paso a paso para desinflar las pesas del forzudo!",
-            dialogue: {
-                intro: "¡Primero juntamos globos y después quitamos algunos! ¡Vamos paso a paso!",
-                hit: "¡Grrr! ¡Esa bofetada dobló mis barras de globo!",
-                defeat: "¡Me has vencido en fuerza y mente! ¡Eres el verdadero titán!"
+        "id": 5,
+        "worldId": "world-2",
+        "title": "La boletería de los globos",
+        "subtitle": "2.º básico · Trabaja con decenas y sumas y restas hasta 100.",
+        "icon": "➕",
+        "hasEnemy": true,
+        "enemy": {
+            "id": "payaso_globo",
+            "name": "Payaso Globo",
+            "title": "Acróbata Risueño del Circo",
+            "avatar": "🎈🤡",
+            "avatarDefeated": "😵🎈",
+            "avatarImg": "assets/world-2/circus-balloon-clown-80s.png",
+            "badge": "CIRCO",
+            "badgeClass": "circus",
+            "maxHp": 8,
+            "regenRate": 0,
+            "baseDamage": 1,
+            "streakBonus": 0.5,
+            "mechanicType": "slap",
+            "mechanicTitle": "¡Duelo de Cachetadas Inflables!",
+            "mechanicDesc": "✋ ¡Organiza las entradas y resuelve las cuentas del payaso!",
+            "dialogue": {
+                "intro": "¡Bienvenidos a mi boletería de globos y decenas!",
+                "hit": "¡Pooop! ¡Casi me desinflas!",
+                "defeat": "¡Fiuuuu! ¡Menuda suma, me quedé sin aire!"
             }
         },
-        theory: {
-            title: "Primero un Paso, Después el Otro",
-            content: `
-                <p>Tienes 5 globos, recibes 3 y regalas 2. Haz <strong>un paso cada vez</strong>: primero juntas los globos y después quitas los que regalas.</p>
-                <div class="theory-visual"><span>$$5 + 3 = 8 \\qquad 8 - 2 = 6$$</span></div>
-                <p>Si ves $5 + 3 - 2$, avanza <strong>de izquierda a derecha</strong>. También practicarás con decenas: $20 + 10 - 5 = 25$. Las cantidades llegarán hasta 50.</p>
-            `
+        "theory": {
+            "title": "La boletería de los globos",
+            "content": "<p><strong>2.º básico.</strong> Trabaja con decenas y sumas y restas hasta 100.</p><h3>Números hasta 100</h3><p>63 son 6 decenas y 3 unidades. Puedes comparar decenas y después unidades. Al contar de 100 en 100 llegamos hasta 1.000, aunque aquí las sumas y restas serán hasta 100.</p><h3>Sumar y restar sin reserva</h3><p>Para 23 + 14 junta 2 decenas con 1 decena y 3 unidades con 4: 37. Para 56 − 24 quita decenas y unidades: 32. En estos ejercicios no necesitas cambiar una decena.</p><h3>Comprobar</h3><p>Si 23 + 14 = 37, entonces 37 − 14 = 23. Sumar o restar cero conserva la cantidad. Para calcular mentalmente, usa dobles y completa diez.</p>"
         },
-        questions: [
+        "questions": [
             {
-                prompt: "Calcula: $5 + 3 - 2$",
-                options: ["6","7","5","8"],
-                correct: 0,
-                explanation: "Primero $5 + 3 = 8$; luego $8 - 2 = 6$.",
-                hint: "Haz primero la suma.",
-                bossDistractors: ["4","9","3","11"]
+                "id": "w2-l5-q1",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "valor posicional",
+                "prompt": "La boletería vendió 63 entradas. ¿Cuántas decenas completas son?",
+                "options": [
+                    "6",
+                    "7",
+                    "5",
+                    "8"
+                ],
+                "correct": 0,
+                "explanation": "63 = 60 + 3: seis decenas y tres unidades.",
+                "hint": "Separa las entradas en grupos de diez.",
+                "bossDistractors": [
+                    "4",
+                    "11",
+                    "1",
+                    "16"
+                ]
             },
             {
-                prompt: "Calcula: $9 - 4 + 2$",
-                options: ["7","8","6","9"],
-                correct: 0,
-                explanation: "Primero $9 - 4 = 5$; luego $5 + 2 = 7$.",
-                hint: "Avanza de izquierda a derecha.",
-                bossDistractors: ["5","10","4","12"]
+                "id": "w2-l5-q2",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "valor posicional",
+                "prompt": "El payaso tiene 4 decenas y 7 globos sueltos. ¿Cuántos globos son?",
+                "options": [
+                    "47",
+                    "48",
+                    "46",
+                    "49"
+                ],
+                "correct": 0,
+                "explanation": "40 + 7 = 47.",
+                "hint": "Cuatro decenas valen cuarenta.",
+                "bossDistractors": [
+                    "45",
+                    "52",
+                    "42",
+                    "57"
+                ]
             },
             {
-                prompt: "Calcula: $10 + 5 - 3$",
-                options: ["12","13","11","14"],
-                correct: 0,
-                explanation: "$10 + 5 = 15$ y $15 - 3 = 12$.",
-                hint: "Empieza juntando diez y cinco.",
-                bossDistractors: ["10","15","9","17"]
+                "id": "w2-l5-q3",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "comparación",
+                "prompt": "Entre 36, 63, 46 y 26 entradas, ¿cuál es la mayor cantidad?",
+                "options": [
+                    "63",
+                    "36",
+                    "46",
+                    "26"
+                ],
+                "correct": 0,
+                "explanation": "63 tiene seis decenas, más que las demás cantidades.",
+                "hint": "Compara primero las decenas.",
+                "bossDistractors": [
+                    "64",
+                    "62",
+                    "65",
+                    "61"
+                ]
             },
             {
-                prompt: "Calcula: $12 - 2 + 6$",
-                options: ["16","17","15","18"],
-                correct: 0,
-                explanation: "$12 - 2 = 10$ y $10 + 6 = 16$.",
-                hint: "Llega primero a diez.",
-                bossDistractors: ["14","19","13","21"]
+                "id": "w2-l5-q4",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "conteo por saltos",
+                "prompt": "Cuenta puestos de 100 en 100: 600, 700, 800, __.",
+                "options": [
+                    "900",
+                    "1000",
+                    "810",
+                    "850"
+                ],
+                "correct": 0,
+                "explanation": "El siguiente salto de cien llega a 900.",
+                "hint": "Agrega otra centena.",
+                "bossDistractors": [
+                    "901",
+                    "899",
+                    "902",
+                    "898"
+                ]
             },
             {
-                prompt: "Calcula: $8 + 4 - 5$",
-                options: ["7","8","6","9"],
-                correct: 0,
-                explanation: "$8 + 4 = 12$ y $12 - 5 = 7$.",
-                hint: "Calcula un paso cada vez.",
-                bossDistractors: ["5","10","4","12"]
+                "id": "w2-l5-q5",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "conteo por saltos",
+                "prompt": "La fila avanza de 10 en 10: 35, 45, 55, __.",
+                "options": [
+                    "65",
+                    "66",
+                    "64",
+                    "67"
+                ],
+                "correct": 0,
+                "explanation": "55 + 10 = 65.",
+                "hint": "Cambia una decena y conserva las unidades.",
+                "bossDistractors": [
+                    "63",
+                    "70",
+                    "60",
+                    "75"
+                ]
             },
             {
-                prompt: "Calcula: $15 - 5 + 8$",
-                options: ["18","19","17","20"],
-                correct: 0,
-                explanation: "$15 - 5 = 10$ y $10 + 8 = 18$.",
-                hint: "Haz primero la resta.",
-                bossDistractors: ["16","21","15","23"]
+                "id": "w2-l5-q6",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "conteo por saltos",
+                "prompt": "Los globos se cuentan de 2 en 2: 82, 84, 86, __.",
+                "options": [
+                    "88",
+                    "89",
+                    "87",
+                    "90"
+                ],
+                "correct": 0,
+                "explanation": "El siguiente salto suma dos: 88.",
+                "hint": "Cuenta dos desde 86.",
+                "bossDistractors": [
+                    "86",
+                    "93",
+                    "83",
+                    "98"
+                ]
             },
             {
-                prompt: "Calcula: $20 + 10 - 5$",
-                options: ["25","26","24","27"],
-                correct: 0,
-                explanation: "$20 + 10 = 30$ y $30 - 5 = 25$.",
-                hint: "Junta primero las decenas.",
-                bossDistractors: ["23","28","22","30"]
+                "id": "w2-l5-q7",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "estimación",
+                "prompt": "Una fila tiene casi lo mismo que otra de 50 personas. ¿Qué estimación usarías?",
+                "options": [
+                    "50",
+                    "5",
+                    "10",
+                    "100"
+                ],
+                "correct": 0,
+                "explanation": "El grupo conocido de cincuenta es la referencia más cercana.",
+                "hint": "Usa la fila de referencia.",
+                "bossDistractors": [
+                    "51",
+                    "49",
+                    "52",
+                    "48"
+                ]
             },
             {
-                prompt: "Calcula: $30 - 10 + 4$",
-                options: ["24","25","23","26"],
-                correct: 0,
-                explanation: "$30 - 10 = 20$ y $20 + 4 = 24$.",
-                hint: "Quita una decena y añade cuatro.",
-                bossDistractors: ["22","27","21","29"]
+                "id": "w2-l5-q8",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "suma sin reserva",
+                "prompt": "El payaso reúne 23 globos y recibe 14 más. ¿Cuántos tiene?",
+                "options": [
+                    "37",
+                    "38",
+                    "36",
+                    "39"
+                ],
+                "correct": 0,
+                "explanation": "23 + 14 = 37. Suma las decenas y las unidades por separado.",
+                "hint": "Suma las decenas y las unidades por separado.",
+                "bossDistractors": [
+                    "35",
+                    "42",
+                    "32",
+                    "47"
+                ],
+                "calculation": {
+                    "operation": "add",
+                    "operands": [
+                        23,
+                        14
+                    ]
+                }
             },
             {
-                prompt: "Calcula: $24 + 5 - 3$",
-                options: ["26","27","25","28"],
-                correct: 0,
-                explanation: "$24 + 5 = 29$ y $29 - 3 = 26$.",
-                hint: "Suma cinco y después quita tres.",
-                bossDistractors: ["24","29","23","31"]
+                "id": "w2-l5-q9",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "suma sin reserva",
+                "prompt": "El payaso reúne 42 globos y recibe 25 más. ¿Cuántos tiene?",
+                "options": [
+                    "67",
+                    "68",
+                    "66",
+                    "69"
+                ],
+                "correct": 0,
+                "explanation": "42 + 25 = 67. Suma las decenas y las unidades por separado.",
+                "hint": "Suma las decenas y las unidades por separado.",
+                "bossDistractors": [
+                    "65",
+                    "72",
+                    "62",
+                    "77"
+                ],
+                "calculation": {
+                    "operation": "add",
+                    "operands": [
+                        42,
+                        25
+                    ]
+                }
             },
             {
-                prompt: "Calcula: $40 - 20 + 7$",
-                options: ["27","28","26","29"],
-                correct: 0,
-                explanation: "$40 - 20 = 20$ y $20 + 7 = 27$.",
-                hint: "Resta las decenas antes de sumar siete.",
-                bossDistractors: ["25","30","24","32"]
+                "id": "w2-l5-q10",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "suma sin reserva",
+                "prompt": "El payaso reúne 31 globos y recibe 18 más. ¿Cuántos tiene?",
+                "options": [
+                    "49",
+                    "50",
+                    "48",
+                    "51"
+                ],
+                "correct": 0,
+                "explanation": "31 + 18 = 49. Suma las decenas y las unidades por separado.",
+                "hint": "Suma las decenas y las unidades por separado.",
+                "bossDistractors": [
+                    "47",
+                    "54",
+                    "44",
+                    "59"
+                ],
+                "calculation": {
+                    "operation": "add",
+                    "operands": [
+                        31,
+                        18
+                    ]
+                }
             },
             {
-                prompt: "El forzudo tiene 6 globos, recibe 4 y regala 3. ¿Cuántos conserva?",
-                options: ["7","8","6","9"],
-                correct: 0,
-                explanation: "$6 + 4 = 10$ y $10 - 3 = 7$ globos.",
-                hint: "Junta lo que tiene y recibe; después quita lo que regala.",
-                bossDistractors: ["5","10","4","12"]
+                "id": "w2-l5-q11",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "suma sin reserva",
+                "prompt": "El payaso reúne 60 globos y recibe 20 más. ¿Cuántos tiene?",
+                "options": [
+                    "80",
+                    "81",
+                    "79",
+                    "82"
+                ],
+                "correct": 0,
+                "explanation": "60 + 20 = 80. Suma las decenas y las unidades por separado.",
+                "hint": "Suma las decenas y las unidades por separado.",
+                "bossDistractors": [
+                    "78",
+                    "85",
+                    "75",
+                    "90"
+                ],
+                "calculation": {
+                    "operation": "add",
+                    "operands": [
+                        60,
+                        20
+                    ]
+                }
             },
             {
-                prompt: "Hay 12 niños, salen 2 y llegan 5. ¿Cuántos hay al final?",
-                options: ["15","16","14","17"],
-                correct: 0,
-                explanation: "$12 - 2 = 10$ y $10 + 5 = 15$ niños.",
-                hint: "Resta los que salen y suma los que llegan.",
-                bossDistractors: ["13","18","12","20"]
+                "id": "w2-l5-q12",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "suma sin reserva",
+                "prompt": "El payaso reúne 36 globos y recibe 0 más. ¿Cuántos tiene?",
+                "options": [
+                    "36",
+                    "37",
+                    "35",
+                    "38"
+                ],
+                "correct": 0,
+                "explanation": "36 + 0 = 36. Suma las decenas y las unidades por separado.",
+                "hint": "Suma las decenas y las unidades por separado.",
+                "bossDistractors": [
+                    "34",
+                    "41",
+                    "31",
+                    "46"
+                ],
+                "calculation": {
+                    "operation": "add",
+                    "operands": [
+                        36,
+                        0
+                    ]
+                }
             },
             {
-                prompt: "Preparan 10 cintas, añaden 8 y usan 6. ¿Cuántas quedan?",
-                options: ["12","13","11","14"],
-                correct: 0,
-                explanation: "$10 + 8 = 18$ y $18 - 6 = 12$ cintas.",
-                hint: "Primero añade las ocho cintas.",
-                bossDistractors: ["10","15","9","17"]
+                "id": "w2-l5-q13",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "resta sin reserva",
+                "prompt": "De 56 entradas del circo se usan 24. ¿Cuántas quedan?",
+                "options": [
+                    "32",
+                    "33",
+                    "31",
+                    "34"
+                ],
+                "correct": 0,
+                "explanation": "56 − 24 = 32. Resta las unidades y después las decenas.",
+                "hint": "Resta las unidades y después las decenas.",
+                "bossDistractors": [
+                    "30",
+                    "37",
+                    "27",
+                    "42"
+                ],
+                "calculation": {
+                    "operation": "subtract",
+                    "operands": [
+                        56,
+                        24
+                    ]
+                }
             },
             {
-                prompt: "Hay 20 sillas, retiran 5 y traen 3. ¿Cuántas hay ahora?",
-                options: ["18","19","17","20"],
-                correct: 0,
-                explanation: "$20 - 5 = 15$ y $15 + 3 = 18$ sillas.",
-                hint: "Haz los cambios en el orden en que ocurren.",
-                bossDistractors: ["16","21","15","23"]
+                "id": "w2-l5-q14",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "resta sin reserva",
+                "prompt": "De 87 entradas del circo se usan 35. ¿Cuántas quedan?",
+                "options": [
+                    "52",
+                    "53",
+                    "51",
+                    "54"
+                ],
+                "correct": 0,
+                "explanation": "87 − 35 = 52. Resta las unidades y después las decenas.",
+                "hint": "Resta las unidades y después las decenas.",
+                "bossDistractors": [
+                    "50",
+                    "57",
+                    "47",
+                    "62"
+                ],
+                "calculation": {
+                    "operation": "subtract",
+                    "operands": [
+                        87,
+                        35
+                    ]
+                }
             },
             {
-                prompt: "El músico lleva 14 cascabeles, guarda 4 y recibe 10. ¿Cuántos lleva ahora?",
-                options: ["20","21","19","22"],
-                correct: 0,
-                explanation: "$14 - 4 = 10$ y $10 + 10 = 20$ cascabeles.",
-                hint: "Quita cuatro y después añade diez.",
-                bossDistractors: ["18","23","17","25"]
+                "id": "w2-l5-q15",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "resta sin reserva",
+                "prompt": "De 69 entradas del circo se usan 17. ¿Cuántas quedan?",
+                "options": [
+                    "52",
+                    "53",
+                    "51",
+                    "54"
+                ],
+                "correct": 0,
+                "explanation": "69 − 17 = 52. Resta las unidades y después las decenas.",
+                "hint": "Resta las unidades y después las decenas.",
+                "bossDistractors": [
+                    "50",
+                    "57",
+                    "47",
+                    "62"
+                ],
+                "calculation": {
+                    "operation": "subtract",
+                    "operands": [
+                        69,
+                        17
+                    ]
+                }
             },
             {
-                prompt: "En una caja hay 25 pelotas, añaden 5 y sacan 10. ¿Cuántas quedan?",
-                options: ["20","21","19","22"],
-                correct: 0,
-                explanation: "$25 + 5 = 30$ y $30 - 10 = 20$ pelotas.",
-                hint: "Llega primero a treinta.",
-                bossDistractors: ["18","23","17","25"]
+                "id": "w2-l5-q16",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "resta sin reserva",
+                "prompt": "De 90 entradas del circo se usan 20. ¿Cuántas quedan?",
+                "options": [
+                    "70",
+                    "71",
+                    "69",
+                    "72"
+                ],
+                "correct": 0,
+                "explanation": "90 − 20 = 70. Resta las unidades y después las decenas.",
+                "hint": "Resta las unidades y después las decenas.",
+                "bossDistractors": [
+                    "68",
+                    "75",
+                    "65",
+                    "80"
+                ],
+                "calculation": {
+                    "operation": "subtract",
+                    "operands": [
+                        90,
+                        20
+                    ]
+                }
             },
             {
-                prompt: "Se venden 15 entradas y luego 5 más; se devuelven 4. ¿Cuántas siguen vendidas?",
-                options: ["16","17","15","18"],
-                correct: 0,
-                explanation: "$15 + 5 = 20$ y $20 - 4 = 16$ entradas.",
-                hint: "Junta las ventas y quita las devoluciones.",
-                bossDistractors: ["14","19","13","21"]
+                "id": "w2-l5-q17",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "resta sin reserva",
+                "prompt": "De 48 entradas del circo se usan 0. ¿Cuántas quedan?",
+                "options": [
+                    "48",
+                    "49",
+                    "47",
+                    "50"
+                ],
+                "correct": 0,
+                "explanation": "48 − 0 = 48. Resta las unidades y después las decenas.",
+                "hint": "Resta las unidades y después las decenas.",
+                "bossDistractors": [
+                    "46",
+                    "53",
+                    "43",
+                    "58"
+                ],
+                "calculation": {
+                    "operation": "subtract",
+                    "operands": [
+                        48,
+                        0
+                    ]
+                }
             },
             {
-                prompt: "Hay 30 globos, se desinflan 10 y llegan 6 nuevos. ¿Cuántos están inflados?",
-                options: ["26","27","25","28"],
-                correct: 0,
-                explanation: "$30 - 10 = 20$ y $20 + 6 = 26$ globos.",
-                hint: "Quita diez antes de añadir seis.",
-                bossDistractors: ["24","29","23","31"]
+                "id": "w2-l5-q18",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "operaciones inversas",
+                "prompt": "Si 24 + 15 = 39, ¿cuánto es 39 − 15?",
+                "options": [
+                    "24",
+                    "25",
+                    "23",
+                    "26"
+                ],
+                "correct": 0,
+                "explanation": "Restar las quince que se agregaron devuelve las veinticuatro iniciales.",
+                "hint": "Deshaz la suma.",
+                "bossDistractors": [
+                    "22",
+                    "29",
+                    "19",
+                    "34"
+                ]
             },
             {
-                prompt: "El forzudo reúne 18 monedas, recibe 2 y gasta 7. ¿Cuántas le quedan?",
-                options: ["13","14","12","15"],
-                correct: 0,
-                explanation: "$18 + 2 = 20$ y $20 - 7 = 13$ monedas.",
-                hint: "Completa veinte antes de restar.",
-                bossDistractors: ["11","16","10","18"]
+                "id": "w2-l5-q19",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "cálculo mental",
+                "prompt": "El payaso calcula 9 + 6 completando 10. ¿Qué resultado obtiene?",
+                "options": [
+                    "15",
+                    "16",
+                    "14",
+                    "17"
+                ],
+                "correct": 0,
+                "explanation": "9 + 1 + 5 = 15.",
+                "hint": "Separa seis en uno y cinco.",
+                "bossDistractors": [
+                    "13",
+                    "20",
+                    "10",
+                    "25"
+                ]
             },
             {
-                prompt: "Hay 40 banderines, cuelgan 10 más y quitan 8. ¿Cuántos quedan colgados?",
-                options: ["42","43","41","44"],
-                correct: 0,
-                explanation: "$40 + 10 = 50$ y $50 - 8 = 42$ banderines.",
-                hint: "Suma las decenas y después resta ocho.",
-                bossDistractors: ["40","45","39","47"]
+                "id": "w2-l5-q20",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "composición",
+                "prompt": "Hay 78 globos: 70 rojos y el resto azules. ¿Cuántos son azules?",
+                "options": [
+                    "8",
+                    "9",
+                    "7",
+                    "10"
+                ],
+                "correct": 0,
+                "explanation": "78 = 70 + 8.",
+                "hint": "Separa las siete decenas.",
+                "bossDistractors": [
+                    "6",
+                    "13",
+                    "3",
+                    "18"
+                ]
             }
+        ],
+        "grade": 2,
+        "skills": [
+            "valor posicional",
+            "comparación",
+            "conteo por saltos",
+            "estimación",
+            "suma sin reserva",
+            "resta sin reserva",
+            "operaciones inversas",
+            "cálculo mental",
+            "composición"
         ]
     },
     {
-        id: 8,
-        worldId: "world-2",
-        title: "La Caja Misteriosa",
-        subtitle: "¡Descubre los secretos de la caja del Payaso Sorpresa!",
-        icon: "🎁",
-        hasEnemy: true,
-        enemy: {
-            id: "payaso_sorpresa",
-            name: "Payaso Sorpresa",
-            title: "El Bromista de la Caja Misteriosa",
-            avatar: "🎈🎩",
-            avatarDefeated: "😵🎩",
-            avatarImg: "assets/world-2/circus-balloon-surprise-clown-80s.png",
-            badge: "CIRCO",
-            badgeClass: "circus",
-            maxHp: 16.0,
-            regenRate: 0,
-            baseDamage: 1.0,
-            streakBonus: 0.5,
-            mechanicType: "slap",
-            mechanicTitle: "¡La Sorpresa que Falta!",
-            mechanicDesc: "🎁 ¡Descubre cuántos faltan para desinflar al Payaso Sorpresa!",
-            dialogue: {
-                intro: "¡Dentro de mi caja hay una sorpresa! ¿Puedes descubrir cuántos globos faltan?",
-                hit: "¡Oh, oh! ¡Has descubierto otro secreto de mi caja!",
-                defeat: "¡Sorpresa! ¡El gran truco era pensar paso a paso!"
+        "id": 6,
+        "worldId": "world-2",
+        "title": "La pista de las formas",
+        "subtitle": "2.º básico · Descubre patrones, posiciones y figuras del malabarista.",
+        "icon": "➖",
+        "hasEnemy": true,
+        "enemy": {
+            "id": "malabarista_globo",
+            "name": "Malabarista Globo",
+            "title": "Estrella del Trapecio Numérico",
+            "avatar": "🎈🤹",
+            "avatarDefeated": "😵🤹",
+            "avatarImg": "assets/world-2/circus-balloon-juggler-80s.png",
+            "badge": "CIRCO",
+            "badgeClass": "circus",
+            "maxHp": 10,
+            "regenRate": 0,
+            "baseDamage": 1,
+            "streakBonus": 0.5,
+            "mechanicType": "slap",
+            "mechanicTitle": "¡Malabares en el Aire!",
+            "mechanicDesc": "✋ ¡Descubre patrones y figuras para desarmar los malabares!",
+            "dialogue": {
+                "intro": "¡Sigue mis patrones y descubre las formas de la pista!",
+                "hit": "¡Rayos! ¡Se me cayó una pelotita!",
+                "defeat": "¡Aplaudo tu precisión! ¡Gran espectáculo de cálculo!"
             }
         },
-        theory: {
-            title: "¿Cuántos Faltan?",
-            content: `
-                <p>Si tienes 4 globos y quieres llegar a 6, cuenta los que faltan: <strong>5, 6</strong>. Has añadido 2 globos.</p>
-                <div class="theory-visual"><span>$$4 + 2 = 6$$</span></div>
-                <p>Para saber cuánto falta también puedes restar: $6 - 4 = 2$. Si tenías algunas pelotas, sacaste 3 y quedaron 7, devuelve las 3 para saber cuántas había.</p>
-                <div class="theory-visual"><span>$$7 + 3 = 10$$</span></div>
-                <p>Lee qué cambió: ¿llegaron objetos o se fueron? Puedes dibujarlos y contarlos. No hace falta usar letras ni números por debajo de cero.</p>
-            `
+        "theory": {
+            "title": "La pista de las formas",
+            "content": "<p><strong>2.º básico.</strong> Descubre patrones, posiciones y figuras del malabarista.</p><h3>Reglas de secuencias</h3><p>En 10, 15, 20, 25 se suma 5. Puedes completar un término faltante usando la misma regla.</p><h3>Figuras planas y cuerpos</h3><p>Un triángulo tiene 3 lados. Un cuadrado tiene 4 lados iguales y 4 ángulos rectos. El rectángulo tiene 4 ángulos rectos y lados opuestos iguales. Cubo, esfera, cono y cilindro son cuerpos.</p><h3>Posiciones e igualdad</h3><p>Derecha e izquierda dependen de la referencia indicada. En una balanza, 8 y 8 están equilibrados: 8 = 8. El signo &gt; significa mayor que: 8 &gt; 5; el signo &lt; significa menor que: 5 &lt; 8. Para equilibrar, agrega lo que falta al lado menor.</p>"
         },
-        questions: [
+        "questions": [
             {
-                prompt: "Tienes 4 globos y necesitas 6. ¿Cuántos te faltan?",
-                options: ["2","3","1","4"],
-                correct: 0,
-                explanation: "De 4 a 6 faltan 2: $4 + 2 = 6$.",
-                hint: "Cuenta desde cuatro hasta seis.",
-                bossDistractors: ["0","5","7","12"]
+                "id": "w2-l6-q1",
+                "grade": 2,
+                "axis": "Patrones y álgebra",
+                "skill": "patrón numérico",
+                "prompt": "El malabarista ordena sus globos: 10, 15, 20, __. ¿Qué sigue?",
+                "options": [
+                    "25",
+                    "26",
+                    "24",
+                    "27"
+                ],
+                "correct": 0,
+                "explanation": "La regla cambia 5 cada vez; sigue 25.",
+                "hint": "Encuentra el salto entre dos términos.",
+                "bossDistractors": [
+                    "23",
+                    "30",
+                    "20",
+                    "35"
+                ]
             },
             {
-                prompt: "Hay 3 pelotas en una caja. ¿Cuántas añades para tener 8?",
-                options: ["5","6","4","7"],
-                correct: 0,
-                explanation: "$3 + 5 = 8$ pelotas.",
-                hint: "Cuenta cinco más desde tres.",
-                bossDistractors: ["3","8","2","10"]
+                "id": "w2-l6-q2",
+                "grade": 2,
+                "axis": "Patrones y álgebra",
+                "skill": "patrón numérico",
+                "prompt": "El malabarista ordena sus globos: 20, 30, 40, __. ¿Qué sigue?",
+                "options": [
+                    "50",
+                    "51",
+                    "49",
+                    "52"
+                ],
+                "correct": 0,
+                "explanation": "La regla cambia 10 cada vez; sigue 50.",
+                "hint": "Encuentra el salto entre dos términos.",
+                "bossDistractors": [
+                    "48",
+                    "55",
+                    "45",
+                    "60"
+                ]
             },
             {
-                prompt: "El payaso tiene 7 flores y quiere 10. ¿Cuántas le faltan?",
-                options: ["3","4","2","5"],
-                correct: 0,
-                explanation: "$7 + 3 = 10$ flores.",
-                hint: "Completa una decena.",
-                bossDistractors: ["1","6","0","8"]
+                "id": "w2-l6-q3",
+                "grade": 2,
+                "axis": "Patrones y álgebra",
+                "skill": "patrón numérico",
+                "prompt": "El malabarista ordena sus globos: 90, 80, 70, __. ¿Qué sigue?",
+                "options": [
+                    "60",
+                    "61",
+                    "59",
+                    "62"
+                ],
+                "correct": 0,
+                "explanation": "La regla cambia 10 cada vez; sigue 60.",
+                "hint": "Encuentra el salto entre dos términos.",
+                "bossDistractors": [
+                    "58",
+                    "65",
+                    "55",
+                    "70"
+                ]
             },
             {
-                prompt: "Hay 5 sillas vacías. Añaden algunas y ahora hay 9. ¿Cuántas añadieron?",
-                options: ["4","5","3","6"],
-                correct: 0,
-                explanation: "$5 + 4 = 9$ sillas.",
-                hint: "Busca la diferencia entre nueve y cinco.",
-                bossDistractors: ["2","7","1","9"]
+                "id": "w2-l6-q4",
+                "grade": 2,
+                "axis": "Patrones y álgebra",
+                "skill": "patrón numérico",
+                "prompt": "El malabarista ordena sus globos: 3, 5, 7, __. ¿Qué sigue?",
+                "options": [
+                    "9",
+                    "10",
+                    "8",
+                    "11"
+                ],
+                "correct": 0,
+                "explanation": "La regla cambia 2 cada vez; sigue 9.",
+                "hint": "Encuentra el salto entre dos términos.",
+                "bossDistractors": [
+                    "7",
+                    "14",
+                    "4",
+                    "19"
+                ]
             },
             {
-                prompt: "El músico tenía 8 cascabeles y ahora tiene 5. ¿Cuántos guardó?",
-                options: ["3","4","2","5"],
-                correct: 0,
-                explanation: "$8 - 3 = 5$ cascabeles.",
-                hint: "¿Qué debes quitar de ocho para dejar cinco?",
-                bossDistractors: ["1","6","0","8"]
+                "id": "w2-l6-q5",
+                "grade": 2,
+                "axis": "Patrones y álgebra",
+                "skill": "patrón numérico",
+                "prompt": "El malabarista ordena sus globos: 12, 22, 32, __. ¿Qué sigue?",
+                "options": [
+                    "42",
+                    "43",
+                    "41",
+                    "44"
+                ],
+                "correct": 0,
+                "explanation": "La regla cambia 10 cada vez; sigue 42.",
+                "hint": "Encuentra el salto entre dos términos.",
+                "bossDistractors": [
+                    "40",
+                    "47",
+                    "37",
+                    "52"
+                ]
             },
             {
-                prompt: "De una caja de 10 narices rojas quedan 6. ¿Cuántas sacaron?",
-                options: ["4","5","3","6"],
-                correct: 0,
-                explanation: "$10 - 4 = 6$ narices.",
-                hint: "Seis más cuatro da diez.",
-                bossDistractors: ["2","7","1","9"]
+                "id": "w2-l6-q6",
+                "grade": 2,
+                "axis": "Patrones y álgebra",
+                "skill": "igualdad",
+                "prompt": "Una balanza tiene 12 globos a un lado y 8 al otro. ¿Cuántos agregas al lado de 8 para igualar?",
+                "options": [
+                    "4",
+                    "5",
+                    "3",
+                    "6"
+                ],
+                "correct": 0,
+                "explanation": "8 + 4 = 12.",
+                "hint": "Cuenta cuánto falta hasta doce.",
+                "bossDistractors": [
+                    "2",
+                    "9",
+                    "14",
+                    "7"
+                ]
             },
             {
-                prompt: "La artista tiene 6 cintas y su amigo tiene 9. ¿Cuántas más necesita ella para tener las mismas?",
-                options: ["3","4","2","5"],
-                correct: 0,
-                explanation: "$9 - 6 = 3$ cintas.",
-                hint: "Compara nueve con seis.",
-                bossDistractors: ["1","6","0","8"]
+                "id": "w2-l6-q7",
+                "grade": 2,
+                "axis": "Patrones y álgebra",
+                "skill": "comparación",
+                "prompt": "El malabarista compara sus fichas. ¿Cuál comparación es correcta?",
+                "options": [
+                    "14 > 9",
+                    "14 < 9",
+                    "14 = 9",
+                    "9 > 14"
+                ],
+                "correct": 0,
+                "explanation": "Catorce es mayor que nueve: 14 > 9.",
+                "hint": "La abertura del signo apunta a la cantidad mayor.",
+                "bossDistractors": [
+                    "8 > 12",
+                    "6 > 10",
+                    "7 = 8",
+                    "3 > 5"
+                ]
             },
             {
-                prompt: "El malabarista tiene 12 pelotas. ¿Cuántas guarda para quedarse con 10?",
-                options: ["2","3","1","4"],
-                correct: 0,
-                explanation: "$12 - 2 = 10$ pelotas.",
-                hint: "Quita las dos unidades.",
-                bossDistractors: ["0","5","7","12"]
+                "id": "w2-l6-q8",
+                "grade": 2,
+                "axis": "Patrones y álgebra",
+                "skill": "igualdad",
+                "prompt": "El malabarista completa 7 + __ = 15. ¿Qué número falta?",
+                "options": [
+                    "8",
+                    "9",
+                    "7",
+                    "10"
+                ],
+                "correct": 0,
+                "explanation": "7 + 8 = 15.",
+                "hint": "Usa quince menos siete.",
+                "bossDistractors": [
+                    "6",
+                    "13",
+                    "3",
+                    "18"
+                ]
             },
             {
-                prompt: "Había algunos globos. Llegaron 4 y ahora hay 10. ¿Cuántos había al principio?",
-                options: ["6","7","5","8"],
-                correct: 0,
-                explanation: "$6 + 4 = 10$ globos.",
-                hint: "Quita los cuatro que llegaron del total de diez.",
-                bossDistractors: ["4","9","3","11"]
+                "id": "w2-l6-q9",
+                "grade": 2,
+                "axis": "Geometría",
+                "skill": "posiciones",
+                "prompt": "En este orden 🎈 ⭐ 🎪, ¿dónde está la estrella respecto del globo?",
+                "options": [
+                    "derecha",
+                    "izquierda",
+                    "arriba",
+                    "abajo"
+                ],
+                "correct": 0,
+                "explanation": "La estrella aparece a la derecha del globo.",
+                "hint": "Observa el orden desde el globo.",
+                "bossDistractors": [
+                    "dentro",
+                    "fuera",
+                    "delante",
+                    "detrás"
+                ]
             },
             {
-                prompt: "Había algunas sillas. Retiraron 3 y quedaron 7. ¿Cuántas había?",
-                options: ["10","11","9","12"],
-                correct: 0,
-                explanation: "$10 - 3 = 7$ sillas.",
-                hint: "Devuelve las tres sillas a las siete que quedaron.",
-                bossDistractors: ["8","13","7","15"]
+                "id": "w2-l6-q10",
+                "grade": 2,
+                "axis": "Geometría",
+                "skill": "posiciones",
+                "prompt": "En el orden 🎈 🎪 ⭐, ¿dónde está la carpa respecto de la estrella?",
+                "options": [
+                    "izquierda",
+                    "derecha",
+                    "arriba",
+                    "abajo"
+                ],
+                "correct": 0,
+                "explanation": "La carpa está a la izquierda de la estrella.",
+                "hint": "Toma la estrella como referencia.",
+                "bossDistractors": [
+                    "dentro",
+                    "fuera",
+                    "delante",
+                    "detrás"
+                ]
             },
             {
-                prompt: "Hay 10 entradas en una mesa. ¿Cuántas faltan para tener 15?",
-                options: ["5","6","4","7"],
-                correct: 0,
-                explanation: "$10 + 5 = 15$ entradas.",
-                hint: "Cuenta desde diez hasta quince.",
-                bossDistractors: ["3","8","2","10"]
+                "id": "w2-l6-q11",
+                "grade": 2,
+                "axis": "Geometría",
+                "skill": "posiciones",
+                "prompt": "Un globo está guardado en el interior de la carpa. ¿Dónde está?",
+                "options": [
+                    "dentro",
+                    "derecha",
+                    "izquierda",
+                    "arriba"
+                ],
+                "correct": 0,
+                "explanation": "Interior significa dentro.",
+                "hint": "Busca la palabra que significa interior.",
+                "bossDistractors": [
+                    "abajo",
+                    "fuera",
+                    "delante",
+                    "detrás"
+                ]
             },
             {
-                prompt: "El payaso tiene 13 globos y quiere 20. ¿Cuántos necesita?",
-                options: ["7","8","6","9"],
-                correct: 0,
-                explanation: "$13 + 7 = 20$ globos.",
-                hint: "Busca lo que falta para completar veinte.",
-                bossDistractors: ["5","10","4","12"]
+                "id": "w2-l6-q12",
+                "grade": 2,
+                "axis": "Geometría",
+                "skill": "figuras 2D",
+                "prompt": "¿Qué figura plana tiene tres lados rectos?",
+                "options": [
+                    "triángulo",
+                    "cuadrado",
+                    "rectángulo",
+                    "círculo"
+                ],
+                "correct": 0,
+                "explanation": "El triángulo tiene tres lados.",
+                "hint": "Cuenta lados rectos.",
+                "bossDistractors": [
+                    "cubo",
+                    "esfera",
+                    "cono",
+                    "cilindro"
+                ]
             },
             {
-                prompt: "El músico tenía 15 cascabeles y quedan 9. ¿Cuántos perdió?",
-                options: ["6","7","5","8"],
-                correct: 0,
-                explanation: "$15 - 6 = 9$ cascabeles.",
-                hint: "Cuenta desde nueve hasta quince.",
-                bossDistractors: ["4","9","3","11"]
+                "id": "w2-l6-q13",
+                "grade": 2,
+                "axis": "Geometría",
+                "skill": "figuras 2D",
+                "prompt": "La pista dibujada en el suelo es redonda y sin lados rectos. ¿Qué figura es?",
+                "options": [
+                    "círculo",
+                    "triángulo",
+                    "cuadrado",
+                    "rectángulo"
+                ],
+                "correct": 0,
+                "explanation": "El círculo tiene un borde curvo cerrado.",
+                "hint": "Piensa en una moneda vista de frente.",
+                "bossDistractors": [
+                    "cubo",
+                    "esfera",
+                    "cono",
+                    "cilindro"
+                ]
             },
             {
-                prompt: "La artista tiene 8 cintas rojas y algunas azules. En total son 14. ¿Cuántas son azules?",
-                options: ["6","7","5","8"],
-                correct: 0,
-                explanation: "$8 + 6 = 14$ cintas.",
-                hint: "Quita las ocho rojas del total de catorce.",
-                bossDistractors: ["4","9","3","11"]
+                "id": "w2-l6-q14",
+                "grade": 2,
+                "axis": "Geometría",
+                "skill": "figuras 2D",
+                "prompt": "Una ficha plana tiene cuatro lados iguales y cuatro ángulos rectos. ¿Qué figura es?",
+                "options": [
+                    "cuadrado",
+                    "triángulo",
+                    "rectángulo",
+                    "círculo"
+                ],
+                "correct": 0,
+                "explanation": "El cuadrado cumple esas dos condiciones.",
+                "hint": "Busca una figura plana con lados iguales.",
+                "bossDistractors": [
+                    "cubo",
+                    "esfera",
+                    "cono",
+                    "cilindro"
+                ]
             },
             {
-                prompt: "En una fila hay 12 niños y en otra 18. ¿Cuántos deben llegar a la primera para que haya la misma cantidad?",
-                options: ["6","7","5","8"],
-                correct: 0,
-                explanation: "$18 - 12 = 6$ niños.",
-                hint: "Busca la diferencia entre las dos filas.",
-                bossDistractors: ["4","9","3","11"]
+                "id": "w2-l6-q15",
+                "grade": 2,
+                "axis": "Geometría",
+                "skill": "figuras 2D",
+                "prompt": "Una entrada tiene dos lados largos y dos cortos, y cuatro ángulos rectos. ¿Qué figura es?",
+                "options": [
+                    "rectángulo",
+                    "triángulo",
+                    "cuadrado",
+                    "círculo"
+                ],
+                "correct": 0,
+                "explanation": "Un rectángulo tiene cuatro ángulos rectos y lados opuestos iguales.",
+                "hint": "Imagina la forma de la entrada.",
+                "bossDistractors": [
+                    "cubo",
+                    "esfera",
+                    "cono",
+                    "cilindro"
+                ]
             },
             {
-                prompt: "Había algunas pelotas. Sacaron 5 y quedaron 15. ¿Cuántas había antes?",
-                options: ["20","21","19","22"],
-                correct: 0,
-                explanation: "$20 - 5 = 15$ pelotas.",
-                hint: "Devuelve cinco a las quince que quedaron.",
-                bossDistractors: ["18","23","17","25"]
+                "id": "w2-l6-q16",
+                "grade": 2,
+                "axis": "Geometría",
+                "skill": "figuras 3D",
+                "prompt": "¿Qué cuerpo tiene forma de pelota de malabares?",
+                "options": [
+                    "esfera",
+                    "triángulo",
+                    "cuadrado",
+                    "rectángulo"
+                ],
+                "correct": 0,
+                "explanation": "Una pelota tiene forma de esfera.",
+                "hint": "Es un cuerpo redondo en todas las direcciones.",
+                "bossDistractors": [
+                    "círculo",
+                    "cubo",
+                    "cono",
+                    "cilindro"
+                ]
             },
             {
-                prompt: "Tienes 20 monedas y necesitas 30 para una entrada. ¿Cuántas te faltan?",
-                options: ["10","11","9","12"],
-                correct: 0,
-                explanation: "$20 + 10 = 30$ monedas.",
-                hint: "Falta una decena.",
-                bossDistractors: ["8","13","7","15"]
+                "id": "w2-l6-q17",
+                "grade": 2,
+                "axis": "Geometría",
+                "skill": "figuras 3D",
+                "prompt": "¿Qué cuerpo tiene seis caras cuadradas como un dado?",
+                "options": [
+                    "cubo",
+                    "triángulo",
+                    "cuadrado",
+                    "rectángulo"
+                ],
+                "correct": 0,
+                "explanation": "El cubo tiene seis caras cuadradas.",
+                "hint": "Imagina un dado.",
+                "bossDistractors": [
+                    "círculo",
+                    "esfera",
+                    "cono",
+                    "cilindro"
+                ]
             },
             {
-                prompt: "Hay 25 banderines. ¿Cuántos añades para llegar a 30?",
-                options: ["5","6","4","7"],
-                correct: 0,
-                explanation: "$25 + 5 = 30$ banderines.",
-                hint: "Completa la siguiente decena.",
-                bossDistractors: ["3","8","2","10"]
+                "id": "w2-l6-q18",
+                "grade": 2,
+                "axis": "Geometría",
+                "skill": "figuras 3D",
+                "prompt": "¿Qué cuerpo tiene una base circular y una punta, como un gorro de fiesta?",
+                "options": [
+                    "cono",
+                    "triángulo",
+                    "cuadrado",
+                    "rectángulo"
+                ],
+                "correct": 0,
+                "explanation": "El cono tiene una base circular y un vértice.",
+                "hint": "Piensa en el gorro de un payaso.",
+                "bossDistractors": [
+                    "círculo",
+                    "cubo",
+                    "esfera",
+                    "cilindro"
+                ]
             },
             {
-                prompt: "De 30 globos quedan 20 inflados. ¿Cuántos se desinflaron?",
-                options: ["10","11","9","12"],
-                correct: 0,
-                explanation: "$30 - 10 = 20$ globos.",
-                hint: "Busca la diferencia entre treinta y veinte.",
-                bossDistractors: ["8","13","7","15"]
+                "id": "w2-l6-q19",
+                "grade": 2,
+                "axis": "Geometría",
+                "skill": "construcción de figuras",
+                "prompt": "Un triángulo se arma con una varilla por lado. ¿Cuántas varillas necesitas?",
+                "options": [
+                    "3",
+                    "4",
+                    "2",
+                    "5"
+                ],
+                "correct": 0,
+                "explanation": "Un triángulo tiene tres lados, por eso se usan tres varillas.",
+                "hint": "Una varilla representa un lado.",
+                "bossDistractors": [
+                    "1",
+                    "8",
+                    "13",
+                    "6"
+                ]
             },
             {
-                prompt: "Hay 20 sillas en una fila y 35 en otra. ¿Cuántas le faltan a la primera para igualar la segunda?",
-                options: ["15","16","14","17"],
-                correct: 0,
-                explanation: "$35 - 20 = 15$ sillas.",
-                hint: "Quita veinte a treinta y cinco.",
-                bossDistractors: ["13","18","12","20"]
+                "id": "w2-l6-q20",
+                "grade": 2,
+                "axis": "Geometría",
+                "skill": "construcción de figuras",
+                "prompt": "Para armar el borde de un cuadrado con una varilla por lado, ¿cuántas usas?",
+                "options": [
+                    "4",
+                    "5",
+                    "3",
+                    "6"
+                ],
+                "correct": 0,
+                "explanation": "El cuadrado tiene cuatro lados.",
+                "hint": "Cuenta un lado cada vez.",
+                "bossDistractors": [
+                    "2",
+                    "9",
+                    "14",
+                    "7"
+                ]
             }
+        ],
+        "grade": 2,
+        "skills": [
+            "patrón numérico",
+            "igualdad",
+            "comparación",
+            "posiciones",
+            "figuras 2D",
+            "figuras 3D",
+            "construcción de figuras"
         ]
     },
     {
-        id: 9,
-        worldId: "world-2",
-        title: "Dragón Globo de Dos Cabezas (Jefe)",
-        subtitle: "¡El gran desafío del Circo: ocho alternativas por pregunta!",
-        icon: "🐲",
-        isBoss: true,
-        answerOptionCount: 8,
-        boss: {
-            id: "dragon_globo_dos_cabezas",
-            name: "Dragón Globo de Dos Cabezas",
-            title: "Gran Final del Circo de las Sumas",
-            avatar: "🐲🎈",
-            avatarImg: "assets/world-2/circus-balloon-two-headed-dragon-80s.png",
-            badge: "JEFE DEL CIRCO",
-            badgeClass: "circus",
-            maxHp: 40.0,
-            regenRate: 0,
-            baseDamage: 1.2,
-            streakBonus: 0.5,
-            mechanicType: "eight-options",
-            mechanicTitle: "¡Doble Cabeza, Doble Desafío!",
-            mechanicDesc: "🐲 Ocho alternativas. ¡Encadena aciertos para desinflar al dragón!",
-            dialogue: {
-                intro: "¡Dos cabezas, ocho opciones! ¿Podrás con nuestro gran espectáculo?",
-                hit: "¡Fiuuu! ¡Ese cálculo nos ha quitado el aire!",
-                defeat: "¡Nos desinflaste a las dos! ¡El aplauso final es para ti!"
+        "id": 7,
+        "worldId": "world-2",
+        "title": "Los horarios del forzudo",
+        "subtitle": "2.º básico · Lee calendarios, mide y descubre datos del circo.",
+        "icon": "🧮",
+        "hasEnemy": true,
+        "enemy": {
+            "id": "forzudo_globo",
+            "name": "Forzudo Globo",
+            "title": "Campeón de Peso Inflable",
+            "avatar": "🎈💪",
+            "avatarDefeated": "😵💪",
+            "avatarImg": "assets/world-2/circus-balloon-strongman-80s.png",
+            "badge": "CIRCO",
+            "badgeClass": "circus",
+            "maxHp": 12,
+            "regenRate": 0,
+            "baseDamage": 1,
+            "streakBonus": 0.5,
+            "mechanicType": "slap",
+            "mechanicTitle": "¡Fuerza de Globos!",
+            "mechanicDesc": "✋ ¡Lee medidas, horarios y datos para desinflar las pesas!",
+            "dialogue": {
+                "intro": "¡Lee mi horario y los registros del gran espectáculo!",
+                "hit": "¡Grrr! ¡Esa bofetada dobló mis barras de globo!",
+                "defeat": "¡Me has vencido en fuerza y mente! ¡Eres el verdadero titán!"
             }
         },
-        theory: {
-            title: "El Gran Final: Dos Cabezas, Ocho Alternativas",
-            content: `
-                <p>El Dragón Globo de Dos Cabezas cierra el espectáculo del circo.</p>
-                <p>Su combate mezcla al azar las <strong>100 preguntas</strong> del mundo 2: sumas, restas, problemas de dos pasos y cantidades que faltan. No aparecen temas nuevos ni se repiten preguntas dentro del intento.</p>
-                <div class="theory-tip">🐲 <strong>Doble desafío:</strong> Cada pregunta tiene <strong>ocho alternativas</strong> y una sola correcta. Usa las teclas <strong>1 a 8</strong> o pulsa una respuesta. El dragón tiene <strong>40 HP</strong>, no se regenera y los aciertos en racha aumentan el daño. ¡Tómate tu tiempo para pensar!</div>
-            `
+        "theory": {
+            "title": "Los horarios del forzudo",
+            "content": "<p><strong>2.º básico.</strong> Lee calendarios, mide y descubre datos del circo.</p><h3>Calendario y reloj</h3><p>Una semana tiene 7 días. En el calendario, el día después del 14 es el 15. En un reloj digital 3:00 son las tres y 3:30 son las tres y media.</p><h3>Medir largos</h3><p>Usa centímetros para objetos pequeños y metros para una carpa. Un metro equivale a 100 centímetros. Coloca el cero de la regla en un extremo para medir.</p><h3>Pictogramas y barras</h3><p>Lee la escala antes de contar. Aquí tres puntos representan 6 globos, porque cada punto vale 2. <div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Globos vendidos · cada ● representa 2 globos</caption><thead><tr><th scope=\"col\">Color</th><th scope=\"col\">Registro</th></tr></thead><tbody><tr><th scope=\"row\">Rojo</th><td>● ● ●</td></tr><tr><th scope=\"row\">Azul</th><td>● ●</td></tr><tr><th scope=\"row\">Amarillo</th><td>● ● ● ●</td></tr></tbody></table></div> Las barras también permiten comparar cantidades. <div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Entradas por función · cada █ representa 1 entrada</caption><thead><tr><th scope=\"col\">Función</th><th scope=\"col\">Barra</th></tr></thead><tbody><tr><th scope=\"row\">Mañana</th><td>█ █ █ █</td></tr><tr><th scope=\"row\">Tarde</th><td>█ █ █ █ █ █</td></tr><tr><th scope=\"row\">Noche</th><td>█ █ █</td></tr></tbody></table></div></p>"
         },
-        questions: [
+        "questions": [
             {
-                prompt: "La cabeza turquesa trae 4 globos y la morada 5. ¿Cuántos traen juntas?",
-                options: ["9","10","8","11"],
-                correct: 0,
-                explanation: "$4 + 5 = 9$ globos.",
-                hint: "Junta los dos grupos de globos.",
-                bossDistractors: ["7","12","6","14"]
+                "id": "w2-l7-q1",
+                "grade": 2,
+                "axis": "Medición",
+                "skill": "calendario",
+                "prompt": "¿Cuántos días tiene una semana de funciones?",
+                "options": [
+                    "7",
+                    "8",
+                    "6",
+                    "9"
+                ],
+                "correct": 0,
+                "explanation": "Una semana tiene siete días.",
+                "hint": "Recuerda los días desde lunes hasta domingo.",
+                "bossDistractors": [
+                    "5",
+                    "12",
+                    "2",
+                    "17"
+                ]
             },
             {
-                prompt: "El dragón tiene 10 pelotas y guarda 3. ¿Cuántas quedan fuera?",
-                options: ["7","8","6","9"],
-                correct: 0,
-                explanation: "$10 - 3 = 7$ pelotas.",
-                hint: "Cuenta tres hacia atrás desde diez.",
-                bossDistractors: ["5","10","4","12"]
+                "id": "w2-l7-q2",
+                "grade": 2,
+                "axis": "Medición",
+                "skill": "calendario",
+                "prompt": "La función es el día después del jueves. ¿Qué día es?",
+                "options": [
+                    "viernes",
+                    "lunes",
+                    "martes",
+                    "miércoles"
+                ],
+                "correct": 0,
+                "explanation": "Después del jueves viene el viernes.",
+                "hint": "Avanza un día en la semana.",
+                "bossDistractors": [
+                    "jueves",
+                    "sábado",
+                    "domingo",
+                    "ningún día"
+                ]
             },
             {
-                prompt: "Calcula: $6 + 6$",
-                options: ["12","13","11","14"],
-                correct: 0,
-                explanation: "$6 + 6 = 12$.",
-                hint: "Es el doble de seis.",
-                bossDistractors: ["10","15","9","17"]
+                "id": "w2-l7-q3",
+                "grade": 2,
+                "axis": "Medición",
+                "skill": "calendario",
+                "prompt": "La entrada dice 14 de mayo. Si vas al día siguiente, ¿qué número de día será?",
+                "options": [
+                    "15",
+                    "16",
+                    "14",
+                    "17"
+                ],
+                "correct": 0,
+                "explanation": "Después del día 14 viene el 15.",
+                "hint": "Avanza una fecha.",
+                "bossDistractors": [
+                    "13",
+                    "20",
+                    "10",
+                    "25"
+                ]
             },
             {
-                prompt: "Calcula: $16 - 4$",
-                options: ["12","13","11","14"],
-                correct: 0,
-                explanation: "$16 - 4 = 12$.",
-                hint: "Quita cuatro a las seis unidades.",
-                bossDistractors: ["10","15","9","17"]
+                "id": "w2-l7-q4",
+                "grade": 2,
+                "axis": "Medición",
+                "skill": "calendario",
+                "prompt": "El mes después de marzo es…",
+                "options": [
+                    "abril",
+                    "enero",
+                    "febrero",
+                    "marzo"
+                ],
+                "correct": 0,
+                "explanation": "Después de marzo viene abril.",
+                "hint": "Revisa el orden de los meses.",
+                "bossDistractors": [
+                    "mayo",
+                    "junio",
+                    "julio",
+                    "agosto"
+                ]
             },
             {
-                prompt: "El dragón tiene 9 globos y quiere 15. ¿Cuántos le faltan?",
-                options: ["6","7","5","8"],
-                correct: 0,
-                explanation: "$9 + 6 = 15$ globos.",
-                hint: "Añade uno para llegar a diez y después cinco.",
-                bossDistractors: ["4","9","3","11"]
+                "id": "w2-l7-q5",
+                "grade": 2,
+                "axis": "Medición",
+                "skill": "reloj digital",
+                "prompt": "La función comienza a las tres y media. ¿Qué muestra el reloj digital?",
+                "options": [
+                    "3:30",
+                    "2:00",
+                    "2:30",
+                    "3:00"
+                ],
+                "correct": 0,
+                "explanation": "Tres y media se escribe 3:30.",
+                "hint": "Media hora son treinta minutos.",
+                "bossDistractors": [
+                    "4:00",
+                    "4:30",
+                    "5:00",
+                    "5:30"
+                ]
             },
             {
-                prompt: "Calcula: $7 + 5$",
-                options: ["12","13","11","14"],
-                correct: 0,
-                explanation: "$7 + 3 + 2 = 12$.",
-                hint: "Completa diez antes de sumar dos más.",
-                bossDistractors: ["10","15","9","17"]
+                "id": "w2-l7-q6",
+                "grade": 2,
+                "axis": "Medición",
+                "skill": "reloj digital",
+                "prompt": "El reloj del forzudo muestra 4:00. ¿A qué hora corresponde?",
+                "options": [
+                    "cuatro en punto",
+                    "dos en punto",
+                    "dos y media",
+                    "tres en punto"
+                ],
+                "correct": 0,
+                "explanation": "4:00 corresponde a las cuatro en punto.",
+                "hint": "Los minutos en cero indican una hora en punto.",
+                "bossDistractors": [
+                    "tres y media",
+                    "cuatro y media",
+                    "cinco en punto",
+                    "cinco y media"
+                ]
             },
             {
-                prompt: "Calcula: $18 - 9$",
-                options: ["9","10","8","11"],
-                correct: 0,
-                explanation: "$18 - 9 = 9$.",
-                hint: "Nueve más nueve da dieciocho.",
-                bossDistractors: ["7","12","6","14"]
+                "id": "w2-l7-q7",
+                "grade": 2,
+                "axis": "Medición",
+                "skill": "longitud",
+                "prompt": "Una cinta empieza en 0 de la regla y termina en 8 cm. ¿Cuántos centímetros mide?",
+                "options": [
+                    "8",
+                    "9",
+                    "7",
+                    "10"
+                ],
+                "correct": 0,
+                "explanation": "Desde cero hasta ocho hay ocho centímetros.",
+                "hint": "Lee la marca del extremo final.",
+                "bossDistractors": [
+                    "6",
+                    "13",
+                    "3",
+                    "18"
+                ]
             },
             {
-                prompt: "Una cabeza lleva 10 cintas y la otra 7. ¿Cuántas tienen entre las dos?",
-                options: ["17","18","16","19"],
-                correct: 0,
-                explanation: "$10 + 7 = 17$ cintas.",
-                hint: "Junta una decena y siete unidades.",
-                bossDistractors: ["15","20","14","22"]
+                "id": "w2-l7-q8",
+                "grade": 2,
+                "axis": "Medición",
+                "skill": "longitud",
+                "prompt": "Una cuerda mide 25 cm y otra 18 cm. ¿Cuántos centímetros mide la más larga?",
+                "options": [
+                    "25",
+                    "18",
+                    "7",
+                    "43"
+                ],
+                "correct": 0,
+                "explanation": "Veinticinco centímetros es mayor que dieciocho.",
+                "hint": "Compara las dos medidas.",
+                "bossDistractors": [
+                    "26",
+                    "24",
+                    "27",
+                    "23"
+                ]
             },
             {
-                prompt: "Calcula: $14 + 3 - 5$",
-                options: ["12","13","11","14"],
-                correct: 0,
-                explanation: "$14 + 3 = 17$ y $17 - 5 = 12$.",
-                hint: "Suma tres y después quita cinco.",
-                bossDistractors: ["10","15","9","17"]
+                "id": "w2-l7-q9",
+                "grade": 2,
+                "axis": "Medición",
+                "skill": "unidades de longitud",
+                "prompt": "¿Cuántos centímetros tiene un metro de cuerda?",
+                "options": [
+                    "100",
+                    "10",
+                    "1",
+                    "50"
+                ],
+                "correct": 0,
+                "explanation": "Un metro equivale a cien centímetros.",
+                "hint": "Piensa en la equivalencia entre metro y centímetro.",
+                "bossDistractors": [
+                    "101",
+                    "99",
+                    "102",
+                    "98"
+                ]
             },
             {
-                prompt: "Calcula: $20 - 6 + 4$",
-                options: ["18","19","17","20"],
-                correct: 0,
-                explanation: "$20 - 6 = 14$ y $14 + 4 = 18$.",
-                hint: "Haz una operación cada vez.",
-                bossDistractors: ["16","21","15","23"]
+                "id": "w2-l7-q10",
+                "grade": 2,
+                "axis": "Medición",
+                "skill": "unidades de longitud",
+                "prompt": "¿Qué unidad conviene para medir el ancho de una carpa grande?",
+                "options": [
+                    "metros",
+                    "centímetros",
+                    "minutos",
+                    "horas"
+                ],
+                "correct": 0,
+                "explanation": "Los metros son una unidad apropiada para longitudes grandes como una carpa.",
+                "hint": "Primero decide si estás midiendo largo o tiempo.",
+                "bossDistractors": [
+                    "días",
+                    "semanas",
+                    "meses",
+                    "entradas"
+                ]
             },
             {
-                prompt: "El dragón reúne 12 monedas y recibe 8 más. ¿Cuántas tiene?",
-                options: ["20","21","19","22"],
-                correct: 0,
-                explanation: "$12 + 8 = 20$ monedas.",
-                hint: "Completa dos decenas.",
-                bossDistractors: ["18","23","17","25"]
+                "id": "w2-l7-q11",
+                "grade": 2,
+                "axis": "Datos y probabilidades",
+                "skill": "pictograma con escala",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Globos vendidos · cada ● representa 2 globos</caption><thead><tr><th scope=\"col\">Color</th><th scope=\"col\">Registro</th></tr></thead><tbody><tr><th scope=\"row\">Rojo</th><td>● ● ●</td></tr><tr><th scope=\"row\">Azul</th><td>● ●</td></tr><tr><th scope=\"row\">Amarillo</th><td>● ● ● ●</td></tr></tbody></table></div>¿Cuántos globos rojos se vendieron?",
+                "options": [
+                    "6",
+                    "7",
+                    "5",
+                    "8"
+                ],
+                "correct": 0,
+                "explanation": "Tres puntos de dos globos: 2 + 2 + 2 = 6.",
+                "hint": "Cada punto vale dos, no uno.",
+                "bossDistractors": [
+                    "4",
+                    "11",
+                    "1",
+                    "16"
+                ]
             },
             {
-                prompt: "De 20 globos del dragón se desinflan 7. ¿Cuántos quedan inflados?",
-                options: ["13","14","12","15"],
-                correct: 0,
-                explanation: "$20 - 7 = 13$ globos.",
-                hint: "Cuenta siete hacia atrás.",
-                bossDistractors: ["11","16","10","18"]
+                "id": "w2-l7-q12",
+                "grade": 2,
+                "axis": "Datos y probabilidades",
+                "skill": "pictograma con escala",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Globos vendidos · cada ● representa 2 globos</caption><thead><tr><th scope=\"col\">Color</th><th scope=\"col\">Registro</th></tr></thead><tbody><tr><th scope=\"row\">Rojo</th><td>● ● ●</td></tr><tr><th scope=\"row\">Azul</th><td>● ●</td></tr><tr><th scope=\"row\">Amarillo</th><td>● ● ● ●</td></tr></tbody></table></div>¿Cuántos globos azules se vendieron?",
+                "options": [
+                    "4",
+                    "5",
+                    "3",
+                    "6"
+                ],
+                "correct": 0,
+                "explanation": "Dos puntos representan cuatro globos.",
+                "hint": "Cuenta de dos en dos.",
+                "bossDistractors": [
+                    "2",
+                    "9",
+                    "14",
+                    "7"
+                ]
             },
             {
-                prompt: "La cabeza morada tiene 11 cintas y la turquesa 16. ¿Cuántas le faltan a la morada para igualarla?",
-                options: ["5","6","4","7"],
-                correct: 0,
-                explanation: "$16 - 11 = 5$ cintas.",
-                hint: "Compara dieciséis y once.",
-                bossDistractors: ["3","8","2","10"]
+                "id": "w2-l7-q13",
+                "grade": 2,
+                "axis": "Datos y probabilidades",
+                "skill": "pictograma con escala",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Globos vendidos · cada ● representa 2 globos</caption><thead><tr><th scope=\"col\">Color</th><th scope=\"col\">Registro</th></tr></thead><tbody><tr><th scope=\"row\">Rojo</th><td>● ● ●</td></tr><tr><th scope=\"row\">Azul</th><td>● ●</td></tr><tr><th scope=\"row\">Amarillo</th><td>● ● ● ●</td></tr></tbody></table></div>¿Cuántos globos amarillos se vendieron?",
+                "options": [
+                    "8",
+                    "9",
+                    "7",
+                    "10"
+                ],
+                "correct": 0,
+                "explanation": "Cuatro puntos de dos globos representan ocho.",
+                "hint": "Cuenta la escala de cada punto.",
+                "bossDistractors": [
+                    "6",
+                    "13",
+                    "3",
+                    "18"
+                ]
             },
             {
-                prompt: "El dragón tenía algunas pelotas. Recibió 6 y ahora tiene 18. ¿Cuántas tenía?",
-                options: ["12","13","11","14"],
-                correct: 0,
-                explanation: "$12 + 6 = 18$ pelotas.",
-                hint: "Quita las seis nuevas del total.",
-                bossDistractors: ["10","15","9","17"]
+                "id": "w2-l7-q14",
+                "grade": 2,
+                "axis": "Datos y probabilidades",
+                "skill": "comparar datos",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Globos vendidos · cada ● representa 2 globos</caption><thead><tr><th scope=\"col\">Color</th><th scope=\"col\">Registro</th></tr></thead><tbody><tr><th scope=\"row\">Rojo</th><td>● ● ●</td></tr><tr><th scope=\"row\">Azul</th><td>● ●</td></tr><tr><th scope=\"row\">Amarillo</th><td>● ● ● ●</td></tr></tbody></table></div>¿Cuántos globos más se vendieron amarillos que azules?",
+                "options": [
+                    "4",
+                    "5",
+                    "3",
+                    "6"
+                ],
+                "correct": 0,
+                "explanation": "Ocho menos cuatro son cuatro globos de diferencia.",
+                "hint": "Obtén ambas cantidades antes de restar.",
+                "bossDistractors": [
+                    "2",
+                    "9",
+                    "14",
+                    "7"
+                ]
             },
             {
-                prompt: "Calcula: $20 + 20$",
-                options: ["40","41","39","42"],
-                correct: 0,
-                explanation: "$20 + 20 = 40$.",
-                hint: "Dos decenas y dos decenas forman cuatro decenas.",
-                bossDistractors: ["38","43","37","45"]
+                "id": "w2-l7-q15",
+                "grade": 2,
+                "axis": "Datos y probabilidades",
+                "skill": "gráfico de barras",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Entradas por función · cada █ representa 1 entrada</caption><thead><tr><th scope=\"col\">Función</th><th scope=\"col\">Barra</th></tr></thead><tbody><tr><th scope=\"row\">Mañana</th><td>█ █ █ █</td></tr><tr><th scope=\"row\">Tarde</th><td>█ █ █ █ █ █</td></tr><tr><th scope=\"row\">Noche</th><td>█ █ █</td></tr></tbody></table></div>¿Cuántas entradas se vendieron en la tarde?",
+                "options": [
+                    "6",
+                    "7",
+                    "5",
+                    "8"
+                ],
+                "correct": 0,
+                "explanation": "La barra de la tarde contiene seis unidades.",
+                "hint": "Lee la escala y la fila Tarde.",
+                "bossDistractors": [
+                    "4",
+                    "11",
+                    "1",
+                    "16"
+                ]
             },
             {
-                prompt: "Calcula: $35 - 10$",
-                options: ["25","26","24","27"],
-                correct: 0,
-                explanation: "$35 - 10 = 25$.",
-                hint: "Quita una decena.",
-                bossDistractors: ["23","28","22","30"]
+                "id": "w2-l7-q16",
+                "grade": 2,
+                "axis": "Datos y probabilidades",
+                "skill": "gráfico de barras",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Entradas por función · cada █ representa 1 entrada</caption><thead><tr><th scope=\"col\">Función</th><th scope=\"col\">Barra</th></tr></thead><tbody><tr><th scope=\"row\">Mañana</th><td>█ █ █ █</td></tr><tr><th scope=\"row\">Tarde</th><td>█ █ █ █ █ █</td></tr><tr><th scope=\"row\">Noche</th><td>█ █ █</td></tr></tbody></table></div>¿Cuántas entradas se vendieron en la noche?",
+                "options": [
+                    "3",
+                    "4",
+                    "2",
+                    "5"
+                ],
+                "correct": 0,
+                "explanation": "La barra de la noche contiene tres unidades.",
+                "hint": "Cuenta las unidades de la fila Noche.",
+                "bossDistractors": [
+                    "1",
+                    "8",
+                    "13",
+                    "6"
+                ]
             },
             {
-                prompt: "El dragón tiene 24 globos, recibe 6 y regala 5. ¿Cuántos conserva?",
-                options: ["25","26","24","27"],
-                correct: 0,
-                explanation: "$24 + 6 = 30$ y $30 - 5 = 25$ globos.",
-                hint: "Llega a treinta y después resta cinco.",
-                bossDistractors: ["23","28","22","30"]
+                "id": "w2-l7-q17",
+                "grade": 2,
+                "axis": "Datos y probabilidades",
+                "skill": "comparar datos",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Entradas por función · cada █ representa 1 entrada</caption><thead><tr><th scope=\"col\">Función</th><th scope=\"col\">Barra</th></tr></thead><tbody><tr><th scope=\"row\">Mañana</th><td>█ █ █ █</td></tr><tr><th scope=\"row\">Tarde</th><td>█ █ █ █ █ █</td></tr><tr><th scope=\"row\">Noche</th><td>█ █ █</td></tr></tbody></table></div>¿Cuántas entradas más hubo en la tarde que en la mañana?",
+                "options": [
+                    "2",
+                    "3",
+                    "1",
+                    "4"
+                ],
+                "correct": 0,
+                "explanation": "Seis menos cuatro son dos.",
+                "hint": "Compara las dos barras.",
+                "bossDistractors": [
+                    "0",
+                    "7",
+                    "12",
+                    "5"
+                ]
             },
             {
-                prompt: "Calcula: $30 + 8$",
-                options: ["38","39","37","40"],
-                correct: 0,
-                explanation: "$30 + 8 = 38$.",
-                hint: "Junta tres decenas y ocho unidades.",
-                bossDistractors: ["36","41","35","43"]
+                "id": "w2-l7-q18",
+                "grade": 2,
+                "axis": "Datos y probabilidades",
+                "skill": "registro de azar",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Resultados de lanzar una moneda</caption><thead><tr><th scope=\"col\">Resultado</th><th scope=\"col\">Veces</th></tr></thead><tbody><tr><th scope=\"row\">Cara</th><td>5</td></tr><tr><th scope=\"row\">Sello</th><td>3</td></tr></tbody></table></div>¿Cuántas veces salió sello?",
+                "options": [
+                    "3",
+                    "4",
+                    "2",
+                    "5"
+                ],
+                "correct": 0,
+                "explanation": "La tabla registra tres sellos.",
+                "hint": "Lee la fila Sello; no necesitas adivinar el próximo lanzamiento.",
+                "bossDistractors": [
+                    "1",
+                    "8",
+                    "13",
+                    "6"
+                ]
             },
             {
-                prompt: "El dragón tenía 40 entradas y vendió 15. ¿Cuántas quedan?",
-                options: ["25","26","24","27"],
-                correct: 0,
-                explanation: "$40 - 10 = 30$ y $30 - 5 = 25$ entradas.",
-                hint: "Quita diez y después cinco.",
-                bossDistractors: ["23","28","22","30"]
+                "id": "w2-l7-q19",
+                "grade": 2,
+                "axis": "Datos y probabilidades",
+                "skill": "registro de azar",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Resultados de lanzar un dado</caption><thead><tr><th scope=\"col\">Número</th><th scope=\"col\">Veces</th></tr></thead><tbody><tr><th scope=\"row\">1</th><td>2</td></tr><tr><th scope=\"row\">2</th><td>4</td></tr><tr><th scope=\"row\">3</th><td>1</td></tr></tbody></table></div>¿Qué número salió cuatro veces?",
+                "options": [
+                    "2",
+                    "3",
+                    "1",
+                    "4"
+                ],
+                "correct": 0,
+                "explanation": "La fila del número dos registra cuatro veces.",
+                "hint": "Busca el cuatro en la columna Veces.",
+                "bossDistractors": [
+                    "0",
+                    "7",
+                    "12",
+                    "5"
+                ]
             },
             {
-                prompt: "Calcula: $25 + 5 - 10$",
-                options: ["20","21","19","22"],
-                correct: 0,
-                explanation: "$25 + 5 = 30$ y $30 - 10 = 20$.",
-                hint: "Completa treinta y después quita diez.",
-                bossDistractors: ["18","23","17","25"]
+                "id": "w2-l7-q20",
+                "grade": 2,
+                "axis": "Datos y probabilidades",
+                "skill": "recolectar datos",
+                "prompt": "Quieres saber cuántas personas prefieren cada función. ¿Qué deberías registrar?",
+                "options": [
+                    "la función que prefiere cada persona",
+                    "el largo de la carpa",
+                    "el color de tus zapatos",
+                    "la hora de ayer"
+                ],
+                "correct": 0,
+                "explanation": "Registrar la función preferida permite comparar las preferencias.",
+                "hint": "Los datos deben responder a la pregunta que investigas.",
+                "bossDistractors": [
+                    "la altura de un árbol",
+                    "el número de ventanas",
+                    "el ancho de la puerta",
+                    "la longitud de una cinta"
+                ]
             }
+        ],
+        "grade": 2,
+        "skills": [
+            "calendario",
+            "reloj digital",
+            "longitud",
+            "unidades de longitud",
+            "pictograma con escala",
+            "comparar datos",
+            "gráfico de barras",
+            "registro de azar",
+            "recolectar datos"
         ]
     },
-
-    // ==========================================
-    // MUNDO 3: REINO DEL JAQUE DULCE (NIVELES 10 - 14)
-    // ==========================================
     {
-        id: 10,
-        worldId: "world-3",
-        title: "Multiplicación Elemental",
-        subtitle: "La suma repetida y tablas iniciales (2 al 5)",
-        icon: "♟️",
-        hasEnemy: true,
-        enemy: {
+        "id": 8,
+        "worldId": "world-2",
+        "title": "Los grupos de la caja sorpresa",
+        "subtitle": "2.º básico · Forma grupos iguales y descubre las tablas del 2, 5 y 10.",
+        "icon": "🎁",
+        "hasEnemy": true,
+        "enemy": {
+            "id": "payaso_sorpresa",
+            "name": "Payaso Sorpresa",
+            "title": "El Bromista de la Caja Misteriosa",
+            "avatar": "🎈🎩",
+            "avatarDefeated": "😵🎩",
+            "avatarImg": "assets/world-2/circus-balloon-surprise-clown-80s.png",
+            "badge": "CIRCO",
+            "badgeClass": "circus",
+            "maxHp": 16,
+            "regenRate": 0,
+            "baseDamage": 1,
+            "streakBonus": 0.5,
+            "mechanicType": "slap",
+            "mechanicTitle": "¡La Sorpresa que Falta!",
+            "mechanicDesc": "🎁 ¡Forma grupos de 2, 5 y 10 para abrir la caja sorpresa!",
+            "dialogue": {
+                "intro": "¡Mi caja guarda grupos iguales de globos! ¿Cuántos habrá?",
+                "hit": "¡Oh, oh! ¡Has descubierto otro secreto de mi caja!",
+                "defeat": "¡Sorpresa! ¡El gran truco era pensar paso a paso!"
+            }
+        },
+        "theory": {
+            "title": "Los grupos de la caja sorpresa",
+            "content": "<p><strong>2.º básico.</strong> Forma grupos iguales y descubre las tablas del 2, 5 y 10.</p><h3>Multiplicar es juntar grupos iguales</h3><p>Tres grupos de dos globos son 2 + 2 + 2 = 6, que escribimos 3 × 2 = 6. Mira tres filas de dos casillas: <span class=\"curriculum-tiles\" role=\"img\" aria-label=\"3 filas de 2 casillas; 6 coloreadas\" style=\"--tile-columns:2\"><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span></span></p><h3>Tablas iniciales</h3><p>La tabla del 2 cuenta 2, 4, 6, 8…; la del 5 cuenta 5, 10, 15, 20…; la del 10 cuenta 10, 20, 30, 40… Puedes dibujar los grupos para comprobar.</p><h3>Estrategias</h3><p>Para 6 × 5 puedes separar seis grupos en tres y tres: 15 + 15 = 30. Duplicar una cantidad es sumar esa cantidad dos veces.</p>"
+        },
+        "questions": [
+            {
+                "id": "w2-l8-q1",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "tablas del 2, 5 y 10",
+                "prompt": "La caja sorpresa tiene 2 grupos de 2 globos. ¿Cuántos globos hay?",
+                "options": [
+                    "4",
+                    "5",
+                    "3",
+                    "6"
+                ],
+                "correct": 0,
+                "explanation": "2 × 2 = 4. Cuenta 2 veces de 2 en 2, o suma grupos iguales.",
+                "hint": "Cuenta 2 veces de 2 en 2, o suma grupos iguales.",
+                "bossDistractors": [
+                    "2",
+                    "9",
+                    "14",
+                    "7"
+                ],
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        2,
+                        2
+                    ]
+                }
+            },
+            {
+                "id": "w2-l8-q2",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "tablas del 2, 5 y 10",
+                "prompt": "La caja sorpresa tiene 3 grupos de 2 globos. ¿Cuántos globos hay?",
+                "options": [
+                    "6",
+                    "7",
+                    "5",
+                    "8"
+                ],
+                "correct": 0,
+                "explanation": "3 × 2 = 6. Cuenta 3 veces de 2 en 2, o suma grupos iguales.",
+                "hint": "Cuenta 3 veces de 2 en 2, o suma grupos iguales.",
+                "bossDistractors": [
+                    "4",
+                    "11",
+                    "1",
+                    "16"
+                ],
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        3,
+                        2
+                    ]
+                }
+            },
+            {
+                "id": "w2-l8-q3",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "tablas del 2, 5 y 10",
+                "prompt": "La caja sorpresa tiene 4 grupos de 2 globos. ¿Cuántos globos hay?",
+                "options": [
+                    "8",
+                    "9",
+                    "7",
+                    "10"
+                ],
+                "correct": 0,
+                "explanation": "4 × 2 = 8. Cuenta 4 veces de 2 en 2, o suma grupos iguales.",
+                "hint": "Cuenta 4 veces de 2 en 2, o suma grupos iguales.",
+                "bossDistractors": [
+                    "6",
+                    "13",
+                    "3",
+                    "18"
+                ],
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        4,
+                        2
+                    ]
+                }
+            },
+            {
+                "id": "w2-l8-q4",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "tablas del 2, 5 y 10",
+                "prompt": "La caja sorpresa tiene 5 grupos de 2 globos. ¿Cuántos globos hay?",
+                "options": [
+                    "10",
+                    "11",
+                    "9",
+                    "12"
+                ],
+                "correct": 0,
+                "explanation": "5 × 2 = 10. Cuenta 5 veces de 2 en 2, o suma grupos iguales.",
+                "hint": "Cuenta 5 veces de 2 en 2, o suma grupos iguales.",
+                "bossDistractors": [
+                    "8",
+                    "15",
+                    "5",
+                    "20"
+                ],
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        5,
+                        2
+                    ]
+                }
+            },
+            {
+                "id": "w2-l8-q5",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "tablas del 2, 5 y 10",
+                "prompt": "La caja sorpresa tiene 7 grupos de 2 globos. ¿Cuántos globos hay?",
+                "options": [
+                    "14",
+                    "15",
+                    "13",
+                    "16"
+                ],
+                "correct": 0,
+                "explanation": "7 × 2 = 14. Cuenta 7 veces de 2 en 2, o suma grupos iguales.",
+                "hint": "Cuenta 7 veces de 2 en 2, o suma grupos iguales.",
+                "bossDistractors": [
+                    "12",
+                    "19",
+                    "9",
+                    "24"
+                ],
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        7,
+                        2
+                    ]
+                }
+            },
+            {
+                "id": "w2-l8-q6",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "tablas del 2, 5 y 10",
+                "prompt": "La caja sorpresa tiene 9 grupos de 2 globos. ¿Cuántos globos hay?",
+                "options": [
+                    "18",
+                    "19",
+                    "17",
+                    "20"
+                ],
+                "correct": 0,
+                "explanation": "9 × 2 = 18. Cuenta 9 veces de 2 en 2, o suma grupos iguales.",
+                "hint": "Cuenta 9 veces de 2 en 2, o suma grupos iguales.",
+                "bossDistractors": [
+                    "16",
+                    "23",
+                    "13",
+                    "28"
+                ],
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        9,
+                        2
+                    ]
+                }
+            },
+            {
+                "id": "w2-l8-q7",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "tablas del 2, 5 y 10",
+                "prompt": "La caja sorpresa tiene 2 grupos de 5 globos. ¿Cuántos globos hay?",
+                "options": [
+                    "10",
+                    "11",
+                    "9",
+                    "12"
+                ],
+                "correct": 0,
+                "explanation": "2 × 5 = 10. Cuenta 2 veces de 5 en 5, o suma grupos iguales.",
+                "hint": "Cuenta 2 veces de 5 en 5, o suma grupos iguales.",
+                "bossDistractors": [
+                    "8",
+                    "15",
+                    "5",
+                    "20"
+                ],
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        2,
+                        5
+                    ]
+                }
+            },
+            {
+                "id": "w2-l8-q8",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "tablas del 2, 5 y 10",
+                "prompt": "La caja sorpresa tiene 3 grupos de 5 globos. ¿Cuántos globos hay?",
+                "options": [
+                    "15",
+                    "16",
+                    "14",
+                    "17"
+                ],
+                "correct": 0,
+                "explanation": "3 × 5 = 15. Cuenta 3 veces de 5 en 5, o suma grupos iguales.",
+                "hint": "Cuenta 3 veces de 5 en 5, o suma grupos iguales.",
+                "bossDistractors": [
+                    "13",
+                    "20",
+                    "10",
+                    "25"
+                ],
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        3,
+                        5
+                    ]
+                }
+            },
+            {
+                "id": "w2-l8-q9",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "tablas del 2, 5 y 10",
+                "prompt": "La caja sorpresa tiene 4 grupos de 5 globos. ¿Cuántos globos hay?",
+                "options": [
+                    "20",
+                    "21",
+                    "19",
+                    "22"
+                ],
+                "correct": 0,
+                "explanation": "4 × 5 = 20. Cuenta 4 veces de 5 en 5, o suma grupos iguales.",
+                "hint": "Cuenta 4 veces de 5 en 5, o suma grupos iguales.",
+                "bossDistractors": [
+                    "18",
+                    "25",
+                    "15",
+                    "30"
+                ],
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        4,
+                        5
+                    ]
+                }
+            },
+            {
+                "id": "w2-l8-q10",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "tablas del 2, 5 y 10",
+                "prompt": "La caja sorpresa tiene 6 grupos de 5 globos. ¿Cuántos globos hay?",
+                "options": [
+                    "30",
+                    "31",
+                    "29",
+                    "32"
+                ],
+                "correct": 0,
+                "explanation": "6 × 5 = 30. Cuenta 6 veces de 5 en 5, o suma grupos iguales.",
+                "hint": "Cuenta 6 veces de 5 en 5, o suma grupos iguales.",
+                "bossDistractors": [
+                    "28",
+                    "35",
+                    "25",
+                    "40"
+                ],
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        6,
+                        5
+                    ]
+                }
+            },
+            {
+                "id": "w2-l8-q11",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "tablas del 2, 5 y 10",
+                "prompt": "La caja sorpresa tiene 8 grupos de 5 globos. ¿Cuántos globos hay?",
+                "options": [
+                    "40",
+                    "41",
+                    "39",
+                    "42"
+                ],
+                "correct": 0,
+                "explanation": "8 × 5 = 40. Cuenta 8 veces de 5 en 5, o suma grupos iguales.",
+                "hint": "Cuenta 8 veces de 5 en 5, o suma grupos iguales.",
+                "bossDistractors": [
+                    "38",
+                    "45",
+                    "35",
+                    "50"
+                ],
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        8,
+                        5
+                    ]
+                }
+            },
+            {
+                "id": "w2-l8-q12",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "tablas del 2, 5 y 10",
+                "prompt": "La caja sorpresa tiene 10 grupos de 5 globos. ¿Cuántos globos hay?",
+                "options": [
+                    "50",
+                    "51",
+                    "49",
+                    "52"
+                ],
+                "correct": 0,
+                "explanation": "10 × 5 = 50. Cuenta 10 veces de 5 en 5, o suma grupos iguales.",
+                "hint": "Cuenta 10 veces de 5 en 5, o suma grupos iguales.",
+                "bossDistractors": [
+                    "48",
+                    "55",
+                    "45",
+                    "60"
+                ],
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        10,
+                        5
+                    ]
+                }
+            },
+            {
+                "id": "w2-l8-q13",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "tablas del 2, 5 y 10",
+                "prompt": "La caja sorpresa tiene 2 grupos de 10 globos. ¿Cuántos globos hay?",
+                "options": [
+                    "20",
+                    "21",
+                    "19",
+                    "22"
+                ],
+                "correct": 0,
+                "explanation": "2 × 10 = 20. Cuenta 2 veces de 10 en 10, o suma grupos iguales.",
+                "hint": "Cuenta 2 veces de 10 en 10, o suma grupos iguales.",
+                "bossDistractors": [
+                    "18",
+                    "25",
+                    "15",
+                    "30"
+                ],
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        2,
+                        10
+                    ]
+                }
+            },
+            {
+                "id": "w2-l8-q14",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "tablas del 2, 5 y 10",
+                "prompt": "La caja sorpresa tiene 3 grupos de 10 globos. ¿Cuántos globos hay?",
+                "options": [
+                    "30",
+                    "31",
+                    "29",
+                    "32"
+                ],
+                "correct": 0,
+                "explanation": "3 × 10 = 30. Cuenta 3 veces de 10 en 10, o suma grupos iguales.",
+                "hint": "Cuenta 3 veces de 10 en 10, o suma grupos iguales.",
+                "bossDistractors": [
+                    "28",
+                    "35",
+                    "25",
+                    "40"
+                ],
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        3,
+                        10
+                    ]
+                }
+            },
+            {
+                "id": "w2-l8-q15",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "tablas del 2, 5 y 10",
+                "prompt": "La caja sorpresa tiene 5 grupos de 10 globos. ¿Cuántos globos hay?",
+                "options": [
+                    "50",
+                    "51",
+                    "49",
+                    "52"
+                ],
+                "correct": 0,
+                "explanation": "5 × 10 = 50. Cuenta 5 veces de 10 en 10, o suma grupos iguales.",
+                "hint": "Cuenta 5 veces de 10 en 10, o suma grupos iguales.",
+                "bossDistractors": [
+                    "48",
+                    "55",
+                    "45",
+                    "60"
+                ],
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        5,
+                        10
+                    ]
+                }
+            },
+            {
+                "id": "w2-l8-q16",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "tablas del 2, 5 y 10",
+                "prompt": "La caja sorpresa tiene 7 grupos de 10 globos. ¿Cuántos globos hay?",
+                "options": [
+                    "70",
+                    "71",
+                    "69",
+                    "72"
+                ],
+                "correct": 0,
+                "explanation": "7 × 10 = 70. Cuenta 7 veces de 10 en 10, o suma grupos iguales.",
+                "hint": "Cuenta 7 veces de 10 en 10, o suma grupos iguales.",
+                "bossDistractors": [
+                    "68",
+                    "75",
+                    "65",
+                    "80"
+                ],
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        7,
+                        10
+                    ]
+                }
+            },
+            {
+                "id": "w2-l8-q17",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "grupos iguales",
+                "prompt": "<span class=\"curriculum-tiles\" role=\"img\" aria-label=\"4 filas de 2 casillas; 8 coloreadas\" style=\"--tile-columns:2\"><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span></span>Cada casilla es un globo. ¿Cuántos globos hay en estas cuatro filas?",
+                "options": [
+                    "8",
+                    "9",
+                    "7",
+                    "10"
+                ],
+                "correct": 0,
+                "explanation": "Cuatro filas de dos son 2 + 2 + 2 + 2 = 8.",
+                "hint": "Cuenta dos por cada fila.",
+                "bossDistractors": [
+                    "6",
+                    "13",
+                    "3",
+                    "18"
+                ]
+            },
+            {
+                "id": "w2-l8-q18",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "grupos iguales",
+                "prompt": "Hay 5 + 5 + 5 globos. ¿Cuántos son en total?",
+                "options": [
+                    "15",
+                    "16",
+                    "14",
+                    "17"
+                ],
+                "correct": 0,
+                "explanation": "Tres grupos de cinco son quince.",
+                "hint": "Puedes usar la tabla del cinco.",
+                "bossDistractors": [
+                    "13",
+                    "20",
+                    "10",
+                    "25"
+                ]
+            },
+            {
+                "id": "w2-l8-q19",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "dobles",
+                "prompt": "El payaso duplica sus 8 globos. ¿Cuántos tiene ahora?",
+                "options": [
+                    "16",
+                    "17",
+                    "15",
+                    "18"
+                ],
+                "correct": 0,
+                "explanation": "Duplicar es 8 + 8 = 16.",
+                "hint": "Usa el doble de ocho.",
+                "bossDistractors": [
+                    "14",
+                    "21",
+                    "11",
+                    "26"
+                ]
+            },
+            {
+                "id": "w2-l8-q20",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "distributividad inicial",
+                "prompt": "Seis grupos de 5 se separan en 3 grupos de 5 y otros 3 grupos de 5. ¿Cuántos globos hay?",
+                "options": [
+                    "30",
+                    "31",
+                    "29",
+                    "32"
+                ],
+                "correct": 0,
+                "explanation": "Cada mitad tiene 15 globos; 15 + 15 = 30.",
+                "hint": "Calcula tres grupos y luego duplica.",
+                "bossDistractors": [
+                    "28",
+                    "35",
+                    "25",
+                    "40"
+                ]
+            }
+        ],
+        "grade": 2,
+        "skills": [
+            "tablas del 2, 5 y 10",
+            "grupos iguales",
+            "dobles",
+            "distributividad inicial"
+        ]
+    },
+    {
+        "id": 9,
+        "worldId": "world-2",
+        "title": "El gran repaso del Dragón Globo",
+        "subtitle": "2.º básico · Usa todas las habilidades del circo con ocho alternativas.",
+        "icon": "🐲",
+        "isBoss": true,
+        "answerOptionCount": 8,
+        "boss": {
+            "id": "dragon_globo_dos_cabezas",
+            "name": "Dragón Globo de Dos Cabezas",
+            "title": "Gran Final del Circo de las Sumas",
+            "avatar": "🐲🎈",
+            "avatarImg": "assets/world-2/circus-balloon-two-headed-dragon-80s.png",
+            "badge": "JEFE DEL CIRCO",
+            "badgeClass": "circus",
+            "maxHp": 40,
+            "regenRate": 0,
+            "baseDamage": 1.2,
+            "streakBonus": 0.5,
+            "mechanicType": "eight-options",
+            "mechanicTitle": "¡Doble Cabeza, Doble Desafío!",
+            "mechanicDesc": "🐲 Ocho alternativas. ¡Encadena aciertos para desinflar al dragón!",
+            "dialogue": {
+                "intro": "¡Dos cabezas, ocho opciones! ¿Podrás con nuestro gran espectáculo?",
+                "hit": "¡Fiuuu! ¡Ese cálculo nos ha quitado el aire!",
+                "defeat": "¡Nos desinflaste a las dos! ¡El aplauso final es para ti!"
+            }
+        },
+        "theory": {
+            "title": "El gran repaso del Dragón Globo",
+            "content": "<p><strong>2.º básico.</strong> Usa todas las habilidades del circo con ocho alternativas.</p><h3>Dos cabezas, un repaso</h3><p>El dragón mezcla las preguntas de los cuatro niveles y su propio repaso: números hasta 100, patrones, formas, medidas, gráficos y grupos de 2, 5 y 10.</p><h3>Lee antes de elegir</h3><p>Hay <strong>ocho alternativas</strong> solo en esta pelea. Puedes usar las teclas 1 a 8. El dragón no recupera vida: tienes tiempo para leer la escala de un gráfico o dibujar un grupo.</p>"
+        },
+        "questions": [
+            {
+                "id": "w2-l9-q1",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "suma sin reserva",
+                "prompt": "Una cabeza guarda 34 globos y la otra 25. ¿Cuántos guardan juntas?",
+                "options": [
+                    "59",
+                    "60",
+                    "58",
+                    "61"
+                ],
+                "correct": 0,
+                "explanation": "34 + 25 = 59. Suma decenas y unidades sin cambiarlas.",
+                "hint": "Suma decenas y unidades sin cambiarlas.",
+                "bossDistractors": [
+                    "57",
+                    "64",
+                    "54",
+                    "69"
+                ],
+                "calculation": {
+                    "operation": "add",
+                    "operands": [
+                        34,
+                        25
+                    ]
+                }
+            },
+            {
+                "id": "w2-l9-q2",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "resta sin reserva",
+                "prompt": "El dragón tenía 78 entradas y usó 36. ¿Cuántas quedan?",
+                "options": [
+                    "42",
+                    "43",
+                    "41",
+                    "44"
+                ],
+                "correct": 0,
+                "explanation": "78 − 36 = 42. Resta unidades y decenas.",
+                "hint": "Resta unidades y decenas.",
+                "bossDistractors": [
+                    "40",
+                    "47",
+                    "37",
+                    "52"
+                ],
+                "calculation": {
+                    "operation": "subtract",
+                    "operands": [
+                        78,
+                        36
+                    ]
+                }
+            },
+            {
+                "id": "w2-l9-q3",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "valor posicional",
+                "prompt": "El dragón cuenta 8 decenas y 2 unidades. ¿Cuántas fichas son?",
+                "options": [
+                    "82",
+                    "83",
+                    "81",
+                    "84"
+                ],
+                "correct": 0,
+                "explanation": "80 + 2 = 82.",
+                "hint": "Cada decena vale diez.",
+                "bossDistractors": [
+                    "80",
+                    "87",
+                    "77",
+                    "92"
+                ]
+            },
+            {
+                "id": "w2-l9-q4",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "conteo por saltos",
+                "prompt": "El dragón cuenta 300, 400, 500, __. ¿Cómo sigue?",
+                "options": [
+                    "600",
+                    "601",
+                    "599",
+                    "602"
+                ],
+                "correct": 0,
+                "explanation": "El salto es de cien: después viene seiscientos.",
+                "hint": "Agrega una centena.",
+                "bossDistractors": [
+                    "598",
+                    "605",
+                    "595",
+                    "610"
+                ]
+            },
+            {
+                "id": "w2-l9-q5",
+                "grade": 2,
+                "axis": "Patrones y álgebra",
+                "skill": "patrón numérico",
+                "prompt": "Los globos vuelan en grupos: 15, 20, 25, __.",
+                "options": [
+                    "30",
+                    "31",
+                    "29",
+                    "32"
+                ],
+                "correct": 0,
+                "explanation": "Cada grupo aumenta cinco: sigue treinta.",
+                "hint": "Busca el salto que se repite.",
+                "bossDistractors": [
+                    "28",
+                    "35",
+                    "25",
+                    "40"
+                ]
+            },
+            {
+                "id": "w2-l9-q6",
+                "grade": 2,
+                "axis": "Patrones y álgebra",
+                "skill": "igualdad",
+                "prompt": "Para equilibrar las cabezas, completa 9 + __ = 17.",
+                "options": [
+                    "8",
+                    "9",
+                    "7",
+                    "10"
+                ],
+                "correct": 0,
+                "explanation": "Nueve más ocho son diecisiete.",
+                "hint": "Cuenta cuánto falta hasta diecisiete.",
+                "bossDistractors": [
+                    "6",
+                    "13",
+                    "3",
+                    "18"
+                ]
+            },
+            {
+                "id": "w2-l9-q7",
+                "grade": 2,
+                "axis": "Geometría",
+                "skill": "figuras 2D",
+                "prompt": "La entrada del dragón tiene tres lados rectos. ¿Qué figura es?",
+                "options": [
+                    "triángulo",
+                    "cuadrado",
+                    "rectángulo",
+                    "círculo"
+                ],
+                "correct": 0,
+                "explanation": "Una figura plana con tres lados es un triángulo.",
+                "hint": "Cuenta los lados de la entrada.",
+                "bossDistractors": [
+                    "cubo",
+                    "esfera",
+                    "cono",
+                    "cilindro"
+                ]
+            },
+            {
+                "id": "w2-l9-q8",
+                "grade": 2,
+                "axis": "Geometría",
+                "skill": "figuras 3D",
+                "prompt": "La pelota del dragón tiene forma de…",
+                "options": [
+                    "esfera",
+                    "triángulo",
+                    "cuadrado",
+                    "rectángulo"
+                ],
+                "correct": 0,
+                "explanation": "Una pelota tiene forma de esfera.",
+                "hint": "Distingue cuerpos y figuras planas.",
+                "bossDistractors": [
+                    "círculo",
+                    "cubo",
+                    "cono",
+                    "cilindro"
+                ]
+            },
+            {
+                "id": "w2-l9-q9",
+                "grade": 2,
+                "axis": "Geometría",
+                "skill": "posiciones",
+                "prompt": "En el orden 🎪 🎈 ⭐, ¿dónde está el globo respecto de la carpa?",
+                "options": [
+                    "derecha",
+                    "izquierda",
+                    "arriba",
+                    "abajo"
+                ],
+                "correct": 0,
+                "explanation": "El globo aparece a la derecha de la carpa.",
+                "hint": "Usa la carpa como referencia.",
+                "bossDistractors": [
+                    "dentro",
+                    "fuera",
+                    "delante",
+                    "detrás"
+                ]
+            },
+            {
+                "id": "w2-l9-q10",
+                "grade": 2,
+                "axis": "Medición",
+                "skill": "reloj digital",
+                "prompt": "La batalla empieza a las dos y media. ¿Qué muestra el reloj?",
+                "options": [
+                    "2:30",
+                    "2:00",
+                    "3:00",
+                    "3:30"
+                ],
+                "correct": 0,
+                "explanation": "Dos y media se escribe 2:30.",
+                "hint": "Media hora equivale a treinta minutos.",
+                "bossDistractors": [
+                    "4:00",
+                    "4:30",
+                    "5:00",
+                    "5:30"
+                ]
+            },
+            {
+                "id": "w2-l9-q11",
+                "grade": 2,
+                "axis": "Medición",
+                "skill": "calendario",
+                "prompt": "El dragón descansa el día después del viernes. ¿Qué día es?",
+                "options": [
+                    "sábado",
+                    "lunes",
+                    "martes",
+                    "miércoles"
+                ],
+                "correct": 0,
+                "explanation": "Después del viernes viene el sábado.",
+                "hint": "Avanza un día.",
+                "bossDistractors": [
+                    "jueves",
+                    "viernes",
+                    "domingo",
+                    "ningún día"
+                ]
+            },
+            {
+                "id": "w2-l9-q12",
+                "grade": 2,
+                "axis": "Medición",
+                "skill": "longitud",
+                "prompt": "La cinta del dragón va desde 0 hasta 12 cm en una regla. ¿Cuántos centímetros mide?",
+                "options": [
+                    "12",
+                    "13",
+                    "11",
+                    "14"
+                ],
+                "correct": 0,
+                "explanation": "Del cero al doce hay doce centímetros.",
+                "hint": "Lee la marca final.",
+                "bossDistractors": [
+                    "10",
+                    "17",
+                    "7",
+                    "22"
+                ]
+            },
+            {
+                "id": "w2-l9-q13",
+                "grade": 2,
+                "axis": "Medición",
+                "skill": "unidades de longitud",
+                "prompt": "Un metro de cinta contiene ¿cuántos centímetros?",
+                "options": [
+                    "100",
+                    "10",
+                    "1",
+                    "50"
+                ],
+                "correct": 0,
+                "explanation": "Un metro equivale a cien centímetros.",
+                "hint": "Recuerda la equivalencia.",
+                "bossDistractors": [
+                    "101",
+                    "99",
+                    "102",
+                    "98"
+                ]
+            },
+            {
+                "id": "w2-l9-q14",
+                "grade": 2,
+                "axis": "Datos y probabilidades",
+                "skill": "pictograma con escala",
+                "prompt": "Cada ● vale 2 globos. La cabeza izquierda muestra ● ● ● ● ●. ¿Cuántos globos representa?",
+                "options": [
+                    "10",
+                    "11",
+                    "9",
+                    "12"
+                ],
+                "correct": 0,
+                "explanation": "Cinco grupos de dos son diez globos.",
+                "hint": "Cuenta de dos en dos.",
+                "bossDistractors": [
+                    "8",
+                    "15",
+                    "5",
+                    "20"
+                ]
+            },
+            {
+                "id": "w2-l9-q15",
+                "grade": 2,
+                "axis": "Datos y probabilidades",
+                "skill": "gráfico de barras",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Entradas del dragón · cada █ vale 1</caption><thead><tr><th scope=\"col\">Cabeza</th><th scope=\"col\">Barra</th></tr></thead><tbody><tr><th scope=\"row\">Izquierda</th><td>█ █ █</td></tr><tr><th scope=\"row\">Derecha</th><td>█ █ █ █ █</td></tr></tbody></table></div>¿Cuántas entradas tiene la cabeza derecha?",
+                "options": [
+                    "5",
+                    "6",
+                    "4",
+                    "7"
+                ],
+                "correct": 0,
+                "explanation": "La barra derecha contiene cinco unidades.",
+                "hint": "Cuenta la fila Derecha.",
+                "bossDistractors": [
+                    "3",
+                    "10",
+                    "0",
+                    "15"
+                ]
+            },
+            {
+                "id": "w2-l9-q16",
+                "grade": 2,
+                "axis": "Datos y probabilidades",
+                "skill": "registro de azar",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Lanzamientos de la moneda del dragón</caption><thead><tr><th scope=\"col\">Resultado</th><th scope=\"col\">Veces</th></tr></thead><tbody><tr><th scope=\"row\">Cara</th><td>4</td></tr><tr><th scope=\"row\">Sello</th><td>6</td></tr></tbody></table></div>¿Cuántas veces salió cara?",
+                "options": [
+                    "4",
+                    "5",
+                    "3",
+                    "6"
+                ],
+                "correct": 0,
+                "explanation": "La tabla registra cuatro caras.",
+                "hint": "Lee el dato; no predigas el siguiente lanzamiento.",
+                "bossDistractors": [
+                    "2",
+                    "9",
+                    "14",
+                    "7"
+                ]
+            },
+            {
+                "id": "w2-l9-q17",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "tablas del 2, 5 y 10",
+                "prompt": "El dragón prepara 4 paquetes con 2 globos cada uno. ¿Cuántos prepara?",
+                "options": [
+                    "8",
+                    "9",
+                    "7",
+                    "10"
+                ],
+                "correct": 0,
+                "explanation": "4 × 2 = 8. Dibuja los grupos o cuenta con la tabla correspondiente.",
+                "hint": "Dibuja los grupos o cuenta con la tabla correspondiente.",
+                "bossDistractors": [
+                    "6",
+                    "13",
+                    "3",
+                    "18"
+                ],
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        4,
+                        2
+                    ]
+                }
+            },
+            {
+                "id": "w2-l9-q18",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "tablas del 2, 5 y 10",
+                "prompt": "El dragón prepara 5 paquetes con 5 globos cada uno. ¿Cuántos prepara?",
+                "options": [
+                    "25",
+                    "26",
+                    "24",
+                    "27"
+                ],
+                "correct": 0,
+                "explanation": "5 × 5 = 25. Dibuja los grupos o cuenta con la tabla correspondiente.",
+                "hint": "Dibuja los grupos o cuenta con la tabla correspondiente.",
+                "bossDistractors": [
+                    "23",
+                    "30",
+                    "20",
+                    "35"
+                ],
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        5,
+                        5
+                    ]
+                }
+            },
+            {
+                "id": "w2-l9-q19",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "tablas del 2, 5 y 10",
+                "prompt": "El dragón prepara 6 paquetes con 10 globos cada uno. ¿Cuántos prepara?",
+                "options": [
+                    "60",
+                    "61",
+                    "59",
+                    "62"
+                ],
+                "correct": 0,
+                "explanation": "6 × 10 = 60. Dibuja los grupos o cuenta con la tabla correspondiente.",
+                "hint": "Dibuja los grupos o cuenta con la tabla correspondiente.",
+                "bossDistractors": [
+                    "58",
+                    "65",
+                    "55",
+                    "70"
+                ],
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        6,
+                        10
+                    ]
+                }
+            },
+            {
+                "id": "w2-l9-q20",
+                "grade": 2,
+                "axis": "Números y operaciones",
+                "skill": "operaciones inversas",
+                "prompt": "Si el dragón junta 32 + 16 = 48, ¿cuánto es 48 − 16?",
+                "options": [
+                    "32",
+                    "33",
+                    "31",
+                    "34"
+                ],
+                "correct": 0,
+                "explanation": "Deshacer la suma devuelve treinta y dos.",
+                "hint": "Usa la operación inversa.",
+                "bossDistractors": [
+                    "30",
+                    "37",
+                    "27",
+                    "42"
+                ]
+            }
+        ],
+        "grade": 2,
+        "skills": [
+            "suma sin reserva",
+            "resta sin reserva",
+            "valor posicional",
+            "conteo por saltos",
+            "patrón numérico",
+            "igualdad",
+            "figuras 2D",
+            "figuras 3D",
+            "posiciones",
+            "reloj digital",
+            "calendario",
+            "longitud",
+            "unidades de longitud",
+            "pictograma con escala",
+            "gráfico de barras",
+            "registro de azar",
+            "tablas del 2, 5 y 10",
+            "operaciones inversas"
+        ]
+    },
+    {
+        "id": 10,
+        "worldId": "world-3",
+        "title": "Las cuentas del peón",
+        "subtitle": "3.º básico · Organiza centenas y calcula hasta 1.000.",
+        "icon": "♟️",
+        "hasEnemy": true,
+        "enemy": {
             "id": "peon_malvavisco",
             "name": "Peón de Malvavisco",
             "title": "Guardia de la Primera Casilla",
@@ -1845,70 +4346,431 @@ var LEVELS_DATA = [
             "streakBonus": 0.5,
             "mechanicType": "slap",
             "mechanicTitle": "Duelo de Golosinas",
-            "mechanicDesc": "¡Cada multiplicación abre paso entre las filas del peón!",
+            "mechanicDesc": "¡Cada cuenta correcta abre paso entre las filas del peón!",
             "dialogue": {
-                "intro": "¡Mis filas de golosinas están listas! ¿Cuántas hay en total?",
+                "intro": "¡Agrupa mis caramelos en centenas, decenas y unidades!",
                 "hit": "¡Me has quitado una fila de dulces!",
                 "defeat": "¡Bien calculado! Puedes pasar a la siguiente casilla."
             }
         },
-        theory: {
-            title: "¿Qué es Multiplicar?",
-            content: `
-                <p>Multiplicar es una forma rápida de <strong>sumar el mismo número varias veces</strong>.</p>
-                <div class="theory-visual">
-                    <span>$$4 \\times 3 = 3 + 3 + 3 + 3 = 12$$</span>
-                </div>
-                <p>Los números que multiplicamos son los <strong>factores</strong> y el resultado es el <strong>producto</strong>.</p>
-                <p>¡Cualquier número multiplicado por $0$ es $0$, y por $1$ se queda igual!</p>
-            `
+        "theory": {
+            "title": "Las cuentas del peón",
+            "content": "<p><strong>3.º básico.</strong> Organiza centenas y calcula hasta 1.000.</p><h3>Centenas, decenas y unidades</h3><p>347 son 3 centenas, 4 decenas y 7 unidades: 300 + 40 + 7. Para comparar, mira centenas, luego decenas y unidades.</p><h3>Sumar con reserva</h3><p>En 248 + 137, 8 + 7 = 15 unidades: cambia diez por una decena. Quedan 5 unidades; las decenas son 4 + 3 + 1 = 8 y las centenas 2 + 1 = 3. Resultado: 385.</p><h3>Restar y comprobar</h3><p>Para 432 − 118, cambia una decena por diez unidades: quedan 12 unidades y 2 decenas. 12 − 8 = 4, 2 − 1 = 1 y 4 − 1 = 3: quedan 314. Comprueba sumando 314 + 118.</p><h3>Patrones y casillas vacías</h3><p>En 125, 150, 175 se agrega 25. En 24 + □ = 40, la casilla vale 16. Puedes usar una resta para encontrarla.</p>"
         },
-        questions: [
+        "questions": [
             {
-                prompt: "Calcula: $4 \\times 6$",
-                options: ["24", "20", "28", "22"],
-                correct: 0,
-                explanation: "$4 \\times 6 = 24$. Es decir, sumar cuatro veces seis.",
-                hint: "Piensa en $6 + 6 + 6 + 6$."
+                "id": "w3-l10-q1",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "valor posicional",
+                "prompt": "El peón guarda 347 caramelos. ¿Cuántas centenas completas tiene?",
+                "options": [
+                    "3",
+                    "4",
+                    "7",
+                    "34"
+                ],
+                "correct": 0,
+                "explanation": "347 contiene tres centenas, cuatro decenas y siete unidades.",
+                "hint": "Una centena es un grupo de cien."
             },
             {
-                prompt: "Si hay 5 cofres y cada uno contiene 7 gemas, ¿cuántas gemas hay en total?",
-                options: ["30", "35", "40", "42"],
-                correct: 1,
-                explanation: "$5 \\times 7 = 35$ gemas en total.",
-                hint: "Tabla del 5: $5 \\times 7$."
+                "id": "w3-l10-q2",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "valor posicional",
+                "prompt": "Hay 5 centenas, 2 decenas y 6 caramelos sueltos. ¿Cuántos hay?",
+                "options": [
+                    "526",
+                    "562",
+                    "256",
+                    "625"
+                ],
+                "correct": 0,
+                "explanation": "500 + 20 + 6 = 526.",
+                "hint": "Suma el valor de cada posición."
             },
             {
-                prompt: "¿Cuánto es cualquier número multiplicado por cero, por ejemplo $482 \\times 0$?",
-                options: ["482", "1", "0", "Infinito"],
-                correct: 2,
-                explanation: "Todo número multiplicado por cero es igual a 0.",
-                hint: "Tener 0 grupos de algo significa que no hay nada."
+                "id": "w3-l10-q3",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "comparación",
+                "prompt": "Elige el mayor tesoro: 409, 490, 419 o 450.",
+                "options": [
+                    "490",
+                    "409",
+                    "419",
+                    "450"
+                ],
+                "correct": 0,
+                "explanation": "Todos tienen cuatro centenas; nueve decenas es la mayor cantidad.",
+                "hint": "Compara centenas y luego decenas."
             },
             {
-                prompt: "Calcula: $3 \\times 9$",
-                options: ["27", "24", "30", "26"],
-                correct: 0,
-                explanation: "$3 \\times 9 = 27$.",
-                hint: "$9 + 9 + 9$."
+                "id": "w3-l10-q4",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "orden",
+                "prompt": "¿Qué número va entre 698 y 700 al contar de uno en uno?",
+                "options": [
+                    "699",
+                    "697",
+                    "690",
+                    "701"
+                ],
+                "correct": 0,
+                "explanation": "La secuencia es 698, 699, 700.",
+                "hint": "Avanza una unidad."
             },
             {
-                prompt: "¿Cuál de estas operaciones da como resultado 20?",
-                options: ["$3 \\times 6$", "$4 \\times 5$", "$2 \\times 9$", "$5 \\times 5$"],
-                correct: 1,
-                explanation: "$4 \\times 5 = 20$.",
-                hint: "4 billetes de 5."
+                "id": "w3-l10-q5",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "conteo por saltos",
+                "prompt": "Los peones cuentan de 4 en 4: 12, 16, 20, __.",
+                "options": [
+                    "24",
+                    "22",
+                    "25",
+                    "28"
+                ],
+                "correct": 0,
+                "explanation": "Cada salto suma cuatro; 20 + 4 = 24.",
+                "hint": "Conserva el salto."
+            },
+            {
+                "id": "w3-l10-q6",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "estimación",
+                "prompt": "Un saco tiene casi lo mismo que otro de 100 caramelos. ¿Qué estimación usarías?",
+                "options": [
+                    "100",
+                    "10",
+                    "500",
+                    "1000"
+                ],
+                "correct": 0,
+                "explanation": "La referencia parecida es cien caramelos.",
+                "hint": "Usa el saco conocido para estimar."
+            },
+            {
+                "id": "w3-l10-q7",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "suma hasta 1000",
+                "prompt": "El peón junta 248 caramelos de fresa y 137 de limón. ¿Cuántos tiene?",
+                "options": [
+                    "385",
+                    "386",
+                    "384",
+                    "387"
+                ],
+                "correct": 0,
+                "explanation": "248 + 137 = 385. Suma por posiciones y cambia diez unidades por una decena si hace falta.",
+                "hint": "Suma por posiciones y cambia diez unidades por una decena si hace falta.",
+                "calculation": {
+                    "operation": "add",
+                    "operands": [
+                        248,
+                        137
+                    ]
+                }
+            },
+            {
+                "id": "w3-l10-q8",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "suma hasta 1000",
+                "prompt": "El peón junta 356 caramelos de fresa y 275 de limón. ¿Cuántos tiene?",
+                "options": [
+                    "631",
+                    "632",
+                    "630",
+                    "633"
+                ],
+                "correct": 0,
+                "explanation": "356 + 275 = 631. Suma por posiciones y cambia diez unidades por una decena si hace falta.",
+                "hint": "Suma por posiciones y cambia diez unidades por una decena si hace falta.",
+                "calculation": {
+                    "operation": "add",
+                    "operands": [
+                        356,
+                        275
+                    ]
+                }
+            },
+            {
+                "id": "w3-l10-q9",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "suma hasta 1000",
+                "prompt": "El peón junta 427 caramelos de fresa y 162 de limón. ¿Cuántos tiene?",
+                "options": [
+                    "589",
+                    "590",
+                    "588",
+                    "591"
+                ],
+                "correct": 0,
+                "explanation": "427 + 162 = 589. Suma por posiciones y cambia diez unidades por una decena si hace falta.",
+                "hint": "Suma por posiciones y cambia diez unidades por una decena si hace falta.",
+                "calculation": {
+                    "operation": "add",
+                    "operands": [
+                        427,
+                        162
+                    ]
+                }
+            },
+            {
+                "id": "w3-l10-q10",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "suma hasta 1000",
+                "prompt": "El peón junta 185 caramelos de fresa y 206 de limón. ¿Cuántos tiene?",
+                "options": [
+                    "391",
+                    "392",
+                    "390",
+                    "393"
+                ],
+                "correct": 0,
+                "explanation": "185 + 206 = 391. Suma por posiciones y cambia diez unidades por una decena si hace falta.",
+                "hint": "Suma por posiciones y cambia diez unidades por una decena si hace falta.",
+                "calculation": {
+                    "operation": "add",
+                    "operands": [
+                        185,
+                        206
+                    ]
+                }
+            },
+            {
+                "id": "w3-l10-q11",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "suma hasta 1000",
+                "prompt": "El peón junta 64 caramelos de fresa y 38 de limón. ¿Cuántos tiene?",
+                "options": [
+                    "102",
+                    "103",
+                    "101",
+                    "104"
+                ],
+                "correct": 0,
+                "explanation": "64 + 38 = 102. Suma por posiciones y cambia diez unidades por una decena si hace falta.",
+                "hint": "Suma por posiciones y cambia diez unidades por una decena si hace falta.",
+                "calculation": {
+                    "operation": "add",
+                    "operands": [
+                        64,
+                        38
+                    ]
+                }
+            },
+            {
+                "id": "w3-l10-q12",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "resta hasta 1000",
+                "prompt": "De 432 caramelos del peón se reparten 118. ¿Cuántos quedan?",
+                "options": [
+                    "314",
+                    "315",
+                    "313",
+                    "316"
+                ],
+                "correct": 0,
+                "explanation": "432 − 118 = 314. Resta por posiciones y cambia una decena o centena cuando haga falta.",
+                "hint": "Resta por posiciones y cambia una decena o centena cuando haga falta.",
+                "calculation": {
+                    "operation": "subtract",
+                    "operands": [
+                        432,
+                        118
+                    ]
+                }
+            },
+            {
+                "id": "w3-l10-q13",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "resta hasta 1000",
+                "prompt": "De 700 caramelos del peón se reparten 245. ¿Cuántos quedan?",
+                "options": [
+                    "455",
+                    "456",
+                    "454",
+                    "457"
+                ],
+                "correct": 0,
+                "explanation": "700 − 245 = 455. Resta por posiciones y cambia una decena o centena cuando haga falta.",
+                "hint": "Resta por posiciones y cambia una decena o centena cuando haga falta.",
+                "calculation": {
+                    "operation": "subtract",
+                    "operands": [
+                        700,
+                        245
+                    ]
+                }
+            },
+            {
+                "id": "w3-l10-q14",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "resta hasta 1000",
+                "prompt": "De 563 caramelos del peón se reparten 231. ¿Cuántos quedan?",
+                "options": [
+                    "332",
+                    "333",
+                    "331",
+                    "334"
+                ],
+                "correct": 0,
+                "explanation": "563 − 231 = 332. Resta por posiciones y cambia una decena o centena cuando haga falta.",
+                "hint": "Resta por posiciones y cambia una decena o centena cuando haga falta.",
+                "calculation": {
+                    "operation": "subtract",
+                    "operands": [
+                        563,
+                        231
+                    ]
+                }
+            },
+            {
+                "id": "w3-l10-q15",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "resta hasta 1000",
+                "prompt": "De 306 caramelos del peón se reparten 128. ¿Cuántos quedan?",
+                "options": [
+                    "178",
+                    "179",
+                    "177",
+                    "180"
+                ],
+                "correct": 0,
+                "explanation": "306 − 128 = 178. Resta por posiciones y cambia una decena o centena cuando haga falta.",
+                "hint": "Resta por posiciones y cambia una decena o centena cuando haga falta.",
+                "calculation": {
+                    "operation": "subtract",
+                    "operands": [
+                        306,
+                        128
+                    ]
+                }
+            },
+            {
+                "id": "w3-l10-q16",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "resta hasta 1000",
+                "prompt": "De 100 caramelos del peón se reparten 46. ¿Cuántos quedan?",
+                "options": [
+                    "54",
+                    "55",
+                    "53",
+                    "56"
+                ],
+                "correct": 0,
+                "explanation": "100 − 46 = 54. Resta por posiciones y cambia una decena o centena cuando haga falta.",
+                "hint": "Resta por posiciones y cambia una decena o centena cuando haga falta.",
+                "calculation": {
+                    "operation": "subtract",
+                    "operands": [
+                        100,
+                        46
+                    ]
+                }
+            },
+            {
+                "id": "w3-l10-q17",
+                "grade": 3,
+                "axis": "Patrones y álgebra",
+                "skill": "patrón numérico",
+                "prompt": "El camino dulce sigue 125, 150, 175, __.",
+                "options": [
+                    "200",
+                    "180",
+                    "195",
+                    "225"
+                ],
+                "correct": 0,
+                "explanation": "Se agrega veinticinco cada vez: sigue doscientos.",
+                "hint": "Calcula la diferencia entre términos vecinos."
+            },
+            {
+                "id": "w3-l10-q18",
+                "grade": 3,
+                "axis": "Patrones y álgebra",
+                "skill": "ecuación de un paso",
+                "prompt": "Completa la caja del peón: 24 + □ = 40.",
+                "options": [
+                    "16",
+                    "14",
+                    "24",
+                    "64"
+                ],
+                "correct": 0,
+                "explanation": "40 − 24 = 16, por eso 24 + 16 = 40.",
+                "hint": "Usa la resta para encontrar lo que falta."
+            },
+            {
+                "id": "w3-l10-q19",
+                "grade": 3,
+                "axis": "Patrones y álgebra",
+                "skill": "ecuación de un paso",
+                "prompt": "El peón resuelve □ − 18 = 25. ¿Qué valor va en la casilla?",
+                "options": [
+                    "43",
+                    "7",
+                    "35",
+                    "42"
+                ],
+                "correct": 0,
+                "explanation": "25 + 18 = 43, y 43 − 18 = 25.",
+                "hint": "Devuelve lo que se había quitado."
+            },
+            {
+                "id": "w3-l10-q20",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "operaciones inversas",
+                "prompt": "Si 235 + 140 = 375, ¿cuánto es 375 − 140?",
+                "options": [
+                    "235",
+                    "140",
+                    "375",
+                    "515"
+                ],
+                "correct": 0,
+                "explanation": "Restar lo agregado devuelve la cantidad inicial, 235.",
+                "hint": "Deshaz la suma."
             }
+        ],
+        "grade": 3,
+        "skills": [
+            "valor posicional",
+            "comparación",
+            "orden",
+            "conteo por saltos",
+            "estimación",
+            "suma hasta 1000",
+            "resta hasta 1000",
+            "patrón numérico",
+            "ecuación de un paso",
+            "operaciones inversas"
         ]
     },
     {
-        id: 11,
-        worldId: "world-3",
-        title: "Tablas Maestras",
-        subtitle: "Multiplicaciones avanzadas (6 al 10 y potencias de 10)",
-        icon: "♞",
-        hasEnemy: true,
-        enemy: {
+        "id": 11,
+        "worldId": "world-3",
+        "title": "Los repartos del caballo",
+        "subtitle": "3.º básico · Domina las tablas hasta 10 y sus divisiones.",
+        "icon": "♞",
+        "hasEnemy": true,
+        "enemy": {
             "id": "caballo_chocolate",
             "name": "Caballo de Chocolate",
             "title": "Jinete de las Tablas",
@@ -1923,71 +4785,481 @@ var LEVELS_DATA = [
             "streakBonus": 0.5,
             "mechanicType": "slap",
             "mechanicTitle": "Duelo de Golosinas",
-            "mechanicDesc": "¡Acierta las tablas para alcanzar al caballo!",
+            "mechanicDesc": "¡Multiplica y reparte para alcanzar al caballo!",
             "dialogue": {
-                "intro": "¡Mis saltos van de grupo en grupo! ¡Atrápame con tus tablas!",
+                "intro": "¡Forma grupos iguales y reparte mis bombones!",
                 "hit": "¡Menudo salto de cálculo!",
                 "defeat": "¡Has llegado antes que yo! ¡Buen dominio de las tablas!"
             }
         },
-        theory: {
-            title: "Las Grandes Tablas",
-            content: `
-                <p>Multiplicar por números mayores sigue las mismas reglas:</p>
-                <div class="theory-visual">
-                    <span>$$7 \\times 8 = 56$$</span>
-                    <span>$$9 \\times 6 = 54$$</span>
-                </div>
-                <div class="theory-tip">💡 <strong>Truco del 9:</strong> Los dígitos de los resultados de la tabla del 9 siempre suman 9 ($18 \\to 1+8=9$, $27 \\to 2+7=9$, $54 \\to 5+4=9$).</div>
-                <p>Multiplicar por $10$ es simplemente agregar un cero al final ($14 \\times 10 = 140$).</p>
-            `
+        "theory": {
+            "title": "Los repartos del caballo",
+            "content": "<p><strong>3.º básico.</strong> Domina las tablas hasta 10 y sus divisiones.</p><h3>Filas y columnas</h3><p>Tres filas de cuatro bombones son 3 × 4 = 12. Girar el arreglo muestra 4 × 3: la cantidad no cambia. <span class=\"curriculum-tiles\" role=\"img\" aria-label=\"3 filas de 4 casillas; 12 coloreadas\" style=\"--tile-columns:4\"><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span></span></p><h3>Repartir y agrupar</h3><p>24 bombones repartidos entre 6 caballos dan 4 a cada uno: 24 ÷ 6 = 4. Si haces grupos de 6, obtienes 4 grupos. La multiplicación comprueba la división: 4 × 6 = 24.</p><h3>Construir las tablas</h3><p>Para 7 × 6, separa cinco grupos y dos grupos: 5 × 6 + 2 × 6 = 30 + 12 = 42. Multiplicar por 1 deja la cantidad; multiplicar por 0 da cero. Aquí todas las divisiones son exactas y el divisor nunca es cero.</p>"
         },
-        questions: [
+        "questions": [
             {
-                prompt: "Calcula: $7 \\times 8$",
-                options: ["54", "56", "58", "64"],
-                correct: 1,
-                explanation: "$7 \\times 8 = 56$. ¡Una de las multiplicaciones clásicas!",
-                hint: "5, 6, 7, 8 $\\to$ 56 = 7 x 8."
+                "id": "w3-l11-q1",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "tablas hasta 10",
+                "prompt": "El caballo prepara 3 filas de 4 bombones. ¿Cuántos bombones prepara?",
+                "options": [
+                    "12",
+                    "13",
+                    "11",
+                    "14"
+                ],
+                "correct": 0,
+                "explanation": "3 × 4 = 12. Usa grupos iguales, una tabla conocida o separa los grupos.",
+                "hint": "Usa grupos iguales, una tabla conocida o separa los grupos.",
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        3,
+                        4
+                    ]
+                }
             },
             {
-                prompt: "Calcula: $9 \\times 9$",
-                options: ["81", "72", "90", "89"],
-                correct: 0,
-                explanation: "$9 \\times 9 = 81$.",
-                hint: "Nueve al cuadrado."
+                "id": "w3-l11-q2",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "tablas hasta 10",
+                "prompt": "El caballo prepara 6 filas de 6 bombones. ¿Cuántos bombones prepara?",
+                "options": [
+                    "36",
+                    "37",
+                    "35",
+                    "38"
+                ],
+                "correct": 0,
+                "explanation": "6 × 6 = 36. Usa grupos iguales, una tabla conocida o separa los grupos.",
+                "hint": "Usa grupos iguales, una tabla conocida o separa los grupos.",
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        6,
+                        6
+                    ]
+                }
             },
             {
-                prompt: "Calcula: $12 \\times 10$",
-                options: ["120", "102", "1200", "22"],
-                correct: 0,
-                explanation: "Al multiplicar por 10 agregamos un cero: $12 \\times 10 = 120$.",
-                hint: "Agrega un cero al final del 12."
+                "id": "w3-l11-q3",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "tablas hasta 10",
+                "prompt": "El caballo prepara 7 filas de 8 bombones. ¿Cuántos bombones prepara?",
+                "options": [
+                    "56",
+                    "57",
+                    "55",
+                    "58"
+                ],
+                "correct": 0,
+                "explanation": "7 × 8 = 56. Usa grupos iguales, una tabla conocida o separa los grupos.",
+                "hint": "Usa grupos iguales, una tabla conocida o separa los grupos.",
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        7,
+                        8
+                    ]
+                }
             },
             {
-                prompt: "Calcula: $6 \\times 7$",
-                options: ["40", "42", "44", "48"],
-                correct: 1,
-                explanation: "$6 \\times 7 = 42$.",
-                hint: "Seis veces siete."
+                "id": "w3-l11-q4",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "tablas hasta 10",
+                "prompt": "El caballo prepara 8 filas de 9 bombones. ¿Cuántos bombones prepara?",
+                "options": [
+                    "72",
+                    "73",
+                    "71",
+                    "74"
+                ],
+                "correct": 0,
+                "explanation": "8 × 9 = 72. Usa grupos iguales, una tabla conocida o separa los grupos.",
+                "hint": "Usa grupos iguales, una tabla conocida o separa los grupos.",
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        8,
+                        9
+                    ]
+                }
             },
             {
-                prompt: "Calcula: $8 \\times 9$",
-                options: ["72", "74", "81", "68"],
-                correct: 0,
-                explanation: "$8 \\times 9 = 72$.",
-                hint: "Uno menos que $9 \\times 9 = 81$."
+                "id": "w3-l11-q5",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "tablas hasta 10",
+                "prompt": "El caballo prepara 9 filas de 7 bombones. ¿Cuántos bombones prepara?",
+                "options": [
+                    "63",
+                    "64",
+                    "62",
+                    "65"
+                ],
+                "correct": 0,
+                "explanation": "9 × 7 = 63. Usa grupos iguales, una tabla conocida o separa los grupos.",
+                "hint": "Usa grupos iguales, una tabla conocida o separa los grupos.",
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        9,
+                        7
+                    ]
+                }
+            },
+            {
+                "id": "w3-l11-q6",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "tablas hasta 10",
+                "prompt": "El caballo prepara 6 filas de 9 bombones. ¿Cuántos bombones prepara?",
+                "options": [
+                    "54",
+                    "55",
+                    "53",
+                    "56"
+                ],
+                "correct": 0,
+                "explanation": "6 × 9 = 54. Usa grupos iguales, una tabla conocida o separa los grupos.",
+                "hint": "Usa grupos iguales, una tabla conocida o separa los grupos.",
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        6,
+                        9
+                    ]
+                }
+            },
+            {
+                "id": "w3-l11-q7",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "tablas hasta 10",
+                "prompt": "El caballo prepara 7 filas de 6 bombones. ¿Cuántos bombones prepara?",
+                "options": [
+                    "42",
+                    "43",
+                    "41",
+                    "44"
+                ],
+                "correct": 0,
+                "explanation": "7 × 6 = 42. Usa grupos iguales, una tabla conocida o separa los grupos.",
+                "hint": "Usa grupos iguales, una tabla conocida o separa los grupos.",
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        7,
+                        6
+                    ]
+                }
+            },
+            {
+                "id": "w3-l11-q8",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "tablas hasta 10",
+                "prompt": "El caballo prepara 10 filas de 10 bombones. ¿Cuántos bombones prepara?",
+                "options": [
+                    "100",
+                    "101",
+                    "99",
+                    "102"
+                ],
+                "correct": 0,
+                "explanation": "10 × 10 = 100. Usa grupos iguales, una tabla conocida o separa los grupos.",
+                "hint": "Usa grupos iguales, una tabla conocida o separa los grupos.",
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        10,
+                        10
+                    ]
+                }
+            },
+            {
+                "id": "w3-l11-q9",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "tablas hasta 10",
+                "prompt": "El caballo prepara 8 filas de 1 bombones. ¿Cuántos bombones prepara?",
+                "options": [
+                    "8",
+                    "9",
+                    "7",
+                    "10"
+                ],
+                "correct": 0,
+                "explanation": "8 × 1 = 8. Usa grupos iguales, una tabla conocida o separa los grupos.",
+                "hint": "Usa grupos iguales, una tabla conocida o separa los grupos.",
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        8,
+                        1
+                    ]
+                }
+            },
+            {
+                "id": "w3-l11-q10",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "tablas hasta 10",
+                "prompt": "El caballo prepara 5 filas de 0 bombones. ¿Cuántos bombones prepara?",
+                "options": [
+                    "0",
+                    "1",
+                    "2",
+                    "5"
+                ],
+                "correct": 0,
+                "explanation": "5 × 0 = 0. Usa grupos iguales, una tabla conocida o separa los grupos.",
+                "hint": "Usa grupos iguales, una tabla conocida o separa los grupos.",
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        5,
+                        0
+                    ]
+                }
+            },
+            {
+                "id": "w3-l11-q11",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "división exacta",
+                "prompt": "El caballo reparte 24 bombones por igual entre 6 piezas. ¿Cuántos recibe cada pieza?",
+                "options": [
+                    "4",
+                    "5",
+                    "3",
+                    "6"
+                ],
+                "correct": 0,
+                "explanation": "24 ÷ 6 = 4. Busca qué número multiplicado por la cantidad de piezas da el total.",
+                "hint": "Busca qué número multiplicado por la cantidad de piezas da el total.",
+                "calculation": {
+                    "operation": "divide",
+                    "operands": [
+                        24,
+                        6
+                    ]
+                }
+            },
+            {
+                "id": "w3-l11-q12",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "división exacta",
+                "prompt": "El caballo reparte 42 bombones por igual entre 7 piezas. ¿Cuántos recibe cada pieza?",
+                "options": [
+                    "6",
+                    "7",
+                    "5",
+                    "8"
+                ],
+                "correct": 0,
+                "explanation": "42 ÷ 7 = 6. Busca qué número multiplicado por la cantidad de piezas da el total.",
+                "hint": "Busca qué número multiplicado por la cantidad de piezas da el total.",
+                "calculation": {
+                    "operation": "divide",
+                    "operands": [
+                        42,
+                        7
+                    ]
+                }
+            },
+            {
+                "id": "w3-l11-q13",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "división exacta",
+                "prompt": "El caballo reparte 56 bombones por igual entre 8 piezas. ¿Cuántos recibe cada pieza?",
+                "options": [
+                    "7",
+                    "8",
+                    "6",
+                    "9"
+                ],
+                "correct": 0,
+                "explanation": "56 ÷ 8 = 7. Busca qué número multiplicado por la cantidad de piezas da el total.",
+                "hint": "Busca qué número multiplicado por la cantidad de piezas da el total.",
+                "calculation": {
+                    "operation": "divide",
+                    "operands": [
+                        56,
+                        8
+                    ]
+                }
+            },
+            {
+                "id": "w3-l11-q14",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "división exacta",
+                "prompt": "El caballo reparte 72 bombones por igual entre 9 piezas. ¿Cuántos recibe cada pieza?",
+                "options": [
+                    "8",
+                    "9",
+                    "7",
+                    "10"
+                ],
+                "correct": 0,
+                "explanation": "72 ÷ 9 = 8. Busca qué número multiplicado por la cantidad de piezas da el total.",
+                "hint": "Busca qué número multiplicado por la cantidad de piezas da el total.",
+                "calculation": {
+                    "operation": "divide",
+                    "operands": [
+                        72,
+                        9
+                    ]
+                }
+            },
+            {
+                "id": "w3-l11-q15",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "división exacta",
+                "prompt": "El caballo reparte 63 bombones por igual entre 7 piezas. ¿Cuántos recibe cada pieza?",
+                "options": [
+                    "9",
+                    "10",
+                    "8",
+                    "11"
+                ],
+                "correct": 0,
+                "explanation": "63 ÷ 7 = 9. Busca qué número multiplicado por la cantidad de piezas da el total.",
+                "hint": "Busca qué número multiplicado por la cantidad de piezas da el total.",
+                "calculation": {
+                    "operation": "divide",
+                    "operands": [
+                        63,
+                        7
+                    ]
+                }
+            },
+            {
+                "id": "w3-l11-q16",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "división exacta",
+                "prompt": "El caballo reparte 36 bombones por igual entre 4 piezas. ¿Cuántos recibe cada pieza?",
+                "options": [
+                    "9",
+                    "10",
+                    "8",
+                    "11"
+                ],
+                "correct": 0,
+                "explanation": "36 ÷ 4 = 9. Busca qué número multiplicado por la cantidad de piezas da el total.",
+                "hint": "Busca qué número multiplicado por la cantidad de piezas da el total.",
+                "calculation": {
+                    "operation": "divide",
+                    "operands": [
+                        36,
+                        4
+                    ]
+                }
+            },
+            {
+                "id": "w3-l11-q17",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "división exacta",
+                "prompt": "El caballo reparte 90 bombones por igual entre 10 piezas. ¿Cuántos recibe cada pieza?",
+                "options": [
+                    "9",
+                    "10",
+                    "8",
+                    "11"
+                ],
+                "correct": 0,
+                "explanation": "90 ÷ 10 = 9. Busca qué número multiplicado por la cantidad de piezas da el total.",
+                "hint": "Busca qué número multiplicado por la cantidad de piezas da el total.",
+                "calculation": {
+                    "operation": "divide",
+                    "operands": [
+                        90,
+                        10
+                    ]
+                }
+            },
+            {
+                "id": "w3-l11-q18",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "división exacta",
+                "prompt": "El caballo reparte 48 bombones por igual entre 6 piezas. ¿Cuántos recibe cada pieza?",
+                "options": [
+                    "8",
+                    "9",
+                    "7",
+                    "10"
+                ],
+                "correct": 0,
+                "explanation": "48 ÷ 6 = 8. Busca qué número multiplicado por la cantidad de piezas da el total.",
+                "hint": "Busca qué número multiplicado por la cantidad de piezas da el total.",
+                "calculation": {
+                    "operation": "divide",
+                    "operands": [
+                        48,
+                        6
+                    ]
+                }
+            },
+            {
+                "id": "w3-l11-q19",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "agrupación",
+                "prompt": "Hay 35 bombones. Si guardas 5 en cada bolsa, ¿cuántas bolsas completas obtienes?",
+                "options": [
+                    "7",
+                    "5",
+                    "6",
+                    "8"
+                ],
+                "correct": 0,
+                "explanation": "35 ÷ 5 = 7 bolsas.",
+                "hint": "Cuenta cuántos grupos de cinco caben."
+            },
+            {
+                "id": "w3-l11-q20",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "operaciones inversas",
+                "prompt": "Si 8 × 7 = 56, ¿cuánto es 56 ÷ 7?",
+                "options": [
+                    "8",
+                    "7",
+                    "9",
+                    "49"
+                ],
+                "correct": 0,
+                "explanation": "La división deshace la multiplicación: 56 ÷ 7 = 8.",
+                "hint": "Usa la multiplicación que ya conoces."
             }
+        ],
+        "grade": 3,
+        "skills": [
+            "tablas hasta 10",
+            "división exacta",
+            "agrupación",
+            "operaciones inversas"
         ]
     },
     {
-        id: 12,
-        worldId: "world-3",
-        title: "La División: El Reparto",
-        subtitle: "Operación inversa de la multiplicación",
-        icon: "♝",
-        hasEnemy: true,
-        enemy: {
+        "id": 12,
+        "worldId": "world-3",
+        "title": "El mapa del alfil",
+        "subtitle": "3.º básico · Explora fracciones, cuerpos, ángulos y perímetros.",
+        "icon": "♝",
+        "hasEnemy": true,
+        "enemy": {
             "id": "alfil_caramelo",
             "name": "Alfil de Caramelo",
             "title": "Maestro del Reparto Real",
@@ -2002,70 +5274,359 @@ var LEVELS_DATA = [
             "streakBonus": 0.5,
             "mechanicType": "slap",
             "mechanicTitle": "Duelo de Golosinas",
-            "mechanicDesc": "¡Reparte las cantidades por igual para vencer al alfil!",
+            "mechanicDesc": "¡Explora fracciones y figuras para encontrar la siguiente casilla!",
             "dialogue": {
-                "intro": "¡En mi reino todos reciben la misma cantidad! ¿Sabes repartir?",
+                "intro": "¡Sigue mi mapa y descubre las partes de cada golosina!",
                 "hit": "¡Has repartido mis caramelos con precisión!",
-                "defeat": "¡Un reparto perfecto! La siguiente casilla es tuya."
+                "defeat": "¡Has encontrado el camino! La siguiente casilla es tuya."
             }
         },
-        theory: {
-            title: "¿Qué es Dividir?",
-            content: `
-                <p>Dividir es <strong>repartir una cantidad en partes iguales</strong>. Es la operación hermana inversa de multiplicar.</p>
-                <div class="theory-visual">
-                    <span>$$a \\div b = c \\iff c \\times b = a$$</span>
-                    <span>$$24 \\div 6 = 4 \\quad (\\text{porque } 4 \\times 6 = 24)$$</span>
-                </div>
-                <div class="theory-tip">⚠️ <strong>Regla de oro:</strong> ¡NUNCA se puede dividir entre cero ($x \\div 0$ no está definido)!</div>
-            `
+        "theory": {
+            "title": "El mapa del alfil",
+            "content": "<p><strong>3.º básico.</strong> Explora fracciones, cuerpos, ángulos y perímetros.</p><h3>Partes iguales</h3><p>Una fracción indica cuántas partes iguales tomas. 1/4 es una de cuatro; 3/4 son tres de cuatro. <span class=\"curriculum-tiles\" role=\"img\" aria-label=\"1 filas de 4 casillas; 3 coloreadas\" style=\"--tile-columns:4\"><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"\"></span></span> Al comparar partes del mismo entero con igual denominador, tres cuartos son más que un cuarto porque tomas más partes del mismo tamaño. Una de dos partes iguales es 1/2; una de tres es 1/3.</p><h3>Figuras y mapas</h3><p>Los cuerpos tienen caras, aristas y vértices. Un cubo tiene 6 caras, 12 aristas y 8 vértices. Una red de seis cuadrados, colocados para plegarse sin superponerse, puede formar un cubo. En un mapa usa una casilla como referencia y sigue las direcciones indicadas.</p><h3>Giros y bordes</h3><p>Un ángulo recto mide 90°; la mitad, 45°. Una traslación desliza una figura, una rotación la gira y una reflexión la muestra como en un espejo. El perímetro es la suma de los lados: un rectángulo de 5 y 3 cm tiene 5 + 3 + 5 + 3 = 16 cm.</p>"
         },
-        questions: [
+        "questions": [
             {
-                prompt: "Calcula: $36 \\div 6$",
-                options: ["5", "6", "7", "8"],
-                correct: 1,
-                explanation: "$36 \\div 6 = 6$ porque $6 \\times 6 = 36$.",
-                hint: "¿Qué número multiplicado por 6 da 36?"
+                "id": "w3-l12-q1",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "fracciones",
+                "prompt": "<span class=\"curriculum-tiles\" role=\"img\" aria-label=\"1 filas de 4 casillas; 1 coloreadas\" style=\"--tile-columns:4\"><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"\"></span><span aria-hidden=\"true\" class=\"\"></span><span aria-hidden=\"true\" class=\"\"></span></span>Una tableta tiene cuatro partes iguales y una coloreada. ¿Qué fracción está coloreada?",
+                "options": [
+                    "1/4",
+                    "1/2",
+                    "3/4",
+                    "1/3"
+                ],
+                "correct": 0,
+                "explanation": "Se coloreó una de cuatro partes iguales: un cuarto.",
+                "hint": "El denominador cuenta todas las partes iguales."
             },
             {
-                prompt: "Si repartes 28 pociones entre 4 magos por igual, ¿cuántas recibe cada uno?",
-                options: ["6", "7", "8", "9"],
-                correct: 1,
-                explanation: "$28 \\div 4 = 7$ pociones.",
-                hint: "$4 \\times 7 = 28$."
+                "id": "w3-l12-q2",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "fracciones",
+                "prompt": "<span class=\"curriculum-tiles\" role=\"img\" aria-label=\"1 filas de 3 casillas; 2 coloreadas\" style=\"--tile-columns:3\"><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"\"></span></span>Dos de tres partes iguales de una golosina están coloreadas. ¿Qué fracción representan?",
+                "options": [
+                    "2/3",
+                    "1/3",
+                    "3/4",
+                    "1/2"
+                ],
+                "correct": 0,
+                "explanation": "Son dos partes tomadas de un total de tres.",
+                "hint": "El numerador indica las partes tomadas."
             },
             {
-                prompt: "Calcula: $45 \\div 5$",
-                options: ["8", "9", "10", "7"],
-                correct: 1,
-                explanation: "$45 \\div 5 = 9$.",
-                hint: "¿Cuántas veces cabe 5 en 45?"
+                "id": "w3-l12-q3",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "fracciones",
+                "prompt": "El alfil divide una galleta en dos partes iguales y toma una. ¿Qué fracción toma?",
+                "options": [
+                    "1/2",
+                    "1/3",
+                    "1/4",
+                    "3/4"
+                ],
+                "correct": 0,
+                "explanation": "Una de dos partes iguales es una mitad.",
+                "hint": "Primero cuenta todas las partes iguales."
             },
             {
-                prompt: "¿Cuánto es $0 \\div 8$?",
-                options: ["0", "8", "1", "Indefinido"],
-                correct: 0,
-                explanation: "Si tienes 0 caramelos y los repartes entre 8 amigos, cada uno recibe 0 caramelos.",
-                hint: "Cero repartido entre cualquier número distinto de cero es cero."
+                "id": "w3-l12-q4",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "comparar fracciones",
+                "prompt": "De dos tabletas iguales, ¿qué porción es mayor: 3/4 o 1/4?",
+                "options": [
+                    "3/4",
+                    "1/4",
+                    "son iguales",
+                    "no se puede comparar"
+                ],
+                "correct": 0,
+                "explanation": "Tres cuartos son más que un cuarto del mismo entero.",
+                "hint": "Las partes tienen el mismo tamaño: compara cuántas tomas."
             },
             {
-                prompt: "Calcula: $63 \\div 9$",
-                options: ["6", "7", "8", "9"],
-                correct: 1,
-                explanation: "$63 \\div 9 = 7$ porque $7 \\times 9 = 63$.",
-                hint: "Revisa la tabla del 9."
+                "id": "w3-l12-q5",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "comparar fracciones",
+                "prompt": "En una misma tableta, ¿qué porción es menor: 1/3 o 2/3?",
+                "options": [
+                    "1/3",
+                    "2/3",
+                    "son iguales",
+                    "las dos son el entero"
+                ],
+                "correct": 0,
+                "explanation": "Una de tres partes es menos que dos de esas mismas partes.",
+                "hint": "Ambas porciones usan tercios iguales."
+            },
+            {
+                "id": "w3-l12-q6",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "fracciones",
+                "prompt": "<span class=\"curriculum-tiles\" role=\"img\" aria-label=\"1 filas de 3 casillas; 1 coloreadas\" style=\"--tile-columns:3\"><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"\"></span><span aria-hidden=\"true\" class=\"\"></span></span>Una de tres partes iguales de la galleta está coloreada. ¿Qué fracción representa?",
+                "options": [
+                    "1/3",
+                    "1/4",
+                    "1/2",
+                    "2/3"
+                ],
+                "correct": 0,
+                "explanation": "Una parte tomada de tres partes iguales es un tercio.",
+                "hint": "Cuenta todas las partes y luego las coloreadas."
+            },
+            {
+                "id": "w3-l12-q7",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "fracciones de uso común",
+                "prompt": "<span class=\"curriculum-tiles\" role=\"img\" aria-label=\"1 filas de 4 casillas; 3 coloreadas\" style=\"--tile-columns:4\"><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"\"></span></span>Tres partes de una tableta dividida en cuatro partes iguales representan…",
+                "options": [
+                    "3/4",
+                    "1/4",
+                    "2/3",
+                    "1/2"
+                ],
+                "correct": 0,
+                "explanation": "Tres de cuatro partes iguales son tres cuartos.",
+                "hint": "Cuenta las partes coloreadas y el total."
+            },
+            {
+                "id": "w3-l12-q8",
+                "grade": 3,
+                "axis": "Geometría",
+                "skill": "mapas",
+                "prompt": "En un mapa, el alfil parte en B2 y avanza una columna a la derecha, sin cambiar de fila. ¿Dónde llega?",
+                "options": [
+                    "C2",
+                    "A2",
+                    "B3",
+                    "C3"
+                ],
+                "correct": 0,
+                "explanation": "La columna que sigue a B es C; la fila permanece en 2.",
+                "hint": "Solo cambia la columna."
+            },
+            {
+                "id": "w3-l12-q9",
+                "grade": 3,
+                "axis": "Geometría",
+                "skill": "mapas",
+                "prompt": "Las filas del mapa aumentan hacia arriba. Desde C2, sube dos casillas. ¿Dónde llega?",
+                "options": [
+                    "C4",
+                    "C3",
+                    "A2",
+                    "E2"
+                ],
+                "correct": 0,
+                "explanation": "La columna sigue siendo C y la fila aumenta de 2 a 4.",
+                "hint": "No cambies la columna."
+            },
+            {
+                "id": "w3-l12-q10",
+                "grade": 3,
+                "axis": "Geometría",
+                "skill": "cuerpos y redes",
+                "prompt": "Una red que se pliega para formar un cubo debe tener ¿cuántas caras cuadradas?",
+                "options": [
+                    "6",
+                    "4",
+                    "8",
+                    "12"
+                ],
+                "correct": 0,
+                "explanation": "El cubo tiene seis caras cuadradas.",
+                "hint": "Imagina las caras de un dado."
+            },
+            {
+                "id": "w3-l12-q11",
+                "grade": 3,
+                "axis": "Geometría",
+                "skill": "cuerpos y redes",
+                "prompt": "¿Cuántos vértices tiene la caja cúbica del alfil?",
+                "options": [
+                    "8",
+                    "6",
+                    "10",
+                    "12"
+                ],
+                "correct": 0,
+                "explanation": "Un cubo tiene ocho vértices: cuatro arriba y cuatro abajo.",
+                "hint": "Cuenta las esquinas en ambos niveles."
+            },
+            {
+                "id": "w3-l12-q12",
+                "grade": 3,
+                "axis": "Geometría",
+                "skill": "cuerpos y redes",
+                "prompt": "¿Qué cuerpo tiene dos bases circulares y una superficie curva, como una lata?",
+                "options": [
+                    "cilindro",
+                    "cono",
+                    "esfera",
+                    "cubo"
+                ],
+                "correct": 0,
+                "explanation": "El cilindro tiene dos bases circulares paralelas.",
+                "hint": "Piensa en una lata de golosinas."
+            },
+            {
+                "id": "w3-l12-q13",
+                "grade": 3,
+                "axis": "Geometría",
+                "skill": "ángulos",
+                "prompt": "La esquina recta del tablero sirve de referencia. ¿Cuántos grados mide?",
+                "options": [
+                    "90",
+                    "45",
+                    "60",
+                    "180"
+                ],
+                "correct": 0,
+                "explanation": "Un ángulo recto mide noventa grados.",
+                "hint": "Es la esquina de un cuadrado."
+            },
+            {
+                "id": "w3-l12-q14",
+                "grade": 3,
+                "axis": "Geometría",
+                "skill": "ángulos",
+                "prompt": "Un giro mide la mitad de un ángulo recto. ¿Cuántos grados son?",
+                "options": [
+                    "45",
+                    "90",
+                    "30",
+                    "180"
+                ],
+                "correct": 0,
+                "explanation": "La mitad de 90 es 45 grados.",
+                "hint": "Divide noventa en dos partes iguales."
+            },
+            {
+                "id": "w3-l12-q15",
+                "grade": 3,
+                "axis": "Geometría",
+                "skill": "transformaciones",
+                "prompt": "Una ficha se desliza tres casillas sin girar ni voltearse. ¿Qué movimiento hizo?",
+                "options": [
+                    "traslación",
+                    "rotación",
+                    "reflexión",
+                    "cambio de tamaño"
+                ],
+                "correct": 0,
+                "explanation": "Deslizar sin cambiar orientación es una traslación.",
+                "hint": "Observa si la ficha gira o solo cambia de lugar."
+            },
+            {
+                "id": "w3-l12-q16",
+                "grade": 3,
+                "axis": "Geometría",
+                "skill": "transformaciones",
+                "prompt": "El alfil gira una figura alrededor de un punto. ¿Qué transformación realiza?",
+                "options": [
+                    "rotación",
+                    "traslación",
+                    "reflexión",
+                    "cambio de tamaño"
+                ],
+                "correct": 0,
+                "explanation": "Girar alrededor de un punto es una rotación.",
+                "hint": "Identifica el movimiento de giro."
+            },
+            {
+                "id": "w3-l12-q17",
+                "grade": 3,
+                "axis": "Geometría",
+                "skill": "transformaciones",
+                "prompt": "El dibujo de una ficha aparece invertido como en un espejo. ¿Qué transformación es?",
+                "options": [
+                    "reflexión",
+                    "rotación",
+                    "traslación",
+                    "cambio de tamaño"
+                ],
+                "correct": 0,
+                "explanation": "La imagen de espejo es una reflexión.",
+                "hint": "Piensa en lo que muestra un espejo."
+            },
+            {
+                "id": "w3-l12-q18",
+                "grade": 3,
+                "axis": "Medición",
+                "skill": "perímetro",
+                "prompt": "Un jardín cuadrado de caramelos tiene lados de 4 cm. ¿Cuántos centímetros mide su perímetro?",
+                "options": [
+                    "16",
+                    "8",
+                    "12",
+                    "20"
+                ],
+                "correct": 0,
+                "explanation": "El borde suma 4 + 4 + 4 + 4 = 16 cm.",
+                "hint": "Suma los cuatro lados."
+            },
+            {
+                "id": "w3-l12-q19",
+                "grade": 3,
+                "axis": "Medición",
+                "skill": "perímetro",
+                "prompt": "Un tablero rectangular mide 5 cm por 3 cm. ¿Cuántos centímetros mide todo su borde?",
+                "options": [
+                    "16",
+                    "8",
+                    "15",
+                    "10"
+                ],
+                "correct": 0,
+                "explanation": "El perímetro es 5 + 3 + 5 + 3 = 16 cm.",
+                "hint": "Incluye los cuatro lados, no solo dos."
+            },
+            {
+                "id": "w3-l12-q20",
+                "grade": 3,
+                "axis": "Medición",
+                "skill": "perímetro",
+                "prompt": "Un sendero triangular tiene lados de 3, 4 y 5 m. ¿Cuántos metros mide su perímetro?",
+                "options": [
+                    "12",
+                    "7",
+                    "9",
+                    "20"
+                ],
+                "correct": 0,
+                "explanation": "3 + 4 + 5 = 12 metros.",
+                "hint": "Suma todos los lados del sendero."
             }
+        ],
+        "grade": 3,
+        "skills": [
+            "fracciones",
+            "comparar fracciones",
+            "fracciones de uso común",
+            "mapas",
+            "cuerpos y redes",
+            "ángulos",
+            "transformaciones",
+            "perímetro"
         ]
     },
     {
-        id: 13,
-        worldId: "world-3",
-        title: "Jerarquía de Operaciones",
-        subtitle: "El orden estricto de la matemática (PEMDAS)",
-        icon: "♜",
-        hasEnemy: true,
-        enemy: {
+        "id": 13,
+        "worldId": "world-3",
+        "title": "La torre de los registros",
+        "subtitle": "3.º básico · Lee horas, compara masas e investiga datos del reino.",
+        "icon": "♜",
+        "hasEnemy": true,
+        "enemy": {
             "id": "torre_barquillo",
             "name": "Torre de Barquillo",
             "title": "Fortaleza de las Operaciones",
@@ -2080,74 +5641,362 @@ var LEVELS_DATA = [
             "streakBonus": 0.5,
             "mechanicType": "slap",
             "mechanicTitle": "Duelo de Golosinas",
-            "mechanicDesc": "¡Respeta el orden de las operaciones para derribar su defensa!",
+            "mechanicDesc": "¡Interpreta medidas y datos para derribar mi defensa!",
             "dialogue": {
-                "intro": "¡Mi defensa tiene varias capas! ¡Resuelve cada operación en orden!",
+                "intro": "¡Lee los registros de mi torre dulce!",
                 "hit": "¡Se ha roto una capa de mi escudo!",
-                "defeat": "¡Has encontrado el orden correcto! El palacio de la reina te espera."
+                "defeat": "¡Has leído mis registros! El palacio de la reina te espera."
             }
         },
-        theory: {
-            title: "El Orden Sagrado (PEMDAS)",
-            content: `
-                <p>Cuando varias operaciones conviven, hay una jerarquía estricta que debemos respetar:</p>
-                <ol>
-                    <li><strong>P</strong>aréntesis: Lo que esté dentro de $( )$ se resuelve primero.</li>
-                    <li><strong>E</strong>xponentes y raíces: $x^2, \\sqrt{x}$.</li>
-                    <li><strong>M</strong>ultiplicación y <strong>D</strong>ivisión: De izquierda a derecha.</li>
-                    <li><strong>A</strong>dición (Suma) y <strong>S</strong>ustracción (Resta): Al final, de izquierda a derecha.</li>
-                </ol>
-                <div class="theory-visual">
-                    <span>$$3 + 4 \\times 2 = 3 + 8 = 11 \\neq 14$$</span>
-                </div>
-            `
+        "theory": {
+            "title": "La torre de los registros",
+            "content": "<p><strong>3.º básico.</strong> Lee horas, compara masas e investiga datos del reino.</p><h3>Tiempo y longitud</h3><p>Un reloj digital 4:15 marca las cuatro y cuarto. En el análogo la aguja corta indica la hora y la larga los minutos; cada salto entre números vale 5 minutos. Entre 3:20 y 3:45 pasan 25 minutos. Para medir largo, alinea el cero de la regla.</p><h3>Masa</h3><p>Usa gramos para una golosina y kilogramos para un saco. 1 kg equivale a 1.000 g. Para comparar, expresa las medidas en la misma unidad.</p><h3>Encuestas y registros</h3><p>Una encuesta recoge respuestas a una pregunta. Lee la escala: aquí cada punto vale cinco golosinas. <div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Golosinas del reino · cada ● representa 5</caption><thead><tr><th scope=\"col\">Pieza</th><th scope=\"col\">Registro</th></tr></thead><tbody><tr><th scope=\"row\">Peón</th><td>● ●</td></tr><tr><th scope=\"row\">Caballo</th><td>● ● ● ●</td></tr><tr><th scope=\"row\">Alfil</th><td>● ● ●</td></tr></tbody></table></div> Un diagrama de puntos registra cuántas veces aparece cada valor. <div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Puntos por cantidad de golosinas · cada × representa 1 bolsa</caption><thead><tr><th scope=\"col\">Golosinas en la bolsa</th><th scope=\"col\">Bolsas</th></tr></thead><tbody><tr><th scope=\"row\">2</th><td>× ×</td></tr><tr><th scope=\"row\">3</th><td>× × ×</td></tr><tr><th scope=\"row\">4</th><td>×</td></tr></tbody></table></div></p><h3>Experimentos</h3><p>Al lanzar una moneda puedes registrar cara y sello. Los resultados observados no garantizan el siguiente resultado. Aquí leemos y comparamos registros; no necesitamos calcular porcentajes ni probabilidades formales.</p>"
         },
-        questions: [
+        "questions": [
             {
-                prompt: "Calcula: $3 + 5 \\times 2$",
-                options: ["16", "13", "10", "15"],
-                correct: 1,
-                explanation: "Primero se multiplica: $5 \\times 2 = 10$. Luego se suma: $3 + 10 = 13$.",
-                hint: "La multiplicación tiene prioridad sobre la suma."
+                "id": "w3-l13-q1",
+                "grade": 3,
+                "axis": "Medición",
+                "skill": "reloj",
+                "prompt": "La torre muestra 4:15. ¿Cómo se lee esa hora?",
+                "options": [
+                    "cuatro y cuarto",
+                    "cuatro y media",
+                    "cuatro en punto",
+                    "cinco y cuarto"
+                ],
+                "correct": 0,
+                "explanation": "Quince minutos son un cuarto de hora.",
+                "hint": "Lee la hora y luego los minutos."
             },
             {
-                prompt: "Calcula: $(3 + 5) \\times 2$",
-                options: ["13", "16", "11", "20"],
-                correct: 1,
-                explanation: "El paréntesis rompe la prioridad: primero $3 + 5 = 8$, luego $8 \\times 2 = 16$.",
-                hint: "Lo que está en paréntesis se resuelve primero."
+                "id": "w3-l13-q2",
+                "grade": 3,
+                "axis": "Medición",
+                "skill": "reloj",
+                "prompt": "En el reloj de la torre la aguja larga apunta al 6 y la corta está entre 3 y 4. ¿Qué hora marca?",
+                "options": [
+                    "3:30",
+                    "6:15",
+                    "3:00",
+                    "4:30"
+                ],
+                "correct": 0,
+                "explanation": "La aguja larga en seis indica treinta minutos; la hora es tres y media.",
+                "hint": "La aguja larga marca los minutos."
             },
             {
-                prompt: "Calcula: $20 - 4 \\times 3 + 2$",
-                options: ["50", "10", "8", "14"],
-                correct: 1,
-                explanation: "Primero $4 \\times 3 = 12$. Luego de izquierda a derecha: $20 - 12 = 8$, y $8 + 2 = 10$.",
-                hint: "Primero calcula $4 \\times 3$."
+                "id": "w3-l13-q3",
+                "grade": 3,
+                "axis": "Medición",
+                "skill": "duración",
+                "prompt": "La guardia comienza a las 3:20 y termina a las 3:45. ¿Cuántos minutos dura?",
+                "options": [
+                    "25",
+                    "20",
+                    "15",
+                    "35"
+                ],
+                "correct": 0,
+                "explanation": "45 − 20 = 25 minutos; ambas horas son las tres.",
+                "hint": "Compara los minutos dentro de la misma hora."
             },
             {
-                prompt: "Calcula: $18 \\div 3 \\times 2$",
-                options: ["3", "12", "6", "9"],
-                correct: 1,
-                explanation: "División y multiplicación tienen igual rango; se resuelven de izquierda a derecha: $18 \\div 3 = 6$, y $6 \\times 2 = 12$.",
-                hint: "Al tener el mismo nivel, avanza de izquierda a derecha."
+                "id": "w3-l13-q4",
+                "grade": 3,
+                "axis": "Medición",
+                "skill": "reloj",
+                "prompt": "La aguja larga apunta al 3 y la corta está un poco después del 2. ¿Qué hora es?",
+                "options": [
+                    "2:15",
+                    "3:10",
+                    "2:30",
+                    "3:00"
+                ],
+                "correct": 0,
+                "explanation": "La aguja larga en tres marca quince minutos: son las dos y cuarto.",
+                "hint": "Cada salto de la aguja larga representa cinco minutos."
             },
             {
-                prompt: "Calcula: $2 + 3 \\times (4 - 1)$",
-                options: ["15", "11", "9", "12"],
-                correct: 1,
-                explanation: "Paréntesis: $4 - 1 = 3$. Multiplicación: $3 \\times 3 = 9$. Suma: $2 + 9 = 11$.",
-                hint: "Paréntesis primero, luego multiplica, al final suma."
+                "id": "w3-l13-q5",
+                "grade": 3,
+                "axis": "Medición",
+                "skill": "masa",
+                "prompt": "¿Cuántos gramos tiene un saco de 1 kg de golosinas?",
+                "options": [
+                    "1000",
+                    "100",
+                    "10",
+                    "500"
+                ],
+                "correct": 0,
+                "explanation": "Un kilogramo equivale a mil gramos.",
+                "hint": "Recuerda la equivalencia entre kilogramo y gramo."
+            },
+            {
+                "id": "w3-l13-q6",
+                "grade": 3,
+                "axis": "Medición",
+                "skill": "masa",
+                "prompt": "Una bolsa pesa 750 g y otra 500 g. ¿Cuántos gramos pesa la más pesada?",
+                "options": [
+                    "750",
+                    "500",
+                    "250",
+                    "700"
+                ],
+                "correct": 0,
+                "explanation": "Setecientos cincuenta gramos es mayor que quinientos.",
+                "hint": "Las dos medidas ya usan la misma unidad."
+            },
+            {
+                "id": "w3-l13-q7",
+                "grade": 3,
+                "axis": "Medición",
+                "skill": "masa",
+                "prompt": "Una bolsa de azúcar tiene 1 kg y otra 600 g. ¿Cuál tiene mayor masa?",
+                "options": [
+                    "la de 1 kg",
+                    "la de 600 g",
+                    "son iguales",
+                    "no se puede comparar"
+                ],
+                "correct": 0,
+                "explanation": "1 kg son 1.000 g, más que 600 g.",
+                "hint": "Convierte el kilogramo a gramos."
+            },
+            {
+                "id": "w3-l13-q8",
+                "grade": 3,
+                "axis": "Medición",
+                "skill": "masa",
+                "prompt": "El saco tenía 900 g de caramelos y se usaron 250 g. ¿Cuántos gramos quedan?",
+                "options": [
+                    "650",
+                    "750",
+                    "550",
+                    "850"
+                ],
+                "correct": 0,
+                "explanation": "900 − 250 = 650 gramos.",
+                "hint": "Resta la masa que se usó."
+            },
+            {
+                "id": "w3-l13-q9",
+                "grade": 3,
+                "axis": "Datos y probabilidades",
+                "skill": "pictograma con escala",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Golosinas del reino · cada ● representa 5</caption><thead><tr><th scope=\"col\">Pieza</th><th scope=\"col\">Registro</th></tr></thead><tbody><tr><th scope=\"row\">Peón</th><td>● ●</td></tr><tr><th scope=\"row\">Caballo</th><td>● ● ● ●</td></tr><tr><th scope=\"row\">Alfil</th><td>● ● ●</td></tr></tbody></table></div>¿Cuántas golosinas tiene el caballo?",
+                "options": [
+                    "20",
+                    "4",
+                    "10",
+                    "15"
+                ],
+                "correct": 0,
+                "explanation": "Cuatro puntos de cinco representan veinte golosinas.",
+                "hint": "Multiplica la cantidad de puntos por cinco."
+            },
+            {
+                "id": "w3-l13-q10",
+                "grade": 3,
+                "axis": "Datos y probabilidades",
+                "skill": "pictograma con escala",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Golosinas del reino · cada ● representa 5</caption><thead><tr><th scope=\"col\">Pieza</th><th scope=\"col\">Registro</th></tr></thead><tbody><tr><th scope=\"row\">Peón</th><td>● ●</td></tr><tr><th scope=\"row\">Caballo</th><td>● ● ● ●</td></tr><tr><th scope=\"row\">Alfil</th><td>● ● ●</td></tr></tbody></table></div>¿Cuántas golosinas tiene el alfil?",
+                "options": [
+                    "15",
+                    "3",
+                    "10",
+                    "20"
+                ],
+                "correct": 0,
+                "explanation": "Tres puntos de cinco representan quince.",
+                "hint": "Lee la escala del pictograma."
+            },
+            {
+                "id": "w3-l13-q11",
+                "grade": 3,
+                "axis": "Datos y probabilidades",
+                "skill": "comparar datos",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Golosinas del reino · cada ● representa 5</caption><thead><tr><th scope=\"col\">Pieza</th><th scope=\"col\">Registro</th></tr></thead><tbody><tr><th scope=\"row\">Peón</th><td>● ●</td></tr><tr><th scope=\"row\">Caballo</th><td>● ● ● ●</td></tr><tr><th scope=\"row\">Alfil</th><td>● ● ●</td></tr></tbody></table></div>¿Cuántas golosinas más tiene el caballo que el peón?",
+                "options": [
+                    "10",
+                    "2",
+                    "5",
+                    "15"
+                ],
+                "correct": 0,
+                "explanation": "El caballo tiene 20 y el peón 10: la diferencia es 10.",
+                "hint": "Convierte los puntos a golosinas antes de restar."
+            },
+            {
+                "id": "w3-l13-q12",
+                "grade": 3,
+                "axis": "Datos y probabilidades",
+                "skill": "gráfico de barras",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Bolsas preparadas · cada █ vale 2 bolsas</caption><thead><tr><th scope=\"col\">Turno</th><th scope=\"col\">Barra</th></tr></thead><tbody><tr><th scope=\"row\">Mañana</th><td>█ █ █</td></tr><tr><th scope=\"row\">Tarde</th><td>█ █ █ █</td></tr></tbody></table></div>¿Cuántas bolsas se prepararon en la tarde?",
+                "options": [
+                    "8",
+                    "4",
+                    "6",
+                    "10"
+                ],
+                "correct": 0,
+                "explanation": "Cuatro unidades de dos representan ocho bolsas.",
+                "hint": "Cada bloque vale dos bolsas."
+            },
+            {
+                "id": "w3-l13-q13",
+                "grade": 3,
+                "axis": "Datos y probabilidades",
+                "skill": "diagrama de puntos",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Puntos por cantidad de golosinas · cada × representa 1 bolsa</caption><thead><tr><th scope=\"col\">Golosinas en la bolsa</th><th scope=\"col\">Bolsas</th></tr></thead><tbody><tr><th scope=\"row\">2</th><td>× ×</td></tr><tr><th scope=\"row\">3</th><td>× × ×</td></tr><tr><th scope=\"row\">4</th><td>×</td></tr></tbody></table></div>¿Cuántas bolsas tienen 3 golosinas?",
+                "options": [
+                    "3",
+                    "2",
+                    "4",
+                    "6"
+                ],
+                "correct": 0,
+                "explanation": "En la fila del valor tres hay tres cruces: tres bolsas.",
+                "hint": "Cada cruz cuenta una bolsa, no una golosina."
+            },
+            {
+                "id": "w3-l13-q14",
+                "grade": 3,
+                "axis": "Datos y probabilidades",
+                "skill": "diagrama de puntos",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Puntos por cantidad de golosinas · cada × representa 1 bolsa</caption><thead><tr><th scope=\"col\">Golosinas en la bolsa</th><th scope=\"col\">Bolsas</th></tr></thead><tbody><tr><th scope=\"row\">2</th><td>× ×</td></tr><tr><th scope=\"row\">3</th><td>× × ×</td></tr><tr><th scope=\"row\">4</th><td>×</td></tr></tbody></table></div>¿Cuántas bolsas se registraron en total?",
+                "options": [
+                    "6",
+                    "3",
+                    "4",
+                    "9"
+                ],
+                "correct": 0,
+                "explanation": "Se registraron 2 + 3 + 1 = 6 bolsas.",
+                "hint": "Suma todas las cruces."
+            },
+            {
+                "id": "w3-l13-q15",
+                "grade": 3,
+                "axis": "Datos y probabilidades",
+                "skill": "encuesta",
+                "prompt": "La torre quiere saber la golosina favorita de sus guardias. ¿Qué pregunta debe hacer?",
+                "options": [
+                    "¿Qué golosina prefieres?",
+                    "¿Cuánto mides?",
+                    "¿Qué hora es?",
+                    "¿Cuántas puertas tiene la torre?"
+                ],
+                "correct": 0,
+                "explanation": "La pregunta recoge la preferencia que se desea investigar.",
+                "hint": "Relaciona la pregunta con la información buscada."
+            },
+            {
+                "id": "w3-l13-q16",
+                "grade": 3,
+                "axis": "Datos y probabilidades",
+                "skill": "encuesta",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Votos de los guardias</caption><thead><tr><th scope=\"col\">Golosina</th><th scope=\"col\">Votos</th></tr></thead><tbody><tr><th scope=\"row\">Caramelo</th><td>7</td></tr><tr><th scope=\"row\">Bombón</th><td>4</td></tr><tr><th scope=\"row\">Galleta</th><td>5</td></tr></tbody></table></div>¿Cuál obtuvo más votos?",
+                "options": [
+                    "caramelo",
+                    "bombón",
+                    "galleta",
+                    "todas igual"
+                ],
+                "correct": 0,
+                "explanation": "Caramelo obtuvo siete votos, la cantidad mayor.",
+                "hint": "Compara las tres frecuencias."
+            },
+            {
+                "id": "w3-l13-q17",
+                "grade": 3,
+                "axis": "Datos y probabilidades",
+                "skill": "registro de azar",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Moneda del reino</caption><thead><tr><th scope=\"col\">Resultado</th><th scope=\"col\">Veces</th></tr></thead><tbody><tr><th scope=\"row\">Cara</th><td>6</td></tr><tr><th scope=\"row\">Sello</th><td>4</td></tr></tbody></table></div>¿Cuántos lanzamientos se registraron?",
+                "options": [
+                    "10",
+                    "6",
+                    "4",
+                    "12"
+                ],
+                "correct": 0,
+                "explanation": "Seis caras más cuatro sellos suman diez lanzamientos.",
+                "hint": "Suma las dos frecuencias."
+            },
+            {
+                "id": "w3-l13-q18",
+                "grade": 3,
+                "axis": "Datos y probabilidades",
+                "skill": "registro de azar",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Moneda de la torre</caption><thead><tr><th scope=\"col\">Resultado</th><th scope=\"col\">Veces</th></tr></thead><tbody><tr><th scope=\"row\">Cara</th><td>3</td></tr><tr><th scope=\"row\">Sello</th><td>7</td></tr></tbody></table></div>¿Qué resultado ocurrió más veces?",
+                "options": [
+                    "sello",
+                    "cara",
+                    "ambos igual",
+                    "ninguno"
+                ],
+                "correct": 0,
+                "explanation": "Sello ocurrió siete veces, más que tres.",
+                "hint": "Lee los resultados observados."
+            },
+            {
+                "id": "w3-l13-q19",
+                "grade": 3,
+                "axis": "Datos y probabilidades",
+                "skill": "azar",
+                "prompt": "Una moneda salió cara tres veces seguidas. ¿Qué puedes afirmar sobre el próximo lanzamiento?",
+                "options": [
+                    "puede salir cara o sello",
+                    "saldrá cara con seguridad",
+                    "saldrá sello con seguridad",
+                    "no puede salir cara"
+                ],
+                "correct": 0,
+                "explanation": "Los resultados anteriores no aseguran la próxima cara de la moneda.",
+                "hint": "Un registro no es una garantía del resultado siguiente."
+            },
+            {
+                "id": "w3-l13-q20",
+                "grade": 3,
+                "axis": "Medición",
+                "skill": "longitud",
+                "prompt": "Una cinta del reino se extiende desde 0 hasta 24 cm en la regla. ¿Cuántos centímetros mide?",
+                "options": [
+                    "24",
+                    "12",
+                    "20",
+                    "25"
+                ],
+                "correct": 0,
+                "explanation": "Su longitud es de veinticuatro centímetros.",
+                "hint": "Alinea el extremo inicial con el cero."
             }
+        ],
+        "grade": 3,
+        "skills": [
+            "reloj",
+            "duración",
+            "masa",
+            "pictograma con escala",
+            "comparar datos",
+            "gráfico de barras",
+            "diagrama de puntos",
+            "encuesta",
+            "registro de azar",
+            "azar",
+            "longitud"
         ]
     },
     {
-        id: 14,
-        worldId: "world-3",
-        title: "Reina de Azúcar (Jefa)",
-        subtitle: "¡Jaque de Azúcar: las alternativas cambian de lugar!",
-        icon: "♛",
-        isBoss: true,
-        boss: {
+        "id": 14,
+        "worldId": "world-3",
+        "title": "El jaque de la Reina de Azúcar",
+        "subtitle": "3.º básico · Repasa 3.º básico y sigue la respuesta entre las casillas.",
+        "icon": "♛",
+        "isBoss": true,
+        "boss": {
             "id": "reina_azucar",
             "name": "Reina de Azúcar",
             "title": "Soberana del Reino del Jaque Dulce",
@@ -2169,50 +6018,382 @@ var LEVELS_DATA = [
                 "defeat": "¡Jaque mate! Has vencido a la Reina de Azúcar."
             }
         },
-        theory: {
-            title: "El Desafío de la Reina de Azúcar",
-            content: `
-                <p>La Reina de Azúcar gobierna las piezas del Reino del Jaque Dulce. Su combate mezcla las preguntas de este mundo.</p>
-                <p><strong>Jaque de Azúcar:</strong> las alternativas cambian de posición cada <strong>2 segundos</strong>. Sigue el valor de tu respuesta, no el número del botón.</p>
-                <div class="theory-tip">♛ La mezcla se detiene al responder y mientras consultas el perfil o las lecciones. Elige con el ratón, el dedo o las teclas del 1 al 4. La reina tiene 20 HP y no se regenera.</div>
-            `
+        "theory": {
+            "title": "El jaque de la Reina de Azúcar",
+            "content": "<p><strong>3.º básico.</strong> Repasa 3.º básico y sigue la respuesta entre las casillas.</p><h3>Repaso del reino</h3><p>La reina mezcla lo aprendido con el peón, el caballo, el alfil y la torre: números hasta 1.000, tablas y división exacta, fracciones sencillas, mapas, perímetros, tiempo, masa y datos.</p><h3>Jaque de Azúcar</h3><p>Las <strong>cuatro alternativas cambian de posición cada dos segundos</strong>. Sigue el valor o el texto que resuelve la pregunta, no su posición. La mezcla se detiene al responder, mantener pulsada una opción, abrir una lección o el perfil, u ocultar la pestaña. Puedes usar las teclas 1 a 4 según las posiciones visibles. La reina tiene 20 HP y no recupera vida.</p><h3>Comprueba</h3><p>Para una división, comprueba multiplicando. Para un perímetro, suma todos los lados. Para un gráfico, lee primero la escala. Todas estas estrategias ya aparecieron en los niveles anteriores.</p>"
         },
-        questions: [
+        "questions": [
             {
-                prompt: "Calcula: $50 - 5 \\times (6 + 2)$",
-                options: ["360", "10", "42", "20"],
-                correct: 1,
-                explanation: "Paréntesis: $6 + 2 = 8$. Multiplicación: $5 \\times 8 = 40$. Resta: $50 - 40 = 10$.",
-                hint: "$6 + 2 = 8$, luego $5 \\times 8 = 40$."
+                "id": "w3-l14-q1",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "valor posicional",
+                "prompt": "El tesoro real tiene 6 centenas, 3 decenas y 2 unidades. ¿Cuántos caramelos son?",
+                "options": [
+                    "632",
+                    "623",
+                    "362",
+                    "236"
+                ],
+                "correct": 0,
+                "explanation": "600 + 30 + 2 = 632.",
+                "hint": "Respeta el valor de cada posición."
             },
             {
-                prompt: "Calcula: $8 \\times 7 - 36 \\div 4$",
-                options: ["47", "5", "56", "49"],
-                correct: 0,
-                explanation: "$8 \\times 7 = 56$ y $36 \\div 4 = 9$. Luego $56 - 9 = 47$.",
-                hint: "Resuelve las dos operaciones fuertes y luego resta sus resultados."
+                "id": "w3-l14-q2",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "suma hasta 1000",
+                "prompt": "La reina reúne 267 caramelos y recibe 158. ¿Cuántos tiene?",
+                "options": [
+                    "425",
+                    "426",
+                    "424",
+                    "427"
+                ],
+                "correct": 0,
+                "explanation": "267 + 158 = 425. Suma por posiciones y cambia diez unidades por una decena cuando haga falta.",
+                "hint": "Suma por posiciones y cambia diez unidades por una decena cuando haga falta.",
+                "calculation": {
+                    "operation": "add",
+                    "operands": [
+                        267,
+                        158
+                    ]
+                }
             },
             {
-                prompt: "Un dragón come 6 ovejas al día. ¿Cuántas comerá en 3 semanas (21 días)?",
-                options: ["120", "126", "136", "142"],
-                correct: 1,
-                explanation: "$21 \\times 6 = (20 \\times 6) + (1 \\times 6) = 120 + 6 = 126$.",
-                hint: "Multiplica $21 \\times 6$."
+                "id": "w3-l14-q3",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "resta hasta 1000",
+                "prompt": "De 600 caramelos reales se entregan 275. ¿Cuántos quedan?",
+                "options": [
+                    "325",
+                    "326",
+                    "324",
+                    "327"
+                ],
+                "correct": 0,
+                "explanation": "600 − 275 = 325. Puedes cambiar una centena en decenas y una decena en unidades.",
+                "hint": "Puedes cambiar una centena en decenas y una decena en unidades.",
+                "calculation": {
+                    "operation": "subtract",
+                    "operands": [
+                        600,
+                        275
+                    ]
+                }
             },
             {
-                prompt: "Calcula: $(10 + 2 \\times 5) \\div 4$",
-                options: ["5", "15", "10", "4"],
-                correct: 0,
-                explanation: "Dentro del paréntesis: $2 \\times 5 = 10$, y $10 + 10 = 20$. Luego: $20 \\div 4 = 5$.",
-                hint: "Dentro del paréntesis primero multiplica y luego suma."
+                "id": "w3-l14-q4",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "tablas hasta 10",
+                "prompt": "Hay 7 filas de 9 golosinas en el tablero real. ¿Cuántas golosinas hay?",
+                "options": [
+                    "63",
+                    "64",
+                    "62",
+                    "65"
+                ],
+                "correct": 0,
+                "explanation": "7 × 9 = 63. Usa la tabla del nueve o separa cinco filas y dos filas.",
+                "hint": "Usa la tabla del nueve o separa cinco filas y dos filas.",
+                "calculation": {
+                    "operation": "multiply",
+                    "operands": [
+                        7,
+                        9
+                    ]
+                }
             },
             {
-                prompt: "Calcula: $100 - 10 \\times 10$",
-                options: ["900", "0", "90", "100"],
-                correct: 1,
-                explanation: "Primero $10 \\times 10 = 100$. Luego $100 - 100 = 0$.",
-                hint: "La multiplicación va primero: $10 \\times 10 = 100$."
+                "id": "w3-l14-q5",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "división exacta",
+                "prompt": "La reina reparte 64 bombones entre 8 piezas por igual. ¿Cuántos recibe cada pieza?",
+                "options": [
+                    "8",
+                    "9",
+                    "7",
+                    "10"
+                ],
+                "correct": 0,
+                "explanation": "64 ÷ 8 = 8. Busca qué número multiplicado por ocho da sesenta y cuatro.",
+                "hint": "Busca qué número multiplicado por ocho da sesenta y cuatro.",
+                "calculation": {
+                    "operation": "divide",
+                    "operands": [
+                        64,
+                        8
+                    ]
+                }
+            },
+            {
+                "id": "w3-l14-q6",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "agrupación",
+                "prompt": "La reina guarda 54 caramelos en bolsas de 6. ¿Cuántas bolsas llena?",
+                "options": [
+                    "9",
+                    "6",
+                    "8",
+                    "10"
+                ],
+                "correct": 0,
+                "explanation": "54 ÷ 6 = 9 bolsas.",
+                "hint": "Busca cuántos grupos de seis forman cincuenta y cuatro."
+            },
+            {
+                "id": "w3-l14-q7",
+                "grade": 3,
+                "axis": "Patrones y álgebra",
+                "skill": "patrón numérico",
+                "prompt": "La ruta de la reina es 250, 275, 300, __.",
+                "options": [
+                    "325",
+                    "305",
+                    "320",
+                    "350"
+                ],
+                "correct": 0,
+                "explanation": "Se agrega veinticinco cada vez.",
+                "hint": "Conserva el salto."
+            },
+            {
+                "id": "w3-l14-q8",
+                "grade": 3,
+                "axis": "Patrones y álgebra",
+                "skill": "ecuación de un paso",
+                "prompt": "Completa el cofre real: 35 + □ = 60.",
+                "options": [
+                    "25",
+                    "15",
+                    "35",
+                    "95"
+                ],
+                "correct": 0,
+                "explanation": "60 − 35 = 25.",
+                "hint": "Encuentra lo que falta con una resta."
+            },
+            {
+                "id": "w3-l14-q9",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "fracciones",
+                "prompt": "<span class=\"curriculum-tiles\" role=\"img\" aria-label=\"1 filas de 4 casillas; 3 coloreadas\" style=\"--tile-columns:4\"><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"filled\"></span><span aria-hidden=\"true\" class=\"\"></span></span>¿Qué fracción de la tableta real está coloreada?",
+                "options": [
+                    "3/4",
+                    "1/4",
+                    "1/2",
+                    "2/3"
+                ],
+                "correct": 0,
+                "explanation": "Tres de cuatro partes iguales son tres cuartos.",
+                "hint": "Cuenta partes coloreadas y partes totales."
+            },
+            {
+                "id": "w3-l14-q10",
+                "grade": 3,
+                "axis": "Números y operaciones",
+                "skill": "comparar fracciones",
+                "prompt": "En dos galletas iguales, ¿qué porción es mayor: 1/3 o 2/3?",
+                "options": [
+                    "2/3",
+                    "1/3",
+                    "son iguales",
+                    "ninguna representa una porción"
+                ],
+                "correct": 0,
+                "explanation": "Dos tercios son más que un tercio del mismo entero.",
+                "hint": "Las partes tienen el mismo tamaño."
+            },
+            {
+                "id": "w3-l14-q11",
+                "grade": 3,
+                "axis": "Geometría",
+                "skill": "cuerpos y redes",
+                "prompt": "¿Cuántas caras cuadradas tiene el cofre cúbico de la reina?",
+                "options": [
+                    "6",
+                    "4",
+                    "8",
+                    "12"
+                ],
+                "correct": 0,
+                "explanation": "Un cubo tiene seis caras cuadradas.",
+                "hint": "Imagina las caras de un dado."
+            },
+            {
+                "id": "w3-l14-q12",
+                "grade": 3,
+                "axis": "Geometría",
+                "skill": "mapas",
+                "prompt": "Desde D3, la reina se mueve una columna a la izquierda, sin cambiar de fila. ¿Dónde llega?",
+                "options": [
+                    "C3",
+                    "E3",
+                    "D2",
+                    "C2"
+                ],
+                "correct": 0,
+                "explanation": "Antes de D está C; la fila sigue siendo tres.",
+                "hint": "Solo cambia la columna."
+            },
+            {
+                "id": "w3-l14-q13",
+                "grade": 3,
+                "axis": "Geometría",
+                "skill": "ángulos",
+                "prompt": "Una esquina recta de la corona mide ¿cuántos grados?",
+                "options": [
+                    "90",
+                    "45",
+                    "60",
+                    "180"
+                ],
+                "correct": 0,
+                "explanation": "Un ángulo recto mide noventa grados.",
+                "hint": "Recuerda la esquina de un cuadrado."
+            },
+            {
+                "id": "w3-l14-q14",
+                "grade": 3,
+                "axis": "Geometría",
+                "skill": "transformaciones",
+                "prompt": "La reina desliza un dibujo sin girarlo ni voltearlo. ¿Qué transformación hace?",
+                "options": [
+                    "traslación",
+                    "rotación",
+                    "reflexión",
+                    "cambio de tamaño"
+                ],
+                "correct": 0,
+                "explanation": "Deslizar conservando la orientación es una traslación.",
+                "hint": "Distingue deslizar de girar."
+            },
+            {
+                "id": "w3-l14-q15",
+                "grade": 3,
+                "axis": "Medición",
+                "skill": "perímetro",
+                "prompt": "El jardín real es cuadrado y cada lado mide 6 m. ¿Cuántos metros mide su perímetro?",
+                "options": [
+                    "24",
+                    "12",
+                    "18",
+                    "36"
+                ],
+                "correct": 0,
+                "explanation": "6 + 6 + 6 + 6 = 24 metros.",
+                "hint": "Suma los cuatro lados."
+            },
+            {
+                "id": "w3-l14-q16",
+                "grade": 3,
+                "axis": "Medición",
+                "skill": "reloj",
+                "prompt": "La guardia de la reina empieza a las 5:15. ¿Cómo se lee?",
+                "options": [
+                    "cinco y cuarto",
+                    "cinco y media",
+                    "cinco en punto",
+                    "seis y cuarto"
+                ],
+                "correct": 0,
+                "explanation": "Quince minutos son un cuarto de hora.",
+                "hint": "Lee primero la hora."
+            },
+            {
+                "id": "w3-l14-q17",
+                "grade": 3,
+                "axis": "Medición",
+                "skill": "masa",
+                "prompt": "La reina compara un saco de 1 kg y otro de 800 g. ¿Cuál tiene mayor masa?",
+                "options": [
+                    "el de 1 kg",
+                    "el de 800 g",
+                    "son iguales",
+                    "no se puede comparar"
+                ],
+                "correct": 0,
+                "explanation": "Un kilogramo son mil gramos, más que ochocientos.",
+                "hint": "Expresa ambos en gramos."
+            },
+            {
+                "id": "w3-l14-q18",
+                "grade": 3,
+                "axis": "Datos y probabilidades",
+                "skill": "pictograma con escala",
+                "prompt": "Cada ● vale 5 caramelos. El cofre real muestra ● ● ● ● ● ●. ¿Cuántos representa?",
+                "options": [
+                    "30",
+                    "6",
+                    "25",
+                    "35"
+                ],
+                "correct": 0,
+                "explanation": "Seis grupos de cinco representan treinta caramelos.",
+                "hint": "Lee la escala antes de contar."
+            },
+            {
+                "id": "w3-l14-q19",
+                "grade": 3,
+                "axis": "Datos y probabilidades",
+                "skill": "diagrama de puntos",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Bolsas del palacio · cada × representa una bolsa</caption><thead><tr><th scope=\"col\">Caramelos por bolsa</th><th scope=\"col\">Bolsas</th></tr></thead><tbody><tr><th scope=\"row\">2</th><td>×</td></tr><tr><th scope=\"row\">3</th><td>× × × ×</td></tr><tr><th scope=\"row\">4</th><td>× ×</td></tr></tbody></table></div>¿Cuántas bolsas contienen 3 caramelos?",
+                "options": [
+                    "4",
+                    "3",
+                    "7",
+                    "12"
+                ],
+                "correct": 0,
+                "explanation": "En el valor tres hay cuatro cruces: cuatro bolsas.",
+                "hint": "Cada cruz representa una bolsa."
+            },
+            {
+                "id": "w3-l14-q20",
+                "grade": 3,
+                "axis": "Datos y probabilidades",
+                "skill": "registro de azar",
+                "prompt": "<div class=\"curriculum-table-wrap\"><table class=\"curriculum-table\"><caption>Moneda de la reina</caption><thead><tr><th scope=\"col\">Resultado</th><th scope=\"col\">Veces</th></tr></thead><tbody><tr><th scope=\"row\">Cara</th><td>8</td></tr><tr><th scope=\"row\">Sello</th><td>5</td></tr></tbody></table></div>¿Cuántos lanzamientos se registraron?",
+                "options": [
+                    "13",
+                    "8",
+                    "5",
+                    "3"
+                ],
+                "correct": 0,
+                "explanation": "Ocho caras más cinco sellos suman trece lanzamientos.",
+                "hint": "Suma todas las frecuencias."
             }
+        ],
+        "grade": 3,
+        "skills": [
+            "valor posicional",
+            "suma hasta 1000",
+            "resta hasta 1000",
+            "tablas hasta 10",
+            "división exacta",
+            "agrupación",
+            "patrón numérico",
+            "ecuación de un paso",
+            "fracciones",
+            "comparar fracciones",
+            "cuerpos y redes",
+            "mapas",
+            "ángulos",
+            "transformaciones",
+            "perímetro",
+            "reloj",
+            "masa",
+            "pictograma con escala",
+            "diagrama de puntos",
+            "registro de azar"
         ]
     },
 

@@ -226,17 +226,7 @@ test('each circus level has 20 unique questions with four regular choices', () =
             assert.equal(question.options.length, 4);
             assert.equal(question.bossDistractors.length, 4);
             assert.equal(new Set([...question.options, ...question.bossDistractors]).size, 8);
-            const correct = Number(question.options[question.correct].match(/-?\d+/)[0]);
-            if (question.prompt.includes('el MAYOR')) {
-                const numbers = [...question.options, ...question.bossDistractors].map(Number);
-                assert.equal(Math.max(...numbers), correct);
-            }
-            const expressions = [...question.prompt.matchAll(/\$([^$]+)\$/g)].map(m => m[1]);
-            for (const expression of expressions) {
-                if (/^[\d\s()+-]+$/.test(expression) && /\d\s*[+-]\s*\(?-?\d/.test(expression)) {
-                    assert.equal(vm.runInNewContext(expression), correct, question.prompt);
-                }
-            }
+            assert.ok(question.options[question.correct].length > 0);
         }
         engine.startLevel(level.id);
         if (!level.isBoss) assert.ok(engine.currentLevel.questions.every(q => q.options.length === 4));
@@ -271,32 +261,92 @@ test('only the dragon mixes all 100 circus questions with eight unique choices',
     assert.equal(JSON.stringify(levels), original);
 });
 
-test('circus difficulty uses small nonnegative quantities and familiar operations', () => {
+test('primary worlds cover all five axes with 20 explained questions per level', () => {
     const { levels } = setup();
-    for (const level of levels.filter(l => l.worldId === 'world-2')) {
-        const limit = level.id <= 6 ? 20 : 50;
-        for (const question of level.questions) {
-            assert.ok(question.prompt.length < 200, 'short instruction: ' + question.prompt);
-            assert.doesNotMatch(question.prompt, /[()=]|\bnegativ/i);
-            for (const math of question.prompt.matchAll(/\$([^$]+)\$/g)) {
-                assert.doesNotMatch(math[1], /[a-z]/i);
-            }
-            const quantities = question.prompt.match(/\d+/g) || [];
-            assert.ok(quantities.every(n => Number(n) <= limit), question.prompt);
-            assert.ok([...question.options, ...question.bossDistractors].every(option => /^\d+$/.test(option) && Number(option) <= 50));
-            assert.ok(Number(question.options[question.correct]) <= limit);
-            assert.ok(question.hint.length > 0 && question.explanation.length > 0);
-            // Intermediate values must also stay nonnegative in two-step exercises.
-            for (const match of question.prompt.matchAll(/\$([\d\s+-]+)\$/g)) {
-                const expression = match[1];
-                const parts = expression.match(/\d+|[+-]/g);
-                let value = Number(parts[0]);
-                for (let i = 1; i < parts.length; i += 2) {
-                    value += (parts[i] === '+' ? 1 : -1) * Number(parts[i + 1]);
-                    assert.ok(value >= 0 && value <= limit, question.prompt);
-                }
+    const ids = new Set();
+    for (const grade of [1, 2, 3]) {
+        const world = levels.filter(l => l.worldId === `world-${grade}`);
+        const prompts = new Set();
+        const axes = new Set();
+        for (const level of world) {
+            assert.equal(level.grade, grade);
+            assert.equal(level.questions.length, 20);
+            assert.ok(level.theory.content.includes(`${grade}.º básico`));
+            for (const question of level.questions) {
+                assert.equal(question.grade, grade);
+                assert.ok(!ids.has(question.id), 'unique question IDs');
+                ids.add(question.id);
+                assert.ok(!prompts.has(question.prompt), 'no repeats in a boss pool');
+                prompts.add(question.prompt);
+                axes.add(question.axis);
+                assert.ok(question.skill && question.hint && question.explanation);
+                assert.ok(question.prompt.replace(/<[^>]*>/g, '').length < 380, question.id);
+                assert.equal(question.options.length, 4);
+                assert.equal(new Set(question.options).size, 4);
+                assert.ok(Number.isInteger(question.correct) && question.correct >= 0 && question.correct < 4);
+                if (grade !== 2) assert.equal(question.bossDistractors, undefined);
             }
         }
+        assert.equal([...axes].sort().join('|'), ['Números y operaciones', 'Patrones y álgebra', 'Geometría', 'Medición', 'Datos y probabilidades'].sort().join('|'));
+    }
+    assert.equal(ids.size, 280);
+});
+
+test('primary calculations have correct answers and respect grade prerequisites', () => {
+    const { levels } = setup();
+    const seen = new Set();
+    for (const level of levels.filter(l => l.grade)) {
+        for (const question of level.questions) {
+            if (!question.calculation) continue;
+            const { operation, operands: [a, b] } = question.calculation;
+            seen.add(operation);
+            const expected = operation === 'add' ? a + b : operation === 'subtract' ? a - b : operation === 'multiply' ? a * b : a / b;
+            assert.ok(Number.isInteger(expected) && expected >= 0, question.prompt);
+            assert.equal(Number(question.options[question.correct]), expected, question.prompt);
+            if (level.grade === 1) {
+                assert.ok(['add', 'subtract'].includes(operation));
+                assert.ok(Math.max(a, b, expected) <= 20);
+            } else if (level.grade === 2) {
+                assert.notEqual(operation, 'divide');
+                assert.ok(Math.max(a, b, expected) <= 100);
+                if (operation === 'multiply') assert.ok([2, 5, 10].includes(b) && a <= 10);
+                if (operation === 'add') assert.ok(a % 10 + b % 10 < 10, 'no carrying in second-grade algorithm');
+                if (operation === 'subtract') assert.ok(a % 10 >= b % 10, 'no borrowing in second-grade algorithm');
+            } else {
+                assert.ok(Math.max(a, b, expected) <= 1000);
+                if (operation === 'multiply') assert.ok(a <= 10 && b <= 10);
+                if (operation === 'divide') assert.ok(b > 0 && b <= 10 && expected <= 10);
+            }
+        }
+    }
+    assert.equal([...seen].sort().join('|'), 'add|divide|multiply|subtract');
+});
+
+test('boss reviews only skills already taught and pools stay in their grade', () => {
+    const { engine, levels } = setup();
+    for (const [bossId, size] of [[4, 80], [9, 100], [14, 100]]) {
+        const boss = levels.find(l => l.id === bossId);
+        const previous = levels.filter(l => l.worldId === boss.worldId && !l.isBoss);
+        const skills = new Set(previous.flatMap(l => l.questions.map(q => q.skill)));
+        for (const question of boss.questions) assert.ok(skills.has(question.skill), question.skill);
+        engine.startLevel(bossId);
+        assert.equal(engine.currentLevel.questions.length, size);
+        assert.ok(engine.currentLevel.questions.every(q => q.grade === boss.grade));
+    }
+});
+
+test('learning diagrams keep scales, table headers and fractional representations accessible', () => {
+    const { levels } = setup();
+    for (const question of levels.filter(l => l.grade).flatMap(l => l.questions)) {
+        if (question.prompt.includes('<table')) {
+            assert.match(question.prompt, /<caption>[^<]+<\/caption>/);
+            assert.match(question.prompt, /scope="col"/);
+            assert.match(question.prompt, /scope="row"/);
+        }
+        if (question.prompt.includes('curriculum-tiles')) {
+            assert.match(question.prompt, /role="img" aria-label="[^"]+"/);
+        }
+        assert.doesNotMatch(question.prompt, /<script|onerror=|<img/i);
     }
 });
 

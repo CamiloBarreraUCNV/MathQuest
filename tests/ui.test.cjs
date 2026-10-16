@@ -291,3 +291,72 @@ test('queen shuffles every two seconds, preserves answers and pauses for input a
         await browser.close();
     }
 });
+
+test('all primary questions render on mobile and desktop, including diagrams and textual dragon answers', async () => {
+    const browser = await chromium.launch({ headless: true, channel: process.env.BROWSER_CHANNEL || 'msedge' });
+    try {
+        const page = await browser.newPage();
+        await page.clock.install();
+        await page.emulateMedia({ reducedMotion: 'reduce' });
+        await page.setContent(fs.readFileSync(path.join(root, 'index.html'), 'utf8')
+            .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '').replace(/<link\b[^>]*>/gi, ''));
+        await page.addStyleTag({ content: fs.readFileSync(path.join(root, 'css/styles.css'), 'utf8') });
+        await page.evaluate(() => {
+            const saves = new Map();
+            Object.defineProperty(window, 'localStorage', { value: {
+                getItem: key => saves.get(key) ?? null, setItem: (key, value) => saves.set(key, value)
+            } });
+        });
+        for (const file of ['audio', 'levels-data', 'game', 'ui']) {
+            await page.addScriptTag({ content: fs.readFileSync(path.join(root, 'js', file + '.js'), 'utf8') });
+        }
+        assert.equal(await page.locator('.world-featured-grid .world-card').count(), 3);
+        assert.equal(await page.locator('.world-compact-grid [data-world-card="world-3"]').count(), 0);
+        for (const width of [320, 730, 1280]) {
+            await page.setViewportSize({ width, height: 1100 });
+            const failures = await page.evaluate(() => {
+                soundManager.enabled = false;
+                const errors = [];
+                for (const level of LEVELS_DATA.filter(l => l.grade)) {
+                    ui.startQuiz(level.id);
+                    for (let i = 0; i < gameEngine.currentLevel.questions.length; i++) {
+                        gameEngine.currentQuestionIdx = i;
+                        ui.renderCurrentQuestion();
+                        const question = gameEngine.getCurrentQuestion();
+                        const cards = [...document.querySelectorAll('.option-card')];
+                        if (cards.length !== (level.id === 9 ? 8 : 4)) errors.push(`${question.id}: choice count`);
+                        if (!document.getElementById('quiz-level-tag').textContent.includes(`${level.grade}.º básico`)) errors.push(`${question.id}: grade`);
+                        if (cards.some(c => c.getBoundingClientRect().right > innerWidth + 1)) errors.push(`${question.id}: choice overflow`);
+                        for (const text of document.querySelectorAll('.option-text')) {
+                            if (!/^\d+$/.test(text.textContent)) continue;
+                            const range = document.createRange();
+                            range.selectNodeContents(text);
+                            if (range.getClientRects().length > 1) errors.push(`${question.id}: number split across lines`);
+                        }
+                        if (document.documentElement.scrollWidth > innerWidth + 1) errors.push(`${question.id}: page overflow`);
+                        for (const table of document.querySelectorAll('#quiz-prompt .curriculum-table')) {
+                            if (!table.caption?.textContent || table.rows.length < 2) errors.push(`${question.id}: unreadable data`);
+                        }
+                    }
+                }
+                return errors;
+            });
+            assert.deepEqual(failures.slice(0, 8), [], `rendering at ${width}px (${failures.length} failures)`);
+        }
+        // The dragon must also accept a correct textual (non-numeric) answer.
+        const result = await page.evaluate(() => {
+            ui.startQuiz(9);
+            gameEngine.currentQuestionIdx = gameEngine.currentLevel.questions.findIndex(q => q.skill === 'figuras 2D');
+            ui.renderCurrentQuestion();
+            const q = gameEngine.getCurrentQuestion();
+            document.querySelectorAll('.option-card')[q.correct].click();
+            return { score: gameEngine.sessionScore, marked: document.querySelectorAll('.option-card.correct').length };
+        });
+        assert.deepEqual(result, { score: 1, marked: 1 });
+        // A lesson preview exposes the same grade and readable learning diagrams.
+        await page.evaluate(() => { ui.showWorldSelector(); ui.openLevelPreview(5); });
+        assert.match(await page.locator('#lesson-level-tag').textContent(), /2\.º básico/);
+    } finally {
+        await browser.close();
+    }
+});

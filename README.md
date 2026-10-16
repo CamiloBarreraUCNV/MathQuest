@@ -7,26 +7,26 @@
 ## 🗺️ Estructura de los 6 Mundos (30 Niveles)
 
 1. **🌱 Mundo 1: Isla de los Números (4 niveles)**
-   - Conteo y reconocimiento de cantidades.
-   - Comparación de magnitudes: Mayor ($>$), Menor ($<$) e Igual ($=$).
-   - Pares, impares y desplazamiento en la recta numérica.
+   - 1.º básico: conteo hasta 100, cantidades hasta 20, ordinales, decenas y unidades.
+   - Sumas y restas hasta 20, patrones e igualdad.
+   - Figuras, posiciones, comparación de longitudes, tiempo y pictogramas.
    - *Desafío del Guardián de los Números*.
 
 2. **🎪 Mundo 2: Circo de las Sumas (5 niveles)**
-   - Sumas hasta 20 con ejemplos concretos del circo.
-   - Restas hasta 20, sin resultados negativos.
-   - Problemas de dos pasos y decenas, con cantidades hasta 50.
-   - La Caja Misteriosa: cantidades que faltan, comparaciones y cantidades iniciales.
+   - 2.º básico: números y operaciones hasta 100, sin reserva; conteos por saltos hasta 1.000.
+   - Patrones, comparación, figuras y cuerpos, calendario, reloj digital y longitudes.
+   - Pictogramas con escala, barras y registros de experimentos.
+   - La Caja Sorpresa: grupos iguales y tablas del 2, 5 y 10.
    - *Jefe: Dragón Globo de Dos Cabezas*, con ocho alternativas por pregunta.
 
 3. **♟️ Mundo 3: Reino del Jaque Dulce (5 niveles)**
-   - Multiplicación básica como suma repetida (tablas del 2 al 5).
-   - Tablas maestras (6 al 10 y múltiplos de 10).
-   - División como reparto exacto e inverso de multiplicar.
-   - Jerarquía de operaciones (**PEMDAS**).
+   - 3.º básico: números hasta 1.000, sumas y restas con reserva, patrones y casillas desconocidas.
+   - Tablas hasta 10 × 10, división exacta como reparto y agrupación.
+   - Fracciones de uso común, mapas, cuerpos, transformaciones, ángulos y perímetros.
+   - Reloj, masa, longitud, encuestas, diagramas de puntos y registros de azar.
    - Peón de Malvavisco, Caballo de Chocolate, Alfil de Caramelo y Torre de Barquillo.
    - *Jefa: Reina de Azúcar*. Cambia la posición de las alternativas cada dos segundos.
-   - Temática para 9–12 años. Las preguntas actuales se conservan como contenido provisional para una actualización posterior.
+   - Las lecciones y los 20 ejercicios por nivel se adaptaron a 3.º básico, conservando el reino de golosinas y todos sus personajes.
 
 4. **🔮 Mundo 4: Bosque del Álgebra (5 niveles)**
    - La incógnita misteriosa: variables y ecuaciones simples ($x + a = b$).
@@ -102,8 +102,9 @@ No requiere instalar Node ni dependencias complejas. Simplemente:
 - La XP ganada por cada acierto se guarda inmediatamente, incluso si luego se pierde el combate. El guardado conserva el progreso general; recargar la página reinicia el intento en curso.
 - Al perder todas las vidas, el intento termina. Recargar corazones permite iniciar otro intento.
 - Las preguntas y sus opciones se mezclan al iniciar cada intento.
-- Cada nivel del circo (1 al 5) tiene un banco de 20 preguntas con explicación y pista. Los enemigos normales tienen 8, 10, 12 y 16 HP; el combate termina cuando son derrotados. El nivel 4 presenta al Payaso Sorpresa y su caja misteriosa.
-- El mundo 2 usa una progresión sencilla para niños de 6 a 10 años: primero cantidades hasta 20 y después retos hasta 50. No incluye álgebra, números negativos ni paréntesis; el jefe repasa lo aprendido sin introducir conceptos nuevos.
+- Los primeros tres mundos tienen 280 preguntas: 20 por nivel, con explicación, pista, curso, eje y habilidad. Cada mundo reúne los cinco ejes de 1.º–3.º básico, respectivamente. Los bancos se mezclan por intento; un combate puede terminar antes de recorrer todo el banco.
+- Los enemigos normales del circo tienen 8, 10, 12 y 16 HP. El nivel 4 presenta al Payaso Sorpresa y sus grupos iguales. El mundo trabaja sumas y restas hasta 100 sin reserva, tablas del 2, 5 y 10, formas, medidas y datos; sus conteos por saltos llegan hasta 1.000.
+- El Manzano Ancestral conserva sus 20 HP y ya no regenera vida, para permitir leer con calma los ejercicios visuales de primero básico.
 - El Dragón Globo del nivel 5 del circo mezcla las 100 preguntas de ese mundo al iniciar cada intento, sin repetirlas. Solo este combate muestra ocho alternativas únicas por pregunta; los demás niveles mantienen cuatro. Tiene 40 HP y no se regenera, para permitir leer las ocho opciones sin presión de tiempo.
 - La Reina de Azúcar (nivel 5 del mundo 3) mezcla sus cuatro alternativas cada dos segundos sin cambiar el ejercicio ni el valor correcto. La mezcla se pausa al responder, pulsar una alternativa, abrir un modal o esconder la pestaña; al abandonar o reiniciar el combate se cancela. Los atajos numéricos corresponden a las posiciones visibles. El reino utiliza el fondo y los cinco personajes de `assets/world-3/`. Los cuatro enemigos normales tienen 8, 9, 10 y 11 HP; la reina tiene 20 HP y no se regenera.
 
@@ -118,3 +119,5 @@ El guardado mantiene la clave `mathquest_save_data_v1` para recuperar partidas a
 Con Node.js, ejecuta `node tests/game.test.cjs`. Incluye simulaciones de los 30 niveles, reglas de derrota y victoria, guardado y mezcla de opciones.
 
 La comprobación de interfaz se ejecuta con `node tests/ui.test.cjs` y requiere Playwright y Microsoft Edge. Puede usarse `PLAYWRIGHT_MODULE` para indicar una instalación externa de Playwright y `BROWSER_CHANNEL` para seleccionar otro canal instalado. Usa un navegador aislado y guardado en memoria, sin modificar la partida del jugador.
+
+El contenido de los mundos 1–3 se edita en `scripts/build-primary-content.cjs` y se incorpora a `js/levels-data.js` con `node scripts/build-primary-content.cjs`. El juego sigue cargando un archivo estático y no necesita Node para jugar. La generación conserva identificadores, assets y mundos 4–6. Consulta la distribución y las fuentes en [contenido de los mundos 1–3](docs/contenido-mundos-1-3.md).

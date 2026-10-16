@@ -353,7 +353,7 @@ class MathQuestUI {
         const card = world => {
             const progress = gameEngine.getWorldProgress(world.id);
             const localNext = gameEngine.getLocalLevelNumber(progress.nextLevelId);
-            const featured = world.num <= 2;
+            const featured = world.num <= 3;
             const button = progress.completed ? 'Volver a jugar' : progress.completedCount ? (world.num === 1 ? 'Continuar isla' : world.num === 2 ? 'Continuar circo' : 'Continuar') : (world.num === 1 ? 'Comenzar isla' : world.num === 2 ? 'Comenzar circo' : 'Jugar');
             return `<article class="world-card ${featured ? 'world-card-featured' : 'world-card-compact'} ${world.battleBg ? 'world-card-custom-art' : ''} world-card-${world.num}" data-world-card="${world.id}">
                 <div class="world-card-scene" style="background-image: ${world.battleBg ? 'url(' + world.battleBg + ')' : ''}">
@@ -371,9 +371,9 @@ class MathQuestUI {
             </article>`;
         };
         container.innerHTML = `<div class="world-selector-heading"><h1>Elige tu aventura</h1><p>Cada mundo guarda su propio progreso. ¡Juega el que quieras!</p></div>
-            <div class="world-featured-grid">${WORLDS_DATA.filter(world => world.num <= 2).map(card).join('')}</div>
+            <div class="world-featured-grid">${WORLDS_DATA.filter(world => world.num <= 3).map(card).join('')}</div>
             <h2 class="more-worlds-heading">Más aventuras</h2>
-            <div class="world-compact-grid">${WORLDS_DATA.filter(world => world.num > 2).map(card).join('')}</div>
+            <div class="world-compact-grid">${WORLDS_DATA.filter(world => world.num > 3).map(card).join('')}</div>
             <p class="world-selector-help">📖 Puedes cambiar de mundo y retomar donde quedaste.</p>`;
         container.querySelectorAll('.world-enter-btn').forEach(button => button.addEventListener('click', () => {
             soundManager.levelSelect();
@@ -390,7 +390,8 @@ class MathQuestUI {
         const modal = document.getElementById('lesson-modal');
         if (!modal) return;
 
-        document.getElementById('lesson-level-tag').textContent = level.isBoss ? `⚔️ BATALLA DE JEFE • ${level.icon}` : `Nivel ${gameEngine.getLocalLevelNumber(level.id)} • ${level.icon}`;
+        const gradeLabel = level.grade ? ` · ${level.grade}.º básico` : '';
+        document.getElementById('lesson-level-tag').textContent = (level.isBoss ? `⚔️ BATALLA DE JEFE • ${level.icon}` : `Nivel ${gameEngine.getLocalLevelNumber(level.id)} • ${level.icon}`) + gradeLabel;
         document.getElementById('lesson-title').textContent = level.title;
         document.getElementById('lesson-subtitle').textContent = level.subtitle;
         document.getElementById('lesson-theory-title').textContent = level.theory.title;
@@ -452,7 +453,7 @@ class MathQuestUI {
         const subbarIcon = document.getElementById('subbar-level-icon');
         if (subbarIcon) subbarIcon.textContent = level.icon || '📊';
         const levelTagEl = document.getElementById('quiz-level-tag');
-        if (levelTagEl) levelTagEl.textContent = `Nivel ${gameEngine.getLocalLevelNumber(level.id)}: ${level.title}`;
+        if (levelTagEl) levelTagEl.textContent = `Nivel ${gameEngine.getLocalLevelNumber(level.id)}: ${level.title}${level.grade ? ` · ${level.grade}.º básico` : ''}`;
 
         // Subbar Stepper Dots
         const stepperEl = document.getElementById('subbar-stepper');
