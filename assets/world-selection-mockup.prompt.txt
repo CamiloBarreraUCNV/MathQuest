@@ -1,0 +1,4 @@
+Generated with built-in image generation. References: mathquest-battle-mockup.png, world-1/pirate-apple-80s.png, world-2/circus-balloon-two-headed-dragon-80s.png.
+Visual mockup only. Sample progress values are illustrative. Each world is freely selectable with its own level progression and stars. World numbering and level numbering inside a world are separate.
+
+undefined
