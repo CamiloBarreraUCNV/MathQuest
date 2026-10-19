@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Kalkú · Prepara el tesoro</title>
+  <link rel="icon" type="image/png" href="assets/kalku-logo/kalku-logo-direction-1-cartoon-transparent.png">
+  <link rel="stylesheet" href="css/treasure-mockup.css">
+  <link rel="stylesheet" href="css/branding.css">
+  <link rel="preload" as="image" href="assets/treasure-activity/chest-closed.png">
+</head>
+<body>
+  <header class="topbar"><div class="topbar-inner"><div class="kalku-brand"><img src="assets/kalku-logo/kalku-logo-direction-1-cartoon-transparent.png" alt="Kalkú" width="1678" height="937" fetchpriority="high"></div><div class="world-name">🌴 Isla de los Números</div></div></header>
+  <main>
+    <section class="scene" aria-label="El encargo del Capitán Manzana">
+      <div class="guide sprite"><img src="assets/treasure-activity/apple-guide.png" alt="El Capitán Manzana te invita a preparar el tesoro" draggable="false" fetchpriority="high"></div>
+      <div class="speech"><p id="request">Preparando tu encargo…</p></div>
+      <div class="mission"><div class="sprite scroll-art" aria-hidden="true"><img src="assets/treasure-activity/mission-scroll.png" alt="" draggable="false"></div><div class="mission-copy"><h1>Tu misión</h1><span class="target-number" id="target">—</span><p id="target-unit">monedas</p></div></div>
+      <div class="pouch sprite" aria-hidden="true"><img src="assets/treasure-activity/reserve-pouch.png" alt="" draggable="false"></div>
+      <div class="chest-prop" aria-hidden="true"><div class="sprite chest-open" id="chest-open"><img src="assets/treasure-activity/chest-open.png" alt="" draggable="false"></div><div class="sprite chest-closed" id="chest-closed" hidden><img src="assets/treasure-activity/chest-closed.png" alt="" draggable="false"></div></div>
+    </section>
+    <section class="activity" aria-label="Prepara el tesoro: actividad de conteo">
+      <div class="board" id="board">
+        <p class="sr-only" id="instructions">Pulsa una moneda para moverla al otro lado o arrástrala. También puedes usar Tab y Enter o Espacio. Prepara la cantidad que pidió el capitán y pulsa Entregar tesoro.</p>
+        <div class="zones" aria-describedby="instructions">
+          <section class="zone" data-zone="reserve" aria-labelledby="reserve-title">
+            <div class="sprite tray-art" aria-hidden="true"><img src="assets/treasure-activity/counting-tray.png" alt="" draggable="false"></div>
+            <h2 class="zone-heading" id="reserve-title"><span class="sprite label-art" aria-hidden="true"><img src="assets/treasure-activity/label-navy.png" alt="" draggable="false"></span><span>Monedas del barco</span></h2>
+            <div class="coins" id="reserve-coins" role="group" aria-label="Monedas de la reserva"></div>
+          </section>
+          <div class="transfer-arrow" aria-hidden="true">➜</div>
+          <div class="destination">
+            <section class="zone" data-zone="chest" aria-labelledby="chest-title">
+              <div class="sprite tray-art" aria-hidden="true"><img src="assets/treasure-activity/counting-tray.png" alt="" draggable="false"></div>
+              <h2 class="zone-heading" id="chest-title"><span class="sprite label-art" aria-hidden="true"><img src="assets/treasure-activity/label-navy.png" alt="" draggable="false"></span><span>Tu cofre</span></h2>
+              <div class="coins" id="chest-coins" role="group" aria-label="Monedas colocadas en el cofre"></div>
+            </section>
+            <div class="chest-caption" id="chest-caption">Cuenta tus monedas</div>
+          </div>
+        </div>
+      </div>
+      <p class="support" id="support">Pulsa o arrastra para añadir o devolver monedas</p>
+      <div class="tools">
+        <button class="button count-button" id="count" type="button" aria-pressed="false">🧮 Contemos juntos</button>
+        <button class="button hint-button" id="hint" type="button">💡 Una pista</button>
+        <button class="button primary" id="deliver" type="button">Entregar tesoro ➜</button>
+        <button class="button primary" id="next" type="button" hidden>Siguiente encargo ➜</button>
+      </div>
+      <div class="feedback" id="feedback" role="status" aria-live="polite" aria-atomic="true"><p class="feedback-title" id="feedback-title"></p><p class="feedback-copy" id="feedback-copy"></p></div>
+      <div class="utility-bar"><button class="quiet" id="empty" type="button">↶ Vaciar cofre</button><button class="quiet" id="new" type="button">↻ Otro encargo</button><span class="completed">Entregas de esta sesión: <strong id="completed">0</strong></span></div>
+    </section>
+    <footer>Sin prisa. ¡Tú puedes!<div class="prototype-note">Prototipo de conteo · 1.º básico · No modifica tu partida</div></footer>
+  </main>
+  <script>
+    'use strict';
+    (() => {
+      const $ = id => document.getElementById(id);
+      const state = { target:0, chest:new Set(), count:false, solved:false, completed:0, bag:[] };
+      let drag = null;
+      let suppressClickUntil = 0;
+      const coins = Array.from({length:10}, (_,i) => i + 1);
+      const noun = n => n === 1 ? 'moneda' : 'monedas';
+      function message(title, copy, kind='neutral') {
+        $('feedback-title').textContent = title;
+        $('feedback-copy').textContent = copy;
+        $('feedback').dataset.state = kind;
+      }
+      function nextTarget() {
+        if (!state.bag.length) {
+          state.bag = [...coins];
+          for (let i=state.bag.length-1; i>0; i--) {
+            const j = Math.floor(Math.random()*(i+1));
+            [state.bag[i],state.bag[j]] = [state.bag[j],state.bag[i]];
+          }
+          // Draw from the end. Avoid repeats even between two shuffled bags.
+          if (state.bag.at(-1) === state.target) [state.bag[0],state.bag[9]] = [state.bag[9],state.bag[0]];
+        }
+        return state.bag.pop();
+      }
+      function renderCoins(container, ids, location) {
+        container.replaceChildren();
+        for (let index=0; index<10; index++) {
+          const cell = document.createElement('div');
+          cell.className = 'coin-cell';
+          if (ids[index] !== undefined) {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'coin';
+            button.dataset.coin = ids[index];
+            button.dataset.location = location;
+            button.disabled = state.solved;
+            button.setAttribute('aria-label', `${location === 'reserve' ? 'Añadir al cofre' : 'Devolver a la reserva'} una moneda`);
+            const image = document.createElement('img');
+            image.src = 'assets/treasure-activity/coin-gold.png';
+            image.alt = '';
+            image.draggable = false;
+            image.setAttribute('aria-hidden','true');
+            button.append(image);
+            cell.append(button);
+            if (state.count && location === 'chest') {
+              const number = document.createElement('span');
+              number.className = 'coin-number';
+              number.textContent = index+1;
+              number.setAttribute('aria-hidden','true');
+              cell.append(number);
+            }
+          } else cell.setAttribute('aria-hidden','true');
+          container.append(cell);
+        }
+      }
+      function render() {
+        renderCoins($('reserve-coins'),coins.filter(id=>!state.chest.has(id)),'reserve');
+        renderCoins($('chest-coins'),[...state.chest],'chest');
+        $('count').setAttribute('aria-pressed',String(state.count));
+        $('count').textContent = state.count ? '🧮 Ocultar la cuenta' : '🧮 Contemos juntos';
+        $('chest-caption').replaceChildren();
+        if (state.count || state.solved) {
+          $('chest-caption').append('En tu cofre: ');
+          const amount = document.createElement('strong');
+          amount.textContent = state.chest.size;
+          $('chest-caption').append(amount);
+        } else $('chest-caption').textContent = 'Cuenta tus monedas';
+        $('empty').disabled = state.solved || state.chest.size === 0;
+        $('hint').disabled = state.solved;
+        $('deliver').hidden = state.solved;
+        $('next').hidden = !state.solved;
+        $('new').hidden = state.solved;
+        $('completed').textContent = state.completed;
+        $('chest-open').hidden = state.solved;
+        $('chest-closed').hidden = !state.solved;
+        $('support').textContent = state.solved ? '¡Tesoro listo para zarpar!' : 'Pulsa o arrastra para añadir o devolver monedas';
+      }
+      function start() {
+        cancelDrag();
+        state.target = nextTarget();
+        state.chest.clear();
+        state.solved = false;
+        $('target').textContent = state.target;
+        $('target-unit').textContent = noun(state.target);
+        $('request').replaceChildren();
+        $('request').append('¡Prepara ');
+        const strong = document.createElement('strong');
+        strong.textContent = `${state.target} ${noun(state.target)}`;
+        $('request').append(strong,' para zarpar!');
+        message('¡Vamos a preparar el tesoro!', 'Mueve las monedas y entrega el cofre cuando esté listo.');
+        render();
+      }
+      function move(id, destination) {
+        if (state.solved) return;
+        destination === 'chest' ? state.chest.add(id) : state.chest.delete(id);
+        render();
+        message('Puedes seguir preparando tu cofre.',state.count ? `Ahora tienes ${state.chest.size} ${noun(state.chest.size)}. El capitán pidió ${state.target}.` : 'Añade o devuelve monedas. Después pulsa «Entregar tesoro».');
+      }
+      function help() {
+        const count = state.chest.size;
+        const difference = state.target-count;
+        if (difference === 0) message('¡Cuenta una vez más!', `Hay ${count} ${noun(count)} y el capitán pidió ${state.target}. Si estás listo, entrega el tesoro.`,'hint');
+        else message(difference > 0 ? 'Vamos a completar el tesoro.' : 'Vamos a ajustar el tesoro.', `Tienes ${count} y necesitas ${state.target}. ${difference > 0 ? 'Añade' : 'Devuelve'} ${Math.abs(difference)} ${noun(Math.abs(difference))}.`,'hint');
+      }
+      $('deliver').addEventListener('click', () => {
+        if (state.solved) return;
+        if (state.chest.size !== state.target) { help(); return; }
+        state.solved = true;
+        state.completed++;
+        render();
+        message('🎉 ¡Tesoro preparado!', `Entregaste exactamente ${state.target} ${noun(state.target)}. ¡Gracias, tripulante! ¿Listo para otro encargo?`,'success');
+        $('next').focus({preventScroll:true});
+      });
+      $('hint').addEventListener('click',help);
+      $('count').addEventListener('click',()=>{
+        state.count = !state.count;
+        render();
+        if (state.count && !state.solved) message('Contemos juntos.', `Sigue los números de las monedas del cofre: hay ${state.chest.size} ${noun(state.chest.size)}.`,'hint');
+      });
+      $('empty').addEventListener('click',()=>{
+        if (state.solved) return;
+        state.chest.clear(); render();
+        message('El cofre está vacío.', 'Puedes empezar de nuevo con el mismo encargo.');
+      });
+      for (const id of ['new','next']) $(id).addEventListener('click',()=>{ start(); $('reserve-coins').querySelector('button').focus({preventScroll:true}); });
+      $('board').addEventListener('click',event=>{
+        if (performance.now() < suppressClickUntil) return;
+        const button = event.target.closest('button[data-coin]');
+        if (!button || state.solved) return;
+        const keyboard = event.detail === 0;
+        const location = button.dataset.location;
+        move(Number(button.dataset.coin),location === 'reserve' ? 'chest' : 'reserve');
+        if (keyboard) {
+          // Preserve a usable keyboard position after the coin moves.
+          const source = $(location === 'reserve' ? 'reserve-coins' : 'chest-coins');
+          const target = source.querySelector('button') || $('board').querySelector('button[data-coin]');
+          target?.focus({preventScroll:true});
+        }
+      });
+      function cancelDrag() {
+        if (!drag) return;
+        drag.ghost?.remove();
+        drag.button.classList.remove('dragging');
+        if ($('board').hasPointerCapture(drag.pointerId)) $('board').releasePointerCapture(drag.pointerId);
+        document.querySelectorAll('.zone.over').forEach(zone=>zone.classList.remove('over'));
+        drag = null;
+      }
+      $('board').addEventListener('pointerdown',event=>{
+        const button = event.target.closest('button[data-coin]');
+        if (!button || state.solved || !event.isPrimary || event.button !== 0) return;
+        drag = { button, id:Number(button.dataset.coin), source:button.dataset.location, pointerId:event.pointerId, x:event.clientX, y:event.clientY, ghost:null };
+      });
+      $('board').addEventListener('pointermove',event=>{
+        if (!drag || event.pointerId !== drag.pointerId) return;
+        if (!drag.ghost && Math.hypot(event.clientX-drag.x,event.clientY-drag.y) < 8) return;
+        if (!drag.ghost) {
+          drag.ghost = document.createElement('div');
+          drag.ghost.className = 'drag-ghost';
+          const image = document.createElement('img');
+          image.src = 'assets/treasure-activity/coin-gold.png';
+          image.alt = '';
+          image.draggable = false;
+          drag.ghost.append(image);
+          drag.ghost.setAttribute('aria-hidden','true'); document.body.append(drag.ghost);
+          drag.button.classList.add('dragging'); $('board').setPointerCapture(event.pointerId);
+        }
+        event.preventDefault();
+        drag.ghost.style.left = `${event.clientX}px`; drag.ghost.style.top = `${event.clientY}px`;
+        const over = document.elementFromPoint(event.clientX,event.clientY)?.closest('[data-zone]');
+        document.querySelectorAll('[data-zone]').forEach(zone=>zone.classList.toggle('over',zone === over && zone.dataset.zone !== drag.source));
+      });
+      $('board').addEventListener('pointerup',event=>{
+        if (!drag || event.pointerId !== drag.pointerId) return;
+        const current = drag;
+        const destination = current.ghost && document.elementFromPoint(event.clientX,event.clientY)?.closest('[data-zone]')?.dataset.zone;
+        if (current.ghost) suppressClickUntil = performance.now()+450;
+        cancelDrag();
+        if (destination && destination !== current.source) move(current.id,destination);
+      });
+      $('board').addEventListener('pointercancel',cancelDrag);
+      window.addEventListener('blur',cancelDrag);
+      start();
+    })();
+  </script>
+</body>
+</html>

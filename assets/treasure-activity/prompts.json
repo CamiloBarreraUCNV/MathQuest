@@ -1,0 +1,96 @@
+{
+  "collection": "MathQuest — Prepara el tesoro",
+  "assets": [
+    {
+      "asset": "coin-gold.png",
+      "tool": "image_gen (built-in)",
+      "prompt": "Use case: stylized-concept. Production game asset for MathQuest's 'Prepara el tesoro' activity. Image 1 is the approved screen mockup: match the specific requested object from it. Image 2 is the PRIMARY DRAWING STYLE reference. 1980s-inspired hand-inked adventure cartoon, clean contemporary finish, bold organic dark outer contours, lighter internal lines, warm saturated colors, simple hard-edged cel shadows, restrained localized drawn highlights, upper-left illumination. NO 3D render or photorealism. Deliver ONE isolated asset, genuinely transparent alpha background, no fake checkerboard, no ground plane, no cast shadow, no labels, words, numbers, watermarks, frame, UI, other assets or scenery. Full object in frame with 10 percent transparent padding, centered, clean anti-aliased edges. One single front-facing circular GOLD COIN matching the identical coins in the approved mockup. Thick dark outlined circular rim, warm ochre side/rim, flat golden face with one large embossed five-point star, simple small upper-left shine, simple cel shadow lower-right. Very slight thickness but visually circular, NOT a tilted oval. No numerals, letters or currency glyphs. No loose sparkles. Designed to remain readable at 48 pixels. Square canvas, single coin centered occupying 78 percent of width.",
+      "references": [
+        "references/approved-mockup.png",
+        "references/pirate-apple-style.png"
+      ]
+    },
+    {
+      "asset": "chest-open.png",
+      "tool": "image_gen (built-in)",
+      "prompt": "Use case: background-extraction. Edit target is the attached generated open wooden treasure chest. Remove ALL the broad brown/gold halo, haze, outer glow, background shading and projected shadows around the chest. Keep ONLY the solid wooden and golden chest itself, with its inked silhouette, raised lid, empty interior and hardware intact. Completely transparent alpha outside the actual ink contour, only normal antialiased pixels at contour edge. Solid opaque chest body. Preserve camera, drawing, colors, canvas dimensions and position. Do not add anything. This must be a clean isolated PNG cutout usable on a white or a navy UI background, without any surrounding brown cloud. No glow, no outer shadow.",
+      "references": [
+        "references/chest-open-source.png"
+      ]
+    },
+    {
+      "asset": "reserve-pouch.png",
+      "tool": "image_gen (built-in)",
+      "prompt": "Use case: stylized-concept. Production game asset for MathQuest's 'Prepara el tesoro' activity. Image 1 is the approved screen mockup: match the specific requested object from it. Image 2 is the PRIMARY DRAWING STYLE reference. 1980s-inspired hand-inked adventure cartoon, clean contemporary finish, bold organic dark outer contours, lighter internal lines, warm saturated colors, simple hard-edged cel shadows, restrained localized drawn highlights, upper-left illumination. NO 3D render or photorealism. Deliver ONE isolated asset, genuinely transparent alpha background, no fake checkerboard, no ground plane, no cast shadow, no labels, words, numbers, watermarks, frame, UI, other assets or scenery. Full object in frame with 10 percent transparent padding, centered, clean anti-aliased edges. One EMPTY open pirate cloth coin POUCH matching the tan pouch above the left counting tray in mockup. Rounded broad tan ochre fabric body, simple folded open mouth with dark empty interior, small rope drawstring tied to its neck. No visible coins, no symbols, no pile, no contents, no excessive fabric texture. Near-frontal view, gently rounded silhouette, matte canvas fabric with simple cel shadows. Square canvas, pouch occupies about 76 percent canvas width and height.",
+      "references": [
+        "references/approved-mockup.png",
+        "references/pirate-apple-style.png"
+      ]
+    },
+    {
+      "asset": "apple-guide.png",
+      "tool": "image_gen (built-in)",
+      "prompt": "Use case: stylized-concept. Production game asset for MathQuest's 'Prepara el tesoro' activity. Image 1 is the approved screen mockup: match the specific requested object from it. Image 2 is the PRIMARY DRAWING STYLE reference. 1980s-inspired hand-inked adventure cartoon, clean contemporary finish, bold organic dark outer contours, lighter internal lines, warm saturated colors, simple hard-edged cel shadows, restrained localized drawn highlights, upper-left illumination. NO 3D render or photorealism. Deliver ONE isolated asset, genuinely transparent alpha background, no fake checkerboard, no ground plane, no cast shadow, no labels, words, numbers, watermarks, frame, UI, other assets or scenery. Full object in frame with 10 percent transparent padding, centered, clean anti-aliased edges. Single friendly APPLE PIRATE GUIDE, based on the character at the left of image 1, not a new human captain. Red apple forms entire head and torso, clear lobes, brown stem, one large green leaf, red tied bandana, black eyepatch, one expressive cream-and-black eye, large warm smile, cream cartoon gloves, thin brown arms and legs, oversized brown pirate boots with gold buckles. Full body pose, one hand resting on hip and the hand on IMAGE RIGHT open palm-up presenting the activity. No sword, no weapon, no speech bubble, no text. Preserve the exact recognizable design language and eye/patch placement seen in mockup image 1. Character occupies 80 percent of square canvas. No halo or outer glow, all empty area strictly transparent.",
+      "references": [
+        "references/approved-mockup.png",
+        "references/pirate-apple-style.png"
+      ]
+    },
+    {
+      "asset": "bay-background.png",
+      "tool": "image_gen (built-in)",
+      "prompt": "Use case: stylized-concept. Create a clean reusable GAME BACKGROUND derived from the attached approved MathQuest treasure counting mockup, retaining its exact warm hand-painted 1980s adventure-cartoon scenic style. A golden sunset tropical island bay, turquoise water, distant small wooden pirate ship at upper right, distant rocky cliffs, leafy trees framing side edges, a low simple wooden railing near the horizontal middle, and a broad EMPTY wooden deck/worktable foreground occupying the lower half. Keep the foreground plank details broad and calm, with no busy grain behind future activities. Leave upper left quiet enough for a future character and the upper center sky quiet enough for a future mission scroll. Full-bleed opaque landscape 3:2, 1536x1024 or higher. REMOVE ALL interface, header, logos, text, numerals, coins, counting boards, buttons, arrow, character, bag, chest, parchment and speech bubbles. Environment ONLY, seamless continuous scenery, no blank white holes where UI was. Do not include any countable coins, apples on deck, treasure piles or interactive-looking props. Warm golden light from upper left, muted contrast behind future UI, no photorealism or 3D render.",
+      "references": [
+        "references/approved-mockup.png"
+      ]
+    },
+    {
+      "asset": "chest-closed.png",
+      "tool": "image_gen (built-in)",
+      "prompt": "Use case: precise-object-edit. Image 1 is the exact open chest asset to create a matching CLOSED state; image 2 is supporting style context only. Close ONLY the lid. Preserve same dark wooden plank chest, gold band geometry, gold lock/keyhole, black contours, frontal/slight-right-side camera and upper-left drawn lighting. Same 1536x1024 transparent canvas, same base box position, bottom baseline, front panel and chest width as image 1; leave transparent empty space above the closed lid where open lid used to be. Do not enlarge the closed chest to fill canvas. The bottom-right base corner should remain in the same place as image 1. Rounded lid, fully shut, matching clasp. No coins, treasure, contents, text, scenery, stars or celebration particles. Pure transparent alpha outside solid chest, no surrounding glow or cast shadow. Clean hand-inked cartoon game cutout, not 3D.",
+      "references": [
+        "chest-open.png",
+        "references/approved-mockup.png"
+      ]
+    },
+    {
+      "asset": "counting-tray.png",
+      "tool": "image_gen (built-in)",
+      "prompt": "Use case: stylized-concept. Production game asset for MathQuest's 'Prepara el tesoro' activity. Image 1 is the approved screen mockup: match the specific requested object from it. Image 2 is the PRIMARY DRAWING STYLE reference. 1980s-inspired hand-inked adventure cartoon, clean contemporary finish, bold organic dark outer contours, lighter internal lines, warm saturated colors, simple hard-edged cel shadows, restrained localized drawn highlights, upper-left illumination. NO 3D render or photorealism. Deliver ONE isolated asset, genuinely transparent alpha background, no fake checkerboard, no ground plane, no cast shadow, no labels, words, numbers, watermarks, frame, UI, other assets or scenery. Full object in frame with 10 percent transparent padding, centered, clean anti-aliased edges. One EMPTY wide rectangular COUNTING TRAY background matching one of the parchment trays in image 1. Landscape 3:2 canvas, entire panel centered within 6 percent outer transparent padding. Straight-on front view, no perspective skew. Warm ivory parchment flat blank interior, subtly irregular hand-inked torn paper perimeter, thin warm wood backing, dark navy metal corner reinforcements with one small rivet per corner. Interior completely EMPTY, unmarked, evenly light cream, with ample usable space; very subtle paper texture only near edges. Do NOT draw any grid lines, slots, circles, coins, number, text, icons, headers, signboards, ornaments inside the parchment or external shadows. Developer overlays a two-by-five grid and a separate label on this background. Parchment useful content area should occupy central 76 percent width and 66 percent height. Broad dark contours and simple cel shading. Same visual frame can be reused for BOTH reserve and chest zones.",
+      "references": [
+        "references/approved-mockup.png",
+        "references/pirate-apple-style.png"
+      ]
+    },
+    {
+      "asset": "mission-scroll.png",
+      "tool": "image_gen (built-in)",
+      "prompt": "Use case: stylized-concept. Production game asset for MathQuest's 'Prepara el tesoro' activity. Image 1 is the approved screen mockup: match the specific requested object from it. Image 2 is the PRIMARY DRAWING STYLE reference. 1980s-inspired hand-inked adventure cartoon, clean contemporary finish, bold organic dark outer contours, lighter internal lines, warm saturated colors, simple hard-edged cel shadows, restrained localized drawn highlights, upper-left illumination. NO 3D render or photorealism. Deliver ONE isolated asset, genuinely transparent alpha background, no fake checkerboard, no ground plane, no cast shadow, no labels, words, numbers, watermarks, frame, UI, other assets or scenery. Full object in frame with 10 percent transparent padding, centered, clean anti-aliased edges. One EMPTY hanging parchment MISSION SCROLL matching the 'TU MISIÓN / 6 / monedas' scroll in image 1, but remove ALL text and numerals. Square canvas. One vertical rectangular warm cream parchment, gently curled upper corners, two short rope suspension loops at upper corners, small dark bronze eyelets, slightly irregular rolled/torn lower corners, broad hand-drawn contour. Entire scroll and ropes fully inside frame with 10 percent clear padding. Large central 70 percent area blank and uniformly pale enough for dark readable HTML text. Restrained warm paper shading at edges; no treasure, coins, gems, symbols, shadow, glow, wooden post or scene.",
+      "references": [
+        "references/approved-mockup.png",
+        "references/pirate-apple-style.png"
+      ]
+    },
+    {
+      "asset": "label-navy.png",
+      "tool": "image_gen (built-in)",
+      "prompt": "Use case: stylized-concept. Production game asset for MathQuest's 'Prepara el tesoro' activity. Image 1 is the approved screen mockup: match the specific requested object from it. Image 2 is the PRIMARY DRAWING STYLE reference. 1980s-inspired hand-inked adventure cartoon, clean contemporary finish, bold organic dark outer contours, lighter internal lines, warm saturated colors, simple hard-edged cel shadows, restrained localized drawn highlights, upper-left illumination. NO 3D render or photorealism. Deliver ONE isolated asset, genuinely transparent alpha background, no fake checkerboard, no ground plane, no cast shadow, no labels, words, numbers, watermarks, frame, UI, other assets or scenery. Full object in frame with 10 percent transparent padding, centered, clean anti-aliased edges. One EMPTY navy WOODEN TITLE PLAQUE matching the 'MONEDAS DEL BARCO' and 'TU COFRE' labels in image 1, without any letters or symbols. Wide horizontal rectangle, about 4:1 plaque proportions, centered on landscape canvas with generous transparent padding. Rounded slightly irregular corners, dark ink outer edge, thin warm dark wooden rim, navy painted wood face, one simple small bronze-gray rivet near each of four corners, minimal broad horizontal wood grain restricted to edges. Entire center completely blank clean dark navy for cream HTML label text. Straight front-facing rectangular sign, no perspective, no rope, no other objects, no glow or cast shadow. Reusable single plaque for both zone labels. Never add pseudo-writing.",
+      "references": [
+        "references/approved-mockup.png",
+        "references/pirate-apple-style.png"
+      ]
+    }
+  ],
+  "generation_history": [
+    {
+      "asset": "references/chest-open-source.png",
+      "tool": "image_gen (built-in)",
+      "prompt": "Use case: stylized-concept. Production game asset for MathQuest's 'Prepara el tesoro' activity. Image 1 is the approved screen mockup: match the specific requested object from it. Image 2 is the PRIMARY DRAWING STYLE reference. 1980s-inspired hand-inked adventure cartoon, clean contemporary finish, bold organic dark outer contours, lighter internal lines, warm saturated colors, simple hard-edged cel shadows, restrained localized drawn highlights, upper-left illumination. NO 3D render or photorealism. Deliver ONE isolated asset, genuinely transparent alpha background, no fake checkerboard, no ground plane, no cast shadow, no labels, words, numbers, watermarks, frame, UI, other assets or scenery. Full object in frame with 10 percent transparent padding, centered, clean anti-aliased edges. One OPEN EMPTY pirate TREASURE CHEST matching the mockup above the right counting tray. Dark warm wooden plank chest, golden metal bands, gold front lock plate with a keyhole. Frontal view with slight top view and small right side visible, stable horizontal base. Hinged lid raised so completely empty dark brown interior is visible. No coins or gems inside or outside. Friendly rounded sturdy proportions. Entire chest with lid and base visible. Landscape 3:2 canvas, chest base centered at about 85 percent canvas height, chest width about 78 percent canvas. This will have a matching closed variant: keep base rectangle, bands, lock and camera easy to reproduce.",
+      "references": [
+        "references/approved-mockup.png",
+        "references/pirate-apple-style.png"
+      ],
+      "note": "Entrada del refinamiento de transparencia. Utilizar chest-open.png en la actividad."
+    }
+  ]
+}

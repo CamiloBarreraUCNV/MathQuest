@@ -1,0 +1,237 @@
+{
+  "collection": "MathQuest - Prepara el tesoro",
+  "version": 1,
+  "date": "2026-10-16",
+  "generator": "image_gen built-in tool",
+  "asset_count": 9,
+  "coordinates": "Rectangles: [left, top, right, bottom]. PNG canvas coordinates include transparent padding. Bounds use alpha >= 128; right/bottom are exclusive.",
+  "notes": [
+    "Original raster PNGs, not layered source files.",
+    "Chest states need alignment by visible width and bottom anchor; not animation sprite frames.",
+    "Text, grids, buttons, dialogue and amounts remain editable UI elements."
+  ],
+  "assets": [
+    {
+      "file": "apple-guide.png",
+      "width_px": 1254,
+      "height_px": 1254,
+      "mode": "RGBA",
+      "transparent": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "visible_bounds_px_alpha_at_least_128": [
+        66,
+        24,
+        1225,
+        1208
+      ],
+      "anchor_bottom_center_normalized": [
+        0.514753,
+        0.963317
+      ],
+      "sha256": "bfa9ee57a9e7d0abe294d15f8e334e4389896605809dec431fbef1d3a4d6ffd7",
+      "bytes": 944109
+    },
+    {
+      "file": "coin-gold.png",
+      "width_px": 1254,
+      "height_px": 1254,
+      "mode": "RGBA",
+      "transparent": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "visible_bounds_px_alpha_at_least_128": [
+        101,
+        103,
+        1150,
+        1147
+      ],
+      "anchor_bottom_center_normalized": [
+        0.498804,
+        0.914673
+      ],
+      "sha256": "4e965d1ef768ef8a9ad867da141564ce902a2a50cd85b3abcbccfb6b29c12665",
+      "bytes": 1082557
+    },
+    {
+      "file": "reserve-pouch.png",
+      "width_px": 1254,
+      "height_px": 1254,
+      "mode": "RGBA",
+      "transparent": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "visible_bounds_px_alpha_at_least_128": [
+        49,
+        119,
+        1208,
+        1163
+      ],
+      "anchor_bottom_center_normalized": [
+        0.501196,
+        0.927432
+      ],
+      "sha256": "ea241fc0b06e57d11943fd8ce784a65d962315dfe40031e315bc61b8bd1f1869",
+      "bytes": 1292837
+    },
+    {
+      "file": "chest-open.png",
+      "width_px": 1536,
+      "height_px": 1024,
+      "mode": "RGBA",
+      "transparent": true,
+      "alpha_range": [
+        0,
+        254
+      ],
+      "visible_bounds_px_alpha_at_least_128": [
+        169,
+        70,
+        1372,
+        965
+      ],
+      "anchor_bottom_center_normalized": [
+        0.501628,
+        0.942383
+      ],
+      "sha256": "0ae40d88d2b5ad963b5be6d36c18634c576202d7f7ac3bc3605118cec3204c11",
+      "bytes": 1521409
+    },
+    {
+      "file": "chest-closed.png",
+      "width_px": 1536,
+      "height_px": 1024,
+      "mode": "RGBA",
+      "transparent": true,
+      "alpha_range": [
+        0,
+        254
+      ],
+      "visible_bounds_px_alpha_at_least_128": [
+        214,
+        304,
+        1393,
+        962
+      ],
+      "anchor_bottom_center_normalized": [
+        0.523112,
+        0.939453
+      ],
+      "sha256": "92d226823f0c81173017125b24a36ff2c566405fddd7209cc22a1fb76b2c57dc",
+      "bytes": 1326715
+    },
+    {
+      "file": "bay-background.png",
+      "width_px": 1536,
+      "height_px": 1024,
+      "mode": "RGB",
+      "transparent": false,
+      "alpha_range": null,
+      "visible_bounds_px_alpha_at_least_128": [
+        0,
+        0,
+        1536,
+        1024
+      ],
+      "anchor_bottom_center_normalized": [
+        0.5,
+        1.0
+      ],
+      "sha256": "b7da0e52c77b85203100bc2bec407676ebcbbff274155859ae2615d879905b40",
+      "bytes": 2082292
+    },
+    {
+      "file": "counting-tray.png",
+      "width_px": 1536,
+      "height_px": 1024,
+      "mode": "RGBA",
+      "transparent": true,
+      "alpha_range": [
+        0,
+        254
+      ],
+      "visible_bounds_px_alpha_at_least_128": [
+        19,
+        172,
+        1517,
+        849
+      ],
+      "anchor_bottom_center_normalized": [
+        0.5,
+        0.829102
+      ],
+      "sha256": "9f1890b363037de91b40c87eccba5a7ab86127c2ba2c19b6618f10108955d9ee",
+      "bytes": 1623157,
+      "suggested_content_rectangle_normalized": [
+        0.12,
+        0.28,
+        0.88,
+        0.7
+      ]
+    },
+    {
+      "file": "mission-scroll.png",
+      "width_px": 1254,
+      "height_px": 1254,
+      "mode": "RGBA",
+      "transparent": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "visible_bounds_px_alpha_at_least_128": [
+        63,
+        84,
+        1192,
+        1149
+      ],
+      "anchor_bottom_center_normalized": [
+        0.500399,
+        0.916268
+      ],
+      "sha256": "635261113479d7e88a7948d87cbae15de5025414872bb61d61d8b7c9dd027b65",
+      "bytes": 1595269,
+      "suggested_content_rectangle_normalized": [
+        0.22,
+        0.29,
+        0.78,
+        0.78
+      ]
+    },
+    {
+      "file": "label-navy.png",
+      "width_px": 2172,
+      "height_px": 724,
+      "mode": "RGBA",
+      "transparent": true,
+      "alpha_range": [
+        0,
+        255
+      ],
+      "visible_bounds_px_alpha_at_least_128": [
+        72,
+        171,
+        2099,
+        530
+      ],
+      "anchor_bottom_center_normalized": [
+        0.49977,
+        0.732044
+      ],
+      "sha256": "8f647285cf8efe9c63f5fcf713b3c946897d000106092c84c6de057c499dc1af",
+      "bytes": 957828,
+      "suggested_content_rectangle_normalized": [
+        0.15,
+        0.32,
+        0.85,
+        0.62
+      ]
+    }
+  ]
+}
