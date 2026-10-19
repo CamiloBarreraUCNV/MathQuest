@@ -1,4 +1,4 @@
-// MathQuest: Game State and Engine Manager
+// Kalkú: Game State and Engine Manager
 var soundManager = (typeof window !== 'undefined' && window.soundManager) ? window.soundManager : (typeof soundManager !== 'undefined' ? soundManager : null);
 var LEVELS_DATA = (typeof window !== 'undefined' && window.LEVELS_DATA) ? window.LEVELS_DATA : (typeof LEVELS_DATA !== 'undefined' ? LEVELS_DATA : []);
 var getLevelById = (typeof window !== 'undefined' && window.getLevelById) ? window.getLevelById : (typeof getLevelById !== 'undefined' ? getLevelById : (id) => ((typeof window !== 'undefined' ? window.LEVELS_DATA : LEVELS_DATA) || []).find(l => l.id === Number(id)));
@@ -217,7 +217,7 @@ class MathQuestEngine {
                 return state;
             }
         } catch (e) {
-            console.error("Error loading MathQuest save data", e);
+            console.error("Error loading Kalkú save data", e);
         }
         return this.getDefaultState();
     }
@@ -226,7 +226,7 @@ class MathQuestEngine {
         try {
             localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.state));
         } catch (e) {
-            console.error("Error saving MathQuest data", e);
+            console.error("Error saving Kalkú data", e);
         }
     }
 

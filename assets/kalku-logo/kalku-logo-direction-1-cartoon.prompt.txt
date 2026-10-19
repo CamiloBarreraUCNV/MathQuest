@@ -1,0 +1,9 @@
+Generated with the built-in image generation tool via image-generator subagent.
+Direction 1: "Aventura Animada" (Pop Cartoon) for "Kalkú".
+
+References:
+- c:/Users/Camilo Barrera/Documents/GitHub/MathQuest/assets/world-1/pirate-apple-80s.png (bold line weight, warm saturated tones, friendly cartoon attitude)
+- c:/Users/Camilo Barrera/Documents/GitHub/MathQuest/assets/treasure-activity/coin-gold.png (golden yellow hue #FACC15)
+
+Effective Prompt:
+Game title logo design featuring the exact text "Kalkú". 1980s Saturday morning cartoon adventure title style, dynamic animated lettering. The letters are bold, bouncy, chunky comic book typography in warm golden yellow (#FACC15) with clean flat cel shading. Thick, heavy dark ink outline in deep midnight navy (#0F172A) with a crisp creamy parchment inner border (#FFF0C5). Above the letter 'ú', the orthographic accent is shaped as a flat 4-pointed golden sparkle star / magic twinkle. Flat 2D vector-like traditional cartoon animation aesthetic matching the references, no 3D realistic textures, no gradients or bevels, perfectly centered on a plain solid light off-white background. High legibility, crisp outlines, expressive video game logo.

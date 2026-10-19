@@ -1,0 +1,27 @@
+/* Kalkú: shared presentation of the transparent PNG logo. */
+.kalku-brand {
+    position: relative;
+    display: block;
+    flex-shrink: 0;
+    width: clamp(120px, 13vw, 166px);
+    aspect-ratio: 1620 / 740;
+    overflow: hidden;
+    background: transparent;
+}
+
+/* Frame the lettering and accent while hiding excess transparent canvas. */
+.kalku-brand img {
+    position: absolute;
+    display: block;
+    width: 103.58%;
+    height: 126.622%;
+    max-width: none;
+    left: -1.852%;
+    top: -14.865%;
+}
+
+.showcase-header .kalku-brand {
+    width: 220px;
+    max-width: 100%;
+    margin: 0 auto 16px;
+}

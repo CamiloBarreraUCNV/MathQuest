@@ -1,0 +1,9 @@
+Generated with the built-in image generation tool via image-generator subagent.
+Direction 2: "Emblema del Explorador" (Adventure Heraldry) for "Kalkú".
+
+References:
+- c:/Users/Camilo Barrera/Documents/GitHub/MathQuest/assets/treasure-activity/label-navy.png (navy blue panel #0F172A / #1E293B, golden border)
+- c:/Users/Camilo Barrera/Documents/GitHub/MathQuest/assets/treasure-activity/coin-gold.png (golden rim and stars #FACC15)
+
+Effective Prompt:
+Video game emblem logo / crest badge with the exact text "KALKÚ". Adventure explorer crest featuring a stylized playful heraldic shield plaque inspired by navy blue painted wood with a thick warm golden border (#FACC15) and friendly rounded corner rivets. Inside the shield, clear rounded block capital letters read "KALKÚ" in clean parchment cream (#FFF0C5) with bold dark navy (#0F172A) inked outlines. Above the letter 'Ú', the accent mark is explicitly designed as a small sparkling golden plus sign (+) or faceted math gem. 1980s Saturday morning cartoon cel-shaded style, flat colors with clean defined shadows, no realistic 3D textures, isolated on a light neutral off-white background. High legibility, crisp graphic icon.

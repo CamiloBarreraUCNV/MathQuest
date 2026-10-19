@@ -1,5 +1,7 @@
 # Mundo 3: Reino del Jaque Dulce
 
+Esta guía complementa la [dirección visual general de Kalkú](../ART-DIRECTION.md). Para nuevos assets, conservar sus reglas de contorno, sombras, brillo y legibilidad, junto con los materiales y motivos de este mundo.
+
 Temática integrada en sustitución del Cañón de Factores. Público: niños de 9 a 12 años. Contenido previsto: multiplicación y división.
 
 ## Assets

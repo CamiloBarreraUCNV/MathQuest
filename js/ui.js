@@ -1,4 +1,4 @@
-// MathQuest: UI Renderer, Screen Management, Animations & Confetti
+// Kalkú: UI Renderer, Screen Management, Animations & Confetti
 var soundManager = (typeof window !== 'undefined' && window.soundManager) ? window.soundManager : (typeof soundManager !== 'undefined' ? soundManager : null);
 var gameEngine = (typeof window !== 'undefined' && window.gameEngine) ? window.gameEngine : (typeof gameEngine !== 'undefined' ? gameEngine : null);
 var WORLDS_DATA = (typeof window !== 'undefined' && window.WORLDS_DATA) ? window.WORLDS_DATA : (typeof WORLDS_DATA !== 'undefined' ? WORLDS_DATA : []);

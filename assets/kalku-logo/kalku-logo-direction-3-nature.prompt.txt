@@ -1,0 +1,8 @@
+Generated with the built-in image generation tool via image-generator subagent.
+Direction 3: "Tótem / Orgánica" (Nature / Crafted) for "Kalkú".
+
+References:
+- c:/Users/Camilo Barrera/Documents/GitHub/MathQuest/assets/world-1/pirate-apple-80s.png (coral red apple skin #E11D48, green leaf with twig, bold ink outline)
+
+Effective Prompt:
+Game title logo lettering displaying the exact text "Kalkú". Playful organic rustic adventure style inspired by tropical pirate adventures. The letters "Kalkú" are chunky, hand-painted wooden block cartoon typography in warm vibrant coral-red (#E11D48) with warm golden-caramel wooden side bevels and thick inked dark navy outlines (#0F172A). Above the letter 'ú', the orthographic accent mark is a cute fresh green cartoon apple leaf with a tiny brown twig, directly evoking the pirate apple character from the reference image. 1980s Saturday morning cartoon cel-shaded 2D art style, flat clean colors, joyful, energetic, centered on an off-white plain background. Clear and readable lettering.

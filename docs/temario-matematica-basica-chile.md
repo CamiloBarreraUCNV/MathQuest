@@ -1,4 +1,4 @@
-# Temario de Matemática de 1.º a 8.º básico para MathQuest
+# Temario de Matemática de 1.º a 8.º básico para Kalkú
 
 Propuesta de planificación basada en los objetivos de aprendizaje y programas publicados por el Ministerio de Educación de Chile en Currículum Nacional. Consulta: 16 de octubre de 2026.
 
@@ -111,7 +111,7 @@ Actividad propuesta: elegir una ruta mediante Pitágoras, comparar tarifas model
 
 Fuentes: [Objetivos de 8.º básico](https://www.curriculumnacional.cl/curriculum/7o-basico-2-medio/matematica/8-basico), [programa](https://www.curriculumnacional.cl/estudiante/621/w3-article-18983.html) y [números y variaciones porcentuales](https://www.curriculumnacional.cl/docentes/Educacion-General/Matematica/Matematica-8-basico/21189%3AUnidad-1-Raices-cuadradas-Multiplicacion-y-division-de-numeros-enteros-y-de-potencias).
 
-## Propuesta para ampliar MathQuest
+## Propuesta para ampliar Kalkú
 
 Los cursos de esta tabla indican el foco sugerido del contenido, no una restricción de acceso ni una equivalencia entre aprobar un mundo y aprobar un curso.
 

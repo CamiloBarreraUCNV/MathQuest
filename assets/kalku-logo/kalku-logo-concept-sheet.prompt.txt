@@ -1,0 +1,10 @@
+Generated with the built-in image generation tool via image-generator subagent.
+Concept sheet showing 4 distinct logo directions for "Kalkú" matching MathQuest 1980s cel-shaded visual identity.
+
+References:
+- c:/Users/Camilo Barrera/Documents/GitHub/MathQuest/assets/world-1/pirate-apple-80s.png (line weight, cel shadows, eye style, color temperature)
+- c:/Users/Camilo Barrera/Documents/GitHub/MathQuest/assets/treasure-activity/label-navy.png (crest and badge framing)
+- c:/Users/Camilo Barrera/Documents/GitHub/MathQuest/assets/treasure-activity/coin-gold.png (flat gold volume)
+
+Effective Prompt:
+A professional game art exploration sheet displaying 4 distinct logo design directions for the title "Kalkú", presented on a clean solid off-white background: 1) Dynamic 1980s golden cartoon lettering "Kalkú" with a 4-point sparkle star over the 'ú'. 2) Explorer heraldic shield emblem badge in navy and gold with "KALKÚ". 3) Organic coral-red wooden carved lettering "Kalkú" with a green leaf accent. 4) Bold geometric retro pop typography "KALKÚ" in turquoise and golden yellow. All in traditional 1980s cel-shaded flat color cartoon style with bold dark navy (#0F172A) inked outlines. Crisp graphic presentation layout.

@@ -1,6 +1,16 @@
-# 📐 MathQuest: El Camino del Cálculo
+# Kalkú: El Camino del Cálculo
 
-**MathQuest** es un juego interactivo de matemáticas para navegador, diseñado con una ruta de aprendizaje progresiva al estilo *Duolingo / Candy Crush*. Guía al jugador paso a paso desde los fundamentos del conteo hasta las reglas del cálculo diferencial (derivadas).
+<img src="assets/kalku-logo/kalku-logo-direction-1-cartoon-transparent.png" alt="Kalkú" width="280">
+
+**Kalkú** es un juego interactivo de matemáticas para navegador, diseñado con una ruta de aprendizaje progresiva al estilo *Duolingo / Candy Crush*. Guía al jugador paso a paso desde los fundamentos del conteo hasta las reglas del cálculo diferencial (derivadas).
+
+## Identidad de la aplicación
+
+El nombre público es **Kalkú**. El logo aprobado es `assets/kalku-logo/kalku-logo-direction-1-cartoon-transparent.png`, compartido por el juego y los prototipos mediante `css/branding.css`. La interfaz usa un PNG con transparencia real y CSS encuadra sus márgenes transparentes. El JPG original se conserva como referencia.
+
+Por compatibilidad con partidas y herramientas existentes, se conservan las claves `mathquest_save_data_v1` y `mathquest_sound`, los identificadores internos `MathQuestEngine` y `MathQuestUI` y los nombres históricos de archivos y paquetes. Los prompts originales se conservan como registro de generación.
+
+La [guía de identidad visual](assets/ART-DIRECTION.md) define el estilo que deben conservar los nuevos personajes, objetos, escenarios e interfaces a partir de los assets existentes.
 
 ---
 

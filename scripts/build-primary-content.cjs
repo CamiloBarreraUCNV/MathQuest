@@ -431,7 +431,7 @@ const original = fs.readFileSync(target, 'utf8');
 const laterWorlds = original.indexOf('    // MUNDO 4:');
 assert.ok(laterWorlds > 0, 'Missing stable boundary before world 4');
 const tailStart = original.lastIndexOf('    // ==========================================', laterWorlds);
-const header = '// MathQuest: Base de datos de Mundos, Niveles, Teoría y Preguntas\n' +
+const header = '// Kalkú: Base de datos de Mundos, Niveles, Teoría y Preguntas\n' +
     '// Mundos 1–3: contenido de scripts/build-primary-content.cjs.\n' +
     `var WORLDS_DATA = ${JSON.stringify(worlds, null, 4)};\n\nvar LEVELS_DATA = [\n`;
 const primary = levels.filter(l => l.grade).map(l => JSON.stringify(l, null, 4).split('\n').map(line => '    ' + line).join('\n')).join(',\n');

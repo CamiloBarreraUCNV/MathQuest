@@ -1,0 +1,10 @@
+Generated with the built-in image generation tool via image-generator subagent.
+Direction 4: "Geometría Pop Retro" (Retro Geometric) for "Kalkú".
+
+References:
+- c:/Users/Camilo Barrera/Documents/GitHub/MathQuest/assets/world-2/circus-battle-background-80s.png (cyan/turquoise palette #06B6D4)
+- c:/Users/Camilo Barrera/Documents/GitHub/MathQuest/assets/treasure-activity/coin-gold.png (yellow accent #FACC15)
+- c:/Users/Camilo Barrera/Documents/GitHub/MathQuest/assets/world-1/pirate-apple-80s.png (thick navy inking #0F172A)
+
+Effective Prompt:
+Game title logo design with the exact text "KALKÚ". Retro pop geometry adventure style inspired by 1980s Saturday morning cartoon show titles. Ultra-solid, bold geometric typography with heavy block letters. Color palette features vibrant turquoise (#06B6D4) letters with vivid warm golden-yellow (#FACC15) layered dimensional undercuts and parchment cream (#FFF0C5) inner highlights. High-impact extra-thick midnight navy ink outline (#0F172A). The accent over the 'Ú' is a crisp geometric diamond or sharp angled pop-art flash. Flat 2D vector cel-shading, completely solid flat colors without gradients or photorealistic 3D, isolated on a light neutral off-white background. High readability, punchy retro energy.

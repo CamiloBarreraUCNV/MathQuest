@@ -1,4 +1,4 @@
-// MathQuest: Base de datos de Mundos, Niveles, Teoría y Preguntas
+// Kalkú: Base de datos de Mundos, Niveles, Teoría y Preguntas
 // Mundos 1–3: contenido de scripts/build-primary-content.cjs.
 var WORLDS_DATA = [
     {
