@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Kalkú · La Ruta de los Saltos</title>
+  <link rel="icon" type="image/png" href="assets/kalku-logo/kalku-logo-direction-1-cartoon-transparent.png">
+  <link rel="stylesheet" href="css/branding.css">
+  <link rel="stylesheet" href="css/numberline-game.css">
+</head>
+<body class="route-page">
+  <header class="route-header"><div class="route-header-inner"><a class="kalku-brand" href="index.html"><img src="assets/kalku-logo/kalku-logo-direction-1-cartoon-transparent.png" alt="Kalkú" width="1678" height="937"></a><a href="index.html">‹ Volver a los juegos</a></div></header>
+  <main class="route-main">
+    <section class="route-welcome" aria-labelledby="route-title"><span class="route-emblem" aria-hidden="true">🐸</span><div><p class="route-eyebrow">Un juego de Kalkú</p><h1 id="route-title">La Ruta de los Saltos</h1><p>Explora los números, deja tus huellas y descubre adónde llegas.</p></div></section>
+    <section class="route-settings" aria-label="Preparar la partida">
+      <div><label for="route-range">¿Hasta dónde viajamos?</label><select id="route-range"><option value="20">Del 0 al 20</option><option value="100">Del 0 al 100</option></select></div>
+      <div><label for="route-direction">Dirección de los retos</label><select id="route-direction"><option value="forward">Hacia adelante</option><option value="backward">Hacia atrás</option><option value="mixed">Ambas direcciones</option></select></div>
+      <div><label for="route-step">Tamaño de los saltos pedidos</label><select id="route-step"><option value="0">Variar: 1, 2, 5 y 10</option><option value="1">De 1 en 1</option><option value="2">De 2 en 2</option><option value="5">De 5 en 5</option><option value="10">De 10 en 10</option></select></div>
+      <p>Cambiar una opción empieza otra ruta. Puedes corregir y pedir ayuda sin prisa.</p>
+    </section>
+    <div id="numberline-activity"></div>
+    <noscript>Activa JavaScript para recorrer la recta numérica.</noscript>
+    <footer class="route-footer"><p>El primer número es la salida. ¡La aventura empieza con tu primer salto!</p><small>Práctica independiente · No modifica tu partida · Emojis provisionales</small><nav aria-label="Otros juegos"><a href="mockup-tesoro-monedas.html">🪙 Prepara el tesoro</a><a href="mockup-huerta-partes.html">🌳 La Huerta de las Partes</a><a href="mockup-taller-patrones.html">🛠️ El Taller de Patrones</a></nav></footer>
+  </main>
+  <script src="js/activities/numberline-model.js"></script>
+  <script src="js/activities/activity-speech.js"></script>
+  <script src="js/activities/numberline-data.js"></script>
+  <script src="js/activities/numberline-activity.js"></script>
+  <script src="js/numberline-mockup.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Kalkú · La Huerta de las Partes</title>
+  <link rel="icon" type="image/png" href="assets/kalku-logo/kalku-logo-direction-1-cartoon-transparent.png">
+  <link rel="stylesheet" href="css/branding.css">
+  <link rel="stylesheet" href="css/composition-activity.css">
+  <link rel="stylesheet" href="css/garden-game.css">
+</head>
+<body class="garden-page">
+  <header class="garden-header"><div class="garden-header-inner">
+    <a class="kalku-brand" href="index.html"><img src="assets/kalku-logo/kalku-logo-direction-1-cartoon-transparent.png" alt="Kalkú" width="1678" height="937"></a>
+    <a href="index.html">‹ Volver a los juegos</a>
+  </div></header>
+  <main class="garden-main">
+    <section class="garden-welcome" aria-labelledby="garden-title">
+      <span class="garden-emblem" aria-hidden="true">🌳</span><div><p class="garden-eyebrow">Un juego de Kalkú</p><h1 id="garden-title">La Huerta de las Partes</h1><p>Junta, completa y reparte tu cosecha de manzanas.</p></div>
+    </section>
+    <section class="garden-settings" aria-label="Preparar la partida">
+      <div><label for="garden-range">Tamaño de la cosecha</label><select id="garden-range"><option value="10">Hasta 10 manzanas</option><option value="20">Hasta 20 manzanas</option></select></div>
+      <div><label for="garden-mode">Elige cómo jugar</label><select id="garden-mode"><option value="compose">Juntar dos cantidades</option><option value="missing">Completar la canasta</option><option value="split">Repartir de dos formas</option></select></div>
+      <p>Cambiar una opción empieza un reto nuevo.</p>
+    </section>
+    <div id="garden-activity"></div>
+    <noscript>Activa JavaScript para jugar con las manzanas y las canastas.</noscript>
+    <footer class="garden-footer"><p>Sin prisa. Cada cosecha tiene algo que enseñarte.</p><small>Práctica independiente · No modifica tu partida · Emojis provisionales</small><a href="mockup-tesoro-monedas.html">🪙 Ir a otro juego: Prepara el tesoro →</a> <a href="mockup-taller-patrones.html">🛠️ El Taller de Patrones →</a></footer>
+  </main>
+  <script src="js/activities/composition-model.js"></script>
+  <script src="js/activities/activity-speech.js"></script>
+  <script src="js/activities/composition-data.js"></script>
+  <script src="js/activities/composition-activity.js"></script>
+  <script src="js/garden-mockup.js"></script>
+</body>
+</html>

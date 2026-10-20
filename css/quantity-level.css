@@ -1,0 +1,22 @@
+/* Host layout for the pilot; the shared activity styles stay inside .quantity-widget. */
+.quantity-level-screen {
+    width:100%; min-height:calc(100vh - 100px); padding:22px max(12px,calc((100vw - 1394px)/2)) 36px;
+    background:#663b20 url('../assets/treasure-activity/bay-background.png') center top / cover no-repeat;
+}
+.quantity-level-toolbar { display:flex; align-items:center; justify-content:space-between; gap:20px; color:#fff0c5; padding:16px; background:#102c47ed; border:2px solid #c39142; border-radius:18px; }
+.quantity-level-toolbar h1 { font-size:clamp(21px,2vw,30px); }
+.quantity-level-toolbar p { margin-top:4px; font-size:16px; }
+.quantity-level-toolbar button { min-height:64px; flex-shrink:0; }
+.quantity-level-note { max-width:900px; margin:16px auto 0; padding:12px 16px; background:#fff0c5; color:#38200f; border:2px solid #603916; border-radius:12px; text-align:center; line-height:1.5; }
+.quantity-pilot-description { margin:22px 0 12px; color:#e2e8f0; line-height:1.5; }
+#start-quantity-btn { width:100%; min-height:64px; }
+#quantity-level-title:focus { outline:3px solid #ffe273; outline-offset:4px; }
+@media (max-width:760px) {
+    .quantity-level-toolbar { flex-direction:column-reverse; align-items:stretch; gap:12px; padding:14px; }
+    .quantity-level-toolbar h1 { font-size:24px; }
+    .quantity-level-toolbar button { font-size:16px; padding:12px; }
+    .quantity-level-note { font-size:15px; }
+}
+.quantity-range-label { display:block; margin:12px 0 6px; color:#f8fafc; font-size:17px; }
+.quantity-range-select { width:100%; min-height:64px; margin:0 0 14px; padding:12px; color:#fff0c5; background:#102c47; border:2px solid #d6a453; border-radius:12px; font:inherit; font-size:17px; }
+.quantity-range-select:focus-visible { outline:3px solid #ffe273; outline-offset:3px; }

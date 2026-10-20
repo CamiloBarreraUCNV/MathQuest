@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Kalkú · El Taller de Patrones</title>
+  <link rel="icon" type="image/png" href="assets/kalku-logo/kalku-logo-direction-1-cartoon-transparent.png">
+  <link rel="stylesheet" href="css/branding.css">
+  <link rel="stylesheet" href="css/pattern-game.css">
+</head>
+<body class="pattern-page">
+  <header class="pattern-header"><div class="pattern-header-inner">
+    <a class="kalku-brand" href="index.html"><img src="assets/kalku-logo/kalku-logo-direction-1-cartoon-transparent.png" alt="Kalkú" width="1678" height="937"></a>
+    <a href="index.html">‹ Volver a los juegos</a>
+  </div></header>
+  <main class="pattern-main">
+    <section class="pattern-welcome" aria-labelledby="pattern-title"><span class="pattern-emblem" aria-hidden="true">🛠️</span><div><p class="pattern-eyebrow">Un juego de Kalkú</p><h1 id="pattern-title">El Taller de Patrones</h1><p>Descubre la regla, construye una secuencia y dale tu propio toque.</p></div></section>
+    <section class="pattern-settings" aria-label="Preparar la partida">
+      <div><label for="pattern-family">¿Con qué jugamos?</label><select id="pattern-family"><option value="AB">AB · Una y otra</option><option value="AAB">AAB · Dos y una</option><option value="ABC">ABC · Tres distintas</option><option value="number">Números · Saltos iguales</option></select></div>
+      <div><label for="pattern-mode">Elige tu reto</label><select id="pattern-mode"><option value="continue">Continuar</option><option value="create">Crear mi patrón</option><option value="repair">Reparar</option></select></div>
+      <div id="pattern-range-setting" hidden><label for="pattern-range">Números de la serie</label><select id="pattern-range"><option value="20">Hasta 20 · Saltos de 1 y 2</option><option value="100">Hasta 100 · También 5 y 10</option></select></div>
+      <p>Cambiar una opción empieza un reto nuevo. Puedes corregir y pedir ayuda sin prisa.</p>
+    </section>
+    <div id="pattern-activity"></div>
+    <noscript>Activa JavaScript para construir tus patrones.</noscript>
+    <footer class="pattern-footer"><p>Cada secuencia esconde una regla. ¡Vamos a descubrirla!</p><small>Práctica independiente · No modifica tu partida · Emojis provisionales</small><nav aria-label="Otros juegos"><a href="mockup-tesoro-monedas.html">🪙 Prepara el tesoro</a><a href="mockup-huerta-partes.html">🌳 La Huerta de las Partes</a><a href="mockup-ruta-saltos.html">🐸 La Ruta de los Saltos</a></nav></footer>
+  </main>
+  <script src="js/activities/pattern-model.js"></script>
+  <script src="js/activities/activity-speech.js"></script>
+  <script src="js/activities/pattern-data.js"></script>
+  <script src="js/activities/pattern-activity.js"></script>
+  <script src="js/pattern-mockup.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+/* Orchard host and game launcher. Interface placeholders use emojis; no generated art. */
+.garden-page { margin:0; min-height:100vh; color:#382b1a; font-family:'Trebuchet MS','Segoe UI',sans-serif; background:radial-gradient(ellipse at 15% 10%,#fff1a1 0,transparent 40%),linear-gradient(#dcedc2,#a5bd79 55%,#d9bd83); }
+.garden-page * { box-sizing:border-box; }
+.garden-header { background:#102c47; color:#fff0c5; border-bottom:4px solid #d6a453; }
+.garden-header-inner { max-width:1250px; margin:auto; padding:18px 24px; display:flex; align-items:center; justify-content:space-between; gap:18px; }
+.garden-header a,.garden-footer a { color:inherit; font-weight:800; text-underline-offset:4px; }
+.garden-header a:not(.kalku-brand) { display:flex; align-items:center; min-height:64px; }
+.garden-main { max-width:1250px; margin:auto; padding:24px; }
+.garden-welcome { display:flex; align-items:center; gap:24px; margin:4px 0 24px; padding:24px; border:4px solid #536d35; border-radius:28px; background:#fff7d9; box-shadow:0 6px #7f9256; }
+.garden-emblem { font-size:96px; line-height:1.2; }
+.garden-eyebrow { text-transform:uppercase; font-size:14px; font-weight:800; letter-spacing:.12em; color:#426039; }
+.garden-welcome h1 { margin:4px 0 8px; color:#2d492d; font-size:clamp(28px,4vw,44px); }
+.garden-welcome p { margin:6px 0; line-height:1.5; }
+.garden-settings { display:grid; grid-template-columns:1fr 1fr; gap:16px 24px; padding:20px; border:3px solid #536d35; border-radius:20px; background:#365737; color:#fff6cf; }
+.garden-settings > div { min-width:0; }
+.garden-settings label { display:block; margin-bottom:8px; font-size:18px; font-weight:800; }
+.garden-settings select { width:100%; min-height:64px; font:inherit; font-size:17px; color:#382b1a; background:#fff7d9; padding:12px; border:3px solid #805027; border-radius:14px; }
+.garden-settings p { grid-column:1/-1; margin:0; font-size:14px; }
+.garden-page a:focus-visible,.garden-settings select:focus-visible { outline:3px solid #fff0c5; outline-offset:3px; box-shadow:0 0 0 6px #102c47; }
+.garden-footer { text-align:center; padding:20px 0 10px; color:#263d26; font-weight:700; line-height:1.5; }
+.garden-footer small { display:block; font-weight:400; }
+.garden-footer a { display:inline-flex; align-items:center; justify-content:center; min-height:64px; margin-top:14px; padding:10px 16px; border:2px solid #536d35; border-radius:14px; background:#fff7d9; }
+.garden-page .comp-game-label,.garden-level-screen .comp-game-label { display:none; }
+.quantity-level-screen.garden-level-screen { background:radial-gradient(ellipse at 15% 0%,#fff1b8,transparent 50%),linear-gradient(#dcecc3,#a8bf7e 60%,#d6ba83); }
+.garden-level-screen .quantity-level-toolbar { background:#365737; border-color:#8d6a2c; }
+.island-minigames { margin:24px; padding:22px; border:2px solid #bb9855; border-radius:20px; background:#102c47e8; color:#fff0c5; }
+.island-minigames h2 { margin:0 0 16px; font-size:24px; }
+.island-game-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.island-game-card { min-width:0; padding:18px; border:2px solid #aa864b; border-radius:16px; background:#1e3e57; }
+.island-game-card.garden-card { background:#365737; }
+.island-game-card h3 { margin:0 0 10px; font-size:23px; }
+.island-game-card p { margin:0 0 16px; line-height:1.5; }
+.island-game-card button { width:100%; min-height:64px; padding:12px; border:3px solid #8c4a08; border-radius:14px; background:#ffd34e; color:#38200f; font:inherit; font-weight:800; font-size:18px; cursor:pointer; }
+.island-game-card button:focus-visible { outline:3px solid #fff0c5; outline-offset:3px; }
+.garden-modal-icon { font-size:64px; text-align:center; margin:8px 0 16px; }
+@media (max-width:760px) {
+  .garden-header-inner { padding:12px 16px; gap:12px; }
+  .garden-header a:not(.kalku-brand) { font-size:14px; }
+  .garden-main { padding:16px 12px; }
+  .garden-welcome { gap:14px; padding:16px; }
+  .garden-emblem { font-size:54px; }
+  .garden-welcome h1 { font-size:28px; }
+  .garden-settings,.island-game-grid { grid-template-columns:minmax(0,1fr); }
+  .garden-settings { padding:16px; }
+  .island-minigames { margin:16px 10px; padding:16px; }
+}

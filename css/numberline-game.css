@@ -1,0 +1,76 @@
+/* Kalkú's number-line trail: navy, leaf green, warm wooden borders and emoji placeholders. */
+.route-page { margin:0; min-height:100vh; font-family:'Trebuchet MS','Segoe UI',sans-serif; color:#fff4d5; background:radial-gradient(ellipse at 15% 0%,#436b4b,transparent 65%),#102c47; }
+.route-page *,.numberline-widget * { box-sizing:border-box; }
+.route-header { background:#102c47; border-bottom:4px solid #d6a453; }
+.route-header-inner { max-width:1200px; margin:auto; padding:16px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.route-header a,.route-footer a { color:#fff4d5; font-weight:800; text-underline-offset:4px; }
+.route-header a:not(.kalku-brand),.route-footer a { display:inline-flex; align-items:center; min-height:64px; }
+.route-main { max-width:1200px; margin:auto; padding:24px; }
+.route-welcome { display:flex; align-items:center; gap:24px; padding:24px; margin-bottom:24px; }
+.route-emblem { font-size:80px; }
+.route-welcome h1 { margin:4px 0 10px; font-size:clamp(30px,4vw,46px); color:#ffdc80; }
+.route-welcome p { margin:6px 0; line-height:1.5; }
+.route-eyebrow { font-size:13px; text-transform:uppercase; font-weight:800; letter-spacing:.1em; }
+.route-settings { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; padding:20px; border:2px solid #bb9855; border-radius:20px; background:#244b3d; }
+.route-settings label { display:block; font-size:18px; font-weight:800; margin-bottom:8px; }
+.route-settings select { min-height:64px; width:100%; padding:12px; border:3px solid #956327; border-radius:14px; background:#fff4d5; color:#382715; font:inherit; }
+.route-settings p { grid-column:1/-1; margin:0; line-height:1.5; }
+.route-footer { padding:20px 0; text-align:center; line-height:1.5; }
+.route-footer small { display:block; }
+.route-footer nav { display:flex; gap:24px; justify-content:center; flex-wrap:wrap; }
+.numberline-widget { margin-top:24px; padding:24px; border:3px solid #bb9855; border-radius:24px; background:#fff4d5; color:#382715; font-family:'Trebuchet MS','Segoe UI',sans-serif; box-shadow:0 6px 0 #694626; }
+.numberline-widget [hidden] { display:none!important; }
+.numberline-widget button { cursor:pointer; font:inherit; font-size:17px; font-weight:800; min-height:64px; min-width:64px; padding:12px 16px; border:3px solid #94632c; border-radius:14px; background:#fff9e9; color:#382715; box-shadow:0 3px 0 #b89258; }
+.numberline-widget button:disabled { cursor:default; opacity:.6; box-shadow:none; }
+.numberline-widget button:focus-visible,.route-settings select:focus-visible { outline:3px solid #08676e; outline-offset:3px; box-shadow:0 0 0 6px #fff4d5; }
+.route-page a:focus-visible { outline:3px solid #ffdc80; outline-offset:3px; }
+.route-intro { display:flex; align-items:center; gap:20px; }
+.route-intro > span { font-size:64px; }
+.route-intro h2 { margin:6px 0; font-size:clamp(22px,3vw,30px); color:#29493c; }
+.numberline-widget p { line-height:1.55; }
+.route-mission { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:20px 0; }
+.route-mission > div { padding:14px; border:2px solid #9d713e; border-radius:14px; background:#f5dfaa; text-align:center; font-weight:800; }
+.route-mission strong { display:block; margin-top:8px; font-size:clamp(20px,3vw,30px); }
+.route-position { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:12px; padding:14px; border-radius:16px; background:#244b3d; color:#fff4d5; font-size:23px; font-weight:800; }
+.route-position strong { font-size:42px; color:#ffdc80; }
+.route-position span { font-size:17px; }
+.route-map { margin-top:18px; padding:16px; border:3px solid #9d713e; border-radius:20px; background:#fff9e9; }
+.route-map > p { margin:0; font-weight:800; }
+.route-line { width:100%; min-width:0; }
+.route-line svg { width:100%; display:block; height:auto; font-family:'Trebuchet MS','Segoe UI',sans-serif; }
+.route-overview { margin-top:18px; border-top:2px dashed #9d713e; padding-top:18px; }
+.route-overview h3,.route-history h3 { margin:0 0 6px; }
+.route-overview p { margin:0; }
+.route-navigation,.route-actions { display:flex; flex-wrap:wrap; gap:12px; margin:18px 0; }
+.route-navigation button { flex:1 1 190px; }
+.route-actions button { flex:1 1 190px; }
+.route-move button { background:#dbe8ce; border-color:#4b6d45; }
+.route-steps { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:20px; }
+.route-steps button { font-size:30px; }
+.route-steps small { display:block; margin-top:4px; font-size:16px; }
+.route-steps button[aria-pressed=true] { background:#244b3d; color:#fff4d5; border-color:#244b3d; box-shadow:0 0 0 3px #82a36a; }
+.route-history { padding:18px; margin:20px 0; background:#e6c590; border:2px solid #9d713e; border-radius:16px; }
+.route-history ol { display:flex; flex-wrap:wrap; gap:12px 24px; padding-left:28px; margin:10px 0 0; }
+.route-history li { padding:6px 8px; font-size:18px; font-weight:800; }
+.numberline-widget .route-primary { background:#ffd34e; border-color:#8c4a08; color:#38200f; }
+.route-feedback { padding:16px; min-height:64px; border:2px solid #3e7673; border-radius:14px; background:#e1efdc; font-weight:800; }
+.route-example { padding:18px; border:2px dashed #8d6820; border-radius:16px; background:#fff9e9; }
+.quantity-level-screen.numberline-level-screen { background:radial-gradient(ellipse at 20% 0%,#436b4b,transparent 65%),#102c47; }
+.numberline-level-screen .quantity-level-toolbar,.island-game-card.numberline-card { background:#244b3d; }
+@media(max-width:760px) {
+  .route-header-inner { padding:12px; }
+  .route-header a:not(.kalku-brand) { font-size:14px; }
+  .route-main { padding:16px 12px; }
+  .route-welcome { padding:12px 4px; gap:14px; }
+  .route-emblem { font-size:46px; }
+  .route-settings { grid-template-columns:minmax(0,1fr); padding:16px; }
+  .numberline-widget { padding:16px 12px; }
+  .route-intro { gap:12px; }
+  .route-intro > span { font-size:42px; }
+  .route-mission { gap:8px; }
+  .route-mission > div { padding:12px 6px; font-size:13px; }
+  .route-mission strong { font-size:19px; }
+  .route-map { padding:12px 6px; }
+  .route-steps { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .route-position span { flex-basis:100%; text-align:center; }
+}
