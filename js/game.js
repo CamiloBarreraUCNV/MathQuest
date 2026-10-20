@@ -19,6 +19,7 @@ class MathQuestEngine {
         this.isAnswerLocked = false;
         this.sessionStatus = 'idle';
         this.lastResults = null;
+        this.activityRun = null;
     }
 
     playSound(method, ...args) {
@@ -32,6 +33,7 @@ class MathQuestEngine {
         const level = getLevelById(levelId);
         if (!level || this.state.hearts <= 0) return null;
 
+        this.activityRun = null;
         this.currentLevel = level;
         this.currentQuestionIdx = 0;
         this.sessionScore = 0;
@@ -116,6 +118,88 @@ class MathQuestEngine {
             };
         });
         return this.getCurrentQuestion();
+    }
+
+    startQuantityLevel(levelId, maxTarget = 10) {
+        const activities = globalThis.KalkuActivities;
+        if (![10, 20].includes(maxTarget)) return null;
+        const definition = globalThis.KalkuActivityData?.[maxTarget === 20 ? 'QUANTITY_PRACTICE_20' : 'QUANTITY_PRACTICE'];
+        return this.startActivityLevel(levelId, definition, activities?.QuantitySession, activities?.createQuantityChallengeFactory,
+            maxTarget === 20 ? 'Prepara el tesoro · Hasta 20' : 'Prepara el tesoro', 'quantity');
+    }
+
+    startCompositionLevel(levelId, mode = 'compose', maxTarget = 10) {
+        if (!['compose', 'missing', 'split'].includes(mode) || ![10, 20].includes(maxTarget)) return null;
+        const activities = globalThis.KalkuActivities;
+        const definition = globalThis.KalkuActivityData?.COMPOSITION_PRACTICES?.[maxTarget]?.[mode];
+        const title = { compose: 'Junta la cosecha', missing: 'Completa la canasta', split: 'Dos formas de repartir' }[mode];
+        return this.startActivityLevel(levelId, definition, activities?.CompositionSession, activities?.createCompositionChallengeFactory,
+            `La Huerta · ${title} · Hasta ${maxTarget}`, 'composition');
+    }
+
+    startPatternLevel(levelId, mode = 'continue', family = 'AB', maxNumber = 20) {
+        if (!['continue', 'create', 'repair'].includes(mode) || !['AB', 'AAB', 'ABC', 'number'].includes(family) || ![20, 100].includes(maxNumber)) return null;
+        const activities = globalThis.KalkuActivities;
+        const definition = globalThis.KalkuActivityData?.PATTERN_PRACTICES?.[maxNumber]?.[family]?.[mode];
+        const title = { continue: 'Continuar', create: 'Crear', repair: 'Reparar' }[mode];
+        return this.startActivityLevel(levelId, definition, activities?.PatternSession, activities?.createPatternChallengeFactory,
+            `El Taller de Patrones · ${title} · ${family === 'number' ? `Hasta ${maxNumber}` : family}`, 'pattern');
+    }
+
+    startNumberlineLevel(levelId, direction = 'forward', stepSize = 0, maxNumber = 20) {
+        if (!['forward', 'backward', 'mixed'].includes(direction) || ![0, 1, 2, 5, 10].includes(stepSize) || ![20, 100].includes(maxNumber)) return null;
+        const activities = globalThis.KalkuActivities;
+        const definition = globalThis.KalkuActivityData?.NUMBERLINE_PRACTICES?.[maxNumber]?.[direction]?.[stepSize];
+        return this.startActivityLevel(levelId, definition, activities?.NumberlineSession, activities?.createNumberlineChallengeFactory,
+            `La Ruta de los Saltos · ${direction === 'forward' ? 'Adelante' : direction === 'backward' ? 'Atrás' : 'Ambas direcciones'} · Hasta ${maxNumber}`, 'numberline');
+    }
+
+    startActivityLevel(levelId, definition, Session, factory, title, kind) {
+        // Pilot only: share level 1's RPG progress without changing any level IDs or saves.
+        if (Number(levelId) !== 1 || !this.isLevelUnlocked(levelId) || !Session || !factory || !definition) return null;
+        this.cancelSession();
+        this.currentLevel = { ...getLevelById(levelId), title };
+        this.activeBoss = null;
+        this.currentQuestionIdx = this.sessionScore = this.sessionErrors = 0;
+        this.currentStreak = this.bestStreakInSession = 0;
+        this.isAnswerLocked = true;
+        this.sessionStatus = 'playing';
+        this.lastResults = null;
+        this.activityRun = {
+            total: 5, completed: [], session: null, accepted: false, kind, Session,
+            nextChallenge: factory(definition)
+        };
+        return this.nextActivitySession();
+    }
+
+    // Compatibility with callers of the original quantity pilot API.
+    get quantityRun() { return this.activityRun; }
+    nextQuantitySession() { return this.nextActivitySession(); }
+    acceptQuantityCompletion(result) { return this.acceptActivityCompletion(result); }
+
+    nextActivitySession() {
+        const run = this.activityRun;
+        if (!run || this.sessionStatus !== 'playing' || run.completed.length >= run.total) return null;
+        if (run.session && !run.accepted) return run.session;
+        run.session = new run.Session(run.nextChallenge());
+        run.accepted = false;
+        return run.session;
+    }
+
+    acceptActivityCompletion(result) {
+        const run = this.activityRun;
+        if (!run || this.sessionStatus !== 'playing' || run.accepted) return null;
+        // The event is a notification, never proof: validate the model owned by this engine.
+        const snapshot = run.session?.getSnapshot();
+        if (!snapshot || snapshot.status !== 'completed' ||
+            (run.kind === 'quantity' ? snapshot.finalQuantity !== snapshot.targetQuantity : !run.session.isCorrect()) ||
+            result?.challengeId !== snapshot.challengeId) return null;
+        run.accepted = true;
+        run.completed.push(snapshot);
+        this.sessionScore = run.completed.length;
+        return run.completed.length === run.total
+            ? { finished: true, results: this.finishLevel() }
+            : { finished: false, completed: run.completed.length, total: run.total };
     }
 
     shuffleCurrentOptions() {
@@ -300,7 +384,7 @@ class MathQuestEngine {
     }
 
     getCurrentQuestion() {
-        if (!this.currentLevel) return null;
+        if (!this.currentLevel || this.activityRun) return null;
         return this.currentLevel.questions[this.currentQuestionIdx] || null;
     }
 
@@ -390,6 +474,7 @@ class MathQuestEngine {
 
     nextQuestion() {
         if (this.lastResults) return { finished: true, results: this.lastResults };
+        if (this.activityRun) return null;
         if (this.sessionStatus === 'defeated') return { finished: true, results: this.finishLevel() };
         if (this.sessionStatus !== 'playing' || !this.isAnswerLocked) return null;
         this.isAnswerLocked = false;
@@ -409,16 +494,18 @@ class MathQuestEngine {
     finishLevel() {
         if (this.lastResults) return this.lastResults;
         if (!this.currentLevel || !['playing', 'defeated'].includes(this.sessionStatus)) return null;
-        const exhausted = this.currentQuestionIdx >= this.currentLevel.questions.length;
+        const activityRun = this.activityRun;
+        const exhausted = activityRun ? activityRun.completed.length === activityRun.total
+            : this.currentQuestionIdx >= this.currentLevel.questions.length;
         if (this.sessionStatus === 'playing' && !exhausted && !this.activeBoss?.isDefeated) return null;
-        const totalQuestions = this.currentLevel.questions.length;
+        const totalQuestions = activityRun ? activityRun.total : this.currentLevel.questions.length;
         const hasCombat = !!this.activeBoss;
         const isBossFight = !!(this.activeBoss && this.currentLevel.isBoss);
         const answeredCount = Math.max(1, this.sessionScore + this.sessionErrors);
         const displayTotal = hasCombat ? answeredCount : totalQuestions;
         const accuracy = (this.sessionScore / displayTotal);
 
-        const outOfLives = this.sessionStatus === 'defeated' || this.state.hearts <= 0;
+        const outOfLives = !activityRun && (this.sessionStatus === 'defeated' || this.state.hearts <= 0);
         const isSuccess = !outOfLives &&
             (hasCombat ? this.activeBoss.isDefeated : exhausted && accuracy >= 0.6);
         const stars = !isSuccess ? 0 : accuracy === 1 ? 3 : accuracy >= 0.75 ? 2 : 1;
@@ -443,7 +530,7 @@ class MathQuestEngine {
             this.state.completedLevels[currentId] = {
                 completed: true,
                 stars: Math.max(prevStars, stars),
-                score: this.sessionScore,
+                score: activityRun ? Math.max(this.state.completedLevels[currentId]?.score || 0, this.sessionScore) : this.sessionScore,
                 highStreak: Math.max(this.state.completedLevels[currentId]?.highStreak || 0, this.bestStreakInSession)
             };
 
@@ -488,7 +575,9 @@ class MathQuestEngine {
             isNextUnlocked: nextLevelId !== null && this.isLevelUnlocked(nextLevelId),
             isBoss: isBossFight,
             bossDefeated: this.activeBoss ? this.activeBoss.isDefeated : false,
-            bossName: this.activeBoss ? this.activeBoss.name : null
+            bossName: this.activeBoss ? this.activeBoss.name : null,
+            activityType: activityRun ? activityRun.kind : null,
+            activitySummary: activityRun ? JSON.parse(JSON.stringify(activityRun.completed)) : null
         };
         return this.lastResults;
     }
@@ -496,6 +585,7 @@ class MathQuestEngine {
     cancelSession() {
         this.sessionStatus = 'idle';
         this.isAnswerLocked = true;
+        this.activityRun = null;
     }
 
     refillHearts() {

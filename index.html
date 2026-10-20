@@ -13,6 +13,12 @@
 
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/branding.css">
+    <link rel="stylesheet" href="css/quantity-activity.css">
+    <link rel="stylesheet" href="css/quantity-level.css">
+    <link rel="stylesheet" href="css/composition-activity.css">
+    <link rel="stylesheet" href="css/garden-game.css">
+    <link rel="stylesheet" href="css/pattern-game.css">
+    <link rel="stylesheet" href="css/numberline-game.css">
 </head>
 <body>
 
@@ -151,9 +157,18 @@
         </div>
     </section>
 
-    <!-- ========================================================
-         PANTALLA 3: VICTORIA DE NIVEL
-         ======================================================== -->
+    <!-- Piloto interactivo del nivel 1 de la Isla -->
+    <section class="quantity-level-screen hidden" id="activity-screen" aria-labelledby="quantity-level-title">
+        <div class="quantity-level-toolbar">
+            <button class="btn-3d secondary" id="quit-activity-btn">‹ Volver a la isla</button>
+            <div><h1 id="quantity-level-title" tabindex="-1">Prepara el tesoro</h1>
+                <p id="quantity-level-progress" role="status" aria-live="polite"></p></div>
+        </div>
+        <p class="quantity-level-note">Completa 5 encargos. Puedes corregir y pedir ayuda sin perder corazones. Al terminar: 3 estrellas y 85 XP.</p>
+        <div id="quantity-level-activity"></div>
+    </section>
+
+    <!-- Resultados compartidos por cuestionarios y actividades -->
     <section class="result-view hidden" id="victory-screen">
         <h2 id="victory-title">🎉 ¡Nivel Completado!</h2>
         <h3 id="victory-level-title" style="color: #38bdf8;">Título del Nivel</h3>
@@ -173,7 +188,7 @@
             </div>
             <div class="stat-item">
                 <span class="stat-val" id="victory-accuracy" style="color: #10b981;">100%</span>
-                <span class="stat-lbl">Precisión</span>
+                <span class="stat-lbl" id="victory-accuracy-label">Precisión</span>
             </div>
         </div>
 
@@ -224,12 +239,60 @@
             </div>
 
             <button class="btn-3d" id="start-challenge-btn" style="width: 100%;">¡Comenzar Desafío! 🚀</button>
+            <div id="quantity-pilot-option" hidden>
+                <p class="quantity-pilot-description">Otra forma de completar este nivel: prepara 5 cofres contando monedas, sin perder corazones. Hasta 20 también puedes agrupar y separar decenas.</p>
+                <label class="quantity-range-label" for="quantity-level-range">Elige cuánto contar</label>
+                <select class="quantity-range-select" id="quantity-level-range"><option value="10">Hasta 10 monedas</option><option value="20">Hasta 20 · decenas y unidades</option></select>
+                <button class="btn-3d secondary" id="start-quantity-btn">🪙 Jugar al tesoro</button>
+            </div>
         </div>
     </div>
 
     <!-- ========================================================
          MODAL 2: PERFIL, RANGO Y LOGROS
          ======================================================== -->
+    <div class="modal-overlay hidden" id="garden-modal" role="dialog" aria-modal="true" aria-labelledby="garden-modal-title">
+        <div class="modal-box">
+            <div class="modal-header"><div class="modal-title-area"><span class="badge-tag">Juego de composición y reparto</span><h2 id="garden-modal-title" tabindex="-1">La Huerta de las Partes</h2></div><button class="modal-close-btn" id="close-garden-btn" aria-label="Cerrar La Huerta">✕</button></div>
+            <div class="garden-modal-icon" aria-hidden="true">🌳 🍎 🧺</div>
+            <p>Junta la cosecha, completa una canasta o reparte las manzanas de dos formas distintas.</p>
+            <label class="quantity-range-label" for="garden-level-range">Tamaño de la cosecha</label>
+            <select class="quantity-range-select" id="garden-level-range"><option value="10">Hasta 10 manzanas</option><option value="20">Hasta 20 manzanas</option></select>
+            <label class="quantity-range-label" for="garden-level-mode">Elige cómo jugar</label>
+            <select class="quantity-range-select" id="garden-level-mode"><option value="compose">Juntar dos cantidades</option><option value="missing">Completar la canasta</option><option value="split">Repartir de dos formas</option></select>
+            <p>Cinco retos para completar la partida. Puedes corregir y pedir ayuda sin perder corazones.</p>
+            <button class="btn-3d" id="start-garden-btn" style="width:100%; margin-top:18px;">🌳 Jugar a la huerta</button>
+        </div>
+    </div>
+    <div class="modal-overlay hidden" id="pattern-modal" role="dialog" aria-modal="true" aria-labelledby="pattern-modal-title">
+        <div class="modal-box">
+            <div class="modal-header"><div class="modal-title-area"><span class="badge-tag">Juego de secuencias y reglas</span><h2 id="pattern-modal-title" tabindex="-1">El Taller de Patrones</h2></div><button class="modal-close-btn" id="close-pattern-btn" aria-label="Cerrar El Taller">✕</button></div>
+            <div class="garden-modal-icon" aria-hidden="true">🛠️ 🍃 🐚 ⭐</div>
+            <p>Continúa una secuencia, crea tu propio patrón o repara una pieza equivocada.</p>
+            <label class="quantity-range-label" for="pattern-level-family">¿Con qué jugamos?</label>
+            <select class="quantity-range-select" id="pattern-level-family"><option value="AB">AB · Una y otra</option><option value="AAB">AAB · Dos y una</option><option value="ABC">ABC · Tres distintas</option><option value="number">Números · Saltos iguales</option></select>
+            <label class="quantity-range-label" for="pattern-level-mode">Elige tu reto</label>
+            <select class="quantity-range-select" id="pattern-level-mode"><option value="continue">Continuar</option><option value="create">Crear mi patrón</option><option value="repair">Reparar</option></select>
+            <div id="pattern-level-range-setting" hidden><label class="quantity-range-label" for="pattern-level-range">Números de la serie</label><select class="quantity-range-select" id="pattern-level-range"><option value="20">Hasta 20 · Saltos de 1 y 2</option><option value="100">Hasta 100 · También 5 y 10</option></select></div>
+            <p>Cinco retos para completar la partida. Puedes corregir y pedir ayuda sin perder corazones.</p>
+            <button class="btn-3d" id="start-pattern-btn" style="width:100%; margin-top:18px;">🛠️ Jugar al taller</button>
+        </div>
+    </div>
+    <div class="modal-overlay hidden" id="numberline-modal" role="dialog" aria-modal="true" aria-labelledby="numberline-modal-title">
+        <div class="modal-box">
+            <div class="modal-header"><div class="modal-title-area"><span class="badge-tag">Juego de recta numérica</span><h2 id="numberline-modal-title" tabindex="-1">La Ruta de los Saltos</h2></div><button class="modal-close-btn" id="close-numberline-btn" aria-label="Cerrar La Ruta de los Saltos">✕</button></div>
+            <div class="garden-modal-icon" aria-hidden="true">🐸 🧭</div>
+            <p>Avanza o retrocede por la recta, elige tus saltos y revisa las huellas de tu viaje.</p>
+            <label class="quantity-range-label" for="route-level-range">¿Hasta dónde viajamos?</label>
+            <select class="quantity-range-select" id="route-level-range"><option value="20">Del 0 al 20</option><option value="100">Del 0 al 100</option></select>
+            <label class="quantity-range-label" for="route-level-direction">Dirección de los retos</label>
+            <select class="quantity-range-select" id="route-level-direction"><option value="forward">Hacia adelante</option><option value="backward">Hacia atrás</option><option value="mixed">Ambas direcciones</option></select>
+            <label class="quantity-range-label" for="route-level-step">Tamaño de los saltos pedidos</label>
+            <select class="quantity-range-select" id="route-level-step"><option value="0">Variar: 1, 2, 5 y 10</option><option value="1">De 1 en 1</option><option value="2">De 2 en 2</option><option value="5">De 5 en 5</option><option value="10">De 10 en 10</option></select>
+            <p>Cinco rutas para completar la partida. Puedes corregir y pedir ayuda sin perder corazones.</p>
+            <button class="btn-3d" id="start-numberline-btn" style="width:100%; margin-top:18px;">🐸 Jugar a los saltos</button>
+        </div>
+    </div>
     <div class="modal-overlay hidden" id="achievements-modal">
         <div class="modal-box">
             <div class="modal-header">
@@ -271,6 +334,19 @@
     <!-- Scripts de la Aplicación -->
     <script src="js/audio.js"></script>
     <script src="js/levels-data.js"></script>
+    <script src="js/activities/quantity-model.js"></script>
+    <script src="js/activities/quantity-data.js"></script>
+    <script src="js/activities/activity-speech.js"></script>
+    <script src="js/activities/quantity-activity.js"></script>
+    <script src="js/activities/composition-model.js"></script>
+    <script src="js/activities/composition-data.js"></script>
+    <script src="js/activities/composition-activity.js"></script>
+    <script src="js/activities/pattern-model.js"></script>
+    <script src="js/activities/pattern-data.js"></script>
+    <script src="js/activities/pattern-activity.js"></script>
+    <script src="js/activities/numberline-model.js"></script>
+    <script src="js/activities/numberline-data.js"></script>
+    <script src="js/activities/numberline-activity.js"></script>
     <script src="js/game.js"></script>
     <script src="js/ui.js"></script>
 </body>

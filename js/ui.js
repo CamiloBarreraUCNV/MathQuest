@@ -9,7 +9,7 @@ var getWorldById = (typeof window !== 'undefined' && window.getWorldById) ? wind
 
 class MathQuestUI {
     constructor() {
-        this.currentView = 'map'; // 'map', 'lesson', 'quiz', 'victory', 'gameover'
+        this.currentView = 'map'; // 'map', 'quiz', 'activity', 'victory', 'gameover'
         this.selectedLevelId = null;
         this.selectedWorldId = null;
         this.bossAnimFrame = null;
@@ -17,6 +17,8 @@ class MathQuestUI {
         this.gameOverTimer = null;
         this.answerShuffleElapsed = 0;
         this.answerInteractionPending = false;
+        this.quantityActivity = null;
+        this.levelMode = 'quiz';
     }
 
     init() {
@@ -55,7 +57,7 @@ class MathQuestUI {
         document.addEventListener('visibilitychange', () => { this.answerShuffleElapsed = 0; });
         document.getElementById('worlds-home-btn').addEventListener('click', () => {
             soundManager.click();
-            if (this.currentView === 'quiz' && !confirm('¿Volver a Mis mundos? Se guardan tus estrellas y XP; este intento terminará.')) return;
+            if (['quiz', 'activity'].includes(this.currentView) && !confirm('¿Volver a Mis mundos? Se guardan tus estrellas y XP; este intento terminará.')) return;
             this.showWorldSelector();
         });
         // Sound toggle
@@ -110,6 +112,64 @@ class MathQuestUI {
         }
 
         const closeLessonBtn = document.getElementById('close-lesson-btn');
+        document.getElementById('start-quantity-btn')?.addEventListener('click', () => {
+            this.closeLessonModal();
+            this.startQuantityLevel(this.selectedLevelId, Number(document.getElementById('quantity-level-range').value));
+        });
+        document.getElementById('start-garden-btn')?.addEventListener('click', () => {
+            const mode = document.getElementById('garden-level-mode').value;
+            const range = Number(document.getElementById('garden-level-range').value);
+            this.closeGardenSetup(false);
+            this.startCompositionLevel(1, mode, range);
+        });
+        document.getElementById('close-garden-btn')?.addEventListener('click', () => this.closeGardenSetup());
+        document.getElementById('garden-modal')?.addEventListener('keydown', event => {
+            if (event.key === 'Escape') { event.preventDefault(); this.closeGardenSetup(); }
+            if (event.key !== 'Tab') return;
+            const controls = [...event.currentTarget.querySelectorAll('button,select')].filter(node => !node.disabled);
+            const first = controls[0], last = controls.at(-1);
+            if (event.shiftKey && (document.activeElement === first || !controls.includes(document.activeElement))) { event.preventDefault(); last?.focus(); }
+            else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+        });
+        document.getElementById('quit-activity-btn')?.addEventListener('click', () => {
+            this.showScreen('map');
+            this.renderMap();
+        });
+        document.getElementById('start-pattern-btn')?.addEventListener('click', () => {
+            const mode = document.getElementById('pattern-level-mode').value;
+            const family = document.getElementById('pattern-level-family').value;
+            const maxNumber = Number(document.getElementById('pattern-level-range').value);
+            this.closePatternSetup(false);
+            this.startPatternLevel(1, mode, family, maxNumber);
+        });
+        document.getElementById('pattern-level-family')?.addEventListener('change', event => {
+            document.getElementById('pattern-level-range-setting').hidden = event.target.value !== 'number';
+        });
+        document.getElementById('close-pattern-btn')?.addEventListener('click', () => this.closePatternSetup());
+        document.getElementById('start-numberline-btn')?.addEventListener('click', () => {
+            const direction = document.getElementById('route-level-direction').value;
+            const step = Number(document.getElementById('route-level-step').value);
+            const max = Number(document.getElementById('route-level-range').value);
+            this.closeNumberlineSetup(false);
+            this.startNumberlineLevel(1, direction, step, max);
+        });
+        document.getElementById('close-numberline-btn')?.addEventListener('click', () => this.closeNumberlineSetup());
+        document.getElementById('numberline-modal')?.addEventListener('keydown', event => {
+            if (event.key === 'Escape') { event.preventDefault(); this.closeNumberlineSetup(); }
+            if (event.key !== 'Tab') return;
+            const controls = [...event.currentTarget.querySelectorAll('button,select')].filter(node => !node.disabled && node.getClientRects().length);
+            const first = controls[0], last = controls.at(-1);
+            if (event.shiftKey && (document.activeElement === first || !controls.includes(document.activeElement))) { event.preventDefault(); last?.focus(); }
+            else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+        });
+        document.getElementById('pattern-modal')?.addEventListener('keydown', event => {
+            if (event.key === 'Escape') { event.preventDefault(); this.closePatternSetup(); }
+            if (event.key !== 'Tab') return;
+            const controls = [...event.currentTarget.querySelectorAll('button,select')].filter(node => !node.disabled && node.getClientRects().length);
+            const first = controls[0], last = controls.at(-1);
+            if (event.shiftKey && (document.activeElement === first || !controls.includes(document.activeElement))) { event.preventDefault(); last?.focus(); }
+            else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+        });
         if (closeLessonBtn) {
             closeLessonBtn.addEventListener('click', () => {
                 soundManager.click();
@@ -155,7 +215,11 @@ class MathQuestUI {
         if (retryLevelBtn) {
             retryLevelBtn.addEventListener('click', () => {
                 soundManager.click();
-                this.startQuiz(this.selectedLevelId);
+                if (this.levelMode === 'quantity') this.startQuantityLevel(this.selectedLevelId, this.quantityMaxTarget);
+                else if (this.levelMode === 'composition') this.startCompositionLevel(this.selectedLevelId, this.compositionMode, this.quantityMaxTarget);
+                else if (this.levelMode === 'pattern') this.startPatternLevel(this.selectedLevelId, this.patternMode, this.patternFamily, this.patternMaxNumber);
+                else if (this.levelMode === 'numberline') this.startNumberlineLevel(this.selectedLevelId, this.numberlineDirection, this.numberlineStep, this.numberlineMax);
+                else this.startQuiz(this.selectedLevelId);
             });
         }
 
@@ -275,14 +339,21 @@ class MathQuestUI {
     }
 
     showScreen(screenName) {
+        this.closeGardenSetup(false);
+        this.closePatternSetup(false);
+        this.closeNumberlineSetup(false);
         clearTimeout(this.gameOverTimer);
         this.gameOverTimer = null;
         if (screenName !== 'quiz') {
             this.stopBossLoop();
-            gameEngine.cancelSession();
+            if (screenName !== 'activity') gameEngine.cancelSession();
+        }
+        if (screenName !== 'activity') {
+            this.quantityActivity?.destroy();
+            this.quantityActivity = null;
         }
         this.currentView = screenName;
-        const screens = ['map-screen', 'quiz-screen', 'victory-screen', 'gameover-screen'];
+        const screens = ['map-screen', 'quiz-screen', 'activity-screen', 'victory-screen', 'gameover-screen'];
         screens.forEach(id => {
             const el = document.getElementById(id);
             if (el) {
@@ -315,6 +386,12 @@ class MathQuestUI {
                     <div><span class="world-badge">${world.icon} MUNDO ${world.num}</span><h1 class="world-title">${world.title}</h1><p class="world-subtitle">${world.subtitle}</p></div>
                     <div class="world-progress-badge"><span>${progress.completedCount}/${progress.total}</span><small>Niveles</small><small>⭐ ${progress.stars}/${progress.maxStars}</small></div>
                 </div>
+                ${world.id === 'world-1' ? `<section class="island-minigames" aria-labelledby="island-games-title"><h2 id="island-games-title">Juegos de la isla</h2><div class="island-game-grid">
+                    <article class="island-game-card"><h3>🪙 Prepara el tesoro</h3><p>Cuenta monedas y descubre las decenas preparando un cofre.</p><button id="open-treasure-game">Jugar al tesoro</button></article>
+                    <article class="island-game-card garden-card"><h3>🌳 La Huerta de las Partes</h3><p>Junta y reparte manzanas entre dos canastas. ¡Encuentra distintas formas!</p><button id="open-garden-game">Jugar a la huerta</button></article>
+                    <article class="island-game-card pattern-card"><h3>🛠️ El Taller de Patrones</h3><p>Descubre la regla: continúa, crea y repara secuencias de piezas y números.</p><button id="open-pattern-game">Jugar al taller</button></article>
+                    <article class="island-game-card numberline-card"><h3>🐸 La Ruta de los Saltos</h3><p>Avanza y retrocede de 1, 2, 5 y 10. ¡Descubre adónde llegas!</p><button id="open-numberline-game">Jugar a los saltos</button></article>
+                </div></section>` : ''}
                 <div class="levels-path">${levels.map((level, index) => {
                     const unlocked = gameEngine.isLevelUnlocked(level.id);
                     const stars = gameEngine.getLevelStars(level.id);
@@ -328,6 +405,10 @@ class MathQuestUI {
                 }).join('')}</div>
             </section>`;
         document.getElementById('back-to-worlds').addEventListener('click', () => this.showWorldSelector());
+        document.getElementById('open-garden-game')?.addEventListener('click', () => this.openGardenSetup());
+        document.getElementById('open-pattern-game')?.addEventListener('click', () => this.openPatternSetup());
+        document.getElementById('open-numberline-game')?.addEventListener('click', () => this.openNumberlineSetup());
+        document.getElementById('open-treasure-game')?.addEventListener('click', () => this.openLevelPreview(1));
         container.querySelectorAll('.level-node.unlocked').forEach(button => button.addEventListener('click', () => {
             soundManager.levelSelect();
             this.openLevelPreview(Number(button.dataset.levelId));
@@ -400,6 +481,8 @@ class MathQuestUI {
         contentEl.innerHTML = level.theory.content;
 
         const startBtn = document.getElementById('start-challenge-btn');
+        const pilotOption = document.getElementById('quantity-pilot-option');
+        if (pilotOption) pilotOption.hidden = level.id !== 1 || !window.KalkuActivities?.mountQuantityActivity;
         if (startBtn) {
             startBtn.textContent = level.isBoss ? '⚔️ ¡Iniciar Batalla de Jefe!' : (level.hasEnemy ? (level.enemy ? `🏴‍☠️ ¡Desafiar a ${level.enemy.name}!` : '🏴‍☠️ ¡Desafiar al Pirata!') : '¡Comenzar Desafío!');
         }
@@ -414,6 +497,7 @@ class MathQuestUI {
     }
 
     startQuiz(levelId) {
+        this.levelMode = 'quiz';
         clearTimeout(this.gameOverTimer);
         this.gameOverTimer = null;
         if (gameEngine.state.hearts <= 0) {
@@ -432,6 +516,120 @@ class MathQuestUI {
         if (gameEngine.activeBoss) {
             this.startBossLoop();
         }
+    }
+
+    openGardenSetup() {
+        if (!gameEngine.isLevelUnlocked(1)) return;
+        this.gardenReturnFocus = document.activeElement;
+        const modal = document.getElementById('garden-modal');
+        if (!modal) return;
+        modal.classList.remove('hidden');
+        document.getElementById('garden-modal-title').focus({ preventScroll: true });
+    }
+
+    closeGardenSetup(restoreFocus = true) {
+        const modal = document.getElementById('garden-modal');
+        if (!modal || modal.classList.contains('hidden')) return;
+        modal.classList.add('hidden');
+        if (restoreFocus && this.gardenReturnFocus?.isConnected) this.gardenReturnFocus.focus({ preventScroll: true });
+    }
+
+    openPatternSetup() {
+        if (!gameEngine.isLevelUnlocked(1)) return;
+        this.patternReturnFocus = document.activeElement;
+        document.getElementById('pattern-modal').classList.remove('hidden');
+        document.getElementById('pattern-modal-title').focus({ preventScroll: true });
+    }
+
+    closePatternSetup(restoreFocus = true) {
+        const modal = document.getElementById('pattern-modal');
+        if (!modal || modal.classList.contains('hidden')) return;
+        modal.classList.add('hidden');
+        if (restoreFocus && this.patternReturnFocus?.isConnected) this.patternReturnFocus.focus({ preventScroll: true });
+    }
+
+    startPatternLevel(levelId, mode = 'continue', family = 'AB', maxNumber = 20) {
+        if (!window.KalkuActivities?.mountPatternActivity) return;
+        this.patternMode = mode; this.patternFamily = family; this.patternMaxNumber = maxNumber;
+        this.mountActivityLevel(gameEngine.startPatternLevel(levelId, mode, family, maxNumber), 'pattern', maxNumber, mode);
+    }
+
+    openNumberlineSetup() {
+        if (!gameEngine.isLevelUnlocked(1)) return;
+        this.numberlineReturnFocus = document.activeElement;
+        document.getElementById('numberline-modal').classList.remove('hidden');
+        document.getElementById('numberline-modal-title').focus({ preventScroll: true });
+    }
+
+    closeNumberlineSetup(restoreFocus = true) {
+        const modal = document.getElementById('numberline-modal');
+        if (!modal || modal.classList.contains('hidden')) return;
+        modal.classList.add('hidden');
+        if (restoreFocus && this.numberlineReturnFocus?.isConnected) this.numberlineReturnFocus.focus({ preventScroll: true });
+    }
+
+    startNumberlineLevel(levelId, direction = 'forward', stepSize = 0, maxNumber = 20) {
+        if (!window.KalkuActivities?.mountNumberlineActivity) return;
+        this.numberlineDirection = direction; this.numberlineStep = stepSize; this.numberlineMax = maxNumber;
+        this.mountActivityLevel(gameEngine.startNumberlineLevel(levelId, direction, stepSize, maxNumber), 'numberline', maxNumber, direction);
+    }
+
+    startQuantityLevel(levelId, maxTarget = 10) {
+        if (!window.KalkuActivities?.mountQuantityActivity) return;
+        this.mountActivityLevel(gameEngine.startQuantityLevel(levelId, maxTarget), 'quantity', maxTarget);
+    }
+
+    startCompositionLevel(levelId, mode = 'compose', maxTarget = 10) {
+        if (!window.KalkuActivities?.mountCompositionActivity) return;
+        this.mountActivityLevel(gameEngine.startCompositionLevel(levelId, mode, maxTarget), 'composition', maxTarget, mode);
+    }
+
+    mountActivityLevel(session, kind, maxTarget, mode) {
+        if (!session) return;
+        this.quantityActivity?.destroy();
+        this.levelMode = kind;
+        this.quantityMaxTarget = maxTarget;
+        this.compositionMode = mode;
+        this.selectedLevelId = gameEngine.currentLevel.id;
+        this.selectedWorldId = gameEngine.currentLevel.worldId;
+        this.showScreen('activity');
+        this.updateHeaderStats();
+        document.getElementById('activity-screen').classList.toggle('garden-level-screen', kind === 'composition');
+        document.getElementById('activity-screen').classList.toggle('pattern-level-screen', kind === 'pattern');
+        document.getElementById('activity-screen').classList.toggle('numberline-level-screen', kind === 'numberline');
+        document.querySelector('.quantity-level-note').textContent = kind === 'composition'
+            ? 'Completa cinco retos de la huerta. Puedes corregir y pedir ayuda sin perder corazones. Al terminar: 3 estrellas y 85 XP.'
+            : kind === 'pattern' ? 'Completa cinco retos del taller. Puedes corregir y pedir ayuda sin perder corazones. Al terminar: 3 estrellas y 85 XP.'
+            : kind === 'numberline' ? 'Completa cinco rutas. Puedes corregir y pedir ayuda sin perder corazones. Al terminar: 3 estrellas y 85 XP.'
+            : 'Prepara cinco cofres. Puedes corregir y pedir ayuda sin perder corazones. Al terminar: 3 estrellas y 85 XP.';
+        document.getElementById('quantity-level-title').textContent = gameEngine.currentLevel.title;
+        const mount = { quantity: window.KalkuActivities.mountQuantityActivity, composition: window.KalkuActivities.mountCompositionActivity,
+            pattern: window.KalkuActivities.mountPatternActivity, numberline: window.KalkuActivities.mountNumberlineActivity }[kind];
+        this.quantityActivity = mount(
+            document.getElementById('quantity-level-activity'), {
+                definition: session.definition,
+                allowSkip: false,
+                createSession: () => {
+                    const next = gameEngine.nextActivitySession();
+                    const run = gameEngine.activityRun;
+                    if (run) document.getElementById('quantity-level-progress').textContent =
+                        `Encargo ${Math.min(run.completed.length + 1, run.total)} de ${run.total} · ${run.completed.length} encargos listos`;
+                    return next;
+                },
+                onComplete: result => {
+                    if (this.currentView !== 'activity') return;
+                    const next = gameEngine.acceptActivityCompletion(result);
+                    if (!next) return;
+                    if (next.finished) {
+                        this.showVictory(next.results);
+                        const title = document.getElementById('victory-title');
+                        title.tabIndex = -1;
+                        title.focus({ preventScroll: true });
+                    } else document.getElementById('quantity-level-progress').textContent =
+                        `${next.completed} de ${next.total} encargos listos · ¡Sigue con el próximo encargo!`;
+                }
+            });
+        document.getElementById('quantity-level-title').focus({ preventScroll: true });
     }
 
     renderCurrentQuestion() {
@@ -812,6 +1010,9 @@ class MathQuestUI {
         const stars = document.getElementById('victory-stars-container');
         const accuracy = results.total > 0 ? Math.round(results.score / results.total * 100) : 0;
         document.getElementById('victory-accuracy').textContent = accuracy + '%';
+        document.getElementById('victory-accuracy-label').textContent = results.activityType === 'quantity' ? 'Cofres preparados'
+            : results.activityType === 'composition' ? 'Encargos completos' : results.activityType === 'pattern' ? 'Patrones completos'
+            : results.activityType === 'numberline' ? 'Rutas completas' : 'Precisión';
         document.getElementById('victory-level-title').textContent = results.levelTitle;
         document.getElementById('victory-xp-earned').textContent = '+' + results.bonusXp + ' XP';
         nextBtn.classList.toggle('hidden', !results.isSuccess || !results.isNextUnlocked);
@@ -829,7 +1030,12 @@ class MathQuestUI {
         }
 
         title.textContent = results.worldCompleted ? '🏆 ¡Mundo Completado!' : results.isBoss ? '👑 ¡Jefe Derrotado!' : results.bossDefeated ? '🏆 ¡Enemigo Derrotado!' : '🎉 ¡Nivel Completado!';
-        score.textContent = 'Acertaste ' + results.score + ' de ' + results.total + ' preguntas' +
+        score.textContent = results.activityType === 'quantity'
+            ? `Preparaste los ${results.total} cofres. ¡Buen trabajo contando y revisando!`
+            : results.activityType === 'composition' ? `Completaste ${results.total} retos de la huerta. ¡Buen trabajo juntando y repartiendo manzanas!`
+            : results.activityType === 'pattern' ? `Completaste ${results.total} retos del taller. ¡Buen trabajo descubriendo y construyendo patrones!`
+            : results.activityType === 'numberline' ? `Completaste ${results.total} rutas. ¡Buen trabajo contando saltos y revisando tus recorridos!`
+            : 'Acertaste ' + results.score + ' de ' + results.total + ' preguntas' +
             (results.bossDefeated ? ' • ¡Venciste a ' + results.bossName + '!' : '');
         nextBtn.textContent = 'Siguiente Nivel (' + gameEngine.getLocalLevelNumber(results.nextLevelId) + ') ➔';
         this.triggerConfetti();
@@ -904,6 +1110,7 @@ class MathQuestUI {
     }
 
     showAchievementsModal() {
+        this.quantityActivity?.stopAssistance();
         const modal = document.getElementById('achievements-modal');
         if (!modal) return;
 

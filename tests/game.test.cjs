@@ -18,7 +18,7 @@ function setup(save = null, random = Math.random) {
             setItem: (key, value) => storage.set(key, value)
         }
     });
-    for (const file of ['levels-data.js', 'game.js']) {
+    for (const file of ['activities/quantity-model.js', 'activities/quantity-data.js', 'activities/composition-model.js', 'activities/composition-data.js', 'activities/pattern-model.js', 'activities/pattern-data.js', 'activities/numberline-model.js', 'activities/numberline-data.js', 'levels-data.js', 'game.js']) {
         vm.runInContext(fs.readFileSync(path.join(root, 'js', file), 'utf8'), context);
     }
     const Engine = vm.runInContext('MathQuestEngine', context);
@@ -39,6 +39,107 @@ function play(engine, answers) {
     }
     return next;
 }
+
+function deliverQuantity(session) {
+    const state = session.getSnapshot();
+    for (const token of state.reserveTokens.slice(0, state.targetQuantity)) session.move(token, 'chest');
+    return session.submit();
+}
+
+test('quantity pilot validates five distinct model completions and awards only once at the end', () => {
+    const { engine, Engine } = setup();
+    engine.state.hearts = 0;
+    let session = engine.startQuantityLevel(1);
+    assert.ok(session, 'practice remains available without combat hearts');
+    assert.equal(engine.startQuantityLevel(2), null);
+    assert.equal(engine.submitAnswer(0), null);
+    assert.equal(engine.nextQuestion(), null);
+    assert.equal(engine.finishLevel(), null);
+    const targets = new Set();
+    let completion;
+    for (let i = 0; i < 5; i++) {
+        targets.add(session.targetQuantity);
+        // Wrong answers and hints retain all coins and hearts, and grant no XP.
+        assert.equal(session.submit().isCorrect, false);
+        session.useHint();
+        session.useDemonstration();
+        assert.equal(engine.acceptQuantityCompletion({ challengeId: session.challengeId, isCorrect: true }), null);
+        assert.equal(engine.state.xp, 0);
+        const result = deliverQuantity(session);
+        assert.equal(engine.acceptQuantityCompletion({ challengeId: 'forged' }), null);
+        completion = engine.acceptQuantityCompletion(result);
+        assert.equal(engine.acceptQuantityCompletion(result), null);
+        if (i < 4) {
+            assert.equal(completion.finished, false);
+            assert.equal(engine.state.xp, 0);
+            assert.equal(engine.getLevelStars(1), 0);
+            assert.equal(engine.isLevelUnlocked(2), false);
+            session = engine.nextQuantitySession();
+            assert.equal(engine.nextQuantitySession(), session, 'cannot skip a pending challenge');
+        }
+    }
+    assert.equal(targets.size, 5);
+    assert.equal(completion.results.activityType, 'quantity');
+    assert.equal(completion.results.score, 5);
+    assert.equal(completion.results.total, 5);
+    assert.equal(completion.results.stars, 3);
+    assert.equal(completion.results.bonusXp, 85);
+    assert.equal(completion.results.activitySummary[0].attempts, 2);
+    assert.equal(completion.results.activitySummary[0].assistance.demonstrationUsed, true);
+    assert.equal(engine.state.hearts, 0);
+    assert.equal(engine.finishLevel(), completion.results);
+    assert.equal(engine.state.xp, 85);
+    assert.equal(engine.nextQuantitySession(), null);
+    assert.equal(engine.isLevelUnlocked(2), true);
+    assert.equal(new Engine().getLevelStars(1), 3);
+    assert.equal(new Engine().state.xp, 85);
+    assert.equal(engine.state.achievements.streak_5.unlocked, false);
+});
+
+test('abandoning or resetting a quantity pilot rejects old results and grants no progress', () => {
+    const { engine, Engine } = setup();
+    const old = engine.startQuantityLevel(1);
+    engine.acceptQuantityCompletion(deliverQuantity(old));
+    engine.cancelSession();
+    assert.equal(engine.acceptQuantityCompletion(old.submit()), null);
+    assert.equal(engine.nextQuantitySession(), null);
+    assert.equal(engine.finishLevel(), null);
+    assert.equal(new Engine().getLevelStars(1), 0);
+    assert.equal(new Engine().state.xp, 0);
+    engine.startQuantityLevel(1);
+    assert.equal(engine.acceptQuantityCompletion(old.submit()), null);
+    engine.startLevel(1);
+    assert.equal(engine.quantityRun, null);
+    assert.equal(engine.acceptQuantityCompletion(old.submit()), null);
+    assert.ok(answer(engine, true));
+    engine.startQuantityLevel(1);
+    engine.resetProgress();
+    assert.equal(engine.quantityRun, null);
+    assert.equal(engine.acceptQuantityCompletion(old.submit()), null);
+    assert.equal(engine.state.xp, 0);
+});
+
+test('the pilot preserves existing stars, other worlds and save schema; a replay earns one completion bonus', () => {
+    const { engine, Engine } = setup();
+    engine.state.xp = 400;
+    engine.state.worldProgress['world-1'].unlockedLevelId = 4;
+    engine.state.worldProgress['world-2'].unlockedLevelId = 7;
+    engine.state.completedLevels[1] = { completed: true, stars: 3, score: 20, highStreak: 8 };
+    engine.state.completedLevels[5] = { completed: true, stars: 2, score: 16, highStreak: 4 };
+    const other = JSON.stringify(engine.state.completedLevels[5]);
+    for (let run = 0; run < 2; run++) {
+        engine.startQuantityLevel(1);
+        for (let round = 0; round < 5; round++) engine.acceptQuantityCompletion(deliverQuantity(engine.nextQuantitySession()));
+        assert.equal(engine.state.xp, 400 + 85 * (run + 1));
+    }
+    assert.equal(engine.state.schemaVersion, 2);
+    assert.equal(engine.state.worldProgress['world-1'].unlockedLevelId, 4);
+    assert.equal(engine.state.worldProgress['world-2'].unlockedLevelId, 7);
+    assert.equal(engine.state.completedLevels[1].highStreak, 8);
+    assert.equal(engine.state.completedLevels[1].score, 20);
+    assert.equal(JSON.stringify(engine.state.completedLevels[5]), other);
+    assert.equal(new Engine().state.xp, 570);
+});
 
 test('all 30 levels can be won with correct answers, including regeneration', () => {
     const { Engine, levels } = setup();
@@ -505,4 +606,179 @@ test('shuffle only runs in the queen active unanswered fight', () => {
     engine.startLevel(14);
     engine.resetProgress();
     assert.equal(engine.shuffleCurrentOptions(), false);
+});
+
+test('extended pilot validates quantities up to 20 with the same single completion rewards and save format', () => {
+    const { engine, Engine } = setup();
+    assert.equal(engine.startQuantityLevel(1, 21), null);
+    assert.equal(engine.startQuantityLevel(1, '20'), null);
+    engine.startQuantityLevel(1, 20);
+    const targets = new Set();
+    let last;
+    for (let i = 0; i < 5; i++) {
+        const session = engine.nextQuantitySession();
+        assert.equal(session.definition.rules.totalObjects, 20);
+        targets.add(session.targetQuantity);
+        // Build the response using a ten when the target needs one.
+        if (session.targetQuantity >= 10) {
+            const group = session.groupTen('reserve');
+            session.moveTen(group, 'chest');
+        }
+        let state = session.getSnapshot();
+        for (const token of state.looseReserveTokens.slice(0, state.targetQuantity - state.finalQuantity)) session.move(token, 'chest');
+        last = engine.acceptQuantityCompletion(session.submit());
+        if (i < 4) assert.equal(engine.state.xp, 0);
+    }
+    assert.equal(targets.size, 5);
+    assert.match(last.results.levelTitle, /Hasta 20/);
+    assert.equal(last.results.activitySummary.every(s => s.totalObjects === 20), true);
+    assert.equal(engine.state.xp, 85);
+    assert.equal(engine.state.schemaVersion, 2);
+    assert.equal(engine.state.hearts, 5);
+    assert.equal(new Engine().getLevelStars(1), 3);
+    assert.equal(new Engine().isLevelUnlocked(2), true);
+    assert.equal(engine.finishLevel(), last.results);
+    assert.equal(engine.state.xp, 85);
+    assert.equal(engine.startQuantityLevel(1).definition.rules.totalObjects, 10);
+});
+
+function solveComposition(session) {
+    const s = session.getSnapshot();
+    if (s.mode === 'compose') return session.submit(s.targetQuantity);
+    if (s.mode === 'missing') {
+        for (const token of s.parts.reserve.slice(0, s.targetQuantity - s.givenLeft)) session.move(token, 'right');
+    } else {
+        session.move(s.parts.reserve[0], 'left');
+        for (const token of session.getSnapshot().parts.reserve.slice(0, s.targetQuantity - 1)) session.move(token, 'right');
+        session.submit(); session.tryAnother();
+        for (const token of session.getSnapshot().parts.reserve.slice(0, 2)) session.move(token, 'left');
+        for (const token of session.getSnapshot().parts.reserve.slice(0, s.targetQuantity - 2)) session.move(token, 'right');
+    }
+    return session.submit();
+}
+
+function solvePattern(session) {
+    const state = session.getSnapshot();
+    const values = state.mode === 'create' ? state.family === 'number' ? [1, 3, 5, 7, 9, 11]
+        : Array.from({ length: state.values.length }, (_, i) => state.family === 'AB' ? ['star', 'flower'][i % 2]
+            : state.family === 'AAB' ? ['star', 'star', 'flower'][i % 3] : ['star', 'flower', 'shell'][i % 3]) : session.expected;
+    values.forEach((value, index) => session.set(index, value)); return session.submit();
+}
+
+function solveNumberline(session) {
+    session.reset(); const state = session.getSnapshot();
+    for (let i = 0; i < state.jumpCount; i++) session.jump(state.direction, state.stepSize);
+    return session.submit();
+}
+
+test('every number-line configuration validates five routes and awards only one completion with the existing save', () => {
+    for (const max of [20, 100]) for (const direction of ['forward', 'backward', 'mixed']) for (const step of [0, 1, 2, 5, 10]) {
+        const { engine, Engine } = setup(); engine.state.hearts = 0;
+        assert.ok(engine.startNumberlineLevel(1, direction, step, max));
+        assert.equal(engine.finishLevel(), null);
+        for (let i = 0; i < 5; i++) {
+            const session = engine.nextActivitySession();
+            assert.equal(engine.acceptActivityCompletion({ challengeId: session.challengeId, isCorrect: true }), null);
+            const done = solveNumberline(session), result = engine.acceptActivityCompletion(done);
+            assert.equal(engine.acceptActivityCompletion(done), null);
+            assert.equal(result.finished, i === 4); assert.equal(engine.state.xp, i === 4 ? 85 : 0);
+        }
+        assert.equal(engine.lastResults.activityType, 'numberline'); assert.equal(engine.lastResults.activitySummary.length, 5);
+        assert.ok(engine.lastResults.activitySummary.every(s => s.jumps.length === s.jumpCount && s.position === s.target));
+        assert.equal(engine.state.hearts, 0); assert.equal(new Engine().state.xp, 85);
+        assert.equal(new Engine().getLevelStars(1), 3); assert.equal(new Engine().state.schemaVersion, 2);
+    }
+});
+
+test('number-line partial and abandoned routes cannot fabricate or reuse progress', () => {
+    const { engine } = setup();
+    for (const args of [[2], [1, 'bad'], [1, 'mixed', 3], [1, 'forward', 1, 30]]) assert.equal(engine.startNumberlineLevel(...args), null);
+    const old = engine.startNumberlineLevel(1); assert.equal(engine.acceptActivityCompletion(old.submit()), null);
+    engine.cancelSession(); const done = solveNumberline(old); assert.equal(engine.acceptActivityCompletion(done), null);
+    engine.startNumberlineLevel(1); assert.equal(engine.acceptActivityCompletion(done), null);
+    engine.startPatternLevel(1); assert.equal(engine.activityRun.kind, 'pattern');
+    assert.equal(engine.state.xp, 0); assert.equal(engine.isLevelUnlocked(2), false);
+});
+
+test('all workshop modes and families award once for five owned model completions and keep the save schema', () => {
+    for (const family of ['AB', 'AAB', 'ABC', 'number']) for (const mode of ['continue', 'create', 'repair']) for (const max of [20, 100]) {
+        const { engine, Engine } = setup(); engine.state.hearts = 0;
+        assert.ok(engine.startPatternLevel(1, mode, family, max));
+        assert.equal(engine.finishLevel(), null);
+        for (let i = 0; i < 5; i++) {
+            const session = engine.nextActivitySession();
+            assert.equal(engine.acceptActivityCompletion({ challengeId: session.challengeId, isCorrect: true }), null);
+            const completion = solvePattern(session), result = engine.acceptActivityCompletion(completion);
+            assert.equal(engine.acceptActivityCompletion(completion), null);
+            assert.equal(result.finished, i === 4);
+            assert.equal(engine.state.xp, i === 4 ? 85 : 0);
+        }
+        assert.equal(engine.lastResults.activityType, 'pattern');
+        assert.equal(engine.lastResults.activitySummary.length, 5);
+        assert.ok(engine.lastResults.activitySummary.every(s => s.family === family && s.mode === mode));
+        assert.equal(engine.state.hearts, 0); assert.equal(new Engine().state.xp, 85);
+        assert.equal(new Engine().getLevelStars(1), 3); assert.equal(engine.state.schemaVersion, 2);
+    }
+});
+
+test('unfinished and abandoned workshop sessions cannot grant progress or submit stale results', () => {
+    const { engine } = setup();
+    for (const args of [[2], [1, 'bad'], [1, 'create', 'bad'], [1, 'repair', 'AB', 30]]) assert.equal(engine.startPatternLevel(...args), null);
+    const old = engine.startPatternLevel(1, 'repair');
+    const wrong = old.submit(); assert.equal(engine.acceptActivityCompletion(wrong), null);
+    engine.cancelSession(); const done = solvePattern(old);
+    assert.equal(engine.acceptActivityCompletion(done), null);
+    engine.startPatternLevel(1, 'create', 'number');
+    assert.equal(engine.acceptActivityCompletion(done), null);
+    engine.startCompositionLevel(1); assert.equal(engine.activityRun.kind, 'composition');
+    assert.equal(engine.state.xp, 0); assert.equal(engine.isLevelUnlocked(2), false);
+});
+
+test('all composition pilots validate their own completed model, keep partial solutions unrewarded and save once', () => {
+    for (const mode of ['compose', 'missing', 'split']) for (const max of [10, 20]) {
+        const { engine, Engine } = setup(); engine.state.hearts = 0;
+        assert.ok(engine.startCompositionLevel(1, mode, max));
+        assert.equal(engine.getCurrentQuestion(), null);
+        assert.equal(engine.nextQuestion(), null);
+        assert.equal(engine.finishLevel(), null);
+        let result;
+        for (let i = 0; i < 5; i++) {
+            const session = engine.nextActivitySession();
+            assert.equal(engine.acceptActivityCompletion({ challengeId: session.challengeId, isCorrect: true }), null);
+            result = engine.acceptActivityCompletion(solveComposition(session));
+            assert.equal(engine.acceptActivityCompletion(session.submit()), null);
+            if (i < 4) { assert.equal(result.finished, false); assert.equal(engine.state.xp, 0); assert.equal(engine.isLevelUnlocked(2), false); }
+        }
+        assert.equal(result.results.activityType, 'composition');
+        assert.equal(result.results.activitySummary.length, 5);
+        assert.ok(result.results.activitySummary.every(s => s.mode === mode && (mode !== 'split' || s.solutions.length === 2)));
+        assert.equal(engine.finishLevel(), result.results);
+        assert.equal(engine.state.xp, 85); assert.equal(engine.state.hearts, 0);
+        assert.equal(new Engine().state.xp, 85); assert.equal(new Engine().getLevelStars(1), 3);
+        assert.equal(new Engine().isLevelUnlocked(2), true);
+        assert.equal(new Engine().state.worldProgress['world-2'].unlockedLevelId, 5);
+    }
+});
+
+test('composition cancellation, reset, invalid modes and one found split cannot fabricate progress', () => {
+    const { engine } = setup();
+    assert.equal(engine.startCompositionLevel(2), null);
+    assert.equal(engine.startCompositionLevel(1, 'unsupported'), null);
+    assert.equal(engine.startCompositionLevel(1, 'split', 21), null);
+    const old = engine.startCompositionLevel(1, 'split');
+    for (const token of old.getSnapshot().parts.reserve.slice(0, old.targetQuantity)) old.move(token, 'right');
+    assert.equal(old.submit().emptyPart, true);
+    assert.equal(engine.acceptActivityCompletion({ challengeId: old.challengeId, isCorrect: true }), null);
+    old.move(old.getSnapshot().parts.right[0], 'left');
+    const first = old.submit();
+    assert.equal(first.status, 'solution-found');
+    assert.equal(engine.acceptActivityCompletion(first), null);
+    engine.cancelSession();
+    assert.equal(engine.acceptActivityCompletion(first), null);
+    engine.startCompositionLevel(1, 'compose');
+    assert.equal(engine.acceptActivityCompletion(first), null);
+    engine.resetProgress();
+    assert.equal(engine.activityRun, null); assert.equal(engine.state.xp, 0);
+    engine.startCompositionLevel(1, 'missing'); engine.startLevel(1);
+    assert.equal(engine.activityRun, null); assert.ok(engine.getCurrentQuestion());
 });
