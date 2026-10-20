@@ -124,7 +124,31 @@ Los seis mundos están disponibles desde el selector inicial. Cada uno empieza e
 
 El guardado mantiene la clave `mathquest_save_data_v1` para recuperar partidas anteriores, pero usa `schemaVersion: 2` con `worldProgress`. La migración conserva XP, corazones, estrellas y niveles que ya estaban disponibles. Los identificadores internos de niveles siguen siendo únicos (1 a 30), mientras la interfaz muestra números locales dentro de cada mundo.
 
-## Comprobaciones de desarrollo
+## Prototipo de actividades interactivas
+
+El tesoro también está integrado en [el juego](index.html): Isla de los Números → nivel 1 → **Jugar al tesoro**. Preparar cinco cofres distintos concede 3 estrellas, 85 XP y acceso al nivel 2. Los errores y ayudas no quitan corazones; las recompensas se conceden una vez al finalizar el intento completo. Se conserva el desafío original de alternativas y la partida existente. Las estrellas reflejan el avance RPG, no el dominio de todos los contenidos del nivel.
+
+Antes de empezar, se puede elegir **Hasta 10** o **Hasta 20 · decenas y unidades**. Hasta 20 hay dos marcos por zona; diez monedas pueden agruparse en una decena, moverse juntas y separarse de nuevo. Las veinte monedas siguen siendo las mismas, y dos decenas representan 20. Se puede responder con monedas sueltas o agrupadas. La modalidad ampliada también está en el selector del prototipo; reintentar dentro del juego conserva el rango y las recompensas son las mismas.
+
+**La Huerta de las Partes** es otro juego, con manzanas y dos canastas. Tiene acceso propio en **Isla de los Números → Juegos de la isla → Jugar a la huerta** y su [página de prueba independiente](mockup-huerta-partes.html). Ofrece **Juntar dos cantidades** (escribir el total), **Completar la canasta** (mantener A y completar B) y **Repartir de dos formas**. En esta última, 3 + 5 y 5 + 3 cuentan como la misma pareja; se necesita otra, como 4 + 4. Cada canasta debe tener al menos una manzana para validar la respuesta. Juntar y completar empiezan en 2; repartir empieza en 4 para permitir dos parejas distintas sin partes vacías. Se elige hasta 10 o 20 manzanas. La interfaz usa emojis provisionales y conserva pistas, voz y controles accesibles.
+
+**El Taller de Patrones** tiene acceso propio en **Isla de los Números → Juegos de la isla → Jugar al taller** y una [página independiente](mockup-taller-patrones.html). Permite continuar, crear y reparar patrones AB, AAB, ABC y series numéricas, colocando piezas o escribiendo números. Crear acepta combinaciones propias que respeten la regla. Incluye pistas, grupos visuales, ejemplos y voz opcional. Las series empiezan hasta 20, con saltos de 1 y 2; se puede ampliar a 100 para practicar también 5 y 10, en ambos sentidos. El RPG conserva la partida de cinco retos y las recompensas del piloto del nivel 1; el prototipo no modifica el guardado.
+
+**La Ruta de los Saltos** tiene acceso propio en **Isla de los Números → Juegos de la isla → Jugar a los saltos** y una [página independiente](mockup-ruta-saltos.html). Permite avanzar y retroceder por la recta de 0 a 20 o de 0 a 100, con saltos de 1, 2, 5 y 10. La rana deja arcos y huellas; se pueden deshacer saltos y volver a la salida. La vista ampliada conserva marcas de una unidad y la general permite ver el recorrido hasta 100. Se comprueba el recorrido completo: llegar al destino con otros saltos no basta. Incluye pistas, voz opcional y ejemplo separado.
+
+Los cuatro juegos tienen páginas, objetos y pantallas de configuración separados. Dentro del RPG conservan el crédito actual del nivel 1 y las mismas recompensas al completar cinco encargos; una solución parcial no concede progreso. No se agregan IDs ni se cambia el guardado. Los prototipos independientes no leen ni escriben la partida.
+
+Abrir [Prepara el tesoro](mockup-tesoro-monedas.html) para practicar cantidades aleatorias de 1 a 10 o de 1 a 20 con pulsaciones, arrastre o teclado. Usa un componente reutilizable y los assets de la isla; no modifica la partida del juego.
+
+Incluye tres niveles de pistas, lectura opcional del encargo y «Muéstrame cómo», un ejemplo separado que no cambia la respuesta. Los botones grandes Añadir/Devolver permiten jugar sin arrastrar. Escape detiene las ayudas. La voz usa español disponible en el dispositivo; si no funciona, se puede completar toda la actividad visualmente.
+
+El [plan de interactividad del Mundo 1](docs/plan-interactividad-mundo-1.md) guarda los 17 pasos y su estado. Consultar también el [mapa de aprendizaje propuesto](docs/mapa-aprendizaje-mundo-1.md) y el [contrato de actividades](docs/contrato-actividades.md). La definición del piloto se edita en `js/activities/quantity-data.js`.
+
+El modelo se comprueba con `node tests/quantity.test.cjs` y la lectura con `node tests/activity-speech.test.cjs`. Las pruebas de interfaz usan `node tests/quantity-ui.test.cjs`, con las mismas opciones de Playwright y navegador que el resto de pruebas. Cubren recursos locales, pistas, demostración, lectura simulada, corrección, arrastre, varias instancias, desmontaje, móvil, contraste de controles y aislamiento del guardado. La [revisión de accesibilidad](docs/revision-accesibilidad-tesoro.md) conserva los pendientes con lectores de pantalla, voces y dispositivos reales.
+
+La composición tiene su modelo y configuración en `js/activities/composition-model.js` y `composition-data.js`; se comprueba con `node tests/composition.test.cjs`. La interfaz y el guardado se incluyen en las pruebas de tesoro y del motor existentes.
+
+## Comprobaciones del juego principal
 
 Con Node.js, ejecuta `node tests/game.test.cjs`. Incluye simulaciones de los 30 niveles, reglas de derrota y victoria, guardado y mezcla de opciones.
 

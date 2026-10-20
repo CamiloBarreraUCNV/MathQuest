@@ -1,16 +1,17 @@
 # Assets de la actividad: Prepara el tesoro
 
-El prototipo `mockup-tesoro-monedas.html` integra el [paquete de nueve assets](../assets/treasure-activity/README.md) proporcionado en `assets/mathquest-treasure-assets-v1.zip`, basado en el mockup ilustrado aprobado. Usa los PNG de `assets/treasure-activity/` y la hoja `css/treasure-mockup.css`. No se generaron imágenes nuevas ni se modificaron los originales. No se usan fuentes ni servicios externos.
+El prototipo `mockup-tesoro-monedas.html` integra el [paquete de nueve assets](../assets/treasure-activity/README.md) proporcionado en `assets/mathquest-treasure-assets-v1.zip`, basado en el mockup ilustrado aprobado. Usa los PNG de `assets/treasure-activity/` y la hoja `css/treasure-mockup.css`. No se generaron imágenes nuevas ni se modificaron los originales. No se incorporan fuentes ni librerías externas. La lectura opcional usa las voces disponibles en el sistema; el ejercicio visual funciona sin audio.
 
 ## Integración del paquete v1
 
 - La bahía es el fondo; el personaje, la bolsa, el pergamino, los paneles, los letreros y el cofre son elementos independientes.
 - Los márgenes transparentes se compensan con contenedores CSS según los límites visibles de `manifest.json`; los PNG conservan sus dimensiones y huellas originales.
-- Las diez monedas son botones con `coin-gold.png`, también durante el arrastre. La cantidad solicitada, los títulos y las cuadrículas son HTML.
+- Las diez o veinte monedas son botones con `coin-gold.png`, también durante el arrastre. En una decena agrupada siguen visibles sus diez imágenes y se opera con botones de grupo. La cantidad solicitada, los títulos y las cuadrículas son HTML; el paso 10 no añade imágenes nuevas.
 - Los cofres abierto y cerrado se alinean por su anchura visible y base. Una entrega correcta muestra el cerrado; un nuevo encargo vuelve a mostrar el abierto.
-- El total del cofre aparece al activar «Contemos juntos» o completar la entrega. En móvil se apilan las zonas y se ocultan la bolsa y el cofre decorativos para priorizar las monedas.
+- El total del cofre aparece al activar «Contemos juntos», desde la segunda pista o al completar la entrega. En móvil se apilan las zonas y se ocultan la bolsa y el cofre decorativos para priorizar las monedas.
 - El mockup aprobado solo es referencia de composición: no se carga como fondo de la pantalla.
 - Conservar juntos HTML, CSS y carpeta de assets al mover el prototipo. Se puede abrir directamente sin servidor.
+- Desde los pasos 1–8 del [plan de interactividad](plan-interactividad-mundo-1.md), el HTML monta el componente compartido de `js/activities/quantity-activity.js`. También deben conservarse `quantity-model.js`, `quantity-data.js`, `activity-speech.js` y el anfitrión `js/treasure-mockup.js`. El paso 9 reutiliza esos mismos scripts y assets en el juego; `css/quantity-activity.css` delimita sus estilos y `css/quantity-level.css` presenta el nivel. El ejemplo reutiliza la moneda actual y una mano emoji en una animación CSS, sin crear arte nuevo. El formato y la API están en [contrato-actividades.md](contrato-actividades.md).
 
 Las dimensiones siguientes son recomendaciones originales. Consultar las resoluciones reales y las áreas seguras en la guía del paquete entregado.
 
@@ -46,9 +47,11 @@ Reutilizar primero `js/audio.js`. Si se necesitan sonidos propios: colocar moned
 
 ## Alcance del prototipo
 
+El paso 11 se presenta en otro juego: **La Huerta de las Partes**, en `mockup-huerta-partes.html`, con manzanas y canastas representadas por emojis provisionales. El tesoro ya no carga composición. La huerta usa `composition-model.js`, `composition-data.js`, `composition-activity.js`, `css/composition-activity.css` y `css/garden-game.css`; comparte el logo de Kalkú, sin reutilizar monedas, cofres ni escenario pirata. No se generaron imágenes nuevas.
+
 - Archivo independiente que se puede abrir directamente en el navegador, sin instalar dependencias.
-- Objetivos de 1 a 10, mezclados en tandas de diez: aparecen todas las cantidades antes de repetir la tanda y no hay repetición consecutiva entre tandas.
-- Diez monedas totales; pulsar mueve una moneda y arrastrar la cambia de zona al soltarla en el destino válido.
+- Objetivos de 1 a 10 o de 1 a 20, mezclados en tandas del rango elegido: aparecen todas las cantidades antes de repetir la tanda y no hay repetición consecutiva entre tandas.
+- Diez o veinte monedas totales; pulsar mueve una moneda suelta y arrastrar la cambia de zona al soltarla en el destino válido. Hasta 20 hay dos marcos por zona; las decenas se agrupan, se trasladan y se separan con botones de al menos 64 px.
 - Se puede devolver, vaciar, activar el conteo o pedir pistas antes de entregar.
 - La comprobación incorrecta conserva el encargo y las monedas para corregir. Una entrega correcta se registra una sola vez y bloquea el cofre hasta iniciar otra misión.
 - No hay límite de tiempo, pérdida de vidas ni escritura en el guardado del juego. La sesión se reinicia al recargar.
